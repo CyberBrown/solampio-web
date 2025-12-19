@@ -5,13 +5,18 @@
   "type": "module",
   "scripts": {
     "dev": "vite --mode ssr",
-    "build": "vite build",
-    "preview": "vite preview --open",
+    "build": "qwik build",
+    "build.client": "vite build",
+    "build.server": "vite build -c adapters/cloudflare-pages/vite.config.ts",
+    "build.types": "tsc --incremental --noEmit",
+    "preview": "vite preview",
+    "deploy": "wrangler pages deploy dist",
     "start": "vite --open --mode ssr"
   },
   "dependencies": {
     "@builder.io/qwik": "^1.5.0",
-    "@builder.io/qwik-city": "^1.5.0"
+    "@builder.io/qwik-city": "^1.5.0",
+    "daisyui": "^5.5.14"
   },
   "devDependencies": {
     "@types/node": "^20.11.0",
@@ -19,6 +24,8 @@
     "postcss": "^8.4.33",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.3.3",
-    "vite": "^5.0.11"
+    "vite": "^5.0.11",
+    "vite-tsconfig-paths": "^6.0.3",
+    "wrangler": "^4.56.0"
   }
 }

@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+server/
+tmp/
+
+# Qwik build files
+.qwik/
+
+# Local env files
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Lockfiles (optional - keep bun.lockb if using bun)
+package-lock.json
+yarn.lock

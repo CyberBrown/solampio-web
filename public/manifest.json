@@ -1,0 +1,16 @@
+{
+  "name": "SolampIO",
+  "short_name": "SolampIO",
+  "description": "B2B Solar Industry Platform",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#F97316",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
