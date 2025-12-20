@@ -80,8 +80,7 @@ export const Header = component$(() => {
               {/* Categories - inline in same row, compress on scroll */}
               <nav class="hidden lg:flex items-center gap-1 flex-shrink-0">
                 <button
-                  onClick$={() => toggleMenu('panels')}
-                  onMouseEnter$={() => { if (openMenu.value) openMenu.value = 'panels'; }}
+                  onMouseEnter$={() => { openMenu.value = 'panels'; }}
                   class={[
                     'font-heading font-bold rounded transition-all duration-300',
                     isCompact ? 'px-2 py-1 text-xs' : 'px-3 py-1.5 text-sm',
@@ -91,8 +90,7 @@ export const Header = component$(() => {
                   Panels
                 </button>
                 <button
-                  onClick$={() => toggleMenu('batteries')}
-                  onMouseEnter$={() => { if (openMenu.value) openMenu.value = 'batteries'; }}
+                  onMouseEnter$={() => { openMenu.value = 'batteries'; }}
                   class={[
                     'font-heading font-bold rounded transition-all duration-300',
                     isCompact ? 'px-2 py-1 text-xs' : 'px-3 py-1.5 text-sm',
@@ -102,8 +100,7 @@ export const Header = component$(() => {
                   Batteries
                 </button>
                 <button
-                  onClick$={() => toggleMenu('inverters')}
-                  onMouseEnter$={() => { if (openMenu.value) openMenu.value = 'inverters'; }}
+                  onMouseEnter$={() => { openMenu.value = 'inverters'; }}
                   class={[
                     'font-heading font-bold rounded transition-all duration-300',
                     isCompact ? 'px-2 py-1 text-xs' : 'px-3 py-1.5 text-sm',
@@ -113,8 +110,7 @@ export const Header = component$(() => {
                   Inverters
                 </button>
                 <button
-                  onClick$={() => toggleMenu('mounting')}
-                  onMouseEnter$={() => { if (openMenu.value) openMenu.value = 'mounting'; }}
+                  onMouseEnter$={() => { openMenu.value = 'mounting'; }}
                   class={[
                     'font-heading font-bold rounded transition-all duration-300',
                     isCompact ? 'px-2 py-1 text-xs' : 'px-3 py-1.5 text-sm',
@@ -124,8 +120,7 @@ export const Header = component$(() => {
                   Mounting
                 </button>
                 <button
-                  onClick$={() => toggleMenu('controllers')}
-                  onMouseEnter$={() => { if (openMenu.value) openMenu.value = 'controllers'; }}
+                  onMouseEnter$={() => { openMenu.value = 'controllers'; }}
                   class={[
                     'font-heading font-bold rounded transition-all duration-300',
                     isCompact ? 'px-2 py-1 text-xs' : 'px-3 py-1.5 text-sm',
@@ -135,8 +130,7 @@ export const Header = component$(() => {
                   Controllers
                 </button>
                 <button
-                  onClick$={() => toggleMenu('bos')}
-                  onMouseEnter$={() => { if (openMenu.value) openMenu.value = 'bos'; }}
+                  onMouseEnter$={() => { openMenu.value = 'bos'; }}
                   class={[
                     'font-heading font-bold rounded transition-all duration-300',
                     isCompact ? 'px-2 py-1 text-xs' : 'px-3 py-1.5 text-sm',
@@ -147,6 +141,7 @@ export const Header = component$(() => {
                 </button>
                 <Link
                   href="/learn/"
+                  onMouseEnter$={() => { openMenu.value = null; }}
                   class={[
                     'font-heading font-bold text-[#042e0d] hover:text-[#56c270] transition-all duration-300',
                     isCompact ? 'px-2 py-1 text-xs' : 'px-3 py-1.5 text-sm',
