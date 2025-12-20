@@ -33,7 +33,7 @@ export default component$(() => {
     <div>
       {/* Hero */}
       <section class="bg-[#5974c3] py-8">
-        <div class="container mx-auto px-4">
+        <div class="px-6">
           {/* Breadcrumbs */}
           <nav class="mb-4">
             <ol class="flex items-center gap-2 text-sm">
@@ -65,7 +65,7 @@ export default component$(() => {
 
       {/* Other Brands Quick Nav */}
       <section class="border-b border-gray-200 py-4 bg-[#f1f1f2] overflow-x-auto">
-        <div class="container mx-auto px-4">
+        <div class="px-6">
           <div class="flex gap-2 min-w-max">
             {brands.slice(0, 8).map((b) => (
               <Link
@@ -87,7 +87,7 @@ export default component$(() => {
 
       {/* Filter Bar */}
       <section class="border-b border-gray-300 py-4 bg-white sticky top-16 z-30">
-        <div class="container mx-auto px-4">
+        <div class="px-6">
           <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
             <p class="text-sm text-gray-600">
               Showing <span class="font-semibold">{products.length}</span> of <span class="font-semibold">{productCount}</span> products from {brandName}
@@ -113,7 +113,7 @@ export default component$(() => {
 
       {/* Products Grid */}
       <section class="py-8">
-        <div class="container mx-auto px-4">
+        <div class="px-6">
           <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
             {products.map((product) => (
               <div key={product.id} class="bg-white rounded-lg border border-gray-200 overflow-hidden group hover:shadow-lg transition-shadow">
@@ -161,7 +161,7 @@ export default component$(() => {
 
       {/* Brand Info */}
       <section class="py-10 bg-[#f1f1f2]">
-        <div class="container mx-auto px-4">
+        <div class="px-6">
           <div class="max-w-3xl">
             <h2 class="font-heading font-extrabold text-xl text-[#042e0d] mb-4">About {brandName}</h2>
             <p class="text-gray-600 mb-4">
@@ -188,7 +188,7 @@ export default component$(() => {
 
       {/* CTA */}
       <section class="bg-[#042e0d] py-10">
-        <div class="container mx-auto px-4">
+        <div class="px-6">
           <div class="flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
               <h3 class="font-heading font-extrabold text-2xl text-white">Questions about {brandName}?</h3>

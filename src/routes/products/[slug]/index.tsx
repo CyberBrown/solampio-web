@@ -16,7 +16,7 @@ export default component$(() => {
     <div>
       {/* Breadcrumb */}
       <section class="bg-[#f1f1f2] border-b border-gray-200">
-        <div class="container mx-auto px-4 py-3">
+        <div class="px-6 py-3">
           <nav class="text-sm">
             <ol class="flex items-center gap-2">
               <li><Link href="/" class="text-gray-500 hover:text-[#042e0d] transition-colors">Home</Link></li>
@@ -31,7 +31,7 @@ export default component$(() => {
 
       {/* Product Detail */}
       <section class="py-8">
-        <div class="container mx-auto px-4">
+        <div class="px-6">
           <div class="grid lg:grid-cols-2 gap-8 items-start">
             {/* Product Image */}
             <div class="bg-gray-100 rounded-lg aspect-square flex items-center justify-center sticky top-24">
@@ -102,7 +102,7 @@ export default component$(() => {
 
       {/* Product Tabs */}
       <section class="py-8 bg-[#f1f1f2] border-t border-gray-200">
-        <div class="container mx-auto px-4">
+        <div class="px-6">
           <div class="flex gap-4 border-b border-gray-300 mb-6">
             <button class="px-4 py-2 font-bold text-[#042e0d] border-b-2 border-[#042e0d] -mb-px">Overview</button>
             <button class="px-4 py-2 text-gray-500 hover:text-[#042e0d] transition-colors">Specifications</button>
@@ -140,7 +140,7 @@ export default component$(() => {
 
       {/* CTA */}
       <section class="bg-[#042e0d] py-10">
-        <div class="container mx-auto px-4">
+        <div class="px-6">
           <div class="flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
               <h3 class="font-heading font-extrabold text-2xl text-white">Ready to order?</h3>

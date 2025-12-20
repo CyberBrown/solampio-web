@@ -59,7 +59,7 @@ export default component$(() => {
     <div>
       {/* Hero - SOLID Forest Green */}
       <section class="bg-[#042e0d] py-10">
-        <div class="container mx-auto px-4">
+        <div class="px-6">
           <div class="max-w-3xl">
             <div class="inline-flex items-center gap-2 bg-[#c3a859]/20 text-[#c3a859] px-3 py-1 rounded-full text-sm font-semibold mb-4">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -79,7 +79,7 @@ export default component$(() => {
 
       {/* Search and filter bar */}
       <section class="border-b border-gray-300 py-4 bg-[#f1f1f2] sticky top-16 z-30">
-        <div class="container mx-auto px-4">
+        <div class="px-6">
           <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
             <div class="relative w-full md:w-96">
               <input
@@ -112,7 +112,7 @@ export default component$(() => {
 
       {/* Categories Grid */}
       <section class="py-8">
-        <div class="container mx-auto px-4">
+        <div class="px-6">
           <h2 class="font-heading font-extrabold text-xl text-[#042e0d] mb-5">Shop by Category</h2>
           <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
             {categories.map((cat) => (
@@ -137,7 +137,7 @@ export default component$(() => {
 
       {/* Featured Products */}
       <section class="py-8 bg-[#f1f1f2]">
-        <div class="container mx-auto px-4">
+        <div class="px-6">
           <div class="flex justify-between items-end mb-5">
             <div>
               <h2 class="font-heading font-extrabold text-xl text-[#042e0d]">Featured Products</h2>
@@ -185,7 +185,7 @@ export default component$(() => {
 
       {/* CTA - SOLID Forest Green */}
       <section class="bg-[#042e0d] py-10">
-        <div class="container mx-auto px-4">
+        <div class="px-6">
           <div class="flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
               <h3 class="font-heading font-extrabold text-2xl text-white">Can't find what you need?</h3>

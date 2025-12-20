@@ -10,7 +10,7 @@ export default component$(() => {
       </div>
 
       {/* Scrollable Content Area */}
-      <main class="flex-1 lg:ml-64">
+      <main class="flex-1 lg:ml-64 min-w-0">
         <Slot />
       </main>
     </div>
