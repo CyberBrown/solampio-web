@@ -13,128 +13,150 @@ export default component$(() => {
     .join(' ');
 
   return (
-    <div class="bg-base-200 min-h-screen">
+    <div class="bg-white min-h-screen">
       {/* Breadcrumb */}
-      <div class="bg-base-100 border-b">
+      <section class="bg-[#f1f1f2] border-b border-gray-200">
         <div class="container mx-auto px-4 py-3">
-          <div class="breadcrumbs text-sm">
-            <ul>
-              <li><Link href="/">Home</Link></li>
-              <li><Link href="/products">Products</Link></li>
-              <li class="text-primary">{title}</li>
+          <nav class="text-sm">
+            <ol class="flex items-center gap-2">
+              <li><Link href="/" class="text-gray/50 hover:text-[#042e0d] transition-colors">Home</Link></li>
+              <li class="text-gray/30">/</li>
+              <li><Link href="/products/" class="text-gray/50 hover:text-[#042e0d] transition-colors">Products</Link></li>
+              <li class="text-gray/30">/</li>
+              <li class="text-[#042e0d] font-semibold">{title}</li>
+            </ol>
+          </nav>
+        </div>
+      </section>
+
+      {/* Product Detail */}
+      <section class="py-10">
+        <div class="container mx-auto px-4">
+          <div class="grid lg:grid-cols-2 gap-10 items-start">
+            {/* Product Image */}
+            <div class="bg-gray-100 rounded-lg aspect-square flex items-center justify-center">
+              <div class="text-center text-gray/30">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-32 w-32 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="0.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <span class="text-sm">Product Photo</span>
+              </div>
+            </div>
+
+            {/* Product Info */}
+            <div>
+              <div class="inline-flex items-center gap-2 bg-[#56c270]/10 text-[#042e0d] px-3 py-1 rounded-full text-sm font-bold mb-4">
+                In Stock
+              </div>
+              <h1 class="font-heading font-extrabold text-2xl md:text-3xl text-[#042e0d] mb-4">{title}</h1>
+              <p class="text-gray/70 mb-6">
+                High-quality solar equipment from a trusted manufacturer. Contact us for specifications, pricing, and availability.
+              </p>
+
+              {/* Specs */}
+              <div class="bg-[#f1f1f2] rounded-lg p-5 mb-6">
+                <p class="text-xs font-mono text-[#c3a859] uppercase tracking-wide mb-3">Specifications</p>
+                <div class="space-y-2 text-sm">
+                  <div class="flex justify-between py-1 border-b border-gray-100">
+                    <span class="text-gray/60">Brand</span>
+                    <span class="font-semibold text-[#042e0d]">Manufacturer</span>
+                  </div>
+                  <div class="flex justify-between py-1 border-b border-gray-100">
+                    <span class="text-gray/60">Model</span>
+                    <span class="font-semibold text-[#042e0d]">{title}</span>
+                  </div>
+                  <div class="flex justify-between py-1 border-b border-gray-100">
+                    <span class="text-gray/60">Warranty</span>
+                    <span class="font-semibold text-[#042e0d]">Manufacturer Warranty</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Price and CTA */}
+              <div class="border border-gray-200 rounded-lg p-5 mb-6">
+                <p class="font-heading font-extrabold text-2xl text-[#042e0d] mb-4">Call for Pricing</p>
+                <div class="flex gap-3">
+                  <button class="flex-1 bg-[#042e0d] text-white font-heading font-bold py-3 rounded hover:bg-[#042e0d] transition-colors">
+                    Add to Quote
+                  </button>
+                  <a href="tel:978-451-6890" class="flex items-center justify-center gap-2 bg-[#c3a859] text-white font-bold px-5 py-3 rounded hover:bg-[#c3a859]/80 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                    </svg>
+                    Call
+                  </a>
+                </div>
+              </div>
+
+              {/* Support */}
+              <div class="flex items-start gap-3 text-sm text-gray/60">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#c3a859] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+                <p>Have questions? Our engineers can help you select the right equipment for your project. Call 978-451-6890.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Product Tabs */}
+      <section class="py-10 bg-[#f1f1f2] border-t border-gray-200">
+        <div class="container mx-auto px-4">
+          <div class="flex gap-4 border-b border-gray-200 mb-6">
+            <button class="px-4 py-2 font-bold text-[#042e0d] border-b-2 border-primary -mb-px">Overview</button>
+            <button class="px-4 py-2 text-gray/50 hover:text-[#042e0d] transition-colors">Specifications</button>
+            <button class="px-4 py-2 text-gray/50 hover:text-[#042e0d] transition-colors">Documentation</button>
+          </div>
+
+          <div class="max-w-3xl">
+            <h2 class="font-heading font-bold text-xl text-[#042e0d] mb-4">Product Overview</h2>
+            <p class="text-gray/70 mb-4">
+              This product is designed for professional solar installations. It features high-quality construction, reliable performance, and is backed by manufacturer warranty.
+            </p>
+            <ul class="space-y-2 text-gray/70">
+              <li class="flex items-start gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-solamp-green flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+                Professional-grade quality
+              </li>
+              <li class="flex items-start gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-solamp-green flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+                Full manufacturer warranty
+              </li>
+              <li class="flex items-start gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-solamp-green flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+                Technical support available
+              </li>
             </ul>
           </div>
         </div>
-      </div>
-
-      {/* Product Hero */}
-      <div class="container mx-auto px-4 py-12">
-        <div class="grid lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <span class="badge badge-primary mb-4">Solar Solution</span>
-            <h1 class="text-4xl font-bold mb-4">{title}</h1>
-            <p class="text-lg text-base-content/70 mb-6">
-              A comprehensive solution designed to revolutionize your solar operations with cutting-edge technology and industry-leading support.
-            </p>
-            <div class="flex gap-4 mb-8">
-              <button class="btn btn-primary">Request Demo</button>
-              <button class="btn btn-outline">Download Specs</button>
-            </div>
-            <div class="stats shadow">
-              <div class="stat">
-                <div class="stat-title">Efficiency Boost</div>
-                <div class="stat-value text-primary">+25%</div>
-              </div>
-              <div class="stat">
-                <div class="stat-title">Active Users</div>
-                <div class="stat-value text-secondary">1.2K+</div>
-              </div>
-            </div>
-          </div>
-          <div class="bg-gradient-to-br from-primary/20 to-accent/20 rounded-2xl p-8 aspect-square flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-48 w-48 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-            </svg>
-          </div>
-        </div>
-      </div>
-
-      {/* Tabs Section */}
-      <div class="container mx-auto px-4 py-8">
-        <div role="tablist" class="tabs tabs-lifted">
-          <input type="radio" name="product_tabs" role="tab" class="tab" aria-label="Overview" checked={true} />
-          <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
-            <h3 class="text-xl font-semibold mb-4">Product Overview</h3>
-            <p class="mb-4">
-              {title} is designed from the ground up to meet the demanding requirements of modern solar installations. Our platform integrates seamlessly with existing infrastructure while providing powerful new capabilities.
-            </p>
-            <ul class="list-disc list-inside space-y-2 text-base-content/70">
-              <li>Real-time monitoring and alerts</li>
-              <li>AI-powered predictive analytics</li>
-              <li>Seamless third-party integrations</li>
-              <li>Enterprise-grade security</li>
-            </ul>
-          </div>
-
-          <input type="radio" name="product_tabs" role="tab" class="tab" aria-label="Specifications" />
-          <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
-            <h3 class="text-xl font-semibold mb-4">Technical Specifications</h3>
-            <div class="overflow-x-auto">
-              <table class="table">
-                <tbody>
-                  <tr><td class="font-medium">Data Update Frequency</td><td>Real-time (&lt; 1 second)</td></tr>
-                  <tr><td class="font-medium">API Support</td><td>REST, GraphQL, WebSocket</td></tr>
-                  <tr><td class="font-medium">Data Retention</td><td>Unlimited</td></tr>
-                  <tr><td class="font-medium">Uptime SLA</td><td>99.99%</td></tr>
-                  <tr><td class="font-medium">Compliance</td><td>SOC 2, GDPR, ISO 27001</td></tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <input type="radio" name="product_tabs" role="tab" class="tab" aria-label="Documentation" />
-          <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
-            <h3 class="text-xl font-semibold mb-4">Documentation</h3>
-            <div class="grid md:grid-cols-2 gap-4">
-              <Link href="/docs" class="card bg-base-200 hover:bg-base-300 transition-colors">
-                <div class="card-body">
-                  <h4 class="card-title text-base">Getting Started Guide</h4>
-                  <p class="text-sm text-base-content/70">Quick setup and configuration</p>
-                </div>
-              </Link>
-              <Link href="/docs" class="card bg-base-200 hover:bg-base-300 transition-colors">
-                <div class="card-body">
-                  <h4 class="card-title text-base">API Reference</h4>
-                  <p class="text-sm text-base-content/70">Complete API documentation</p>
-                </div>
-              </Link>
-              <Link href="/docs" class="card bg-base-200 hover:bg-base-300 transition-colors">
-                <div class="card-body">
-                  <h4 class="card-title text-base">Integration Guides</h4>
-                  <p class="text-sm text-base-content/70">Connect with existing systems</p>
-                </div>
-              </Link>
-              <Link href="/docs" class="card bg-base-200 hover:bg-base-300 transition-colors">
-                <div class="card-body">
-                  <h4 class="card-title text-base">Best Practices</h4>
-                  <p class="text-sm text-base-content/70">Optimize your implementation</p>
-                </div>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
+      </section>
 
       {/* CTA */}
-      <div class="bg-secondary text-secondary-content py-12 mt-8">
-        <div class="container mx-auto px-4 text-center">
-          <h2 class="text-2xl font-bold mb-4">Ready to get started?</h2>
-          <p class="opacity-90 mb-6">Contact our team for a personalized demo and pricing.</p>
-          <Link href="/contact" class="btn btn-accent">
-            Schedule Demo
-          </Link>
+      <section class="bg-[#042e0d] py-10">
+        <div class="container mx-auto px-4">
+          <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div>
+              <h3 class="font-heading font-extrabold text-2xl text-white">Ready to order?</h3>
+              <p class="text-white/70 mt-1">Contact us for pricing and availability.</p>
+            </div>
+            <div class="flex gap-4">
+              <Link href="/contact/" class="inline-flex items-center gap-2 bg-[#56c270] text-[#042e0d] font-heading font-bold px-6 py-3 rounded hover:bg-white transition-colors">
+                Request Quote
+              </Link>
+              <a href="tel:978-451-6890" class="inline-flex items-center gap-2 bg-[#c3a859] text-white font-heading font-bold px-6 py-3 rounded hover:bg-[#c3a859]/80 transition-colors">
+                978-451-6890
+              </a>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 });
@@ -146,11 +168,11 @@ export const head: DocumentHead = ({ params }) => {
     .join(' ');
 
   return {
-    title: `${title} - SolampIO Products`,
+    title: `${title} | Solamp Solar & Energy Storage`,
     meta: [
       {
         name: 'description',
-        content: `Learn about ${title} - a powerful solar industry solution from SolampIO.`,
+        content: `${title} - Professional solar equipment from Solamp. Contact us for pricing and specifications.`,
       },
     ],
   };

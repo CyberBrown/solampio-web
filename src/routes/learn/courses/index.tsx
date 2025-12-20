@@ -6,169 +6,156 @@ const courses = [
   {
     id: 1,
     title: 'Solar Fundamentals 101',
-    description: 'A comprehensive introduction to solar energy systems, components, and basic installation principles.',
+    description: 'Core concepts of photovoltaic systems, components, and basic installation principles for new installers.',
     level: 'Beginner',
     duration: '4 hours',
     lessons: 12,
-    rating: 4.8,
-    students: 2453,
   },
   {
     id: 2,
-    title: 'Advanced Solar Analytics',
-    description: 'Master data-driven decision making for solar operations with advanced analytics techniques.',
-    level: 'Advanced',
+    title: 'Battery Storage Design',
+    description: 'Design and size energy storage systems for residential and commercial solar applications.',
+    level: 'Intermediate',
     duration: '6 hours',
     lessons: 18,
-    rating: 4.9,
-    students: 1287,
   },
   {
     id: 3,
-    title: 'Grid Integration Essentials',
-    description: 'Learn to connect solar systems with utility grids while maintaining compliance and efficiency.',
-    level: 'Intermediate',
-    duration: '5 hours',
-    lessons: 15,
-    rating: 4.7,
-    students: 1892,
+    title: 'Off-Grid System Design',
+    description: 'Complete off-grid system sizing, component selection, and installation for cabins and remote sites.',
+    level: 'Advanced',
+    duration: '8 hours',
+    lessons: 24,
   },
   {
     id: 4,
-    title: 'Solar System Design',
-    description: 'Design optimal solar installations for residential and commercial applications.',
+    title: 'MPPT Controller Programming',
+    description: 'Configure and optimize MPPT charge controllers from MidNite, Morningstar, and Victron.',
     level: 'Intermediate',
-    duration: '8 hours',
-    lessons: 24,
-    rating: 4.8,
-    students: 3201,
+    duration: '3 hours',
+    lessons: 8,
   },
   {
     id: 5,
-    title: 'Maintenance & Troubleshooting',
-    description: 'Identify and resolve common solar system issues with proven troubleshooting methodologies.',
+    title: 'Grid-Tie Installation',
+    description: 'Install and commission grid-tied solar systems including interconnection requirements.',
     level: 'Intermediate',
-    duration: '4 hours',
-    lessons: 10,
-    rating: 4.6,
-    students: 1654,
+    duration: '5 hours',
+    lessons: 15,
   },
   {
     id: 6,
-    title: 'Solar Sales Certification',
-    description: 'Develop the skills to effectively communicate solar value propositions to customers.',
-    level: 'Beginner',
-    duration: '3 hours',
-    lessons: 8,
-    rating: 4.5,
-    students: 987,
+    title: 'Hybrid Inverter Systems',
+    description: 'Design and install hybrid inverter systems with battery backup for whole-home protection.',
+    level: 'Advanced',
+    duration: '6 hours',
+    lessons: 16,
   },
 ];
 
 export default component$(() => {
   return (
-    <div class="bg-base-200 min-h-screen">
+    <div class="bg-white min-h-screen">
       {/* Breadcrumb */}
-      <div class="bg-base-100 border-b">
+      <section class="bg-[#f1f1f2] border-b border-gray-200">
         <div class="container mx-auto px-4 py-3">
-          <div class="breadcrumbs text-sm">
-            <ul>
-              <li><Link href="/">Home</Link></li>
-              <li><Link href="/learn">Learn</Link></li>
-              <li class="text-primary">Courses</li>
-            </ul>
-          </div>
+          <nav class="text-sm">
+            <ol class="flex items-center gap-2">
+              <li><Link href="/" class="text-gray/50 hover:text-[#042e0d] transition-colors">Home</Link></li>
+              <li class="text-gray/30">/</li>
+              <li><Link href="/learn/" class="text-gray/50 hover:text-[#042e0d] transition-colors">Learn</Link></li>
+              <li class="text-gray/30">/</li>
+              <li class="text-[#042e0d] font-semibold">Courses</li>
+            </ol>
+          </nav>
         </div>
-      </div>
+      </section>
 
       {/* Header */}
-      <div class="container mx-auto px-4 py-8">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
-          <div>
-            <h1 class="text-3xl font-bold">All Courses</h1>
-            <p class="text-base-content/70">Browse our complete course catalog</p>
+      <section class="py-10 bg-white">
+        <div class="container mx-auto px-4">
+          <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+            <div>
+              <h1 class="font-heading font-extrabold text-3xl text-[#042e0d]">Training Courses</h1>
+              <p class="text-gray/60 mt-1">Structured learning for solar professionals</p>
+            </div>
+            <div class="flex gap-2">
+              <select class="border border-gray-200 bg-white px-3 py-2 text-sm rounded focus:outline-none focus:border-primary">
+                <option disabled selected>Filter by level</option>
+                <option>Beginner</option>
+                <option>Intermediate</option>
+                <option>Advanced</option>
+              </select>
+              <select class="border border-gray-200 bg-white px-3 py-2 text-sm rounded focus:outline-none focus:border-primary">
+                <option disabled selected>Sort by</option>
+                <option>Most Popular</option>
+                <option>Duration</option>
+                <option>Level</option>
+              </select>
+            </div>
           </div>
-          <div class="flex gap-2">
-            <select class="select select-bordered select-sm">
-              <option disabled selected>Filter by level</option>
-              <option>Beginner</option>
-              <option>Intermediate</option>
-              <option>Advanced</option>
-            </select>
-            <select class="select select-bordered select-sm">
-              <option disabled selected>Sort by</option>
-              <option>Most Popular</option>
-              <option>Highest Rated</option>
-              <option>Newest</option>
-            </select>
-          </div>
-        </div>
 
-        {/* Course Grid */}
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {courses.map((course) => (
-            <div key={course.id} class="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow">
-              <figure class="px-4 pt-4">
-                <div class="w-full h-40 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-xl flex items-center justify-center relative">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          {/* Course Grid */}
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {courses.map((course) => (
+              <div key={course.id} class="bg-[#f1f1f2] border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg hover:border-primary transition-all group">
+                <div class="h-36 bg-gradient-to-br from-primary to-solamp-forest flex items-center justify-center relative">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-14 w-14 text-white/20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-                  <span class={`badge absolute top-2 right-2 ${course.level === 'Beginner' ? 'badge-success' : course.level === 'Advanced' ? 'badge-error' : 'badge-warning'}`}>
+                  <span class={`absolute top-3 right-3 text-xs font-bold px-2 py-1 rounded ${course.level === 'Beginner' ? 'bg-[#56c270] text-[#042e0d]' : course.level === 'Advanced' ? 'bg-[#c3a859] text-white' : 'bg-solamp-blue text-white'}`}>
                     {course.level}
                   </span>
                 </div>
-              </figure>
-              <div class="card-body">
-                <h2 class="card-title text-lg">{course.title}</h2>
-                <p class="text-sm text-base-content/70 line-clamp-2">{course.description}</p>
+                <div class="p-5">
+                  <h2 class="font-heading font-bold text-lg text-[#042e0d] group-hover:text-[#5974c3] transition-colors mb-2">{course.title}</h2>
+                  <p class="text-sm text-gray/60 mb-4 line-clamp-2">{course.description}</p>
 
-                <div class="flex items-center gap-4 text-sm text-base-content/60 mt-2">
-                  <span class="flex items-center gap-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    {course.duration}
-                  </span>
-                  <span>{course.lessons} lessons</span>
-                </div>
-
-                <div class="flex items-center justify-between mt-4 pt-4 border-t">
-                  <div class="flex items-center gap-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-accent" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                    </svg>
-                    <span class="font-medium">{course.rating}</span>
-                    <span class="text-base-content/50">({course.students.toLocaleString()})</span>
+                  <div class="flex items-center gap-4 text-sm text-gray/50 mb-4">
+                    <span class="flex items-center gap-1">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      {course.duration}
+                    </span>
+                    <span>{course.lessons} lessons</span>
                   </div>
-                  <button class="btn btn-primary btn-sm">Enroll</button>
+
+                  <button class="w-full bg-[#042e0d] text-white font-heading font-bold py-2 rounded hover:bg-[#042e0d] transition-colors">
+                    Start Course
+                  </button>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Pagination */}
-        <div class="flex justify-center mt-12">
-          <div class="join">
-            <button class="join-item btn btn-sm">«</button>
-            <button class="join-item btn btn-sm btn-active">1</button>
-            <button class="join-item btn btn-sm">2</button>
-            <button class="join-item btn btn-sm">3</button>
-            <button class="join-item btn btn-sm">»</button>
+            ))}
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* CTA */}
+      <section class="bg-[#042e0d] py-10">
+        <div class="container mx-auto px-4">
+          <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div>
+              <h3 class="font-heading font-extrabold text-2xl text-white">Need training for your team?</h3>
+              <p class="text-white/70 mt-1">Contact us about custom training programs for installers.</p>
+            </div>
+            <Link href="/contact/" class="inline-flex items-center gap-2 bg-[#c3a859] text-white font-heading font-bold px-6 py-3 rounded hover:bg-[#c3a859]/80 transition-colors">
+              Contact Us
+            </Link>
+          </div>
+        </div>
+      </section>
     </div>
   );
 });
 
 export const head: DocumentHead = {
-  title: 'Courses - SolampIO Learning Hub',
+  title: 'Training Courses | Solamp Solar & Energy Storage',
   meta: [
     {
       name: 'description',
-      content: 'Browse all SolampIO courses and start your solar energy learning journey.',
+      content: 'Solar installation training courses for professional installers. From fundamentals to advanced system design.',
     },
   ],
 };

@@ -1,244 +1,236 @@
-import { component$, useSignal } from '@builder.io/qwik';
+import { component$ } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
 
 export default component$(() => {
-  const formData = useSignal({
-    name: '',
-    email: '',
-    company: '',
-    subject: '',
-    message: '',
-  });
-
   return (
-    <div class="bg-base-200 min-h-screen">
-      {/* Hero */}
-      <div class="hero bg-gradient-to-r from-primary to-accent text-white py-16">
-        <div class="hero-content text-center">
-          <div class="max-w-2xl">
-            <h1 class="text-4xl md:text-5xl font-bold mb-4">Contact Us</h1>
-            <p class="text-lg opacity-90">
-              Have questions? We'd love to hear from you. Our team is here to help.
+    <div class="bg-white min-h-screen">
+      {/* Hero - SOLID Forest Green */}
+      <section class="bg-[#042e0d] py-12">
+        <div class="container mx-auto px-4">
+          <div class="max-w-3xl">
+            <div class="inline-flex items-center gap-2 bg-[#c3a859]/20 text-[#c3a859] px-3 py-1 rounded-full text-sm font-semibold mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              </svg>
+              Talk to a Solar Expert
+            </div>
+            <h1 class="font-heading font-extrabold text-3xl md:text-4xl text-white mb-4">
+              Contact Us
+            </h1>
+            <p class="text-white/80 text-lg max-w-2xl">
+              Have questions about equipment, need a quote, or want to open a dealer account? We're here to help.
             </p>
           </div>
         </div>
-      </div>
+      </section>
 
       <div class="container mx-auto px-4 py-12">
-        <div class="grid lg:grid-cols-3 gap-8">
+        <div class="grid lg:grid-cols-3 gap-10">
           {/* Contact Form */}
           <div class="lg:col-span-2">
-            <div class="card bg-base-100 shadow-xl">
-              <div class="card-body">
-                <h2 class="card-title text-2xl mb-6">Send us a message</h2>
-                <form class="space-y-4">
-                  <div class="grid md:grid-cols-2 gap-4">
-                    <div class="form-control">
-                      <label class="label">
-                        <span class="label-text font-medium">Full Name *</span>
-                      </label>
-                      <input
-                        type="text"
-                        placeholder="John Doe"
-                        class="input input-bordered"
-                        bind:value={formData.value.name}
-                        required
-                      />
-                    </div>
-                    <div class="form-control">
-                      <label class="label">
-                        <span class="label-text font-medium">Email *</span>
-                      </label>
-                      <input
-                        type="email"
-                        placeholder="john@company.com"
-                        class="input input-bordered"
-                        bind:value={formData.value.email}
-                        required
-                      />
-                    </div>
-                  </div>
-
-                  <div class="grid md:grid-cols-2 gap-4">
-                    <div class="form-control">
-                      <label class="label">
-                        <span class="label-text font-medium">Company</span>
-                      </label>
-                      <input
-                        type="text"
-                        placeholder="Your company name"
-                        class="input input-bordered"
-                        bind:value={formData.value.company}
-                      />
-                    </div>
-                    <div class="form-control">
-                      <label class="label">
-                        <span class="label-text font-medium">Subject *</span>
-                      </label>
-                      <select class="select select-bordered" required>
-                        <option disabled selected>Select a topic</option>
-                        <option>Sales Inquiry</option>
-                        <option>Technical Support</option>
-                        <option>Partnership</option>
-                        <option>General Question</option>
-                        <option>Other</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div class="form-control">
-                    <label class="label">
-                      <span class="label-text font-medium">Message *</span>
-                    </label>
-                    <textarea
-                      placeholder="How can we help you?"
-                      class="textarea textarea-bordered h-32"
-                      bind:value={formData.value.message}
+            <div class="bg-[#f1f1f2] rounded-lg p-6 md:p-8">
+              <h2 class="font-heading font-extrabold text-xl text-[#042e0d] mb-6">Send us a message</h2>
+              <form class="space-y-5">
+                <div class="grid md:grid-cols-2 gap-5">
+                  <div>
+                    <label class="block text-sm font-bold text-[#042e0d] mb-1.5">Full Name *</label>
+                    <input
+                      type="text"
+                      placeholder="Your name"
+                      class="w-full border border-gray-300 bg-white px-4 py-2.5 text-sm rounded focus:outline-none focus:border-[#042e0d]"
                       required
-                    ></textarea>
+                    />
                   </div>
-
-                  <div class="form-control">
-                    <label class="cursor-pointer label justify-start gap-3">
-                      <input type="checkbox" class="checkbox checkbox-primary" />
-                      <span class="label-text">I agree to receive communications from SolampIO</span>
-                    </label>
+                  <div>
+                    <label class="block text-sm font-bold text-[#042e0d] mb-1.5">Email *</label>
+                    <input
+                      type="email"
+                      placeholder="you@company.com"
+                      class="w-full border border-gray-300 bg-white px-4 py-2.5 text-sm rounded focus:outline-none focus:border-[#042e0d]"
+                      required
+                    />
                   </div>
+                </div>
 
-                  <button type="submit" class="btn btn-primary btn-block">
-                    Send Message
-                  </button>
-                </form>
-              </div>
+                <div class="grid md:grid-cols-2 gap-5">
+                  <div>
+                    <label class="block text-sm font-bold text-[#042e0d] mb-1.5">Company</label>
+                    <input
+                      type="text"
+                      placeholder="Your company name"
+                      class="w-full border border-gray-300 bg-white px-4 py-2.5 text-sm rounded focus:outline-none focus:border-[#042e0d]"
+                    />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-bold text-[#042e0d] mb-1.5">Phone</label>
+                    <input
+                      type="tel"
+                      placeholder="(555) 123-4567"
+                      class="w-full border border-gray-300 bg-white px-4 py-2.5 text-sm rounded focus:outline-none focus:border-[#042e0d]"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label class="block text-sm font-bold text-[#042e0d] mb-1.5">Subject *</label>
+                  <select class="w-full border border-gray-300 bg-white px-4 py-2.5 text-sm rounded focus:outline-none focus:border-[#042e0d]" required>
+                    <option disabled selected>Select a topic</option>
+                    <option>Request a Quote</option>
+                    <option>Technical Question</option>
+                    <option>Open Dealer Account</option>
+                    <option>Order Status</option>
+                    <option>General Inquiry</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label class="block text-sm font-bold text-[#042e0d] mb-1.5">Message *</label>
+                  <textarea
+                    placeholder="Tell us about your project or question..."
+                    class="w-full border border-gray-300 bg-white px-4 py-2.5 text-sm rounded focus:outline-none focus:border-[#042e0d] h-32"
+                    required
+                  ></textarea>
+                </div>
+
+                <button type="submit" class="bg-[#042e0d] text-white font-heading font-bold px-8 py-3 rounded hover:bg-[#042e0d]/80 transition-colors">
+                  Send Message
+                </button>
+              </form>
             </div>
           </div>
 
           {/* Contact Info Sidebar */}
           <div class="space-y-6">
+            {/* Call */}
+            <div class="bg-[#042e0d] rounded-lg p-6 text-white">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="w-12 h-12 bg-[#c3a859] rounded-full flex items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
+                </div>
+                <div>
+                  <p class="text-white/60 text-sm">Call a Solar Expert</p>
+                  <a href="tel:978-451-6890" class="font-heading font-extrabold text-xl text-[#56c270] hover:text-white transition-colors">978-451-6890</a>
+                </div>
+              </div>
+              <p class="text-white/70 text-sm">
+                Mon-Fri 8am-5pm EST. Talk to real engineers who understand system design.
+              </p>
+            </div>
+
             {/* Quick Contact */}
-            <div class="card bg-base-100 shadow-xl">
-              <div class="card-body">
-                <h3 class="font-bold text-lg mb-4">Quick Contact</h3>
-                <div class="space-y-4">
-                  <div class="flex items-start gap-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
-                    <div>
-                      <p class="font-medium">Email</p>
-                      <a href="mailto:hello@solampio.com" class="text-primary hover:underline">hello@solampio.com</a>
-                    </div>
+            <div class="bg-[#f1f1f2] rounded-lg p-6">
+              <h3 class="font-heading font-bold text-lg text-[#042e0d] mb-4">Quick Contact</h3>
+              <div class="space-y-4">
+                <div class="flex items-start gap-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#c3a859] mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                  <div>
+                    <p class="font-bold text-[#042e0d] text-sm">Email</p>
+                    <a href="mailto:info@solampio.com" class="text-[#5974c3] hover:underline text-sm">info@solampio.com</a>
                   </div>
-                  <div class="flex items-start gap-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                    </svg>
-                    <div>
-                      <p class="font-medium">Phone</p>
-                      <a href="tel:+1-800-SOLAMPIO" class="text-primary hover:underline">+1-800-SOLAMPIO</a>
-                    </div>
+                </div>
+                <div class="flex items-start gap-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#c3a859] mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  <div>
+                    <p class="font-bold text-[#042e0d] text-sm">Address</p>
+                    <p class="text-gray-600 text-sm">
+                      330 Codman Hill Road<br />
+                      Boxboro, MA 01719
+                    </p>
                   </div>
-                  <div class="flex items-start gap-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                    <div>
-                      <p class="font-medium">Address</p>
-                      <p class="text-base-content/70">
-                        123 Solar Way<br />
-                        San Francisco, CA 94102
-                      </p>
-                    </div>
+                </div>
+                <div class="flex items-start gap-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#c3a859] mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <div>
+                    <p class="font-bold text-[#042e0d] text-sm">Hours</p>
+                    <p class="text-gray-600 text-sm">Mon-Fri 8am-5pm EST</p>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Office Hours */}
-            <div class="card bg-base-100 shadow-xl">
-              <div class="card-body">
-                <h3 class="font-bold text-lg mb-4">Office Hours</h3>
-                <div class="space-y-2 text-sm">
-                  <div class="flex justify-between">
-                    <span class="text-base-content/70">Monday - Friday</span>
-                    <span class="font-medium">9:00 AM - 6:00 PM PST</span>
-                  </div>
-                  <div class="flex justify-between">
-                    <span class="text-base-content/70">Saturday</span>
-                    <span class="font-medium">10:00 AM - 2:00 PM PST</span>
-                  </div>
-                  <div class="flex justify-between">
-                    <span class="text-base-content/70">Sunday</span>
-                    <span class="font-medium">Closed</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Support */}
-            <div class="card bg-secondary text-secondary-content">
-              <div class="card-body">
-                <h3 class="font-bold text-lg">Need Technical Support?</h3>
-                <p class="text-sm opacity-90">
-                  Our dedicated support team is available 24/7 for customers.
-                </p>
-                <button class="btn btn-accent btn-sm mt-2">
-                  Open Support Ticket
-                </button>
-              </div>
+            {/* Request Quote */}
+            <div class="bg-[#c3a859]/10 border border-[#c3a859]/20 rounded-lg p-6">
+              <h3 class="font-heading font-bold text-lg text-[#042e0d] mb-2">Need a Quote?</h3>
+              <p class="text-sm text-gray-600 mb-4">
+                Send us your BOM or project details. We respond within 24 hours.
+              </p>
+              <a href="mailto:quotes@solampio.com" class="inline-flex items-center gap-2 bg-[#c3a859] text-white font-bold px-4 py-2 rounded text-sm hover:bg-[#c3a859]/80 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                quotes@solampio.com
+              </a>
             </div>
           </div>
         </div>
       </div>
 
       {/* FAQ */}
-      <div class="bg-base-100 py-12">
+      <section class="py-12 bg-[#f1f1f2] border-t border-gray-200">
         <div class="container mx-auto px-4">
-          <h2 class="text-2xl font-bold text-center mb-8">Frequently Asked Questions</h2>
-          <div class="max-w-3xl mx-auto">
-            <div class="join join-vertical w-full">
-              <div class="collapse collapse-arrow join-item border border-base-300">
-                <input type="radio" name="faq-accordion" checked={true} />
-                <div class="collapse-title font-medium">
-                  How quickly can I get started with SolampIO?
+          <h2 class="font-heading font-extrabold text-2xl text-[#042e0d] text-center mb-8">Frequently Asked Questions</h2>
+          <div class="max-w-3xl mx-auto space-y-4">
+            <div class="bg-white border border-gray-200 rounded-lg">
+              <details class="group">
+                <summary class="flex items-center justify-between p-4 cursor-pointer font-bold text-[#042e0d]">
+                  Do you sell to homeowners?
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </summary>
+                <div class="px-4 pb-4 text-gray-600">
+                  We primarily serve professional installers and contractors. If you're a homeowner, we recommend working with a local installer who can design and install your system.
                 </div>
-                <div class="collapse-content text-base-content/70">
-                  <p>Most customers are up and running within 24-48 hours. Our team will guide you through the onboarding process and help configure your account.</p>
+              </details>
+            </div>
+            <div class="bg-white border border-gray-200 rounded-lg">
+              <details class="group">
+                <summary class="flex items-center justify-between p-4 cursor-pointer font-bold text-[#042e0d]">
+                  How do I open a dealer account?
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </summary>
+                <div class="px-4 pb-4 text-gray-600">
+                  Fill out the contact form above or call us. We'll walk you through the application process and get you set up with dealer pricing.
                 </div>
-              </div>
-              <div class="collapse collapse-arrow join-item border border-base-300">
-                <input type="radio" name="faq-accordion" />
-                <div class="collapse-title font-medium">
-                  Do you offer a free trial?
+              </details>
+            </div>
+            <div class="bg-white border border-gray-200 rounded-lg">
+              <details class="group">
+                <summary class="flex items-center justify-between p-4 cursor-pointer font-bold text-[#042e0d]">
+                  What's your return policy?
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </summary>
+                <div class="px-4 pb-4 text-gray-600">
+                  We accept returns within 30 days for unopened, undamaged products. Custom orders and special order items may have different policies. Contact us for details.
                 </div>
-                <div class="collapse-content text-base-content/70">
-                  <p>Yes! We offer a 14-day free trial with full access to all features. No credit card required to start.</p>
-                </div>
-              </div>
-              <div class="collapse collapse-arrow join-item border border-base-300">
-                <input type="radio" name="faq-accordion" />
-                <div class="collapse-title font-medium">
-                  What integrations do you support?
-                </div>
-                <div class="collapse-content text-base-content/70">
-                  <p>We integrate with all major inverter manufacturers, weather services, CRM systems, and accounting software. Check our documentation for a full list.</p>
-                </div>
-              </div>
+              </details>
             </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 });
 
 export const head: DocumentHead = {
-  title: 'Contact Us - SolampIO',
+  title: 'Contact Us | Solamp Solar & Energy Storage',
   meta: [
     {
       name: 'description',
-      content: 'Get in touch with the SolampIO team. We\'re here to help with your solar business needs.',
+      content: 'Contact Solamp for quotes, technical questions, or to open a dealer account. Call 978-451-6890 or send us a message.',
     },
   ],
 };
