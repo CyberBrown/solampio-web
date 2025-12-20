@@ -9,8 +9,10 @@ export const Header = component$(() => {
   // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(() => {
     const handleScroll = () => {
-      isScrolled.value = window.scrollY > 100;
+      isScrolled.value = window.scrollY > 50;
     };
+    // Check initial scroll position
+    handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   });
@@ -27,18 +29,22 @@ export const Header = component$(() => {
     openMenu.value = null;
   });
 
-  // Computed states - compact when scrolled AND not hovering
-  const isCompact = isScrolled.value && !isHovering.value;
+  // Semi-transparent when scrolled AND not hovering
+  const isTransparent = isScrolled.value && !isHovering.value;
+  // Compact when scrolled (regardless of hover - size stays small)
+  const isCompact = isScrolled.value;
 
   return (
     <div class="drawer">
       <input id="mobile-drawer" type="checkbox" class="drawer-toggle" />
       <div class="drawer-content flex flex-col">
-        {/* Main header - sticky, compact on scroll, expands on hover */}
+        {/* Main header - fixed to viewport, semi-transparent on scroll, opaque on hover */}
         <header
           class={[
-            'sticky top-0 z-50 border-b border-gray-200 transition-all duration-300',
-            isCompact ? 'bg-white/90 backdrop-blur-md' : 'bg-white',
+            'fixed top-0 left-0 right-0 z-50 border-b transition-all duration-300',
+            isTransparent
+              ? 'bg-white/70 backdrop-blur-md border-gray-200/50'
+              : 'bg-white border-gray-200',
           ].join(' ')}
           onMouseEnter$={() => (isHovering.value = true)}
           onMouseLeave$={() => {
@@ -398,6 +404,8 @@ export const Header = component$(() => {
             </div>
           </div>
         </header>
+        {/* Spacer to prevent content from being hidden behind fixed header */}
+        <div class="h-16" aria-hidden="true"></div>
       </div>
 
       {/* Mobile drawer sidebar */}
