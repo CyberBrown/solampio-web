@@ -218,8 +218,8 @@ export default component$(() => {
                   width="400"
                   height="300"
                 />
-                {/* Dark overlay for text readability - lighter filter */}
-                <div class="absolute inset-0 bg-[#042e0d]/40 group-hover:bg-[#042e0d]/55 transition-colors duration-300"></div>
+                {/* Dark overlay for text readability - light by default, darker on hover */}
+                <div class="absolute inset-0 bg-[#042e0d]/20 group-hover:bg-[#042e0d]/60 transition-colors duration-300"></div>
                 {/* Border highlight on hover */}
                 <div class="absolute inset-0 border-2 border-transparent group-hover:border-[#56c270] rounded-lg transition-colors duration-300"></div>
                 {/* Text content */}
