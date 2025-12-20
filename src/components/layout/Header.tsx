@@ -43,7 +43,7 @@ export const Header = component$(() => {
           class={[
             'fixed top-0 left-0 right-0 z-50 border-b transition-all duration-300',
             isTransparent
-              ? 'bg-white/70 backdrop-blur-md border-gray-200/50'
+              ? 'bg-white/40 backdrop-blur-md border-gray-200/30'
               : 'bg-white border-gray-200',
           ].join(' ')}
           onMouseEnter$={() => (isHovering.value = true)}
