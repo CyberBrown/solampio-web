@@ -46,7 +46,7 @@ export const BasePage = component$<BasePageProps>(({ title, subtitle, breadcrumb
       {/* Content */}
       <section class="py-10">
         <div class="container mx-auto px-4">
-          <div class="max-w-3xl mx-auto prose prose-lg prose-headings:font-heading prose-headings:text-[#042e0d] prose-a:text-[#5974c3]">
+          <div class="max-w-3xl mx-auto prose prose-lg prose-gray prose-headings:font-heading prose-headings:text-[#042e0d] prose-p:text-gray-700 prose-li:text-gray-700 prose-a:text-[#5974c3]">
             <Slot />
           </div>
         </div>
