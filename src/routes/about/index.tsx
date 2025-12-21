@@ -66,33 +66,33 @@ export default component$(() => {
             <div>
               <p class="text-xs font-mono text-[#c3a859] uppercase tracking-wide mb-2">Our Story</p>
               <h2 class="font-heading font-extrabold text-2xl md:text-3xl text-[#042e0d] mb-6">Built by Installers, for Installers</h2>
-              <p class="text-gray/70 mb-4">
+              <p class="text-gray-600 mb-4">
                 In 2006, we were installing off-grid systems in rural New England and couldn't find a distributor who stocked what we needed, understood the equipment, or could answer technical questions.
               </p>
-              <p class="text-gray/70 mb-4">
+              <p class="text-gray-600 mb-4">
                 So we built one. What started as a way to source equipment for our own projects became a full-service distribution company serving professional installers across the country.
               </p>
-              <p class="text-gray/70">
+              <p class="text-gray-600">
                 Today we're still installer-focused. Our team includes engineers who've designed systems, climbed on roofs, and troubleshot problems in the field. When you call us, you talk to someone who gets it.
               </p>
             </div>
-            <div class="bg-[#042e0d]/5 border border-primary/10 rounded-lg p-8">
+            <div class="bg-[#042e0d]/5 border border-[#042e0d]/10 rounded-lg p-8">
               <div class="grid grid-cols-2 gap-6 text-center">
                 <div>
                   <p class="font-heading font-extrabold text-4xl text-[#042e0d]">18+</p>
-                  <p class="text-sm text-gray/60">Years in Business</p>
+                  <p class="text-sm text-gray-500">Years in Business</p>
                 </div>
                 <div>
                   <p class="font-heading font-extrabold text-4xl text-[#042e0d]">500+</p>
-                  <p class="text-sm text-gray/60">Installer Customers</p>
+                  <p class="text-sm text-gray-500">Installer Customers</p>
                 </div>
                 <div>
                   <p class="font-heading font-extrabold text-4xl text-[#042e0d]">50+</p>
-                  <p class="text-sm text-gray/60">Brand Partners</p>
+                  <p class="text-sm text-gray-500">Brand Partners</p>
                 </div>
                 <div>
                   <p class="font-heading font-extrabold text-4xl text-[#042e0d]">24hr</p>
-                  <p class="text-sm text-gray/60">Quote Response</p>
+                  <p class="text-sm text-gray-500">Quote Response</p>
                 </div>
               </div>
             </div>
@@ -105,7 +105,7 @@ export default component$(() => {
         <div class="container mx-auto px-4">
           <div class="text-center mb-10">
             <h2 class="font-heading font-extrabold text-2xl md:text-3xl text-[#042e0d]">What Sets Us Apart</h2>
-            <p class="text-gray/60 mt-2 max-w-2xl mx-auto">
+            <p class="text-gray-500 mt-2 max-w-2xl mx-auto">
               We're not a warehouse with a website. We're a team of solar professionals.
             </p>
           </div>
@@ -118,7 +118,7 @@ export default component$(() => {
                   </svg>
                 </div>
                 <h3 class="font-heading font-bold text-lg text-[#042e0d] mb-2">{value.title}</h3>
-                <p class="text-sm text-gray/70">{value.description}</p>
+                <p class="text-sm text-gray-600">{value.description}</p>
               </div>
             ))}
           </div>
@@ -134,7 +134,7 @@ export default component$(() => {
           </div>
           <div class="flex flex-wrap items-center justify-center gap-8 md:gap-12">
             {brandPartners.map((brand) => (
-              <span key={brand} class="font-heading font-bold text-lg text-gray/30 hover:text-[#042e0d] transition-colors cursor-pointer">{brand}</span>
+              <span key={brand} class="font-heading font-bold text-lg text-gray-400 hover:text-[#042e0d] transition-colors cursor-pointer">{brand}</span>
             ))}
           </div>
         </div>
@@ -147,7 +147,7 @@ export default component$(() => {
             <div>
               <p class="text-xs font-mono text-[#c3a859] uppercase tracking-wide mb-2">Visit Us</p>
               <h2 class="font-heading font-extrabold text-2xl md:text-3xl text-[#042e0d] mb-6">Based in Massachusetts</h2>
-              <p class="text-gray/70 mb-6">
+              <p class="text-gray-600 mb-6">
                 We're located in Boxboro, MA, with easy access to I-495 and I-95. Our warehouse stocks popular items for same-day or next-day pickup.
               </p>
               <div class="space-y-4">
@@ -158,7 +158,7 @@ export default component$(() => {
                   </svg>
                   <div>
                     <p class="font-bold text-[#042e0d]">Address</p>
-                    <p class="text-gray/70">330 Codman Hill Road<br />Boxboro, MA 01719</p>
+                    <p class="text-gray-600">330 Codman Hill Road<br />Boxboro, MA 01719</p>
                   </div>
                 </div>
                 <div class="flex items-start gap-3">
@@ -176,13 +176,13 @@ export default component$(() => {
                   </svg>
                   <div>
                     <p class="font-bold text-[#042e0d]">Hours</p>
-                    <p class="text-gray/70">Monday - Friday: 8am - 5pm EST</p>
+                    <p class="text-gray-600">Monday - Friday: 8am - 5pm EST</p>
                   </div>
                 </div>
               </div>
             </div>
             <div class="bg-gray-100 rounded-lg aspect-video flex items-center justify-center">
-              <div class="text-center text-gray/30">
+              <div class="text-center text-gray-400">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="0.5">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
                 </svg>

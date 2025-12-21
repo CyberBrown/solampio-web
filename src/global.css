@@ -1,3 +1,61 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Ensure prose text is readable */
+.prose {
+  --tw-prose-body: #374151 !important; /* gray-700 */
+  --tw-prose-headings: #042e0d !important;
+  --tw-prose-links: #5974c3 !important;
+  --tw-prose-bold: #1f2937 !important; /* gray-800 */
+  --tw-prose-quotes: #374151 !important;
+  color: #374151 !important;
+}
+
+.prose p,
+.prose li,
+.prose td,
+.prose th {
+  color: #374151 !important; /* gray-700 */
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  color: #042e0d !important;
+}
+
+/* Override DaisyUI form input styles */
+input,
+select,
+textarea {
+  outline: none !important;
+  box-shadow: none !important;
+  --tw-ring-shadow: none !important;
+  --tw-ring-color: transparent !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  --tw-ring-shadow: none !important;
+  --tw-ring-color: transparent !important;
+}
+
+/* Remove DaisyUI's default input border colors */
+input:not([type="checkbox"]):not([type="radio"]),
+select,
+textarea {
+  border-color: rgb(209 213 219) !important; /* gray-300 */
+}
+
+input:not([type="checkbox"]):not([type="radio"]):focus,
+select:focus,
+textarea:focus {
+  border-color: #042e0d !important;
+}
