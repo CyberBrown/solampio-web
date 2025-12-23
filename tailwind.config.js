@@ -8,6 +8,7 @@ export default {
         'solamp-green': '#56c270',
         'solamp-blue': '#5974c3',
         'solamp-bronze': '#c3a859',
+        'solamp-bronze-dark': '#856d2b',
         'solamp-mist': '#f1f1f2',
         'solamp-mint': '#b1e1bc',
       },
