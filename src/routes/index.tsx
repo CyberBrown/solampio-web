@@ -136,14 +136,14 @@ export default component$(() => {
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
                 </svg>
-                18+ Years Serving Solar Professionals
+                Built on 20+ Years of Experience
               </div>
               <h1 class="font-heading font-extrabold text-3xl md:text-4xl lg:text-5xl text-white mb-4 leading-tight">
                 Solar &amp; Energy Storage Components You Can Count On
               </h1>
               <p class="text-white/80 text-lg mb-6 max-w-2xl">
-                From barn installations to off-grid cabins, we supply the Tier-1 equipment that powers real projects.
-                Technical support from engineers who've been there.
+                From barn installations to off-grid cabins, we supply first-class components that power real projects.
+                Technical guidance from engineers who've been there.
               </p>
               <div class="flex flex-wrap gap-3">
                 <Link href="/products/" class="inline-flex items-center gap-2 bg-solamp-green text-solamp-forest font-heading font-bold px-6 py-3 rounded hover:bg-white transition-colors">
@@ -225,8 +225,8 @@ export default component$(() => {
                   width="400"
                   height="300"
                 />
-                {/* Dark overlay for text readability - light by default, darker on hover */}
-                <div class="absolute inset-0 bg-solamp-forest/20 group-hover:bg-solamp-forest/60 transition-colors duration-300"></div>
+                {/* Dark overlay for text readability - darker by default for better readability */}
+                <div class="absolute inset-0 bg-solamp-forest/50 group-hover:bg-solamp-forest/70 transition-colors duration-300"></div>
                 {/* Border highlight on hover */}
                 <div class="absolute inset-0 border-2 border-transparent group-hover:border-solamp-green rounded-lg transition-colors duration-300"></div>
                 {/* Text content */}
@@ -349,8 +349,8 @@ export default component$(() => {
                   <path stroke-linecap="round" stroke-linejoin="round" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
                 </svg>
               </div>
-              <h3 class="font-heading font-bold text-lg text-solamp-forest mb-2">Technical Support</h3>
-              <p class="text-sm text-solamp-forest/70 leading-relaxed">Real engineers who understand system design, troubleshooting, and the challenges of installation.</p>
+              <h3 class="font-heading font-bold text-lg text-solamp-forest mb-2">Technical Guidance</h3>
+              <p class="text-sm text-solamp-forest/70 leading-relaxed">Our team is here to help you find the right components for your project and answer your questions.</p>
             </div>
             <div class="bg-white rounded-lg p-6 border border-gray-200 hover:border-solamp-green hover:shadow-lg transition-all group">
               <div class="w-14 h-14 bg-solamp-forest rounded-lg flex items-center justify-center mb-4 group-hover:bg-solamp-green transition-colors">
@@ -358,8 +358,8 @@ export default component$(() => {
                   <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
                 </svg>
               </div>
-              <h3 class="font-heading font-bold text-lg text-solamp-forest mb-2">Tier-1 Only</h3>
-              <p class="text-sm text-solamp-forest/70 leading-relaxed">Direct manufacturer relationships. No gray market products. Full warranties honored.</p>
+              <h3 class="font-heading font-bold text-lg text-solamp-forest mb-2">First-Class Components</h3>
+              <p class="text-sm text-solamp-forest/70 leading-relaxed">Direct manufacturer relationships. Authorized distributor with full product warranties.</p>
             </div>
             <div class="bg-white rounded-lg p-6 border border-gray-200 hover:border-solamp-green hover:shadow-lg transition-all group">
               <div class="w-14 h-14 bg-solamp-forest rounded-lg flex items-center justify-center mb-4 group-hover:bg-solamp-green transition-colors">
@@ -367,8 +367,8 @@ export default component$(() => {
                   <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
-              <h3 class="font-heading font-bold text-lg text-solamp-forest mb-2">18+ Years</h3>
-              <p class="text-sm text-solamp-forest/70 leading-relaxed">Deep industry knowledge since before the solar boom. We've seen it all.</p>
+              <h3 class="font-heading font-bold text-lg text-solamp-forest mb-2">20+ Years</h3>
+              <p class="text-sm text-solamp-forest/70 leading-relaxed">Built on two decades of industry experience. We've seen it all.</p>
             </div>
             <div class="bg-white rounded-lg p-6 border border-gray-200 hover:border-solamp-green hover:shadow-lg transition-all group">
               <div class="w-14 h-14 bg-solamp-forest rounded-lg flex items-center justify-center mb-4 group-hover:bg-solamp-green transition-colors">
@@ -389,7 +389,7 @@ export default component$(() => {
           <div class="flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
               <h3 class="font-heading font-extrabold text-2xl text-white">Ready to quote your next project?</h3>
-              <p class="text-white/70 mt-1">Send us your BOM or call to discuss. We respond within 24 hours.</p>
+              <p class="text-white/70 mt-1">Send us your project details online, on the phone, or in person.</p>
             </div>
             <div class="flex gap-4">
               <Link href="/contact/" class="inline-flex items-center gap-2 bg-solamp-green text-solamp-forest font-heading font-bold px-6 py-3 rounded hover:bg-white transition-colors">
@@ -447,7 +447,7 @@ export default component$(() => {
         <div class="container mx-auto px-4">
           <div class="flex flex-wrap justify-center items-center gap-10 md:gap-16 text-center">
             <div>
-              <p class="font-heading font-extrabold text-3xl text-solamp-forest">18+</p>
+              <p class="font-heading font-extrabold text-3xl text-solamp-forest">20+</p>
               <p class="text-xs font-mono text-solamp-bronze-dark uppercase tracking-widest mt-1">Years in Business</p>
             </div>
             <div>
@@ -459,7 +459,7 @@ export default component$(() => {
               <p class="text-xs font-mono text-solamp-bronze-dark uppercase tracking-widest mt-1">Brand Partners</p>
             </div>
             <div>
-              <p class="font-heading font-extrabold text-3xl text-solamp-forest">24hr</p>
+              <p class="font-heading font-extrabold text-3xl text-solamp-forest">Fast</p>
               <p class="text-xs font-mono text-solamp-bronze-dark uppercase tracking-widest mt-1">Quote Response</p>
             </div>
           </div>

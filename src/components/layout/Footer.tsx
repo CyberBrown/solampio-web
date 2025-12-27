@@ -76,7 +76,7 @@ export const Footer = component$(() => {
               </div>
               <div>
                 <p class="text-white/60 text-xs mb-0.5">Email</p>
-                <a href="mailto:info@solampio.com" class="text-white/80 hover:text-[#56c270] transition-colors">info@solampio.com</a>
+                <a href="https://form.jotform.com/solamp/contact" target="_blank" rel="noopener noreferrer" class="text-white/80 hover:text-[#56c270] transition-colors">Contact Us</a>
               </div>
               <div>
                 <p class="text-white/60 text-xs mb-0.5">Hours</p>

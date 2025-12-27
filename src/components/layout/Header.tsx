@@ -161,7 +161,7 @@ export const Header = component$(() => {
                     type="text"
                     placeholder={isCompact ? "Search..." : "Search products..."}
                     class={[
-                      'w-full border-2 border-gray-200 bg-white text-sm rounded-lg focus:outline-none focus:border-solamp-green transition-all duration-300',
+                      'w-full border-2 border-gray-200 bg-white text-gray-900 placeholder-gray-500 text-sm rounded-lg focus:outline-none focus:border-solamp-green transition-all duration-300',
                       isCompact ? 'px-3 py-1 pr-8' : 'px-4 py-2 pr-12',
                     ].join(' ')}
                   />
@@ -424,7 +424,7 @@ export const Header = component$(() => {
 
           <div class="p-4 border-b border-gray-200">
             <div class="relative">
-              <input type="text" placeholder="Search products..." class="w-full border border-gray-200 px-3 py-2 pr-10 text-sm rounded-lg" />
+              <input type="text" placeholder="Search products..." class="w-full border border-gray-200 px-3 py-2 pr-10 text-sm rounded-lg text-gray-900 placeholder-gray-500" />
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 absolute right-3 top-1/2 -translate-y-1/2 text-solamp-forest/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
