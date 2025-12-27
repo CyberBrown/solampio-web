@@ -1,9 +1,15 @@
-import { component$ } from '@builder.io/qwik';
+import { component$, useContext } from '@builder.io/qwik';
 import { Link } from '@builder.io/qwik-city';
+import { SidebarContext } from '../../context/sidebar-context';
 
 export const Footer = component$(() => {
+  const sidebar = useContext(SidebarContext);
+
+  // Apply left margin when sidebar is enabled and visible on large screens
+  const footerOffset = sidebar.enabled.value && sidebar.visible.value ? 'lg:ml-64' : '';
+
   return (
-    <footer class="bg-[#042e0d] text-white">
+    <footer class={['bg-[#042e0d] text-white transition-all duration-300', footerOffset].join(' ')}>
       {/* Brand Partners */}
       <div class="border-b border-white/10">
         <div class="container mx-auto px-4 py-6">
