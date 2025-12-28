@@ -15,27 +15,10 @@ export default component$(() => {
 
   return (
     <div class="bg-white min-h-screen">
-      {/* Sidebar Toggle Button - visible on lg screens */}
-      <button
-        onClick$={() => { sidebar.visible.value = !sidebar.visible.value; }}
-        class={[
-          'fixed top-20 z-40 hidden lg:flex items-center justify-center w-10 h-10 bg-[#042e0d] text-white rounded-lg shadow-lg hover:bg-[#042e0d]/90 transition-all duration-300',
-          sidebar.visible.value ? 'left-[216px]' : 'left-4'
-        ].join(' ')}
-        aria-label={sidebar.visible.value ? 'Hide sidebar' : 'Show sidebar'}
-      >
-        {sidebar.visible.value ? (
-          // Chevron left icon when sidebar is visible
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
-          </svg>
-        ) : (
-          // Hamburger icon when sidebar is hidden
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-        )}
-      </button>
+      {/* Fixed background layer behind sidebar to cover footer bleed-through */}
+      {sidebar.visible.value && (
+        <div class="hidden lg:block fixed top-0 left-0 w-64 h-full bg-white z-30" aria-hidden="true" />
+      )}
 
       {/* Fixed Sidebar - hidden on mobile, toggleable on lg */}
       <div class={[

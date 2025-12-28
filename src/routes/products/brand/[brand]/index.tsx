@@ -85,32 +85,6 @@ export default component$(() => {
         </div>
       </section>
 
-      {/* Filter Bar */}
-      <section class="border-b border-gray-300 py-4 bg-white sticky top-16 z-30">
-        <div class="px-6">
-          <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
-            <p class="text-sm text-gray-600">
-              Showing <span class="font-semibold">{products.length}</span> of <span class="font-semibold">{productCount}</span> products from {brandName}
-            </p>
-            <div class="flex gap-2">
-              <select class="border border-gray-300 bg-white px-3 py-2 text-sm rounded">
-                <option disabled selected>Filter by Category</option>
-                <option>Solar Panels</option>
-                <option>Inverters</option>
-                <option>Batteries</option>
-                <option>Controllers</option>
-              </select>
-              <select class="border border-gray-300 bg-white px-3 py-2 text-sm rounded">
-                <option disabled selected>Sort by</option>
-                <option>Name A-Z</option>
-                <option>Price Low-High</option>
-                <option>In Stock First</option>
-              </select>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Products Grid */}
       <section class="py-8">
         <div class="px-6">

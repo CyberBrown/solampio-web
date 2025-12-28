@@ -77,39 +77,6 @@ export default component$(() => {
         </div>
       </section>
 
-      {/* Search and filter bar */}
-      <section class="border-b border-gray-300 py-4 bg-[#f1f1f2] sticky top-16 z-30">
-        <div class="px-6">
-          <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
-            <div class="relative w-full md:w-96">
-              <input
-                type="text"
-                placeholder="Search products, brands, part numbers..."
-                class="w-full border border-gray-300 bg-white px-4 py-2 pr-10 text-sm rounded focus:outline-none focus:border-[#042e0d] focus:ring-0"
-              />
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-            </div>
-            <div class="flex gap-2">
-              <select class="border border-gray-300 bg-white px-3 py-2 text-sm rounded">
-                <option disabled selected>Filter by Brand</option>
-                <option>MidNite Solar</option>
-                <option>Sol-Ark</option>
-                <option>Fortress Power</option>
-                <option>OutBack Power</option>
-              </select>
-              <select class="border border-gray-300 bg-white px-3 py-2 text-sm rounded">
-                <option disabled selected>Sort by</option>
-                <option>Name A-Z</option>
-                <option>Price Low-High</option>
-                <option>In Stock First</option>
-              </select>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Categories Grid */}
       <section class="py-8">
         <div class="px-6">

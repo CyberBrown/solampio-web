@@ -1,10 +1,12 @@
-import { component$, useSignal, useVisibleTask$, $ } from '@builder.io/qwik';
+import { component$, useSignal, useVisibleTask$, $, useContext } from '@builder.io/qwik';
 import { Link } from '@builder.io/qwik-city';
+import { SidebarContext } from '../../context/sidebar-context';
 
 export const Header = component$(() => {
   const isScrolled = useSignal(false);
   const isHovering = useSignal(false);
   const openMenu = useSignal<string | null>(null);
+  const sidebar = useContext(SidebarContext);
 
   // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(() => {
@@ -64,6 +66,22 @@ export const Header = component$(() => {
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
               </label>
+
+              {/* Product sidebar toggle - shows on lg when sidebar is enabled but hidden */}
+              {sidebar.enabled.value && !sidebar.visible.value && (
+                <button
+                  onClick$={() => { sidebar.visible.value = true; }}
+                  class={[
+                    'hidden lg:flex items-center justify-center hover:bg-gray-100 rounded transition-all',
+                    isCompact ? 'p-1.5' : 'p-2',
+                  ].join(' ')}
+                  aria-label="Show product sidebar"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" class={isCompact ? 'h-5 w-5 text-solamp-forest' : 'h-6 w-6 text-solamp-forest'} fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
+                </button>
+              )}
 
               {/* Logo - compresses when scrolled */}
               <Link href="/" class="flex items-center gap-2 flex-shrink-0 transition-all duration-300">
