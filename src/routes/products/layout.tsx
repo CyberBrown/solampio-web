@@ -13,24 +13,24 @@ export default component$(() => {
     };
   });
 
+  const showSidebar = sidebar.visible.value;
+
   return (
     <div class="bg-white min-h-screen">
-      {/* Fixed background layer behind sidebar to cover footer bleed-through */}
-      {sidebar.visible.value && (
-        <div class="hidden lg:block fixed top-0 left-0 w-64 h-full bg-white z-30" aria-hidden="true" />
-      )}
-
-      {/* Fixed Sidebar - hidden on mobile, toggleable on lg */}
-      {sidebar.visible.value && (
-        <div class="hidden lg:block">
+      {/* Fixed Sidebar - hidden on mobile, visible on lg when enabled */}
+      <div class={[
+        'hidden lg:block fixed top-0 left-0 w-64 h-full z-30 transition-transform duration-300',
+        showSidebar ? 'translate-x-0' : '-translate-x-full'
+      ].join(' ')}>
+        <div class="pt-16 h-full overflow-y-auto bg-white border-r border-gray-200 p-4">
           <ProductSidebar />
         </div>
-      )}
+      </div>
 
       {/* Content Area - offset for sidebar on large screens when visible */}
       <div class={[
         'transition-all duration-300',
-        sidebar.visible.value ? 'lg:ml-64' : 'lg:ml-0'
+        showSidebar ? 'lg:ml-64' : 'lg:ml-0'
       ].join(' ')}>
         <Slot />
       </div>

@@ -94,19 +94,18 @@ export const ProductSidebar = component$(() => {
   const sidebar = useContext(SidebarContext);
 
   return (
-    <aside class="w-64 flex-shrink-0">
-      <div class="fixed top-16 left-0 w-64 h-[calc(100vh-4rem)] overflow-y-auto bg-white border-r border-gray-200 p-4">
-        {/* Collapse Button - aligned left at top */}
-        <button
-          onClick$={() => { sidebar.visible.value = false; }}
-          class="flex items-center gap-2 text-xs text-gray-500 hover:text-[#042e0d] mb-4 group transition-colors"
-          aria-label="Collapse sidebar"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
-          </svg>
-          <span class="group-hover:underline">Collapse</span>
-        </button>
+    <>
+      {/* Collapse Button - aligned left at top */}
+      <button
+        onClick$={() => { sidebar.visible.value = false; }}
+        class="flex items-center gap-2 text-xs text-gray-500 hover:text-[#042e0d] mb-4 group transition-colors"
+        aria-label="Collapse sidebar"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
+        </svg>
+        <span class="group-hover:underline">Collapse</span>
+      </button>
 
         {/* Categories */}
         <div class="mb-6">
@@ -212,8 +211,7 @@ export const ProductSidebar = component$(() => {
             978-451-6890
           </a>
         </div>
-      </div>
-    </aside>
+    </>
   );
 });
 
