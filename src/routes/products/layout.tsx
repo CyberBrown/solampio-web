@@ -21,12 +21,11 @@ export default component$(() => {
       )}
 
       {/* Fixed Sidebar - hidden on mobile, toggleable on lg */}
-      <div class={[
-        'hidden lg:block transition-transform duration-300',
-        sidebar.visible.value ? 'translate-x-0' : '-translate-x-full'
-      ].join(' ')}>
-        <ProductSidebar />
-      </div>
+      {sidebar.visible.value && (
+        <div class="hidden lg:block">
+          <ProductSidebar />
+        </div>
+      )}
 
       {/* Content Area - offset for sidebar on large screens when visible */}
       <div class={[
