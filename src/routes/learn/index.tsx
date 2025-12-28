@@ -230,26 +230,29 @@ export default component$(() => {
       {/* Design Tools */}
       <section class="py-10 bg-[#f1f1f2]">
         <div class="container mx-auto px-4">
-          <div class="text-center mb-8">
-            <h2 class="font-heading font-extrabold text-xl text-[#042e0d]">Design Tools</h2>
-            <p class="text-gray-500 text-sm mt-1">Calculators to help size systems and select components</p>
+          <div class="flex justify-between items-end mb-6">
+            <div>
+              <h2 class="font-heading font-extrabold text-xl text-[#042e0d]">Design Tools</h2>
+              <p class="text-gray-500 text-sm mt-1">Calculators to help size systems and select components</p>
+            </div>
+            <Link href="/learn/calculators/" class="text-[#5974c3] font-bold text-sm hover:underline">View All →</Link>
           </div>
           <div class="grid md:grid-cols-4 gap-4">
             {[
-              { name: 'Battery Sizing', desc: 'Calculate battery bank capacity', icon: 'M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z' },
-              { name: 'Array Sizing', desc: 'Size PV arrays for loads', icon: 'M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z' },
-              { name: 'Wire Sizing', desc: 'Calculate conductor sizes', icon: 'M13 10V3L4 14h7v7l9-11h-7z' },
-              { name: 'String Calculator', desc: 'Panel string configurations', icon: 'M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z' },
+              { name: 'Battery Sizing', desc: 'Calculate battery bank capacity', slug: 'battery-sizing', icon: 'M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z', color: 'bg-[#5974c3]' },
+              { name: 'Array Sizing', desc: 'Size PV arrays for loads', slug: 'array-sizing', icon: 'M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z', color: 'bg-[#c3a859]' },
+              { name: 'Wire Gauge', desc: 'Calculate conductor sizes', slug: 'wire-gauge', icon: 'M13 10V3L4 14h7v7l9-11h-7z', color: 'bg-[#56c270]' },
+              { name: 'ROI Estimator', desc: 'Calculate payback period', slug: 'roi-estimator', icon: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z', color: 'bg-[#042e0d]' },
             ].map((tool) => (
-              <div key={tool.name} class="bg-white rounded-lg p-5 text-center border border-gray-200 hover:shadow-lg hover:border-[#042e0d] transition-all cursor-pointer">
-                <div class="w-12 h-12 bg-[#f1f1f2] border border-gray-200 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#042e0d]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <Link key={tool.name} href={`/learn/calculators/${tool.slug}/`} class="bg-white rounded-lg p-5 text-center border border-gray-200 hover:shadow-lg hover:border-[#042e0d] transition-all group">
+                <div class={`w-12 h-12 ${tool.color} rounded-full flex items-center justify-center mx-auto mb-3`}>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
                     <path stroke-linecap="round" stroke-linejoin="round" d={tool.icon} />
                   </svg>
                 </div>
-                <h3 class="font-heading font-bold text-[#042e0d] text-sm mb-1">{tool.name}</h3>
+                <h3 class="font-heading font-bold text-[#042e0d] text-sm mb-1 group-hover:text-[#5974c3] transition-colors">{tool.name}</h3>
                 <p class="text-xs text-gray-500">{tool.desc}</p>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

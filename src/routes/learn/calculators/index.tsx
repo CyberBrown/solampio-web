@@ -36,7 +36,6 @@ const calculators = [
 export default component$(() => {
   return (
     <div class="bg-white min-h-screen">
-      {/* Hero */}
       <section class="bg-[#042e0d] py-12">
         <div class="container mx-auto px-4">
           <div class="max-w-3xl">
@@ -46,17 +45,12 @@ export default component$(() => {
               </svg>
               Design Tools
             </div>
-            <h1 class="font-heading font-extrabold text-3xl md:text-4xl text-white mb-4">
-              Solar Calculators
-            </h1>
-            <p class="text-white/80 text-lg max-w-2xl">
-              Professional-grade calculators to help you size batteries, solar arrays, wiring, and estimate project ROI. Get accurate results and product recommendations.
-            </p>
+            <h1 class="font-heading font-extrabold text-3xl md:text-4xl text-white mb-4">Solar Calculators</h1>
+            <p class="text-white/80 text-lg max-w-2xl">Professional-grade calculators to help you size batteries, solar arrays, wiring, and estimate project ROI.</p>
           </div>
         </div>
       </section>
 
-      {/* Breadcrumb */}
       <section class="bg-[#f1f1f2] border-b border-gray-200 py-3">
         <div class="container mx-auto px-4">
           <nav class="flex items-center gap-2 text-sm">
@@ -67,24 +61,17 @@ export default component$(() => {
         </div>
       </section>
 
-      {/* Calculator Grid */}
       <section class="py-12">
         <div class="container mx-auto px-4">
           <div class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {calculators.map((calc) => (
-              <Link
-                key={calc.slug}
-                href={`/learn/calculators/${calc.slug}/`}
-                class="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg hover:border-[#042e0d] transition-all group"
-              >
+              <Link key={calc.slug} href={`/learn/calculators/${calc.slug}/`} class="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg hover:border-[#042e0d] transition-all group">
                 <div class={`w-14 h-14 ${calc.color} rounded-lg flex items-center justify-center mb-4`}>
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
                     <path stroke-linecap="round" stroke-linejoin="round" d={calc.icon} />
                   </svg>
                 </div>
-                <h2 class="font-heading font-bold text-xl text-[#042e0d] group-hover:text-[#5974c3] transition-colors mb-2">
-                  {calc.name}
-                </h2>
+                <h2 class="font-heading font-bold text-xl text-[#042e0d] group-hover:text-[#5974c3] transition-colors mb-2">{calc.name}</h2>
                 <p class="text-gray-500 text-sm">{calc.description}</p>
                 <div class="mt-4 flex items-center text-[#5974c3] font-semibold text-sm">
                   Open Calculator
@@ -98,7 +85,6 @@ export default component$(() => {
         </div>
       </section>
 
-      {/* Features */}
       <section class="py-10 bg-[#f1f1f2]">
         <div class="container mx-auto px-4">
           <div class="max-w-4xl mx-auto">
@@ -136,7 +122,6 @@ export default component$(() => {
         </div>
       </section>
 
-      {/* CTA */}
       <section class="bg-[#042e0d] py-10">
         <div class="container mx-auto px-4">
           <div class="flex flex-col md:flex-row items-center justify-between gap-6">
@@ -159,10 +144,5 @@ export default component$(() => {
 
 export const head: DocumentHead = {
   title: 'Solar Calculators | Solamp Solar & Energy Storage',
-  meta: [
-    {
-      name: 'description',
-      content: 'Free solar calculators for battery sizing, array sizing, wire gauge, and ROI estimation. Professional tools for solar installers.',
-    },
-  ],
+  meta: [{ name: 'description', content: 'Free solar calculators for battery sizing, array sizing, wire gauge, and ROI estimation.' }],
 };
