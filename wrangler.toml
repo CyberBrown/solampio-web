@@ -2,3 +2,9 @@ name = "solampio-web"
 compatibility_date = "2024-01-01"
 compatibility_flags = ["nodejs_compat"]
 pages_build_output_dir = "dist"
+
+# D1 Database binding for storefront data
+[[d1_databases]]
+binding = "DB"
+database_name = "solampio-migration"
+database_id = "3cc26873-0453-4331-9e0d-7eb89dcf085c"

@@ -1,60 +1,29 @@
 import { component$ } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
-import { Link } from '@builder.io/qwik-city';
-import { categories } from '../../components/products/ProductSidebar';
+import { Link, routeLoader$ } from '@builder.io/qwik-city';
+import { getDB } from '../../lib/db';
 
-const featuredProducts = [
-  {
-    name: 'Sol-Ark 15K-2P Hybrid Inverter',
-    category: 'Inverters',
-    price: 'Call for Pricing',
-    stock: 'In Stock',
-    specs: '15kW | 48V | All-in-One',
-    image: 'https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/1280w/products/130/3415/Sol-ark-Sol-Ark-Hybrid-Inverter_2494__62281.1757948040.jpg',
-  },
-  {
-    name: 'Fortress Power eFlex 5.4',
-    category: 'Batteries',
-    price: 'Call for Pricing',
-    stock: 'In Stock',
-    specs: '5.4kWh | LiFePO4 | Stackable',
-    image: 'https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/1280w/products/694/3652/Fortress-Power-Fortress-Power-eFlex-MAX-54-kW_3616__72874.1758739079.jpg',
-  },
-  {
-    name: 'ZNShine 550W Bifacial',
-    category: 'Solar Panels',
-    price: 'Call for Pricing',
-    stock: 'In Stock',
-    specs: 'Mono PERC | 21.3% Efficiency',
-    image: 'https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/1280w/products/706/3697/-ZNShine-450W-Bifacial-Solar-Panel_3693__13117.1760365366.jpg',
-  },
-  {
-    name: 'MidNite Classic 150',
-    category: 'Charge Controllers',
-    price: 'Call for Pricing',
-    stock: 'In Stock',
-    specs: '150V | MPPT | 96A',
-    image: null,
-  },
-  {
-    name: 'Tamarack Ground Mount Kit',
-    category: 'Mounting',
-    price: 'Call for Pricing',
-    stock: 'In Stock',
-    specs: '4 Panel | Adjustable',
-    image: 'https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/1500x1500/products/163/2794/Tamarack-Ground-Mount-Kit_907__48088.1758915279.jpg',
-  },
-  {
-    name: 'Titan Mini Power Pack',
-    category: 'Portable Power',
-    price: 'Call for Pricing',
-    stock: 'In Stock',
-    specs: 'Portable | Solar Ready',
-    image: 'https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/1280w/products/717/3739/-Titan-Mini-Portable-Solar-Battery-Pack_3724__87428.1761763224.jpg',
-  },
-];
+/**
+ * Load categories from D1 for sidebar navigation
+ */
+export const useCategories = routeLoader$(async (requestEvent) => {
+  const db = getDB(requestEvent.platform);
+  const categories = await db.getCategories(null);  // Get root categories
+  return categories;
+});
+
+/**
+ * Load featured products from D1
+ */
+export const useFeaturedProducts = routeLoader$(async (requestEvent) => {
+  const db = getDB(requestEvent.platform);
+  const products = await db.getFeaturedProducts(6);
+  return products;
+});
 
 export default component$(() => {
+  const categories = useCategories();
+  const featuredProducts = useFeaturedProducts();
   return (
     <div>
       {/* Hero - SOLID Forest Green */}
@@ -82,20 +51,15 @@ export default component$(() => {
         <div class="px-6">
           <h2 class="font-heading font-extrabold text-xl text-[#042e0d] mb-5">Shop by Category</h2>
           <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
-            {categories.map((cat) => (
-              <Link key={cat.slug} href={`/products/category/${cat.slug}/`} class="group bg-[#f1f1f2] border border-gray-200 rounded-lg p-4 hover:border-[#042e0d] hover:shadow-lg transition-all">
+            {categories.value.map((cat) => (
+              <Link key={cat.id} href={`/products/category/${cat.slug}/`} class="group bg-[#f1f1f2] border border-gray-200 rounded-lg p-4 hover:border-[#042e0d] hover:shadow-lg transition-all">
                 <div class="flex justify-between items-start mb-2">
-                  <h3 class="font-heading font-bold text-lg text-[#042e0d] group-hover:text-[#5974c3] transition-colors">{cat.name}</h3>
+                  <h3 class="font-heading font-bold text-lg text-[#042e0d] group-hover:text-[#5974c3] transition-colors">{cat.title}</h3>
                   <span class="text-xs font-mono text-[#c3a859] bg-[#c3a859]/10 px-2 py-1 rounded">{cat.count} items</span>
                 </div>
-                <div class="flex flex-wrap gap-1.5">
-                  {cat.subcategories.slice(0, 4).map((sub) => (
-                    <span key={sub.slug} class="text-xs text-gray-500 bg-white px-2 py-0.5 rounded border border-gray-200">{sub.name}</span>
-                  ))}
-                  {cat.subcategories.length > 4 && (
-                    <span class="text-xs text-gray-400">+{cat.subcategories.length - 4} more</span>
-                  )}
-                </div>
+                {cat.description && (
+                  <p class="text-sm text-gray-600 mt-1">{cat.description.substring(0, 100)}{cat.description.length > 100 ? '...' : ''}</p>
+                )}
               </Link>
             ))}
           </div>
@@ -112,13 +76,13 @@ export default component$(() => {
             </div>
           </div>
           <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
-            {featuredProducts.map((product) => (
-              <div key={product.name} class="bg-white rounded-lg border border-gray-200 overflow-hidden group hover:shadow-lg transition-shadow">
+            {featuredProducts.value.map((product) => (
+              <div key={product.id} class="bg-white rounded-lg border border-gray-200 overflow-hidden group hover:shadow-lg transition-shadow">
                 <div class="aspect-[4/3] bg-gray-100 flex items-center justify-center relative p-4">
-                  {product.image ? (
+                  {product.image_url ? (
                     <img
-                      src={product.image}
-                      alt={product.name}
+                      src={product.image_url}
+                      alt={product.title}
                       class="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-300"
                       width="280"
                       height="210"
@@ -131,14 +95,25 @@ export default component$(() => {
                       <span class="text-xs">Product Photo</span>
                     </div>
                   )}
-                  <span class="absolute top-3 left-3 bg-[#56c270] text-[#042e0d] text-xs font-bold px-2 py-1 rounded">{product.stock}</span>
+                  <span class="absolute top-3 left-3 bg-[#56c270] text-[#042e0d] text-xs font-bold px-2 py-1 rounded">
+                    {product.stock_qty > 0 ? 'In Stock' : 'Out of Stock'}
+                  </span>
                 </div>
                 <div class="p-4">
-                  <p class="text-xs font-mono text-[#c3a859] uppercase tracking-wide mb-1">{product.category}</p>
-                  <Link href="/products/product/" class="font-heading font-bold text-[#042e0d] group-hover:text-[#5974c3] transition-colors block">{product.name}</Link>
-                  <p class="text-sm text-gray-500 font-mono mt-1">{product.specs}</p>
+                  <p class="text-xs font-mono text-[#c3a859] uppercase tracking-wide mb-1">{product.item_group || 'Products'}</p>
+                  <Link href={`/products/${product.sku || product.id}/`} class="font-heading font-bold text-[#042e0d] group-hover:text-[#5974c3] transition-colors block">{product.title}</Link>
+                  {product.sku && (
+                    <p class="text-sm text-gray-500 font-mono mt-1">SKU: {product.sku}</p>
+                  )}
                   <div class="mt-3 pt-3 border-t border-gray-100 flex items-center justify-between">
-                    <span class="font-heading font-bold text-[#042e0d]">{product.price}</span>
+                    <span class="font-heading font-bold text-[#042e0d]">
+                      {product.sale_price
+                        ? `$${product.sale_price.toFixed(2)}`
+                        : product.price
+                          ? `$${product.price.toFixed(2)}`
+                          : 'Call for Pricing'
+                      }
+                    </span>
                     <button class="bg-[#042e0d] text-white px-3 py-1.5 rounded text-sm font-bold hover:bg-[#042e0d]/80 transition-colors">
                       Add to Quote
                     </button>
