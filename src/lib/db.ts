@@ -5,6 +5,8 @@
  * Used by routeLoader$ functions for server-side data fetching.
  */
 
+import type { D1Database } from '@cloudflare/workers-types';
+
 // ============================================================================
 // Type Definitions (matching D1 schema)
 // ============================================================================
