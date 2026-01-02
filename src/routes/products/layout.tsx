@@ -1,9 +1,35 @@
 import { component$, Slot, useContext, useVisibleTask$ } from '@builder.io/qwik';
+import { routeLoader$ } from '@builder.io/qwik-city';
 import { ProductSidebar } from '../../components/products/ProductSidebar';
 import { SidebarContext } from '../../context/sidebar-context';
+import { getDB } from '../../lib/db';
+import type { Category, Brand } from '../../lib/db';
+
+// Loader to fetch all categories from D1
+export const useAllCategories = routeLoader$(async (requestEvent) => {
+  const db = getDB(requestEvent.platform);
+  const allCategories = await db.getCategories();
+
+  // Build hierarchical structure: parent categories with their subcategories
+  const parentCategories = allCategories.filter(cat => !cat.parent_id);
+  const hierarchical = parentCategories.map(parent => ({
+    ...parent,
+    subcategories: allCategories.filter(cat => cat.parent_id === parent.id)
+  }));
+
+  return hierarchical;
+});
+
+// Loader to fetch all brands from D1
+export const useAllBrands = routeLoader$(async (requestEvent) => {
+  const db = getDB(requestEvent.platform);
+  return await db.getBrands();
+});
 
 export default component$(() => {
   const sidebar = useContext(SidebarContext);
+  const categories = useAllCategories();
+  const brands = useAllBrands();
 
   // Enable sidebar when this layout mounts, disable when it unmounts
   useVisibleTask$(() => {
@@ -23,7 +49,7 @@ export default component$(() => {
         showSidebar ? 'translate-x-0' : '-translate-x-full'
       ].join(' ')}>
         <div class="pt-16 h-full overflow-y-auto bg-white border-r border-gray-200 p-4">
-          <ProductSidebar />
+          <ProductSidebar categories={categories.value} brands={brands.value} />
         </div>
       </div>
 

@@ -86,6 +86,18 @@ export interface PaginationMeta {
 }
 
 // ============================================================================
+// Helper Functions
+// ============================================================================
+
+/**
+ * Clean slug by removing leading/trailing slashes
+ */
+export function cleanSlug(slug: string | null): string {
+  if (!slug) return '';
+  return slug.replace(/^\/+|\/+$/g, '');
+}
+
+// ============================================================================
 // D1 Client Class
 // ============================================================================
 

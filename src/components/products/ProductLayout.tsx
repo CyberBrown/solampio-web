@@ -1,5 +1,4 @@
 import { component$, Slot } from '@builder.io/qwik';
-import { ProductSidebar } from './ProductSidebar';
 
 interface ProductLayoutProps {
   title: string;
@@ -54,18 +53,10 @@ export const ProductLayout = component$<ProductLayoutProps>(({
         </section>
       )}
 
-      {/* Main content area with sidebar */}
-      <div class="flex">
-        {/* Fixed Sidebar - hidden on mobile */}
-        <div class="hidden lg:block">
-          <ProductSidebar />
-        </div>
-
-        {/* Scrollable Content Area */}
-        <main class="flex-1 lg:ml-64 min-h-[calc(100vh-4rem)]">
-          <Slot />
-        </main>
-      </div>
+      {/* Main content area */}
+      <main class="flex-1 min-h-[calc(100vh-4rem)]">
+        <Slot />
+      </main>
     </div>
   );
 });

@@ -1,94 +1,20 @@
 import { component$, useContext } from '@builder.io/qwik';
 import { Link, useLocation } from '@builder.io/qwik-city';
 import { SidebarContext } from '../../context/sidebar-context';
+import type { Category, Brand } from '../../lib/db';
+import { cleanSlug } from '../../lib/db';
 
-// Placeholder data - will be replaced with real data later
-const categories = [
-  {
-    name: 'Solar Panels',
-    slug: 'solar-panels',
-    count: 45,
-    subcategories: [
-      { name: 'Rooftop', slug: 'rooftop', count: 18 },
-      { name: 'Ground Mount', slug: 'ground-mount', count: 12 },
-      { name: 'Off Grid', slug: 'off-grid', count: 8 },
-      { name: 'Portable', slug: 'portable', count: 7 },
-    ],
-  },
-  {
-    name: 'Batteries & Storage',
-    slug: 'batteries',
-    count: 32,
-    subcategories: [
-      { name: 'LiFePO4', slug: 'lifepo4', count: 15 },
-      { name: 'High Voltage', slug: 'high-voltage', count: 8 },
-      { name: 'Rack Mounted', slug: 'rack-mounted', count: 6 },
-      { name: 'ESS Systems', slug: 'ess', count: 3 },
-    ],
-  },
-  {
-    name: 'Inverters',
-    slug: 'inverters',
-    count: 28,
-    subcategories: [
-      { name: 'Hybrid', slug: 'hybrid', count: 10 },
-      { name: 'Grid Tie', slug: 'grid-tie', count: 8 },
-      { name: 'Off Grid', slug: 'off-grid', count: 6 },
-      { name: 'Microinverters', slug: 'microinverters', count: 4 },
-    ],
-  },
-  {
-    name: 'Charge Controllers',
-    slug: 'charge-controllers',
-    count: 18,
-    subcategories: [
-      { name: 'MPPT', slug: 'mppt', count: 12 },
-      { name: 'PWM', slug: 'pwm', count: 6 },
-    ],
-  },
-  {
-    name: 'Mounting & Racking',
-    slug: 'mounting',
-    count: 56,
-    subcategories: [
-      { name: 'Ground Mounts', slug: 'ground-mounts', count: 15 },
-      { name: 'Pitched Roof', slug: 'pitched-roof', count: 18 },
-      { name: 'Flat Roof', slug: 'flat-roof', count: 10 },
-      { name: 'Metal Roof', slug: 'metal-roof', count: 8 },
-      { name: 'Pole Mount', slug: 'pole-mount', count: 5 },
-    ],
-  },
-  {
-    name: 'Balance of System',
-    slug: 'bos',
-    count: 124,
-    subcategories: [
-      { name: 'Combiners', slug: 'combiners', count: 20 },
-      { name: 'Breakers', slug: 'breakers', count: 25 },
-      { name: 'Wire & Cable', slug: 'wire-cable', count: 40 },
-      { name: 'Rapid Shutdown', slug: 'rapid-shutdown', count: 15 },
-      { name: 'Surge Protection', slug: 'surge-protection', count: 12 },
-      { name: 'Monitoring', slug: 'monitoring', count: 12 },
-    ],
-  },
-];
+// Type for hierarchical category structure
+interface HierarchicalCategory extends Category {
+  subcategories: Category[];
+}
 
-const brands = [
-  { name: 'MidNite Solar', slug: 'midnite-solar', count: 45 },
-  { name: 'Sol-Ark', slug: 'sol-ark', count: 12 },
-  { name: 'Fortress Power', slug: 'fortress-power', count: 8 },
-  { name: 'Tamarack', slug: 'tamarack', count: 35 },
-  { name: 'Morningstar', slug: 'morningstar', count: 18 },
-  { name: 'OutBack Power', slug: 'outback-power', count: 22 },
-  { name: 'Victron', slug: 'victron', count: 28 },
-  { name: 'ZNShine', slug: 'znshine', count: 15 },
-  { name: 'EG4', slug: 'eg4', count: 10 },
-  { name: 'SimpliPhi', slug: 'simpliphi', count: 6 },
-  { name: 'S-5!', slug: 's-5', count: 20 },
-  { name: 'IronRidge', slug: 'ironridge', count: 25 },
-];
+interface ProductSidebarProps {
+  categories: HierarchicalCategory[];
+  brands: Brand[];
+}
 
-export const ProductSidebar = component$(() => {
+export const ProductSidebar = component$<ProductSidebarProps>(({ categories, brands }) => {
   const loc = useLocation();
   const currentPath = loc.url.pathname;
   const sidebar = useContext(SidebarContext);
@@ -112,15 +38,16 @@ export const ProductSidebar = component$(() => {
           <p class="text-xs font-mono text-[#c3a859] uppercase tracking-wide mb-3">Categories</p>
           <ul class="space-y-1">
             {categories.map((cat) => {
-              const isActive = currentPath.includes(`/category/${cat.slug}`);
+              const catSlug = cleanSlug(cat.slug);
+              const isActive = currentPath.includes(`/category/${catSlug}`);
               const isParentActive = cat.subcategories.some((sub) =>
-                currentPath.includes(`/category/${cat.slug}/${sub.slug}`)
+                currentPath.includes(`/category/${catSlug}/${cleanSlug(sub.slug)}`)
               );
 
               return (
-                <li key={cat.slug}>
+                <li key={cat.id}>
                   <Link
-                    href={`/products/category/${cat.slug}/`}
+                    href={`/products/category/${catSlug}/`}
                     class={[
                       'flex items-center justify-between py-1.5 px-2 rounded text-sm transition-colors',
                       isActive || isParentActive
@@ -128,7 +55,7 @@ export const ProductSidebar = component$(() => {
                         : 'text-[#042e0d] hover:bg-gray-100',
                     ].join(' ')}
                   >
-                    <span>{cat.name}</span>
+                    <span>{cat.title}</span>
                     <span class={[
                       'text-xs',
                       isActive || isParentActive ? 'text-white/70' : 'text-gray-400',
@@ -137,14 +64,15 @@ export const ProductSidebar = component$(() => {
                     </span>
                   </Link>
                   {/* Subcategories - show when parent is active */}
-                  {(isActive || isParentActive) && (
+                  {(isActive || isParentActive) && cat.subcategories.length > 0 && (
                     <ul class="ml-3 mt-1 space-y-0.5 border-l-2 border-[#56c270]/30 pl-3">
                       {cat.subcategories.map((sub) => {
-                        const isSubActive = currentPath.includes(`/category/${cat.slug}/${sub.slug}`);
+                        const subSlug = cleanSlug(sub.slug);
+                        const isSubActive = currentPath.includes(`/category/${catSlug}/${subSlug}`);
                         return (
-                          <li key={sub.slug}>
+                          <li key={sub.id}>
                             <Link
-                              href={`/products/category/${cat.slug}/${sub.slug}/`}
+                              href={`/products/category/${catSlug}/${subSlug}/`}
                               class={[
                                 'flex items-center justify-between py-1 px-2 rounded text-xs transition-colors',
                                 isSubActive
@@ -152,7 +80,7 @@ export const ProductSidebar = component$(() => {
                                   : 'text-gray-600 hover:bg-gray-50',
                               ].join(' ')}
                             >
-                              <span>{sub.name}</span>
+                              <span>{sub.title}</span>
                               <span class="text-gray-400">{sub.count}</span>
                             </Link>
                           </li>
@@ -171,11 +99,12 @@ export const ProductSidebar = component$(() => {
           <p class="text-xs font-mono text-[#c3a859] uppercase tracking-wide mb-3">Brands</p>
           <ul class="space-y-0.5">
             {brands.map((brand) => {
-              const isActive = currentPath.includes(`/brand/${brand.slug}`);
+              const brandSlug = cleanSlug(brand.slug);
+              const isActive = currentPath.includes(`/brand/${brandSlug}`);
               return (
-                <li key={brand.slug}>
+                <li key={brand.id}>
                   <Link
-                    href={`/products/brand/${brand.slug}/`}
+                    href={`/products/brand/${brandSlug}/`}
                     class={[
                       'flex items-center justify-between py-1.5 px-2 rounded text-sm transition-colors',
                       isActive
@@ -183,13 +112,7 @@ export const ProductSidebar = component$(() => {
                         : 'text-[#042e0d] hover:bg-gray-100',
                     ].join(' ')}
                   >
-                    <span>{brand.name}</span>
-                    <span class={[
-                      'text-xs',
-                      isActive ? 'text-white/70' : 'text-gray-400',
-                    ].join(' ')}>
-                      {brand.count}
-                    </span>
+                    <span>{brand.title}</span>
                   </Link>
                 </li>
               );
@@ -214,6 +137,3 @@ export const ProductSidebar = component$(() => {
     </>
   );
 });
-
-// Export categories and brands for use in other components
-export { categories, brands };
