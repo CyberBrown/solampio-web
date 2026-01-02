@@ -20,6 +20,7 @@
     "ignore": "^7.0.5"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260101.0",
     "@types/node": "^20.11.0",
     "autoprefixer": "^10.4.16",
     "postcss": "^8.4.33",
