@@ -1,8 +1,22 @@
 import { component$, useSignal, useVisibleTask$, $, useContext } from '@builder.io/qwik';
 import { Link } from '@builder.io/qwik-city';
 import { SidebarContext } from '../../context/sidebar-context';
+import type { Category } from '../../lib/db';
+import { cleanSlug } from '../../lib/db';
 
-export const Header = component$(() => {
+// Navigation category with subcategories
+interface NavCategory extends Category {
+  subcategories: Category[];
+}
+
+interface HeaderProps {
+  categories: NavCategory[];
+}
+
+// Priority categories to show in main nav (others go in "More" dropdown)
+const PRIORITY_SLUGS = ['solar-panels', 'batteries', 'inverters', 'mounting-and-racking', 'charge-controllers', 'balance-of-system'];
+
+export const Header = component$<HeaderProps>(({ categories }) => {
   const isScrolled = useSignal(false);
   const isHovering = useSignal(false);
   const openMenu = useSignal<string | null>(null);
@@ -13,18 +27,9 @@ export const Header = component$(() => {
     const handleScroll = () => {
       isScrolled.value = window.scrollY > 50;
     };
-    // Check initial scroll position
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  });
-
-  const toggleMenu = $((menuName: string) => {
-    if (openMenu.value === menuName) {
-      openMenu.value = null;
-    } else {
-      openMenu.value = menuName;
-    }
   });
 
   const closeMenu = $(() => {
@@ -33,14 +38,36 @@ export const Header = component$(() => {
 
   // Semi-transparent when scrolled AND not hovering
   const isTransparent = isScrolled.value && !isHovering.value;
-  // Compact when scrolled (regardless of hover - size stays small)
+  // Compact when scrolled
   const isCompact = isScrolled.value;
+
+  // Split categories into priority (main nav) and others (More dropdown)
+  const priorityCategories = categories.filter(cat =>
+    PRIORITY_SLUGS.includes(cleanSlug(cat.slug))
+  ).sort((a, b) =>
+    PRIORITY_SLUGS.indexOf(cleanSlug(a.slug)) - PRIORITY_SLUGS.indexOf(cleanSlug(b.slug))
+  );
+
+  const otherCategories = categories.filter(cat =>
+    !PRIORITY_SLUGS.includes(cleanSlug(cat.slug))
+  );
+
+  // Short display names for nav buttons
+  const getShortName = (title: string) => {
+    const shortNames: Record<string, string> = {
+      'Solar Panels': 'Panels',
+      'Mounting and Racking': 'Mounting',
+      'Charge Controllers': 'Controllers',
+      'Balance of System': 'BOS',
+    };
+    return shortNames[title] || title;
+  };
 
   return (
     <div class="drawer">
       <input id="mobile-drawer" type="checkbox" class="drawer-toggle" />
       <div class="drawer-content flex flex-col">
-        {/* Main header - fixed to viewport, semi-transparent on scroll, opaque on hover */}
+        {/* Main header */}
         <header
           class={[
             'fixed top-0 left-0 right-0 z-50 border-b border-t-4 border-t-solamp-blue transition-all duration-300',
@@ -55,7 +82,6 @@ export const Header = component$(() => {
           }}
         >
           <div class="container mx-auto px-4">
-            {/* Single unified header bar */}
             <div class={[
               'flex items-center justify-between gap-4 transition-all duration-300',
               isCompact ? 'h-11' : 'h-16',
@@ -67,7 +93,7 @@ export const Header = component$(() => {
                 </svg>
               </label>
 
-              {/* Product sidebar toggle - shows on lg when sidebar is enabled but hidden */}
+              {/* Product sidebar toggle */}
               {sidebar.enabled.value && !sidebar.visible.value && (
                 <button
                   onClick$={() => { sidebar.visible.value = true; }}
@@ -83,7 +109,7 @@ export const Header = component$(() => {
                 </button>
               )}
 
-              {/* Logo - compresses when scrolled */}
+              {/* Logo */}
               <Link href="/" class="flex items-center gap-2 flex-shrink-0 transition-all duration-300">
                 <img
                   src="https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/500w/solamp_logo_tight_1716513374__10848.original.png"
@@ -95,68 +121,39 @@ export const Header = component$(() => {
                 />
               </Link>
 
-              {/* Categories - inline in same row, compress on scroll */}
+              {/* Dynamic Categories Navigation */}
               <nav class="hidden lg:flex items-center gap-1 flex-shrink-0">
-                <button
-                  onMouseEnter$={() => { openMenu.value = 'panels'; }}
-                  class={[
-                    'font-heading font-bold rounded transition-all duration-300',
-                    isCompact ? 'px-2 py-1 text-xs' : 'px-3 py-1.5 text-sm',
-                    openMenu.value === 'panels' ? 'bg-solamp-blue text-white' : 'text-solamp-forest hover:bg-gray-100',
-                  ].join(' ')}
-                >
-                  Panels
-                </button>
-                <button
-                  onMouseEnter$={() => { openMenu.value = 'batteries'; }}
-                  class={[
-                    'font-heading font-bold rounded transition-all duration-300',
-                    isCompact ? 'px-2 py-1 text-xs' : 'px-3 py-1.5 text-sm',
-                    openMenu.value === 'batteries' ? 'bg-solamp-blue text-white' : 'text-solamp-forest hover:bg-gray-100',
-                  ].join(' ')}
-                >
-                  Batteries
-                </button>
-                <button
-                  onMouseEnter$={() => { openMenu.value = 'inverters'; }}
-                  class={[
-                    'font-heading font-bold rounded transition-all duration-300',
-                    isCompact ? 'px-2 py-1 text-xs' : 'px-3 py-1.5 text-sm',
-                    openMenu.value === 'inverters' ? 'bg-solamp-blue text-white' : 'text-solamp-forest hover:bg-gray-100',
-                  ].join(' ')}
-                >
-                  Inverters
-                </button>
-                <button
-                  onMouseEnter$={() => { openMenu.value = 'mounting'; }}
-                  class={[
-                    'font-heading font-bold rounded transition-all duration-300',
-                    isCompact ? 'px-2 py-1 text-xs' : 'px-3 py-1.5 text-sm',
-                    openMenu.value === 'mounting' ? 'bg-solamp-blue text-white' : 'text-solamp-forest hover:bg-gray-100',
-                  ].join(' ')}
-                >
-                  Mounting
-                </button>
-                <button
-                  onMouseEnter$={() => { openMenu.value = 'controllers'; }}
-                  class={[
-                    'font-heading font-bold rounded transition-all duration-300',
-                    isCompact ? 'px-2 py-1 text-xs' : 'px-3 py-1.5 text-sm',
-                    openMenu.value === 'controllers' ? 'bg-solamp-blue text-white' : 'text-solamp-forest hover:bg-gray-100',
-                  ].join(' ')}
-                >
-                  Controllers
-                </button>
-                <button
-                  onMouseEnter$={() => { openMenu.value = 'bos'; }}
-                  class={[
-                    'font-heading font-bold rounded transition-all duration-300',
-                    isCompact ? 'px-2 py-1 text-xs' : 'px-3 py-1.5 text-sm',
-                    openMenu.value === 'bos' ? 'bg-solamp-blue text-white' : 'text-solamp-forest hover:bg-gray-100',
-                  ].join(' ')}
-                >
-                  BOS
-                </button>
+                {priorityCategories.map((cat) => {
+                  const slug = cleanSlug(cat.slug);
+                  return (
+                    <button
+                      key={cat.id}
+                      onMouseEnter$={() => { openMenu.value = slug; }}
+                      class={[
+                        'font-heading font-bold rounded transition-all duration-300',
+                        isCompact ? 'px-2 py-1 text-xs' : 'px-3 py-1.5 text-sm',
+                        openMenu.value === slug ? 'bg-solamp-blue text-white' : 'text-solamp-forest hover:bg-gray-100',
+                      ].join(' ')}
+                    >
+                      {getShortName(cat.title)}
+                    </button>
+                  );
+                })}
+
+                {/* More dropdown for other categories */}
+                {otherCategories.length > 0 && (
+                  <button
+                    onMouseEnter$={() => { openMenu.value = 'more'; }}
+                    class={[
+                      'font-heading font-bold rounded transition-all duration-300',
+                      isCompact ? 'px-2 py-1 text-xs' : 'px-3 py-1.5 text-sm',
+                      openMenu.value === 'more' ? 'bg-solamp-blue text-white' : 'text-solamp-forest hover:bg-gray-100',
+                    ].join(' ')}
+                  >
+                    More
+                  </button>
+                )}
+
                 <Link
                   href="/learn/"
                   onMouseEnter$={() => { openMenu.value = null; }}
@@ -169,7 +166,7 @@ export const Header = component$(() => {
                 </Link>
               </nav>
 
-              {/* Search - compresses on scroll */}
+              {/* Search */}
               <div class={[
                 'hidden md:flex transition-all duration-300',
                 isCompact ? 'flex-1 max-w-xs' : 'flex-1 max-w-md',
@@ -224,200 +221,126 @@ export const Header = component$(() => {
             </div>
           </div>
 
-          {/* Mega Menu Dropdowns - positioned under header */}
-          {/* Solar Panels Mega Menu */}
-          <div class={[
-            'absolute left-0 right-0 bg-white border-b border-gray-200 shadow-xl transition-all duration-200 z-40',
-            openMenu.value === 'panels' ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none',
-          ].join(' ')}>
-            <div class="container mx-auto px-4 py-6">
-              <div class="flex gap-8">
-                <div class="flex-1">
-                  <div class="mb-4 pb-4 border-b border-gray-100">
-                    <p class="text-xs font-mono text-solamp-bronze-dark uppercase tracking-wide mb-3">Featured</p>
-                    <Link href="/products/znshine-550w-bifacial/" onClick$={closeMenu} class="flex gap-4 group/item">
-                      <div class="w-20 h-20 bg-solamp-mist rounded flex items-center justify-center flex-shrink-0">
-                        <img src="https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/1280w/products/706/3697/-ZNShine-450W-Bifacial-Solar-Panel_3693__13117.1760365366.jpg" alt="ZNShine Panel" class="w-16 h-16 object-contain" />
+          {/* Dynamic Mega Menus */}
+          {priorityCategories.map((cat) => {
+            const slug = cleanSlug(cat.slug);
+            return (
+              <div
+                key={cat.id}
+                class={[
+                  'absolute left-0 right-0 bg-white border-b border-gray-200 shadow-xl transition-all duration-200 z-40',
+                  openMenu.value === slug ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none',
+                ].join(' ')}
+              >
+                <div class="container mx-auto px-4 py-6">
+                  <div class="flex gap-8">
+                    <div class="flex-1">
+                      <p class="text-xs font-mono text-solamp-forest/50 uppercase tracking-wide mb-3">
+                        {cat.title} Categories
+                      </p>
+                      <div class="flex flex-wrap gap-2">
+                        {cat.subcategories.map((sub) => (
+                          <Link
+                            key={sub.id}
+                            href={`/products/category/${slug}/${cleanSlug(sub.slug)}/`}
+                            onClick$={closeMenu}
+                            class="px-4 py-2 bg-solamp-mist hover:bg-solamp-forest hover:text-white text-sm font-semibold rounded transition-colors text-solamp-forest"
+                          >
+                            {sub.title}
+                          </Link>
+                        ))}
                       </div>
-                      <div>
-                        <p class="font-heading font-bold text-solamp-forest group-hover/item:text-solamp-blue transition-colors">ZNShine 550W Bifacial</p>
-                        <p class="text-sm text-solamp-forest/60">Mono PERC | High Efficiency</p>
-                        <p class="text-sm text-solamp-green font-semibold mt-1">In Stock - Starting at $189</p>
+                      <div class="mt-4 pt-4 border-t border-gray-200">
+                        <Link
+                          href={`/products/category/${slug}/`}
+                          onClick$={closeMenu}
+                          class="text-sm font-bold text-solamp-blue hover:underline"
+                        >
+                          View All {cat.title} →
+                        </Link>
                       </div>
-                    </Link>
-                  </div>
-                  <p class="text-xs font-mono text-solamp-forest/50 uppercase tracking-wide mb-3">Categories</p>
-                  <div class="flex flex-wrap gap-2">
-                    <Link href="/products/" onClick$={closeMenu} class="px-4 py-2 bg-solamp-mist hover:bg-solamp-forest hover:text-white text-sm font-semibold rounded transition-colors text-solamp-forest">Rooftop</Link>
-                    <Link href="/products/" onClick$={closeMenu} class="px-4 py-2 bg-solamp-mist hover:bg-solamp-forest hover:text-white text-sm font-semibold rounded transition-colors text-solamp-forest">Ground Mount</Link>
-                    <Link href="/products/" onClick$={closeMenu} class="px-4 py-2 bg-solamp-mist hover:bg-solamp-forest hover:text-white text-sm font-semibold rounded transition-colors text-solamp-forest">Off Grid</Link>
-                    <Link href="/products/" onClick$={closeMenu} class="px-4 py-2 bg-solamp-mist hover:bg-solamp-forest hover:text-white text-sm font-semibold rounded transition-colors text-solamp-forest">Portable</Link>
-                    <Link href="/products/" onClick$={closeMenu} class="px-4 py-2 bg-solamp-bronze/20 text-solamp-bronze-dark hover:bg-solamp-bronze hover:text-white text-sm font-semibold rounded transition-colors">Pallet Deals</Link>
-                  </div>
-                </div>
-                <div class="w-64 bg-solamp-mist rounded-lg p-5">
-                  <p class="text-xs font-mono text-solamp-forest/50 uppercase tracking-wide mb-3">Resources</p>
-                  <ul class="space-y-3">
-                    <li><Link href="/learn/" onClick$={closeMenu} class="text-sm text-solamp-forest hover:text-solamp-blue transition-colors flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-solamp-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>Panel Selection Guide</Link></li>
-                    <li><Link href="/learn/" onClick$={closeMenu} class="text-sm text-solamp-forest hover:text-solamp-blue transition-colors flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-solamp-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>Sizing Calculator</Link></li>
-                  </ul>
-                  <div class="mt-4 pt-4 border-t border-gray-300">
-                    <Link href="/products/" onClick$={closeMenu} class="text-sm font-bold text-solamp-blue hover:underline">View All Panels →</Link>
+                    </div>
+                    <div class="w-64 bg-solamp-mist rounded-lg p-5">
+                      <p class="text-xs font-mono text-solamp-forest/50 uppercase tracking-wide mb-3">Quick Links</p>
+                      <ul class="space-y-3">
+                        <li>
+                          <Link href="/learn/" onClick$={closeMenu} class="text-sm text-solamp-forest hover:text-solamp-blue transition-colors flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-solamp-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                            </svg>
+                            {cat.title} Guide
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="/contact/" onClick$={closeMenu} class="text-sm text-solamp-forest hover:text-solamp-blue transition-colors flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-solamp-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                            </svg>
+                            Get Expert Help
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
+            );
+          })}
 
-          {/* Batteries Mega Menu */}
-          <div class={[
-            'absolute left-0 right-0 bg-white border-b border-gray-200 shadow-xl transition-all duration-200 z-40',
-            openMenu.value === 'batteries' ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none',
-          ].join(' ')}>
-            <div class="container mx-auto px-4 py-6">
-              <div class="flex gap-8">
-                <div class="flex-1">
-                  <div class="mb-4 pb-4 border-b border-gray-100">
-                    <p class="text-xs font-mono text-solamp-bronze-dark uppercase tracking-wide mb-3">Featured</p>
-                    <Link href="/products/fortress-power-eflex/" onClick$={closeMenu} class="flex gap-4 group/item">
-                      <div class="w-20 h-20 bg-solamp-mist rounded flex items-center justify-center flex-shrink-0">
-                        <img src="https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/1280w/products/694/3652/Fortress-Power-Fortress-Power-eFlex-MAX-54-kW_3616__72874.1758739079.jpg" alt="Fortress Power" class="w-16 h-16 object-contain" />
-                      </div>
-                      <div>
-                        <p class="font-heading font-bold text-solamp-forest group-hover/item:text-solamp-blue transition-colors">Fortress Power eFlex 5.4</p>
-                        <p class="text-sm text-solamp-forest/60">5.4kWh LiFePO4 | Stackable</p>
-                        <p class="text-sm text-solamp-green font-semibold mt-1">In Stock - Starting at $2,195</p>
-                      </div>
-                    </Link>
-                  </div>
-                  <p class="text-xs font-mono text-solamp-forest/50 uppercase tracking-wide mb-3">Categories</p>
-                  <div class="flex flex-wrap gap-2">
-                    <Link href="/products/" onClick$={closeMenu} class="px-4 py-2 bg-solamp-mist hover:bg-solamp-forest hover:text-white text-sm font-semibold rounded transition-colors text-solamp-forest">Lithium LiFePO4</Link>
-                    <Link href="/products/" onClick$={closeMenu} class="px-4 py-2 bg-solamp-mist hover:bg-solamp-forest hover:text-white text-sm font-semibold rounded transition-colors text-solamp-forest">High Voltage</Link>
-                    <Link href="/products/" onClick$={closeMenu} class="px-4 py-2 bg-solamp-mist hover:bg-solamp-forest hover:text-white text-sm font-semibold rounded transition-colors text-solamp-forest">Rack Mounted</Link>
-                    <Link href="/products/" onClick$={closeMenu} class="px-4 py-2 bg-solamp-mist hover:bg-solamp-forest hover:text-white text-sm font-semibold rounded transition-colors text-solamp-forest">ESS Systems</Link>
-                  </div>
-                </div>
-                <div class="w-64 bg-solamp-mist rounded-lg p-5">
-                  <p class="text-xs font-mono text-solamp-forest/50 uppercase tracking-wide mb-3">Resources</p>
-                  <ul class="space-y-3">
-                    <li><Link href="/learn/" onClick$={closeMenu} class="text-sm text-solamp-forest hover:text-solamp-blue transition-colors flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-solamp-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>LiFePO4 vs Li-ion Guide</Link></li>
-                    <li><Link href="/learn/" onClick$={closeMenu} class="text-sm text-solamp-forest hover:text-solamp-blue transition-colors flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-solamp-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>Battery Bank Sizing</Link></li>
-                  </ul>
-                  <div class="mt-4 pt-4 border-t border-gray-300">
-                    <Link href="/products/" onClick$={closeMenu} class="text-sm font-bold text-solamp-blue hover:underline">View All Batteries →</Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Inverters Mega Menu */}
-          <div class={[
-            'absolute left-0 right-0 bg-white border-b border-gray-200 shadow-xl transition-all duration-200 z-40',
-            openMenu.value === 'inverters' ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none',
-          ].join(' ')}>
-            <div class="container mx-auto px-4 py-6">
-              <div class="flex gap-8">
-                <div class="flex-1">
-                  <div class="mb-4 pb-4 border-b border-gray-100">
-                    <p class="text-xs font-mono text-solamp-bronze-dark uppercase tracking-wide mb-3">Featured</p>
-                    <Link href="/products/sol-ark-15k/" onClick$={closeMenu} class="flex gap-4 group/item">
-                      <div class="w-20 h-20 bg-solamp-mist rounded flex items-center justify-center flex-shrink-0">
-                        <img src="https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/1280w/products/130/3415/Sol-ark-Sol-Ark-Hybrid-Inverter_2494__62281.1757948040.jpg" alt="Sol-Ark Inverter" class="w-16 h-16 object-contain" />
-                      </div>
-                      <div>
-                        <p class="font-heading font-bold text-solamp-forest group-hover/item:text-solamp-blue transition-colors">Sol-Ark 15K Hybrid</p>
-                        <p class="text-sm text-solamp-forest/60">15kW | 48V | All-in-One</p>
-                        <p class="text-sm text-solamp-green font-semibold mt-1">In Stock - Starting at $5,495</p>
-                      </div>
-                    </Link>
-                  </div>
-                  <p class="text-xs font-mono text-solamp-forest/50 uppercase tracking-wide mb-3">Categories</p>
-                  <div class="flex flex-wrap gap-2">
-                    <Link href="/products/" onClick$={closeMenu} class="px-4 py-2 bg-solamp-mist hover:bg-solamp-forest hover:text-white text-sm font-semibold rounded transition-colors text-solamp-forest">Hybrid</Link>
-                    <Link href="/products/" onClick$={closeMenu} class="px-4 py-2 bg-solamp-mist hover:bg-solamp-forest hover:text-white text-sm font-semibold rounded transition-colors text-solamp-forest">Grid Tie</Link>
-                    <Link href="/products/" onClick$={closeMenu} class="px-4 py-2 bg-solamp-mist hover:bg-solamp-forest hover:text-white text-sm font-semibold rounded transition-colors text-solamp-forest">Off Grid</Link>
-                    <Link href="/products/" onClick$={closeMenu} class="px-4 py-2 bg-solamp-mist hover:bg-solamp-forest hover:text-white text-sm font-semibold rounded transition-colors text-solamp-forest">Microinverters</Link>
-                    <Link href="/products/" onClick$={closeMenu} class="px-4 py-2 bg-solamp-mist hover:bg-solamp-forest hover:text-white text-sm font-semibold rounded transition-colors text-solamp-forest">Commercial</Link>
-                  </div>
-                </div>
-                <div class="w-64 bg-solamp-mist rounded-lg p-5">
-                  <p class="text-xs font-mono text-solamp-forest/50 uppercase tracking-wide mb-3">Resources</p>
-                  <ul class="space-y-3">
-                    <li><Link href="/learn/" onClick$={closeMenu} class="text-sm text-solamp-forest hover:text-solamp-blue transition-colors flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-solamp-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>Inverter Selection</Link></li>
-                    <li><Link href="/learn/" onClick$={closeMenu} class="text-sm text-solamp-forest hover:text-solamp-blue transition-colors flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-solamp-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>Rosie Inverter Specs</Link></li>
-                  </ul>
-                  <div class="mt-4 pt-4 border-t border-gray-300">
-                    <Link href="/products/" onClick$={closeMenu} class="text-sm font-bold text-solamp-blue hover:underline">View All Inverters →</Link>
-                  </div>
+          {/* "More" Mega Menu for other categories */}
+          {otherCategories.length > 0 && (
+            <div
+              class={[
+                'absolute left-0 right-0 bg-white border-b border-gray-200 shadow-xl transition-all duration-200 z-40',
+                openMenu.value === 'more' ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none',
+              ].join(' ')}
+            >
+              <div class="container mx-auto px-4 py-6">
+                <p class="text-xs font-mono text-solamp-forest/50 uppercase tracking-wide mb-3">More Categories</p>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                  {otherCategories.map((cat) => (
+                    <div key={cat.id}>
+                      <Link
+                        href={`/products/category/${cleanSlug(cat.slug)}/`}
+                        onClick$={closeMenu}
+                        class="font-heading font-bold text-solamp-forest hover:text-solamp-blue transition-colors"
+                      >
+                        {cat.title}
+                      </Link>
+                      {cat.subcategories.length > 0 && (
+                        <ul class="mt-2 space-y-1">
+                          {cat.subcategories.slice(0, 4).map((sub) => (
+                            <li key={sub.id}>
+                              <Link
+                                href={`/products/category/${cleanSlug(cat.slug)}/${cleanSlug(sub.slug)}/`}
+                                onClick$={closeMenu}
+                                class="text-sm text-solamp-forest/70 hover:text-solamp-blue transition-colors"
+                              >
+                                {sub.title}
+                              </Link>
+                            </li>
+                          ))}
+                          {cat.subcategories.length > 4 && (
+                            <li>
+                              <Link
+                                href={`/products/category/${cleanSlug(cat.slug)}/`}
+                                onClick$={closeMenu}
+                                class="text-sm text-solamp-blue hover:underline"
+                              >
+                                +{cat.subcategories.length - 4} more
+                              </Link>
+                            </li>
+                          )}
+                        </ul>
+                      )}
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
-          </div>
-
-          {/* Mounting Mega Menu */}
-          <div class={[
-            'absolute left-0 right-0 bg-white border-b border-gray-200 shadow-xl transition-all duration-200 z-40',
-            openMenu.value === 'mounting' ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none',
-          ].join(' ')}>
-            <div class="container mx-auto px-4 py-6">
-              <p class="text-xs font-mono text-solamp-forest/50 uppercase tracking-wide mb-3">Categories</p>
-              <div class="flex flex-wrap gap-2">
-                <Link href="/products/" onClick$={closeMenu} class="px-4 py-2 bg-solamp-mist hover:bg-solamp-forest hover:text-white text-sm font-semibold rounded transition-colors text-solamp-forest">Ground Mounts</Link>
-                <Link href="/products/" onClick$={closeMenu} class="px-4 py-2 bg-solamp-mist hover:bg-solamp-forest hover:text-white text-sm font-semibold rounded transition-colors text-solamp-forest">Pitched Roof</Link>
-                <Link href="/products/" onClick$={closeMenu} class="px-4 py-2 bg-solamp-mist hover:bg-solamp-forest hover:text-white text-sm font-semibold rounded transition-colors text-solamp-forest">Flat Roof</Link>
-                <Link href="/products/" onClick$={closeMenu} class="px-4 py-2 bg-solamp-mist hover:bg-solamp-forest hover:text-white text-sm font-semibold rounded transition-colors text-solamp-forest">Metal Roof</Link>
-                <Link href="/products/" onClick$={closeMenu} class="px-4 py-2 bg-solamp-mist hover:bg-solamp-forest hover:text-white text-sm font-semibold rounded transition-colors text-solamp-forest">Pole Mount</Link>
-                <Link href="/products/" onClick$={closeMenu} class="px-4 py-2 bg-solamp-mist hover:bg-solamp-forest hover:text-white text-sm font-semibold rounded transition-colors text-solamp-forest">Hardware</Link>
-              </div>
-              <div class="mt-4 pt-4 border-t border-gray-200">
-                <Link href="/products/" onClick$={closeMenu} class="text-sm font-bold text-solamp-blue hover:underline">View All Mounting →</Link>
-              </div>
-            </div>
-          </div>
-
-          {/* Controllers Mega Menu */}
-          <div class={[
-            'absolute left-0 right-0 bg-white border-b border-gray-200 shadow-xl transition-all duration-200 z-40',
-            openMenu.value === 'controllers' ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none',
-          ].join(' ')}>
-            <div class="container mx-auto px-4 py-6">
-              <p class="text-xs font-mono text-solamp-forest/50 uppercase tracking-wide mb-3">Categories</p>
-              <div class="flex flex-wrap gap-2">
-                <Link href="/products/" onClick$={closeMenu} class="px-4 py-2 bg-solamp-mist hover:bg-solamp-forest hover:text-white text-sm font-semibold rounded transition-colors text-solamp-forest">MPPT</Link>
-                <Link href="/products/" onClick$={closeMenu} class="px-4 py-2 bg-solamp-mist hover:bg-solamp-forest hover:text-white text-sm font-semibold rounded transition-colors text-solamp-forest">PWM</Link>
-                <Link href="/products/" onClick$={closeMenu} class="px-4 py-2 bg-solamp-mist hover:bg-solamp-forest hover:text-white text-sm font-semibold rounded transition-colors text-solamp-forest">Stacking</Link>
-                <Link href="/products/" onClick$={closeMenu} class="px-4 py-2 bg-solamp-mist hover:bg-solamp-forest hover:text-white text-sm font-semibold rounded transition-colors text-solamp-forest">DC Power</Link>
-              </div>
-              <div class="mt-4 pt-4 border-t border-gray-200">
-                <Link href="/products/" onClick$={closeMenu} class="text-sm font-bold text-solamp-blue hover:underline">View All Controllers →</Link>
-              </div>
-            </div>
-          </div>
-
-          {/* BOS Mega Menu */}
-          <div class={[
-            'absolute left-0 right-0 bg-white border-b border-gray-200 shadow-xl transition-all duration-200 z-40',
-            openMenu.value === 'bos' ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none',
-          ].join(' ')}>
-            <div class="container mx-auto px-4 py-6">
-              <p class="text-xs font-mono text-solamp-forest/50 uppercase tracking-wide mb-3">Categories</p>
-              <div class="flex flex-wrap gap-2">
-                <Link href="/products/" onClick$={closeMenu} class="px-4 py-2 bg-solamp-mist hover:bg-solamp-forest hover:text-white text-sm font-semibold rounded transition-colors text-solamp-forest">Combiners</Link>
-                <Link href="/products/" onClick$={closeMenu} class="px-4 py-2 bg-solamp-mist hover:bg-solamp-forest hover:text-white text-sm font-semibold rounded transition-colors text-solamp-forest">Breakers</Link>
-                <Link href="/products/" onClick$={closeMenu} class="px-4 py-2 bg-solamp-mist hover:bg-solamp-forest hover:text-white text-sm font-semibold rounded transition-colors text-solamp-forest">Wire &amp; Cable</Link>
-                <Link href="/products/" onClick$={closeMenu} class="px-4 py-2 bg-solamp-mist hover:bg-solamp-forest hover:text-white text-sm font-semibold rounded transition-colors text-solamp-forest">Rapid Shutdown</Link>
-                <Link href="/products/" onClick$={closeMenu} class="px-4 py-2 bg-solamp-mist hover:bg-solamp-forest hover:text-white text-sm font-semibold rounded transition-colors text-solamp-forest">Surge Protection</Link>
-                <Link href="/products/" onClick$={closeMenu} class="px-4 py-2 bg-solamp-mist hover:bg-solamp-forest hover:text-white text-sm font-semibold rounded transition-colors text-solamp-forest">Monitoring</Link>
-              </div>
-              <div class="mt-4 pt-4 border-t border-gray-200">
-                <Link href="/products/" onClick$={closeMenu} class="text-sm font-bold text-solamp-blue hover:underline">View All BOS →</Link>
-              </div>
-            </div>
-          </div>
+          )}
         </header>
-        {/* Spacer to prevent content from being hidden behind fixed header */}
+        {/* Spacer */}
         <div class="h-16" aria-hidden="true"></div>
       </div>
 
@@ -453,12 +376,16 @@ export const Header = component$(() => {
             <div class="mb-4">
               <p class="text-xs font-mono text-solamp-bronze-dark uppercase tracking-wide mb-2">Products</p>
               <ul class="space-y-1">
-                <li><Link href="/products/" class="block py-2 text-sm font-bold text-solamp-forest hover:text-solamp-green">Solar Panels</Link></li>
-                <li><Link href="/products/" class="block py-2 text-sm font-bold text-solamp-forest hover:text-solamp-green">Batteries</Link></li>
-                <li><Link href="/products/" class="block py-2 text-sm font-bold text-solamp-forest hover:text-solamp-green">Inverters</Link></li>
-                <li><Link href="/products/" class="block py-2 text-sm font-bold text-solamp-forest hover:text-solamp-green">Mounting</Link></li>
-                <li><Link href="/products/" class="block py-2 text-sm font-bold text-solamp-forest hover:text-solamp-green">Controllers</Link></li>
-                <li><Link href="/products/" class="block py-2 text-sm font-bold text-solamp-forest hover:text-solamp-green">Balance of System</Link></li>
+                {categories.map((cat) => (
+                  <li key={cat.id}>
+                    <Link
+                      href={`/products/category/${cleanSlug(cat.slug)}/`}
+                      class="block py-2 text-sm font-bold text-solamp-forest hover:text-solamp-green"
+                    >
+                      {cat.title}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
 
