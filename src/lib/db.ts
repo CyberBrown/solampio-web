@@ -124,18 +124,31 @@ export class StorefrontDB {
       order = 'asc'
     } = filters;
 
+    // If category slug provided, look up the category UUID first
+    let categoryId: string | null = null;
+    if (category) {
+      const cat = await this.getCategory(category);
+      if (cat) {
+        categoryId = cat.id;
+      }
+    }
+
     // Build query
     let query = 'SELECT * FROM storefront_products WHERE is_visible = 1';
     const params: any[] = [];
 
-    if (category) {
+    if (categoryId) {
       query += ' AND categories LIKE ?';
-      params.push(`%"${category}"%`);
+      params.push(`%"${categoryId}"%`);
     }
 
     if (brand) {
-      query += ' AND brand_id = ?';
-      params.push(brand);
+      // Brand can be either ID or slug
+      const brandRecord = await this.getBrand(brand);
+      if (brandRecord) {
+        query += ' AND brand_id = ?';
+        params.push(brandRecord.id);
+      }
     }
 
     if (search) {
@@ -157,14 +170,17 @@ export class StorefrontDB {
     let countQuery = 'SELECT COUNT(*) as total FROM storefront_products WHERE is_visible = 1';
     const countParams: any[] = [];
 
-    if (category) {
+    if (categoryId) {
       countQuery += ' AND categories LIKE ?';
-      countParams.push(`%"${category}"%`);
+      countParams.push(`%"${categoryId}"%`);
     }
 
     if (brand) {
-      countQuery += ' AND brand_id = ?';
-      countParams.push(brand);
+      const brandRecord = await this.getBrand(brand);
+      if (brandRecord) {
+        countQuery += ' AND brand_id = ?';
+        countParams.push(brandRecord.id);
+      }
     }
 
     if (search) {
@@ -219,6 +235,46 @@ export class StorefrontDB {
     query += ' ORDER BY sort_order ASC, title ASC';
 
     const result = await this.db.prepare(query).bind(...params).all<Category>();
+    return result.results || [];
+  }
+
+  /**
+   * Get top-level product categories (children of "All Item Groups")
+   * These are the main navigation categories like Batteries, Solar Panels, etc.
+   */
+  async getTopLevelCategories(): Promise<Category[]> {
+    // Find "All Item Groups" which is the ERPNext root
+    const allItemGroups = await this.db.prepare(`
+      SELECT id FROM storefront_categories
+      WHERE erpnext_name = 'All Item Groups' AND is_visible = 1
+      LIMIT 1
+    `).first<{ id: string }>();
+
+    if (!allItemGroups) {
+      // Fallback to root categories if no "All Item Groups"
+      return this.getCategories(null);
+    }
+
+    // Get children of "All Item Groups"
+    const result = await this.db.prepare(`
+      SELECT * FROM storefront_categories
+      WHERE parent_id = ? AND is_visible = 1
+      ORDER BY sort_order ASC, title ASC
+    `).bind(allItemGroups.id).all<Category>();
+
+    return result.results || [];
+  }
+
+  /**
+   * Get subcategories of a category
+   */
+  async getSubcategories(parentId: string): Promise<Category[]> {
+    const result = await this.db.prepare(`
+      SELECT * FROM storefront_categories
+      WHERE parent_id = ? AND is_visible = 1
+      ORDER BY sort_order ASC, title ASC
+    `).bind(parentId).all<Category>();
+
     return result.results || [];
   }
 

@@ -4,11 +4,12 @@ import { Link, routeLoader$ } from '@builder.io/qwik-city';
 import { getDB } from '../../lib/db';
 
 /**
- * Load categories from D1 for sidebar navigation
+ * Load top-level product categories from D1
+ * (children of "All Item Groups" - the main nav categories)
  */
 export const useCategories = routeLoader$(async (requestEvent) => {
   const db = getDB(requestEvent.platform);
-  const categories = await db.getCategories(null);  // Get root categories
+  const categories = await db.getTopLevelCategories();
   return categories;
 });
 

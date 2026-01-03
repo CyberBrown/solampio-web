@@ -10,12 +10,25 @@ export const useAllCategories = routeLoader$(async (requestEvent) => {
   const db = getDB(requestEvent.platform);
   const allCategories = await db.getCategories();
 
-  // Build hierarchical structure: parent categories with their subcategories
-  const parentCategories = allCategories.filter(cat => !cat.parent_id);
-  const hierarchical = parentCategories.map(parent => ({
+  // Find "All Item Groups" root - this is the ERPNext default root
+  const allItemGroups = allCategories.find(cat => cat.erpnext_name === 'All Item Groups');
+  const rootId = allItemGroups?.id;
+
+  // Build hierarchical structure:
+  // - Top-level = children of "All Item Groups" (the real product categories)
+  // - Subcategories = children of those top-level categories
+  const topLevelCategories = allCategories.filter(cat => cat.parent_id === rootId);
+
+  const hierarchical = topLevelCategories.map(parent => ({
     ...parent,
     subcategories: allCategories.filter(cat => cat.parent_id === parent.id)
   }));
+
+  // Sort by sort_order, then alphabetically
+  hierarchical.sort((a, b) => {
+    if (a.sort_order !== b.sort_order) return a.sort_order - b.sort_order;
+    return a.title.localeCompare(b.title);
+  });
 
   return hierarchical;
 });
