@@ -2,6 +2,7 @@ import { component$ } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
 import { Link, routeLoader$ } from '@builder.io/qwik-city';
 import { getDB } from '../../lib/db';
+import { getProductThumbnail } from '../../lib/images';
 
 /**
  * Load top-level product categories from D1
@@ -77,12 +78,14 @@ export default component$(() => {
             </div>
           </div>
           <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
-            {featuredProducts.value.map((product) => (
+            {featuredProducts.value.map((product) => {
+              const imageUrl = getProductThumbnail(product);
+              return (
               <div key={product.id} class="bg-white rounded-lg border border-gray-200 overflow-hidden group hover:shadow-lg transition-shadow">
                 <div class="aspect-[4/3] bg-gray-100 flex items-center justify-center relative p-4">
-                  {product.image_url ? (
+                  {imageUrl ? (
                     <img
-                      src={product.image_url}
+                      src={imageUrl}
                       alt={product.title}
                       class="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-300"
                       width="280"
@@ -121,7 +124,7 @@ export default component$(() => {
                   </div>
                 </div>
               </div>
-            ))}
+            )})}
           </div>
         </div>
       </section>

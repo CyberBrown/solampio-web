@@ -2,6 +2,7 @@ import { component$ } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
 import { useLocation, Link, routeLoader$ } from '@builder.io/qwik-city';
 import { getDB, cleanSlug } from '../../../lib/db';
+import { getProductImageUrl } from '../../../lib/images';
 
 // Loader to fetch product data by SKU
 export const useProductData = routeLoader$(async (requestEvent) => {
@@ -49,7 +50,7 @@ export default component$(() => {
     );
   }
 
-  const firstImage = product.image_url || product.thumbnail_url || null;
+  const firstImage = getProductImageUrl(product, 'product');
   const stockStatus = product.stock_qty > 0 ? 'In Stock' : 'Out of Stock';
   const displayPrice = product.price ? `$${product.price}` : 'Call for Pricing';
   // Parse categories JSON if it's a string

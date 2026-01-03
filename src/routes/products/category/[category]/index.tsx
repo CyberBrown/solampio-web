@@ -2,6 +2,7 @@ import { component$ } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
 import { useLocation, Link, routeLoader$ } from '@builder.io/qwik-city';
 import { getDB, cleanSlug } from '../../../../lib/db';
+import { getProductThumbnail } from '../../../../lib/images';
 
 // Loader to fetch category data and its products
 export const useCategoryData = routeLoader$(async (requestEvent) => {
@@ -111,7 +112,7 @@ export default component$(() => {
           ) : (
             <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
               {products.map((product) => {
-                const firstImage = product.image_url || product.thumbnail_url || null;
+                const firstImage = getProductThumbnail(product);
                 const stockStatus = product.stock_qty > 0 ? 'In Stock' : 'Low Stock';
                 const displayPrice = product.price ? `$${product.price}` : 'Call for Pricing';
 
