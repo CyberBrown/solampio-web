@@ -333,15 +333,17 @@ export class StorefrontDB {
   }
 
   /**
-   * Get featured products (highest stock, visible, with prices)
+   * Get featured products (visible, with prices, prefer in-stock)
    */
   async getFeaturedProducts(limit: number = 6): Promise<Product[]> {
     const result = await this.db.prepare(`
       SELECT * FROM storefront_products
       WHERE is_visible = 1
         AND price IS NOT NULL
-        AND stock_qty > 0
-      ORDER BY stock_qty DESC, created_at DESC
+      ORDER BY
+        CASE WHEN stock_qty > 0 THEN 0 ELSE 1 END,
+        stock_qty DESC,
+        created_at DESC
       LIMIT ?
     `).bind(limit).all<Product>();
 
