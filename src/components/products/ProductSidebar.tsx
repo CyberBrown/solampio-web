@@ -12,9 +12,10 @@ interface HierarchicalCategory extends Category {
 interface ProductSidebarProps {
   categories: HierarchicalCategory[];
   brands: Brand[];
+  isMobile?: boolean;
 }
 
-export const ProductSidebar = component$<ProductSidebarProps>(({ categories, brands }) => {
+export const ProductSidebar = component$<ProductSidebarProps>(({ categories, brands, isMobile }) => {
   const loc = useLocation();
   const currentPath = loc.url.pathname;
   const sidebar = useContext(SidebarContext);
@@ -32,17 +33,19 @@ export const ProductSidebar = component$<ProductSidebarProps>(({ categories, bra
 
   return (
     <>
-      {/* Collapse Button - aligned left at top */}
-      <button
-        onClick$={() => { sidebar.visible.value = false; }}
-        class="flex items-center gap-2 text-xs text-gray-500 hover:text-[#042e0d] mb-4 group transition-colors"
-        aria-label="Collapse sidebar"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
-        </svg>
-        <span class="group-hover:underline">Collapse</span>
-      </button>
+      {/* Collapse Button - only show on desktop */}
+      {!isMobile && (
+        <button
+          onClick$={() => { sidebar.visible.value = false; }}
+          class="flex items-center gap-2 text-xs text-gray-500 hover:text-[#042e0d] mb-4 group transition-colors"
+          aria-label="Collapse sidebar"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
+          </svg>
+          <span class="group-hover:underline">Collapse</span>
+        </button>
+      )}
 
         {/* Categories */}
         <div class="mb-6">

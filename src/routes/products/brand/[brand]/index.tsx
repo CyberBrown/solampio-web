@@ -205,11 +205,11 @@ export default component$(() => {
               <h3 class="font-heading font-extrabold text-2xl text-white">Questions about {brandName}?</h3>
               <p class="text-white/70 mt-1">Our engineers can help you select the right products for your project.</p>
             </div>
-            <div class="flex gap-4">
-              <Link href="/contact/" class="inline-flex items-center gap-2 bg-[#56c270] text-[#042e0d] font-heading font-bold px-6 py-3 rounded hover:bg-white transition-colors">
+            <div class="flex flex-wrap gap-3">
+              <Link href="/contact/" class="inline-flex items-center gap-2 bg-[#56c270] text-[#042e0d] font-heading font-bold px-5 py-3 rounded hover:bg-white transition-colors">
                 Request Quote
               </Link>
-              <a href="tel:978-451-6890" class="inline-flex items-center gap-2 bg-[#c3a859] text-white font-heading font-bold px-6 py-3 rounded hover:bg-[#c3a859]/80 transition-colors">
+              <a href="tel:978-451-6890" class="inline-flex items-center gap-2 bg-[#c3a859] text-white font-heading font-bold px-5 py-3 rounded hover:bg-[#c3a859]/80 transition-colors">
                 978-451-6890
               </a>
             </div>
