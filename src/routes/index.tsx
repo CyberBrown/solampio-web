@@ -1,45 +1,41 @@
 import { component$ } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
-import { Link } from '@builder.io/qwik-city';
+import { Link, routeLoader$ } from '@builder.io/qwik-city';
+import { getDB, cleanSlug, encodeSkuForUrl } from '../lib/db';
+import { getProductThumbnail } from '../lib/images';
 
-const featuredProducts = [
-  {
-    category: 'Solar Panels',
-    name: 'ZNShine 450W Bifacial',
-    specs: 'Mono PERC | Bifacial',
-    price: 'Starting at $189',
-    stock: 'In Stock',
-    href: '/products/',
-    image: 'https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/1280w/products/706/3697/-ZNShine-450W-Bifacial-Solar-Panel_3693__13117.1760365366.jpg',
-  },
-  {
-    category: 'Inverters',
-    name: 'Sol-Ark 15K Hybrid',
-    specs: '15kW | 48V | All-in-One',
-    price: 'Starting at $5,495',
-    stock: 'In Stock',
-    href: '/products/',
-    image: 'https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/1280w/products/130/3415/Sol-ark-Sol-Ark-Hybrid-Inverter_2494__62281.1757948040.jpg',
-  },
-  {
-    category: 'Batteries',
-    name: 'Fortress Power eFlex MAX',
-    specs: '5.4kWh | LiFePO4 | Stackable',
-    price: 'Starting at $2,195',
-    stock: 'In Stock',
-    href: '/products/',
-    image: 'https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/1280w/products/694/3652/Fortress-Power-Fortress-Power-eFlex-MAX-54-kW_3616__72874.1758739079.jpg',
-  },
-  {
-    category: 'Portable Power',
-    name: 'Titan Mini Power Pack',
-    specs: 'Portable | Solar Ready',
-    price: 'Starting at $1,299',
-    stock: 'In Stock',
-    href: '/products/',
-    image: 'https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/1280w/products/717/3739/-Titan-Mini-Portable-Solar-Battery-Pack_3724__87428.1761763224.jpg',
-  },
-];
+// Load top-level categories from D1
+export const useCategories = routeLoader$(async (requestEvent) => {
+  const db = getDB(requestEvent.platform);
+  return await db.getTopLevelCategories();
+});
+
+// Load featured products from D1
+export const useFeaturedProducts = routeLoader$(async (requestEvent) => {
+  const db = getDB(requestEvent.platform);
+  return await db.getFeaturedProducts(4);
+});
+
+// Load brands that have products
+export const useBrands = routeLoader$(async (requestEvent) => {
+  const db = getDB(requestEvent.platform);
+  return await db.getBrandsWithProducts();
+});
+
+// Load featured products by category for category tiles
+export const useFeaturedByCategory = routeLoader$(async (requestEvent) => {
+  const db = getDB(requestEvent.platform);
+  const featuredMap = await db.getFeaturedProductsByCategory();
+  // Convert Map to plain object for serialization
+  const result: Record<string, { thumbnail_url: string | null; image_url: string | null }> = {};
+  featuredMap.forEach((product, categoryId) => {
+    result[categoryId] = {
+      thumbnail_url: product.thumbnail_url,
+      image_url: product.image_url
+    };
+  });
+  return result;
+});
 
 const projectTypes = [
   {
@@ -76,55 +72,12 @@ const projectTypes = [
   },
 ];
 
-const categoryTiles = [
-  {
-    name: 'Solar Panels',
-    description: 'Rooftop, ground mount, off-grid',
-    image: 'https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/1280w/products/364/3115/CW-Energy-410w-Bifacial-Perc-Monocrystalline-Solar-Panel-from-CW-Energy_2651__20471.1755546904.jpg',
-    href: '/products/',
-  },
-  {
-    name: 'Batteries',
-    description: 'LiFePO4, lithium, rack mount',
-    image: 'https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/1280w/products/662/3505/-Titan-Power-Pack_3239__41557.1757958790.jpg',
-    href: '/products/',
-  },
-  {
-    name: 'Inverters',
-    description: 'Hybrid, grid-tie, off-grid',
-    image: 'https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/1280w/products/130/3415/Sol-ark-Sol-Ark-Hybrid-Inverter_2494__62281.1757948040.jpg',
-    href: '/products/',
-  },
-  {
-    name: 'Charge Controllers',
-    description: 'MPPT, PWM, stacking',
-    image: 'https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/1280w/products/694/3652/Fortress-Power-Fortress-Power-eFlex-MAX-54-kW_3616__72874.1758739079.jpg',
-    href: '/products/',
-  },
-  {
-    name: 'Mounting',
-    description: 'Ground, roof, pole mount',
-    image: 'https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/1500x1500/products/163/2794/Tamarack-Ground-Mount-Kit_907__48088.1758915279.jpg',
-    href: '/products/',
-  },
-  {
-    name: 'Balance of System',
-    description: 'Wire, combiners, monitoring',
-    image: 'https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/1500x1500/products/162/3716/tamarack_module_kit__45249.1760740354.jpg',
-    href: '/products/',
-  },
-];
-
-const brandPartners = [
-  'MidNite Solar',
-  'Sol-Ark',
-  'Fortress Power',
-  'Tamarack',
-  'Morningstar',
-  'OutBack Power',
-];
-
 export default component$(() => {
+  const categories = useCategories();
+  const featuredProducts = useFeaturedProducts();
+  const brands = useBrands();
+  const featuredByCategory = useFeaturedByCategory();
+
   return (
     <div class="bg-white">
       {/* Hero - SOLID Forest Green, no gradients */}
@@ -190,15 +143,16 @@ export default component$(() => {
         <div class="container mx-auto px-4 text-center">
           <p class="text-xs font-mono text-solamp-bronze-dark uppercase tracking-widest mb-6">Authorized Technical Distributor</p>
           <div class="flex flex-wrap items-center justify-center gap-4 md:gap-6">
-            {brandPartners.map((brand) => (
-              <div
-                key={brand}
-                class="bg-white border border-gray-200 rounded px-6 py-3 shadow-sm hover:shadow-md hover:border-solamp-green transition-all cursor-default"
+            {brands.value.slice(0, 8).map((brand) => (
+              <Link
+                key={brand.id}
+                href={`/products/brand/${cleanSlug(brand.slug)}/`}
+                class="bg-white border border-gray-200 rounded px-6 py-3 shadow-sm hover:shadow-md hover:border-solamp-green transition-all"
               >
                 <span class="font-heading font-bold text-solamp-forest/40 hover:text-solamp-forest transition-colors whitespace-nowrap">
-                  {brand}
+                  {brand.title}
                 </span>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -215,33 +169,42 @@ export default component$(() => {
             <Link href="/products/" class="text-solamp-blue font-bold hover:underline hidden md:block">View All Products →</Link>
           </div>
           <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
-            {categoryTiles.map((cat) => (
-              <Link key={cat.name} href={cat.href} class="group relative overflow-hidden rounded-lg aspect-[4/3] transform transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-                {/* Background - real product photo */}
-                <img
-                  src={cat.image}
-                  alt={cat.name}
-                  class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  width="400"
-                  height="300"
-                />
-                {/* Dark overlay for text readability - darker by default for better readability */}
-                <div class="absolute inset-0 bg-solamp-forest/50 group-hover:bg-solamp-forest/70 transition-colors duration-300"></div>
-                {/* Border highlight on hover */}
-                <div class="absolute inset-0 border-2 border-transparent group-hover:border-solamp-green rounded-lg transition-colors duration-300"></div>
-                {/* Text content */}
-                <div class="absolute inset-0 flex flex-col justify-end p-4">
-                  <h3 class="font-heading font-extrabold text-xl text-white">{cat.name}</h3>
-                  <p class="text-white/80 text-sm">{cat.description}</p>
-                </div>
-                {/* Hover arrow */}
-                <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-2 group-hover:translate-x-0">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-solamp-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </div>
-              </Link>
-            ))}
+            {categories.value.slice(0, 6).map((cat) => {
+              const catSlug = cleanSlug(cat.slug);
+              const featuredProduct = featuredByCategory.value[cat.id];
+              const imageUrl = featuredProduct?.image_url || featuredProduct?.thumbnail_url || cat.image_url;
+              return (
+                <Link key={cat.id} href={`/products/category/${catSlug}/`} class="group relative overflow-hidden rounded-lg aspect-[4/3] transform transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                  {/* Background - featured product photo or category image */}
+                  {imageUrl ? (
+                    <img
+                      src={imageUrl}
+                      alt={cat.title}
+                      class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      width="400"
+                      height="300"
+                    />
+                  ) : (
+                    <div class="absolute inset-0 bg-solamp-forest" />
+                  )}
+                  {/* Dark overlay for text readability */}
+                  <div class="absolute inset-0 bg-solamp-forest/50 group-hover:bg-solamp-forest/70 transition-colors duration-300"></div>
+                  {/* Border highlight on hover */}
+                  <div class="absolute inset-0 border-2 border-transparent group-hover:border-solamp-green rounded-lg transition-colors duration-300"></div>
+                  {/* Text content */}
+                  <div class="absolute inset-0 flex flex-col justify-end p-4">
+                    <h3 class="font-heading font-extrabold text-xl text-white">{cat.title}</h3>
+                    <p class="text-white/80 text-sm">{cat.description || `${cat.count} products`}</p>
+                  </div>
+                  {/* Hover arrow */}
+                  <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-2 group-hover:translate-x-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-solamp-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -257,34 +220,54 @@ export default component$(() => {
             <Link href="/products/" class="text-solamp-blue font-bold hover:underline hidden md:block">View All →</Link>
           </div>
           <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
-            {featuredProducts.map((product) => (
-              <div key={product.name} class="bg-white rounded-lg border border-transparent shadow-sm hover:shadow-md overflow-hidden group transition-all duration-300">
-                {/* Product image - clickable link to product page */}
-                <Link href={product.href} class="aspect-square bg-white flex items-center justify-center relative p-4 block">
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    class="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-300"
-                    width="280"
-                    height="280"
-                  />
-                  {/* Stock badge */}
-                  <span class="absolute top-3 left-3 bg-solamp-green text-solamp-forest text-xs font-bold px-2 py-1 rounded">{product.stock}</span>
-                </Link>
-                {/* Product info */}
-                <div class="p-4 pt-0">
-                  <p class="text-[10px] font-mono text-solamp-bronze-dark uppercase tracking-widest mb-1">{product.category}</p>
-                  <Link href={product.href} class="font-heading font-bold text-solamp-forest group-hover:text-solamp-blue transition-colors block line-clamp-1">{product.name}</Link>
-                  <p class="text-xs text-solamp-forest/70 font-mono mt-1">{product.specs}</p>
-                  <div class="mt-4 pt-3 border-t border-gray-50 flex items-center justify-between">
-                    <span class="font-heading font-extrabold text-solamp-forest">{product.price}</span>
-                    <button class="bg-solamp-forest text-white px-3 py-1.5 rounded text-sm font-bold hover:bg-solamp-forest/80 transition-colors">
-                      Add to Quote
-                    </button>
+            {featuredProducts.value.map((product) => {
+              const imageUrl = getProductThumbnail(product);
+              const stockStatus = product.stock_qty > 0 ? 'In Stock' : 'Out of Stock';
+              const displayPrice = product.price
+                ? `$${product.price.toFixed(2)}`
+                : 'Call for Pricing';
+              return (
+                <div key={product.id} class="bg-white rounded-lg border border-transparent shadow-sm hover:shadow-md overflow-hidden group transition-all duration-300">
+                  {/* Product image - clickable link to product page */}
+                  <Link href={`/products/${encodeSkuForUrl(product.sku)}/`} class="aspect-square bg-white flex items-center justify-center relative p-4 block">
+                    {imageUrl ? (
+                      <img
+                        src={imageUrl}
+                        alt={product.title}
+                        class="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-300"
+                        width="280"
+                        height="280"
+                      />
+                    ) : (
+                      <div class="text-center text-gray-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="0.5">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                      </div>
+                    )}
+                    {/* Stock badge */}
+                    <span class={[
+                      'absolute top-3 left-3 text-xs font-bold px-2 py-1 rounded',
+                      stockStatus === 'In Stock' ? 'bg-solamp-green text-solamp-forest' : 'bg-gray-200 text-gray-600'
+                    ].join(' ')}>{stockStatus}</span>
+                  </Link>
+                  {/* Product info */}
+                  <div class="p-4 pt-0">
+                    <p class="text-[10px] font-mono text-solamp-bronze-dark uppercase tracking-widest mb-1">{product.item_group || 'Products'}</p>
+                    <Link href={`/products/${encodeSkuForUrl(product.sku)}/`} class="font-heading font-bold text-solamp-forest group-hover:text-solamp-blue transition-colors block line-clamp-1">{product.title}</Link>
+                    {product.sku && (
+                      <p class="text-xs text-solamp-forest/70 font-mono mt-1">SKU: {product.sku}</p>
+                    )}
+                    <div class="mt-4 pt-3 border-t border-gray-50 flex items-center justify-between">
+                      <span class="font-heading font-extrabold text-solamp-forest">{displayPrice}</span>
+                      <button class="bg-solamp-forest text-white px-3 py-1.5 rounded text-sm font-bold hover:bg-solamp-forest/80 transition-colors">
+                        Add to Quote
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>

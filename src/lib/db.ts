@@ -30,6 +30,8 @@ export interface Product {
   weight_lbs: number | null;
   has_variants: number;  // 1 if this is a parent product with variants
   variant_of: string | null;  // SKU of parent product if this is a variant
+  is_featured: number;  // 1 if this product should appear in featured sections
+  featured_category_id: string | null;  // Category ID where this product is featured (for nav, hero, etc.)
   sync_source: string;
   last_synced_from_erpnext: string | null;
   created_at: string;
@@ -441,9 +443,26 @@ export class StorefrontDB {
   }
 
   /**
-   * Get featured products (visible, with prices, prefer in-stock, excludes templates)
+   * Get featured products (products marked as is_featured=1 in ERPNext)
+   * Falls back to products with prices if no featured products exist
    */
   async getFeaturedProducts(limit: number = 6): Promise<Product[]> {
+    // First try to get explicitly featured products
+    const featured = await this.db.prepare(`
+      SELECT * FROM storefront_products
+      WHERE is_visible = 1 AND has_variants = 0 AND is_featured = 1
+      ORDER BY
+        CASE WHEN stock_qty > 0 THEN 0 ELSE 1 END,
+        stock_qty DESC,
+        title ASC
+      LIMIT ?
+    `).bind(limit).all<Product>();
+
+    if (featured.results && featured.results.length > 0) {
+      return featured.results;
+    }
+
+    // Fallback: get products with prices, prefer in-stock
     const result = await this.db.prepare(`
       SELECT * FROM storefront_products
       WHERE is_visible = 1 AND has_variants = 0
@@ -456,6 +475,43 @@ export class StorefrontDB {
     `).bind(limit).all<Product>();
 
     return result.results || [];
+  }
+
+  /**
+   * Get featured product for a specific category (for nav, hero sections, etc.)
+   * Returns the product marked as featured_category_id matching the category
+   */
+  async getFeaturedProductForCategory(categoryId: string): Promise<Product | null> {
+    const result = await this.db.prepare(`
+      SELECT * FROM storefront_products
+      WHERE is_visible = 1 AND has_variants = 0
+        AND featured_category_id = ?
+      ORDER BY stock_qty DESC
+      LIMIT 1
+    `).bind(categoryId).first<Product>();
+
+    return result || null;
+  }
+
+  /**
+   * Get all featured products by category (keyed by category ID)
+   * Useful for building nav or category grids with featured product images
+   */
+  async getFeaturedProductsByCategory(): Promise<Map<string, Product>> {
+    const result = await this.db.prepare(`
+      SELECT * FROM storefront_products
+      WHERE is_visible = 1 AND has_variants = 0
+        AND featured_category_id IS NOT NULL
+      ORDER BY stock_qty DESC
+    `).all<Product>();
+
+    const map = new Map<string, Product>();
+    for (const product of result.results || []) {
+      if (product.featured_category_id && !map.has(product.featured_category_id)) {
+        map.set(product.featured_category_id, product);
+      }
+    }
+    return map;
   }
 
   /**
