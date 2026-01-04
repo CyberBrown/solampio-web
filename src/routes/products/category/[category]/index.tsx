@@ -4,7 +4,7 @@ import { useLocation, Link, routeLoader$ } from '@builder.io/qwik-city';
 import { getDB, cleanSlug, encodeSkuForUrl } from '../../../../lib/db';
 import { getProductThumbnail } from '../../../../lib/images';
 
-// Loader to fetch category data and its products
+// Loader to fetch category data and its products (including subcategory products)
 export const useCategoryData = routeLoader$(async (requestEvent) => {
   const db = getDB(requestEvent.platform);
   const categorySlug = requestEvent.params.category;
@@ -12,26 +12,19 @@ export const useCategoryData = routeLoader$(async (requestEvent) => {
   // Fetch the category by slug
   const category = await db.getCategory(categorySlug);
   if (!category) {
-    return { category: null, subcategories: [], products: [], pagination: null };
+    return { category: null, subcategories: [], products: [] };
   }
 
   // Fetch subcategories (children of this category)
-  const allCategories = await db.getCategories();
-  const subcategories = allCategories.filter(cat => cat.parent_id === category.id);
+  const subcategories = await db.getSubcategories(category.id);
 
-  // Fetch products for this category
-  const result = await db.getProducts({
-    category: categorySlug,
-    limit: 50,
-    sort: 'title',
-    order: 'asc'
-  });
+  // Fetch products from this category AND all subcategories
+  const products = await db.getProductsInCategoryTree(category.id, 100);
 
   return {
     category,
     subcategories,
-    products: result.products,
-    pagination: result.pagination
+    products
   };
 });
 
@@ -44,7 +37,7 @@ export default component$(() => {
   const categoryName = category?.title || categorySlug.split('-').map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
   const subcategories = data.value.subcategories;
   const products = data.value.products;
-  const productCount = category?.count || 0;
+  const productCount = products.length;
 
   return (
     <div>
@@ -152,16 +145,6 @@ export default component$(() => {
                   </div>
                 );
               })}
-            </div>
-          )}
-
-
-          {/* Load More */}
-          {products.length < productCount && (
-            <div class="text-center mt-8">
-              <button class="bg-white border-2 border-[#042e0d] text-[#042e0d] font-heading font-bold px-8 py-3 rounded hover:bg-[#042e0d] hover:text-white transition-colors">
-                Load More Products
-              </button>
             </div>
           )}
         </div>

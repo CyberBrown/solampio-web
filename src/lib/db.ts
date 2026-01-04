@@ -348,6 +348,31 @@ export class StorefrontDB {
   }
 
   /**
+   * Get products from a category AND all its subcategories
+   * Used for top-level category pages to show all products in that tree
+   */
+  async getProductsInCategoryTree(categoryId: string, limit: number = 50): Promise<Product[]> {
+    // Get subcategory IDs
+    const subcategories = await this.getSubcategories(categoryId);
+    const allCategoryIds = [categoryId, ...subcategories.map(s => s.id)];
+
+    // Build a query that matches any of these category IDs in the JSON array
+    // We use multiple LIKE conditions joined with OR
+    const conditions = allCategoryIds.map(() => 'categories LIKE ?').join(' OR ');
+    const params = allCategoryIds.map(id => `%"${id}"%`);
+
+    const result = await this.db.prepare(`
+      SELECT * FROM storefront_products
+      WHERE is_visible = 1 AND has_variants = 0
+        AND (${conditions})
+      ORDER BY title ASC
+      LIMIT ?
+    `).bind(...params, limit).all<Product>();
+
+    return result.results || [];
+  }
+
+  /**
    * Get single category by ID or slug
    */
   async getCategory(idOrSlug: string): Promise<Category | null> {
