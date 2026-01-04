@@ -5,14 +5,18 @@ import { SidebarContext } from '../../context/sidebar-context';
 import { getDB } from '../../lib/db';
 import type { Category, Brand } from '../../lib/db';
 
-// Loader to fetch all categories from D1
+// Loader to fetch categories that have products
 export const useAllCategories = routeLoader$(async (requestEvent) => {
   const db = getDB(requestEvent.platform);
-  const allCategories = await db.getCategories();
+  const [allCategories, categoryIdsWithProducts] = await Promise.all([
+    db.getCategories(),
+    db.getCategoryIdsWithProducts()
+  ]);
 
   // Build hierarchical structure from BigCommerce categories:
   // - Top-level = categories with parent_id = null (visible only)
   // - Subcategories = children of those top-level categories
+  // - Only include categories that have products (or have subcategories with products)
   const topLevelCategories = allCategories.filter(cat =>
     cat.parent_id === null && cat.is_visible === 1
   );
@@ -20,9 +24,14 @@ export const useAllCategories = routeLoader$(async (requestEvent) => {
   const hierarchical = topLevelCategories.map(parent => ({
     ...parent,
     subcategories: allCategories.filter(cat =>
-      cat.parent_id === parent.id && cat.is_visible === 1
+      cat.parent_id === parent.id &&
+      cat.is_visible === 1 &&
+      categoryIdsWithProducts.has(cat.id)
     )
-  }));
+  })).filter(parent =>
+    // Keep parent if it has products directly OR has subcategories with products
+    categoryIdsWithProducts.has(parent.id) || parent.subcategories.length > 0
+  );
 
   // Sort by sort_order, then alphabetically
   hierarchical.sort((a, b) => {

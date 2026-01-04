@@ -270,6 +270,27 @@ export class StorefrontDB {
   }
 
   /**
+   * Get category IDs that have at least one visible product (excludes templates)
+   */
+  async getCategoryIdsWithProducts(): Promise<Set<string>> {
+    const result = await this.db.prepare(`
+      SELECT categories FROM storefront_products
+      WHERE is_visible = 1 AND has_variants = 0 AND categories IS NOT NULL
+    `).all<{ categories: string }>();
+
+    const categoryIds = new Set<string>();
+    for (const row of result.results || []) {
+      try {
+        const ids = JSON.parse(row.categories) as string[];
+        ids.forEach(id => categoryIds.add(id));
+      } catch {
+        // Skip invalid JSON
+      }
+    }
+    return categoryIds;
+  }
+
+  /**
    * Get top-level product categories (children of "All Item Groups")
    * These are the main navigation categories like Batteries, Solar Panels, etc.
    */
