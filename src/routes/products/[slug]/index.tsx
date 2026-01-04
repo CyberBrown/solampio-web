@@ -244,7 +244,8 @@ export default component$(() => {
 
               {product.description && (
                 <p class="text-gray-600 mb-6">
-                  {product.description}
+                  {product.description.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().substring(0, 200)}
+                  {product.description.length > 200 ? '...' : ''}
                 </p>
               )}
 
@@ -327,37 +328,10 @@ export default component$(() => {
           <div class="px-6">
             <div class="max-w-3xl">
               <h2 class="font-heading font-bold text-xl text-[#042e0d] mb-4">Product Overview</h2>
-              <div class="prose prose-gray max-w-none">
-                <p class="text-gray-600">{product.description}</p>
-              </div>
-              <ul class="space-y-2 text-gray-600 mt-6">
-                <li class="flex items-start gap-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#56c270] flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                  </svg>
-                  Professional-grade quality
-                </li>
-                <li class="flex items-start gap-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#56c270] flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                  </svg>
-                  Full manufacturer warranty
-                </li>
-                <li class="flex items-start gap-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#56c270] flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                  </svg>
-                  Technical support available
-                </li>
-                {product.stock_qty > 0 && (
-                  <li class="flex items-start gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#56c270] flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                    </svg>
-                    In stock and ready to ship
-                  </li>
-                )}
-              </ul>
+              <div
+                class="prose prose-gray max-w-none prose-headings:font-heading prose-headings:text-[#042e0d] prose-headings:font-bold prose-headings:text-lg prose-headings:mt-6 prose-headings:mb-2 prose-p:text-gray-600 prose-p:mb-4 prose-strong:text-[#042e0d] prose-ul:my-4 prose-li:text-gray-600"
+                dangerouslySetInnerHTML={product.description}
+              />
             </div>
           </div>
         </section>
