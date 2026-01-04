@@ -60,19 +60,13 @@ export const ProductSidebar = component$<ProductSidebarProps>(({ categories, bra
                   <Link
                     href={`/products/category/${catSlug}/`}
                     class={[
-                      'flex items-center justify-between py-1.5 px-2 rounded text-sm transition-colors',
+                      'block py-1.5 px-2 rounded text-sm transition-colors',
                       isActive || isParentActive
                         ? 'bg-[#042e0d] text-white font-semibold'
                         : 'text-[#042e0d] hover:bg-gray-100',
                     ].join(' ')}
                   >
-                    <span>{cat.title}</span>
-                    <span class={[
-                      'text-xs',
-                      isActive || isParentActive ? 'text-white/70' : 'text-gray-400',
-                    ].join(' ')}>
-                      {cat.count}
-                    </span>
+                    {cat.title}
                   </Link>
                   {/* Subcategories - show when parent is active */}
                   {(isActive || isParentActive) && cat.subcategories.length > 0 && (
@@ -85,14 +79,13 @@ export const ProductSidebar = component$<ProductSidebarProps>(({ categories, bra
                             <Link
                               href={`/products/category/${catSlug}/${subSlug}/`}
                               class={[
-                                'flex items-center justify-between py-1 px-2 rounded text-xs transition-colors',
+                                'block py-1 px-2 rounded text-xs transition-colors',
                                 isSubActive
                                   ? 'bg-[#56c270]/20 text-[#042e0d] font-semibold'
                                   : 'text-gray-600 hover:bg-gray-50',
                               ].join(' ')}
                             >
-                              <span>{sub.title}</span>
-                              <span class="text-gray-400">{sub.count}</span>
+                              {sub.title}
                             </Link>
                           </li>
                         );
