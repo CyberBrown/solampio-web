@@ -33,10 +33,10 @@ export const useAllCategories = routeLoader$(async (requestEvent) => {
   return hierarchical;
 });
 
-// Loader to fetch all brands from D1
+// Loader to fetch brands that have products
 export const useAllBrands = routeLoader$(async (requestEvent) => {
   const db = getDB(requestEvent.platform);
-  return await db.getBrands();
+  return await db.getBrandsWithProducts();
 });
 
 export default component$(() => {

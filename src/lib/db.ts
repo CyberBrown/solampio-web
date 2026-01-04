@@ -336,6 +336,20 @@ export class StorefrontDB {
   }
 
   /**
+   * Get brands that have at least one visible product (excludes templates)
+   */
+  async getBrandsWithProducts(): Promise<Brand[]> {
+    const result = await this.db.prepare(`
+      SELECT DISTINCT b.* FROM storefront_brands b
+      INNER JOIN storefront_products p ON p.brand_id = b.id
+      WHERE b.is_visible = 1 AND p.is_visible = 1 AND p.has_variants = 0
+      ORDER BY b.sort_order ASC, b.title ASC
+    `).all<Brand>();
+
+    return result.results || [];
+  }
+
+  /**
    * Get single brand by ID or slug
    */
   async getBrand(idOrSlug: string): Promise<Brand | null> {
