@@ -87,6 +87,14 @@ export interface PaginationMeta {
   has_more: boolean;
 }
 
+export interface ProductImage {
+  cf_image_id: string;
+  thumbnail_url: string;
+  image_url: string;
+  sort_order: number;
+  is_primary: number;
+}
+
 // ============================================================================
 // Helper Functions
 // ============================================================================
@@ -412,6 +420,21 @@ export class StorefrontDB {
         created_at DESC
       LIMIT ?
     `).bind(limit).all<Product>();
+
+    return result.results || [];
+  }
+
+  /**
+   * Get all images for a product
+   * Returns images sorted by is_primary DESC, sort_order ASC
+   */
+  async getProductImages(productId: string): Promise<ProductImage[]> {
+    const result = await this.db.prepare(`
+      SELECT cf_image_id, thumbnail_url, image_url, sort_order, is_primary
+      FROM storefront_product_images
+      WHERE product_id = ?
+      ORDER BY is_primary DESC, sort_order ASC
+    `).bind(productId).all<ProductImage>();
 
     return result.results || [];
   }

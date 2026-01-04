@@ -1,7 +1,7 @@
-import { component$ } from '@builder.io/qwik';
+import { component$, useSignal } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
 import { useLocation, Link, routeLoader$ } from '@builder.io/qwik-city';
-import { getDB, cleanSlug, type Product } from '../../../lib/db';
+import { getDB, cleanSlug, type Product, type ProductImage } from '../../../lib/db';
 import { getProductImageUrl } from '../../../lib/images';
 
 // Loader to fetch product data by SKU
@@ -12,7 +12,7 @@ export const useProductData = routeLoader$(async (requestEvent) => {
   // Fetch the product by SKU
   const product = await db.getProduct(slug);
   if (!product) {
-    return { product: null, brand: null, variants: [], parentProduct: null };
+    return { product: null, brand: null, variants: [], parentProduct: null, images: [] };
   }
 
   // Fetch brand if available
@@ -35,11 +35,15 @@ export const useProductData = routeLoader$(async (requestEvent) => {
     variants = await db.getVariants(product.variant_of);
   }
 
+  // Fetch all images for this product
+  const images = await db.getProductImages(product.id);
+
   return {
     product,
     brand,
     variants,
-    parentProduct
+    parentProduct,
+    images
   };
 });
 
@@ -47,11 +51,13 @@ export default component$(() => {
   const loc = useLocation();
   const slug = loc.params.slug;
   const data = useProductData();
+  const selectedImageIndex = useSignal(0);
 
   const product = data.value.product;
   const brand = data.value.brand;
   const variants = data.value.variants;
   const parentProduct = data.value.parentProduct;
+  const images = data.value.images;
 
   // If no product found, show error state
   if (!product) {
@@ -68,7 +74,11 @@ export default component$(() => {
     );
   }
 
-  const firstImage = getProductImageUrl(product, 'product');
+  // Use images from gallery if available, fallback to single product image
+  const hasGallery = images.length > 0;
+  const currentImage = hasGallery
+    ? images[selectedImageIndex.value]?.image_url
+    : getProductImageUrl(product, 'product');
   const stockStatus = product.stock_qty > 0 ? 'In Stock' : 'Out of Stock';
   const displayPrice = product.price ? `$${product.price}` : 'Call for Pricing';
   // Parse categories JSON if it's a string
@@ -103,16 +113,45 @@ export default component$(() => {
       <section class="py-8">
         <div class="px-6">
           <div class="grid lg:grid-cols-2 gap-8 items-start">
-            {/* Product Image */}
-            <div class="bg-gray-100 rounded-lg aspect-square flex items-center justify-center sticky top-24 p-8">
-              {firstImage ? (
-                <img src={firstImage} alt={product.title} class="w-full h-full object-contain" />
-              ) : (
-                <div class="text-center text-gray-300">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-32 w-32 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="0.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                  </svg>
-                  <span class="text-sm">Product Photo</span>
+            {/* Product Image Gallery */}
+            <div class="sticky top-24">
+              {/* Main Image */}
+              <div class="bg-gray-100 rounded-lg aspect-square flex items-center justify-center p-8 mb-4">
+                {currentImage ? (
+                  <img src={currentImage} alt={product.title} class="w-full h-full object-contain" />
+                ) : (
+                  <div class="text-center text-gray-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-32 w-32 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="0.5">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    <span class="text-sm">Product Photo</span>
+                  </div>
+                )}
+              </div>
+
+              {/* Thumbnail Gallery */}
+              {hasGallery && images.length > 1 && (
+                <div class="flex gap-2 overflow-x-auto pb-2">
+                  {images.map((img, index) => (
+                    <button
+                      key={img.cf_image_id}
+                      onClick$={() => { selectedImageIndex.value = index; }}
+                      class={[
+                        'flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-colors',
+                        selectedImageIndex.value === index
+                          ? 'border-[#042e0d]'
+                          : 'border-gray-200 hover:border-gray-400'
+                      ].join(' ')}
+                    >
+                      <img
+                        src={img.thumbnail_url}
+                        alt={`${product.title} - Image ${index + 1}`}
+                        class="w-full h-full object-cover"
+                        width={64}
+                        height={64}
+                      />
+                    </button>
+                  ))}
                 </div>
               )}
             </div>
