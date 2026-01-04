@@ -107,6 +107,15 @@ export function cleanSlug(slug: string | null): string {
   return slug.replace(/^\/+|\/+$/g, '');
 }
 
+/**
+ * Encode SKU for use in URLs
+ * Handles SKUs with slashes and other special characters
+ */
+export function encodeSkuForUrl(sku: string | null): string {
+  if (!sku) return '';
+  return encodeURIComponent(sku);
+}
+
 // ============================================================================
 // D1 Client Class
 // ============================================================================

@@ -1,7 +1,7 @@
 import { component$, useSignal } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
 import { useLocation, Link, routeLoader$ } from '@builder.io/qwik-city';
-import { getDB, cleanSlug, type Product, type ProductImage } from '../../../lib/db';
+import { getDB, cleanSlug, encodeSkuForUrl, type Product, type ProductImage } from '../../../lib/db';
 import { getProductImageUrl } from '../../../lib/images';
 
 // Loader to fetch product data by SKU
@@ -181,7 +181,7 @@ export default component$(() => {
                 <div class="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
                   <p class="text-sm text-blue-700">
                     This is a variant of{' '}
-                    <Link href={`/products/${parentProduct.sku}/`} class="font-semibold hover:underline">
+                    <Link href={`/products/${encodeSkuForUrl(parentProduct.sku)}/`} class="font-semibold hover:underline">
                       {parentProduct.title}
                     </Link>
                   </p>
@@ -210,7 +210,7 @@ export default component$(() => {
                       .map((variant) => (
                         <Link
                           key={variant.id}
-                          href={`/products/${variant.sku}/`}
+                          href={`/products/${encodeSkuForUrl(variant.sku)}/`}
                           class="p-3 border border-gray-200 rounded-lg hover:border-[#042e0d] hover:bg-gray-50 transition-colors"
                         >
                           <p class="font-semibold text-[#042e0d] text-sm truncate">{variant.title}</p>

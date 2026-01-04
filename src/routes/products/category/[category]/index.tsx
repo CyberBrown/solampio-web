@@ -1,7 +1,7 @@
 import { component$ } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
 import { useLocation, Link, routeLoader$ } from '@builder.io/qwik-city';
-import { getDB, cleanSlug } from '../../../../lib/db';
+import { getDB, cleanSlug, encodeSkuForUrl } from '../../../../lib/db';
 import { getProductThumbnail } from '../../../../lib/images';
 
 // Loader to fetch category data and its products
@@ -118,7 +118,7 @@ export default component$(() => {
 
                 return (
                   <div key={product.id} class="bg-white rounded-lg border border-gray-200 overflow-hidden group hover:shadow-lg transition-shadow">
-                    <Link href={`/products/${product.sku}/`} class="block">
+                    <Link href={`/products/${encodeSkuForUrl(product.sku)}/`} class="block">
                       <div class="aspect-[4/3] bg-gray-100 flex items-center justify-center relative p-4">
                         {firstImage ? (
                           <img src={firstImage} alt={product.title} class="w-full h-full object-contain" />
@@ -138,7 +138,7 @@ export default component$(() => {
                     </Link>
                     <div class="p-4">
                       <p class="text-xs font-mono text-[#c3a859] uppercase tracking-wide mb-1">{categoryName}</p>
-                      <Link href={`/products/${product.sku}/`} class="font-heading font-bold text-[#042e0d] group-hover:text-[#5974c3] transition-colors block">
+                      <Link href={`/products/${encodeSkuForUrl(product.sku)}/`} class="font-heading font-bold text-[#042e0d] group-hover:text-[#5974c3] transition-colors block">
                         {product.title}
                       </Link>
                       <p class="text-sm text-gray-500 font-mono mt-1">SKU: {product.sku}</p>

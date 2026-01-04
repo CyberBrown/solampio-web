@@ -1,7 +1,7 @@
 import { component$ } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
 import { Link, routeLoader$ } from '@builder.io/qwik-city';
-import { getDB } from '../../lib/db';
+import { getDB, encodeSkuForUrl } from '../../lib/db';
 import { getProductThumbnail } from '../../lib/images';
 
 /**
@@ -105,7 +105,7 @@ export default component$(() => {
                 </div>
                 <div class="p-4">
                   <p class="text-xs font-mono text-[#c3a859] uppercase tracking-wide mb-1">{product.item_group || 'Products'}</p>
-                  <Link href={`/products/${product.sku || product.id}/`} class="font-heading font-bold text-[#042e0d] group-hover:text-[#5974c3] transition-colors block">{product.title}</Link>
+                  <Link href={`/products/${encodeSkuForUrl(product.sku || product.id)}/`} class="font-heading font-bold text-[#042e0d] group-hover:text-[#5974c3] transition-colors block">{product.title}</Link>
                   {product.sku && (
                     <p class="text-sm text-gray-500 font-mono mt-1">SKU: {product.sku}</p>
                   )}
