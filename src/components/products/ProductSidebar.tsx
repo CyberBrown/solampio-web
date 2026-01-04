@@ -19,6 +19,17 @@ export const ProductSidebar = component$<ProductSidebarProps>(({ categories, bra
   const currentPath = loc.url.pathname;
   const sidebar = useContext(SidebarContext);
 
+  // More precise path matching - checks for exact path segment match
+  const matchesCategory = (path: string, catSlug: string) => {
+    // Match /products/category/{catSlug}/ or /products/category/{catSlug}/{subSlug}/
+    return path.startsWith(`/products/category/${catSlug}/`);
+  };
+
+  const matchesSubcategory = (path: string, catSlug: string, subSlug: string) => {
+    return path.startsWith(`/products/category/${catSlug}/${subSlug}/`) ||
+           path === `/products/category/${catSlug}/${subSlug}`;
+  };
+
   return (
     <>
       {/* Collapse Button - aligned left at top */}
@@ -39,9 +50,9 @@ export const ProductSidebar = component$<ProductSidebarProps>(({ categories, bra
           <ul class="space-y-1">
             {categories.map((cat) => {
               const catSlug = cleanSlug(cat.slug);
-              const isActive = currentPath.includes(`/category/${catSlug}`);
+              const isActive = matchesCategory(currentPath, catSlug);
               const isParentActive = cat.subcategories.some((sub) =>
-                currentPath.includes(`/category/${catSlug}/${cleanSlug(sub.slug)}`)
+                matchesSubcategory(currentPath, catSlug, cleanSlug(sub.slug))
               );
 
               return (
@@ -68,7 +79,7 @@ export const ProductSidebar = component$<ProductSidebarProps>(({ categories, bra
                     <ul class="ml-3 mt-1 space-y-0.5 border-l-2 border-[#56c270]/30 pl-3">
                       {cat.subcategories.map((sub) => {
                         const subSlug = cleanSlug(sub.slug);
-                        const isSubActive = currentPath.includes(`/category/${catSlug}/${subSlug}`);
+                        const isSubActive = matchesSubcategory(currentPath, catSlug, subSlug);
                         return (
                           <li key={sub.id}>
                             <Link
@@ -100,7 +111,8 @@ export const ProductSidebar = component$<ProductSidebarProps>(({ categories, bra
           <ul class="space-y-0.5">
             {brands.map((brand) => {
               const brandSlug = cleanSlug(brand.slug);
-              const isActive = currentPath.includes(`/brand/${brandSlug}`);
+              const isActive = currentPath.startsWith(`/products/brand/${brandSlug}/`) ||
+                               currentPath === `/products/brand/${brandSlug}`;
               return (
                 <li key={brand.id}>
                   <Link

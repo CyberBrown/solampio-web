@@ -1,7 +1,7 @@
 import { component$ } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
 import { useLocation, Link, routeLoader$ } from '@builder.io/qwik-city';
-import { getDB, cleanSlug } from '../../../lib/db';
+import { getDB, cleanSlug, type Product } from '../../../lib/db';
 import { getProductImageUrl } from '../../../lib/images';
 
 // Loader to fetch product data by SKU
@@ -12,7 +12,7 @@ export const useProductData = routeLoader$(async (requestEvent) => {
   // Fetch the product by SKU
   const product = await db.getProduct(slug);
   if (!product) {
-    return { product: null, brand: null };
+    return { product: null, brand: null, variants: [], parentProduct: null };
   }
 
   // Fetch brand if available
@@ -21,9 +21,25 @@ export const useProductData = routeLoader$(async (requestEvent) => {
     brand = await db.getBrand(product.brand_id);
   }
 
+  // Fetch variants if this product has them
+  let variants: Product[] = [];
+  if (product.has_variants && product.sku) {
+    variants = await db.getVariants(product.sku);
+  }
+
+  // Fetch parent product if this is a variant
+  let parentProduct: Product | null = null;
+  if (product.variant_of) {
+    parentProduct = await db.getParentProduct(product.variant_of);
+    // Also fetch sibling variants (other variants of the same parent)
+    variants = await db.getVariants(product.variant_of);
+  }
+
   return {
     product,
-    brand
+    brand,
+    variants,
+    parentProduct
   };
 });
 
@@ -34,6 +50,8 @@ export default component$(() => {
 
   const product = data.value.product;
   const brand = data.value.brand;
+  const variants = data.value.variants;
+  const parentProduct = data.value.parentProduct;
 
   // If no product found, show error state
   if (!product) {
@@ -118,6 +136,59 @@ export default component$(() => {
 
               <h1 class="font-heading font-extrabold text-2xl md:text-3xl text-[#042e0d] mb-2">{product.title}</h1>
               <p class="text-sm text-gray-500 font-mono mb-4">SKU: {product.sku}</p>
+
+              {/* Parent Product Link (for variants) */}
+              {parentProduct && (
+                <div class="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                  <p class="text-sm text-blue-700">
+                    This is a variant of{' '}
+                    <Link href={`/products/${parentProduct.sku}/`} class="font-semibold hover:underline">
+                      {parentProduct.title}
+                    </Link>
+                  </p>
+                </div>
+              )}
+
+              {/* Variant Selector */}
+              {variants.length > 0 && (
+                <div class="mb-6">
+                  <p class="text-xs font-mono text-[#c3a859] uppercase tracking-wide mb-3">
+                    {product.has_variants ? 'Available Options' : 'Other Options'}
+                  </p>
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {/* Show current product as selected if it's a variant */}
+                    {product.variant_of && (
+                      <div class="p-3 border-2 border-[#042e0d] bg-[#042e0d]/5 rounded-lg">
+                        <p class="font-semibold text-[#042e0d] text-sm truncate">{product.title}</p>
+                        <p class="text-xs text-gray-500 font-mono">{product.sku}</p>
+                        {product.price && (
+                          <p class="text-sm font-bold text-[#042e0d] mt-1">${product.price}</p>
+                        )}
+                      </div>
+                    )}
+                    {variants
+                      .filter(v => v.sku !== product.sku) // Don't show current product again
+                      .map((variant) => (
+                        <Link
+                          key={variant.id}
+                          href={`/products/${variant.sku}/`}
+                          class="p-3 border border-gray-200 rounded-lg hover:border-[#042e0d] hover:bg-gray-50 transition-colors"
+                        >
+                          <p class="font-semibold text-[#042e0d] text-sm truncate">{variant.title}</p>
+                          <p class="text-xs text-gray-500 font-mono">{variant.sku}</p>
+                          {variant.price && (
+                            <p class="text-sm font-bold text-[#042e0d] mt-1">${variant.price}</p>
+                          )}
+                        </Link>
+                      ))}
+                  </div>
+                  {product.has_variants && variants.length > 6 && (
+                    <p class="text-xs text-gray-500 mt-2">
+                      Showing {variants.length} options available
+                    </p>
+                  )}
+                </div>
+              )}
 
               {product.description && (
                 <p class="text-gray-600 mb-6">

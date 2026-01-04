@@ -10,18 +10,18 @@ export const useAllCategories = routeLoader$(async (requestEvent) => {
   const db = getDB(requestEvent.platform);
   const allCategories = await db.getCategories();
 
-  // Find "All Item Groups" root - this is the ERPNext default root
-  const allItemGroups = allCategories.find(cat => cat.erpnext_name === 'All Item Groups');
-  const rootId = allItemGroups?.id;
-
-  // Build hierarchical structure:
-  // - Top-level = children of "All Item Groups" (the real product categories)
+  // Build hierarchical structure from BigCommerce categories:
+  // - Top-level = categories with parent_id = null (visible only)
   // - Subcategories = children of those top-level categories
-  const topLevelCategories = allCategories.filter(cat => cat.parent_id === rootId);
+  const topLevelCategories = allCategories.filter(cat =>
+    cat.parent_id === null && cat.is_visible === 1
+  );
 
   const hierarchical = topLevelCategories.map(parent => ({
     ...parent,
-    subcategories: allCategories.filter(cat => cat.parent_id === parent.id)
+    subcategories: allCategories.filter(cat =>
+      cat.parent_id === parent.id && cat.is_visible === 1
+    )
   }));
 
   // Sort by sort_order, then alphabetically
@@ -52,14 +52,12 @@ export default component$(() => {
     };
   });
 
-  const showSidebar = sidebar.visible.value;
-
   return (
     <div class="bg-white min-h-screen">
       {/* Fixed Sidebar - hidden on mobile, visible on lg when enabled */}
       <div class={[
         'hidden lg:block fixed top-0 left-0 w-64 h-full z-30 transition-transform duration-300',
-        showSidebar ? 'translate-x-0' : '-translate-x-full'
+        sidebar.visible.value ? 'translate-x-0' : '-translate-x-full'
       ].join(' ')}>
         <div class="pt-16 h-full overflow-y-auto bg-white border-r border-gray-200 p-4">
           <ProductSidebar categories={categories.value} brands={brands.value} />
@@ -69,7 +67,7 @@ export default component$(() => {
       {/* Content Area - offset for sidebar on large screens when visible */}
       <div class={[
         'transition-all duration-300',
-        showSidebar ? 'lg:ml-64' : 'lg:ml-0'
+        sidebar.visible.value ? 'lg:ml-64' : 'lg:ml-0'
       ].join(' ')}>
         <Slot />
       </div>

@@ -28,6 +28,8 @@ export interface Product {
   thumbnail_url: string | null;
   image_url: string | null;
   weight_lbs: number | null;
+  has_variants: number;  // 1 if this is a parent product with variants
+  variant_of: string | null;  // SKU of parent product if this is a variant
   sync_source: string;
   last_synced_from_erpnext: string | null;
   created_at: string;
@@ -133,8 +135,9 @@ export class StorefrontDB {
       }
     }
 
-    // Build query
-    let query = 'SELECT * FROM storefront_products WHERE is_visible = 1';
+    // Build query - exclude templates (has_variants=1) from listings
+    // Templates should only be accessed via their variants or direct URL
+    let query = 'SELECT * FROM storefront_products WHERE is_visible = 1 AND has_variants = 0';
     const params: any[] = [];
 
     if (categoryId) {
@@ -166,8 +169,8 @@ export class StorefrontDB {
 
     const result = await this.db.prepare(query).bind(...params).all<Product>();
 
-    // Get total count
-    let countQuery = 'SELECT COUNT(*) as total FROM storefront_products WHERE is_visible = 1';
+    // Get total count - exclude templates from count too
+    let countQuery = 'SELECT COUNT(*) as total FROM storefront_products WHERE is_visible = 1 AND has_variants = 0';
     const countParams: any[] = [];
 
     if (categoryId) {
@@ -212,6 +215,34 @@ export class StorefrontDB {
       WHERE (id = ? OR sku = ?) AND is_visible = 1
       LIMIT 1
     `).bind(idOrSku, idOrSku).first<Product>();
+
+    return result || null;
+  }
+
+  /**
+   * Get variants for a parent product
+   * Returns all products where variant_of matches the parent's SKU
+   */
+  async getVariants(parentSku: string): Promise<Product[]> {
+    const result = await this.db.prepare(`
+      SELECT * FROM storefront_products
+      WHERE variant_of = ? AND is_visible = 1
+      ORDER BY title ASC
+    `).bind(parentSku).all<Product>();
+
+    return result.results || [];
+  }
+
+  /**
+   * Get parent product for a variant
+   * Returns the parent product if this is a variant
+   */
+  async getParentProduct(variantOf: string): Promise<Product | null> {
+    const result = await this.db.prepare(`
+      SELECT * FROM storefront_products
+      WHERE sku = ? AND is_visible = 1
+      LIMIT 1
+    `).bind(variantOf).first<Product>();
 
     return result || null;
   }
@@ -318,12 +349,12 @@ export class StorefrontDB {
   }
 
   /**
-   * Search products by keyword
+   * Search products by keyword (excludes templates)
    */
   async searchProducts(query: string, limit: number = 20): Promise<Product[]> {
     const result = await this.db.prepare(`
       SELECT * FROM storefront_products
-      WHERE is_visible = 1
+      WHERE is_visible = 1 AND has_variants = 0
         AND (title LIKE ? OR sku LIKE ? OR description LIKE ?)
       ORDER BY title ASC
       LIMIT ?
@@ -333,12 +364,12 @@ export class StorefrontDB {
   }
 
   /**
-   * Get featured products (visible, with prices, prefer in-stock)
+   * Get featured products (visible, with prices, prefer in-stock, excludes templates)
    */
   async getFeaturedProducts(limit: number = 6): Promise<Product[]> {
     const result = await this.db.prepare(`
       SELECT * FROM storefront_products
-      WHERE is_visible = 1
+      WHERE is_visible = 1 AND has_variants = 0
         AND price IS NOT NULL
       ORDER BY
         CASE WHEN stock_qty > 0 THEN 0 ELSE 1 END,

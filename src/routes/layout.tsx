@@ -16,17 +16,17 @@ export const useNavCategories = routeLoader$(async (requestEvent) => {
   const db = getDB(requestEvent.platform);
   const allCategories = await db.getCategories();
 
-  // Find "All Item Groups" root
-  const allItemGroups = allCategories.find(cat => cat.erpnext_name === 'All Item Groups');
-  const rootId = allItemGroups?.id;
-
-  // Get top-level categories (children of root)
-  const topLevel = allCategories.filter(cat => cat.parent_id === rootId);
+  // Get top-level categories (parent_id = null, visible only)
+  const topLevel = allCategories.filter(cat =>
+    cat.parent_id === null && cat.is_visible === 1
+  );
 
   // Build hierarchy with subcategories
   const navCategories: NavCategory[] = topLevel.map(parent => ({
     ...parent,
-    subcategories: allCategories.filter(cat => cat.parent_id === parent.id)
+    subcategories: allCategories.filter(cat =>
+      cat.parent_id === parent.id && cat.is_visible === 1
+    )
   }));
 
   // Sort by sort_order, then alphabetically
