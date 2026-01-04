@@ -1,8 +1,9 @@
 import { component$ } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
 import { Link, routeLoader$ } from '@builder.io/qwik-city';
-import { getDB, cleanSlug, encodeSkuForUrl } from '../lib/db';
+import { getDB, cleanSlug } from '../lib/db';
 import { getProductThumbnail } from '../lib/images';
+import { ProductCard } from '../components/product/ProductCard';
 
 // Load top-level categories from D1
 export const useCategories = routeLoader$(async (requestEvent) => {
@@ -220,54 +221,9 @@ export default component$(() => {
             <Link href="/products/" class="text-solamp-blue font-bold hover:underline hidden md:block">View All →</Link>
           </div>
           <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
-            {featuredProducts.value.map((product) => {
-              const imageUrl = getProductThumbnail(product);
-              const stockStatus = product.stock_qty > 0 ? 'In Stock' : 'Out of Stock';
-              const displayPrice = product.price
-                ? `$${product.price.toFixed(2)}`
-                : 'Call for Pricing';
-              return (
-                <div key={product.id} class="bg-white rounded-lg border border-transparent shadow-sm hover:shadow-md overflow-hidden group transition-all duration-300">
-                  {/* Product image - clickable link to product page */}
-                  <Link href={`/products/${encodeSkuForUrl(product.sku)}/`} class="aspect-square bg-white flex items-center justify-center relative p-4 block">
-                    {imageUrl ? (
-                      <img
-                        src={imageUrl}
-                        alt={product.title}
-                        class="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-300"
-                        width="280"
-                        height="280"
-                      />
-                    ) : (
-                      <div class="text-center text-gray-300">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="0.5">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                      </div>
-                    )}
-                    {/* Stock badge */}
-                    <span class={[
-                      'absolute top-3 left-3 text-xs font-bold px-2 py-1 rounded',
-                      stockStatus === 'In Stock' ? 'bg-solamp-green text-solamp-forest' : 'bg-gray-200 text-gray-600'
-                    ].join(' ')}>{stockStatus}</span>
-                  </Link>
-                  {/* Product info */}
-                  <div class="p-4 pt-0">
-                    <p class="text-[10px] font-mono text-solamp-bronze-dark uppercase tracking-widest mb-1">{product.item_group || 'Products'}</p>
-                    <Link href={`/products/${encodeSkuForUrl(product.sku)}/`} class="font-heading font-bold text-solamp-forest group-hover:text-solamp-blue transition-colors block line-clamp-1">{product.title}</Link>
-                    {product.sku && (
-                      <p class="text-xs text-solamp-forest/70 font-mono mt-1">SKU: {product.sku}</p>
-                    )}
-                    <div class="mt-4 pt-3 border-t border-gray-50 flex items-center justify-between">
-                      <span class="font-heading font-extrabold text-solamp-forest">{displayPrice}</span>
-                      <button class="bg-solamp-forest text-white px-3 py-1.5 rounded text-sm font-bold hover:bg-solamp-forest/80 transition-colors">
-                        Add to Quote
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+            {featuredProducts.value.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
           </div>
         </div>
       </section>

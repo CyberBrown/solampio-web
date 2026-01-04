@@ -1,8 +1,9 @@
-import { component$, Slot, useSignal, useContextProvider } from '@builder.io/qwik';
+import { component$, Slot, useSignal, useContextProvider, useVisibleTask$ } from '@builder.io/qwik';
 import { routeLoader$ } from '@builder.io/qwik-city';
 import { Header } from '../components/layout/Header';
 import { Footer } from '../components/layout/Footer';
 import { SidebarContext } from '../context/sidebar-context';
+import { CartContext, CART_STORAGE_KEY, type CartItem } from '../context/cart-context';
 import { getDB } from '../lib/db';
 import type { Category } from '../lib/db';
 
@@ -43,10 +44,31 @@ export default component$(() => {
   const sidebarEnabled = useSignal(false);
   const navCategories = useNavCategories();
 
+  // Cart state with localStorage persistence
+  const cartItems = useSignal<CartItem[]>([]);
+
+  // Load cart from localStorage on mount
+  useVisibleTask$(() => {
+    const saved = localStorage.getItem(CART_STORAGE_KEY);
+    if (saved) {
+      try {
+        cartItems.value = JSON.parse(saved);
+      } catch {
+        // Invalid JSON, start with empty cart
+        cartItems.value = [];
+      }
+    }
+  });
+
   // Provide sidebar context at root level
   useContextProvider(SidebarContext, {
     visible: sidebarVisible,
     enabled: sidebarEnabled,
+  });
+
+  // Provide cart context at root level
+  useContextProvider(CartContext, {
+    items: cartItems,
   });
 
   return (

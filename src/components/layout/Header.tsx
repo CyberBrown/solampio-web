@@ -1,6 +1,7 @@
 import { component$, useSignal, useVisibleTask$, $, useContext } from '@builder.io/qwik';
 import { Link } from '@builder.io/qwik-city';
 import { SidebarContext } from '../../context/sidebar-context';
+import { CartContext } from '../../context/cart-context';
 import type { Category } from '../../lib/db';
 import { cleanSlug } from '../../lib/db';
 
@@ -21,6 +22,10 @@ export const Header = component$<HeaderProps>(({ categories }) => {
   const isHovering = useSignal(false);
   const openMenu = useSignal<string | null>(null);
   const sidebar = useContext(SidebarContext);
+  const cart = useContext(CartContext);
+
+  // Calculate cart item count
+  const cartItemCount = cart.items.value.reduce((sum, item) => sum + item.quantity, 0);
 
   // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(() => {
@@ -205,18 +210,24 @@ export const Header = component$<HeaderProps>(({ categories }) => {
                   </svg>
                   978-451-6890
                 </a>
-                <button class={[
-                  'hover:bg-gray-100 rounded-lg transition-all duration-300 relative',
-                  isCompact ? 'p-1.5' : 'p-2',
-                ].join(' ')} aria-label="Cart">
+                <Link
+                  href="/cart/"
+                  class={[
+                    'hover:bg-gray-100 rounded-lg transition-all duration-300 relative',
+                    isCompact ? 'p-1.5' : 'p-2',
+                  ].join(' ')}
+                  aria-label="Cart"
+                >
                   <svg xmlns="http://www.w3.org/2000/svg" class={isCompact ? 'h-5 w-5 text-solamp-forest' : 'h-6 w-6 text-solamp-forest'} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                   </svg>
-                  <span class={[
-                    'absolute bg-solamp-green text-solamp-forest font-bold flex items-center justify-center rounded-full',
-                    isCompact ? '-top-0.5 -right-0.5 w-4 h-4 text-[9px]' : '-top-0.5 -right-0.5 w-5 h-5 text-xs',
-                  ].join(' ')}>0</span>
-                </button>
+                  {cartItemCount > 0 && (
+                    <span class={[
+                      'absolute bg-solamp-green text-solamp-forest font-bold flex items-center justify-center rounded-full',
+                      isCompact ? '-top-0.5 -right-0.5 w-4 h-4 text-[9px]' : '-top-0.5 -right-0.5 w-5 h-5 text-xs',
+                    ].join(' ')}>{cartItemCount > 99 ? '99+' : cartItemCount}</span>
+                  )}
+                </Link>
               </div>
             </div>
           </div>

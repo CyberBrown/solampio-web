@@ -1,8 +1,9 @@
-import { component$, useSignal } from '@builder.io/qwik';
+import { component$, useSignal, $ } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
 import { useLocation, Link, routeLoader$ } from '@builder.io/qwik-city';
 import { getDB, cleanSlug, encodeSkuForUrl, type Product, type ProductImage } from '../../../lib/db';
 import { getProductImageUrl } from '../../../lib/images';
+import { useCart } from '../../../hooks/useCart';
 
 // Loader to fetch product data by SKU
 export const useProductData = routeLoader$(async (requestEvent) => {
@@ -68,6 +69,8 @@ export default component$(() => {
   const slug = loc.params.slug;
   const data = useProductData();
   const selectedImageIndex = useSignal(0);
+  const cart = useCart();
+  const addedToCart = useSignal(false);
 
   const product = data.value.product;
   const brand = data.value.brand;
@@ -75,6 +78,26 @@ export default component$(() => {
   const parentProduct = data.value.parentProduct;
   const images = data.value.images;
   const categories = data.value.categories;
+
+  // Handler for Add to Quote button
+  const handleAddToQuote = $(() => {
+    if (!product) return;
+
+    cart.addToCart({
+      id: product.id,
+      sku: product.sku,
+      title: product.title,
+      price: product.price,
+      thumbnail_url: product.thumbnail_url,
+      stock_qty: product.stock_qty,
+    });
+
+    // Show feedback
+    addedToCart.value = true;
+    setTimeout(() => {
+      addedToCart.value = false;
+    }, 2000);
+  });
 
   // If no product found, show error state
   if (!product) {
@@ -298,8 +321,16 @@ export default component$(() => {
               <div class="border border-gray-200 rounded-lg p-5 mb-6">
                 <p class="font-heading font-extrabold text-2xl text-[#042e0d] mb-4">{displayPrice}</p>
                 <div class="flex gap-3">
-                  <button class="flex-1 bg-[#042e0d] text-white font-heading font-bold py-3 rounded hover:bg-[#042e0d]/80 transition-colors">
-                    Add to Quote
+                  <button
+                    onClick$={handleAddToQuote}
+                    class={[
+                      'flex-1 font-heading font-bold py-3 rounded transition-colors',
+                      addedToCart.value
+                        ? 'bg-[#56c270] text-white'
+                        : 'bg-[#042e0d] text-white hover:bg-[#042e0d]/80'
+                    ].join(' ')}
+                  >
+                    {addedToCart.value ? 'Added to Cart!' : 'Add to Quote'}
                   </button>
                   <a href="tel:978-451-6890" class="flex items-center justify-center gap-2 bg-[#c3a859] text-white font-bold px-5 py-3 rounded hover:bg-[#c3a859]/80 transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

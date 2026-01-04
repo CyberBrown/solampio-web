@@ -1,8 +1,8 @@
 import { component$ } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
 import { useLocation, Link, routeLoader$ } from '@builder.io/qwik-city';
-import { getDB, cleanSlug, encodeSkuForUrl } from '../../../../lib/db';
-import { getProductThumbnail } from '../../../../lib/images';
+import { getDB, cleanSlug } from '../../../../lib/db';
+import { ProductCard } from '../../../../components/product/ProductCard';
 
 // Loader to fetch brand data and its products
 export const useBrandData = routeLoader$(async (requestEvent) => {
@@ -120,47 +120,9 @@ export default component$(() => {
             </div>
           ) : (
             <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
-              {products.map((product) => {
-                const firstImage = getProductThumbnail(product);
-                const stockStatus = product.stock_qty > 0 ? 'In Stock' : 'Low Stock';
-                const displayPrice = product.price ? `$${product.price}` : 'Call for Pricing';
-
-                return (
-                  <div key={product.id} class="bg-white rounded-lg border border-gray-200 overflow-hidden group hover:shadow-lg transition-shadow">
-                    <Link href={`/products/${encodeSkuForUrl(product.sku)}/`} class="block">
-                      <div class="aspect-[4/3] bg-gray-100 flex items-center justify-center relative p-4">
-                        {firstImage ? (
-                          <img src={firstImage} alt={product.title} class="w-full h-full object-contain" />
-                        ) : (
-                          <div class="text-center text-gray-300">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="0.5">
-                              <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                            </svg>
-                            <span class="text-xs">Product Photo</span>
-                          </div>
-                        )}
-                        <span class={[
-                          'absolute top-3 left-3 text-xs font-bold px-2 py-1 rounded',
-                          stockStatus === 'In Stock' ? 'bg-[#56c270] text-[#042e0d]' : 'bg-[#c3a859] text-white',
-                        ].join(' ')}>{stockStatus}</span>
-                      </div>
-                    </Link>
-                    <div class="p-4">
-                      <p class="text-xs font-mono text-[#5974c3] uppercase tracking-wide mb-1">{brandName}</p>
-                      <Link href={`/products/${encodeSkuForUrl(product.sku)}/`} class="font-heading font-bold text-[#042e0d] group-hover:text-[#5974c3] transition-colors block">
-                        {product.title}
-                      </Link>
-                      <p class="text-sm text-gray-500 font-mono mt-1">SKU: {product.sku}</p>
-                      <div class="mt-3 pt-3 border-t border-gray-100 flex items-center justify-between">
-                        <span class="font-heading font-bold text-[#042e0d]">{displayPrice}</span>
-                        <button class="bg-[#042e0d] text-white px-3 py-1.5 rounded text-sm font-bold hover:bg-[#042e0d]/80 transition-colors">
-                          Add to Quote
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
+              {products.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
             </div>
           )}
         </div>
