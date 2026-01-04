@@ -12,7 +12,7 @@ export const useProductData = routeLoader$(async (requestEvent) => {
   // Fetch the product by SKU
   const product = await db.getProduct(slug);
   if (!product) {
-    return { product: null, brand: null, variants: [], parentProduct: null, images: [] };
+    return { product: null, brand: null, variants: [], parentProduct: null, images: [], categories: [] };
   }
 
   // Fetch brand if available
@@ -38,12 +38,28 @@ export const useProductData = routeLoader$(async (requestEvent) => {
   // Fetch all images for this product
   const images = await db.getProductImages(product.id);
 
+  // Resolve category IDs to names
+  let categories: { id: string; title: string; slug: string }[] = [];
+  if (product.categories) {
+    try {
+      const categoryIds = JSON.parse(product.categories) as string[];
+      const allCategories = await db.getCategories();
+      categories = categoryIds
+        .map(id => allCategories.find(c => c.id === id))
+        .filter((c): c is typeof allCategories[0] => c !== undefined)
+        .map(c => ({ id: c.id, title: c.title, slug: c.slug }));
+    } catch {
+      // Skip invalid JSON
+    }
+  }
+
   return {
     product,
     brand,
     variants,
     parentProduct,
-    images
+    images,
+    categories
   };
 });
 
@@ -58,6 +74,7 @@ export default component$(() => {
   const variants = data.value.variants;
   const parentProduct = data.value.parentProduct;
   const images = data.value.images;
+  const categories = data.value.categories;
 
   // If no product found, show error state
   if (!product) {
@@ -81,10 +98,6 @@ export default component$(() => {
     : getProductImageUrl(product, 'product');
   const stockStatus = product.stock_qty > 0 ? 'In Stock' : 'Out of Stock';
   const displayPrice = product.price ? `$${product.price}` : 'Call for Pricing';
-  // Parse categories JSON if it's a string
-  const categories = product.categories
-    ? (typeof product.categories === 'string' ? JSON.parse(product.categories) : product.categories)
-    : [];
 
   return (
     <div>
@@ -240,9 +253,9 @@ export default component$(() => {
                 <div class="mb-6">
                   <p class="text-xs font-mono text-[#c3a859] uppercase tracking-wide mb-2">Categories</p>
                   <div class="flex flex-wrap gap-2">
-                    {categories.map((cat: string) => (
-                      <span key={cat} class="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded">
-                        {cat}
+                    {categories.map((cat) => (
+                      <span key={cat.id} class="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded">
+                        {cat.title}
                       </span>
                     ))}
                   </div>
