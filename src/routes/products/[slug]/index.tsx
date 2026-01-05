@@ -79,7 +79,7 @@ export default component$(() => {
   const images = data.value.images;
   const categories = data.value.categories;
 
-  // Handler for Add to Quote button
+  // Handler for Add to Cart button
   const handleAddToQuote = $(() => {
     if (!product) return;
 
@@ -330,7 +330,7 @@ export default component$(() => {
                         : 'bg-[#042e0d] text-white hover:bg-[#042e0d]/80'
                     ].join(' ')}
                   >
-                    {addedToCart.value ? 'Added to Cart!' : 'Add to Quote'}
+                    {addedToCart.value ? 'Added!' : 'Add to Cart'}
                   </button>
                   <a href="tel:978-451-6890" class="flex items-center justify-center gap-2 bg-[#c3a859] text-white font-bold px-5 py-3 rounded hover:bg-[#c3a859]/80 transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

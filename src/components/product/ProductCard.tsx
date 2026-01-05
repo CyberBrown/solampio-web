@@ -1,5 +1,5 @@
 /**
- * Reusable Product Card Component with Add to Quote functionality
+ * Reusable Product Card Component with Add to Cart functionality
  */
 import { component$, useSignal, $ } from '@builder.io/qwik';
 import { Link } from '@builder.io/qwik-city';
@@ -87,7 +87,7 @@ export const ProductCard = component$<ProductCardProps>(({ product }) => {
                 : 'bg-[#042e0d] text-white hover:bg-[#042e0d]/80'
             ].join(' ')}
           >
-            {addedToCart.value ? 'Added!' : 'Add to Quote'}
+            {addedToCart.value ? 'Added!' : 'Add to Cart'}
           </button>
         </div>
       </div>

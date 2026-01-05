@@ -173,14 +173,14 @@ export default component$(() => {
 
                   <div class="flex justify-between text-lg font-heading font-bold text-[#042e0d] mb-6">
                     <span>Total</span>
-                    <span>{subtotal !== null && !hasUnpriced ? `$${subtotal.toFixed(2)}` : 'Request Quote'}</span>
+                    <span>{subtotal !== null && !hasUnpriced ? `$${subtotal.toFixed(2)}` : 'Get Quote'}</span>
                   </div>
 
                   <Link
                     href="/quote-request/"
                     class="block w-full bg-[#56c270] text-[#042e0d] font-heading font-bold py-3 rounded text-center hover:bg-[#042e0d] hover:text-white transition-colors mb-3"
                   >
-                    Request Quote
+                    Get Quote
                   </Link>
 
                   {subtotal !== null && !hasUnpriced && (
