@@ -131,8 +131,9 @@ export const Header = component$<HeaderProps>(({ categories }) => {
                 {priorityCategories.map((cat) => {
                   const slug = cleanSlug(cat.slug);
                   return (
-                    <button
+                    <Link
                       key={cat.id}
+                      href={`/products/category/${slug}/`}
                       onMouseEnter$={() => { openMenu.value = slug; }}
                       class={[
                         'font-heading font-bold rounded transition-all duration-300',
@@ -141,7 +142,7 @@ export const Header = component$<HeaderProps>(({ categories }) => {
                       ].join(' ')}
                     >
                       {getShortName(cat.title)}
-                    </button>
+                    </Link>
                   );
                 })}
 
