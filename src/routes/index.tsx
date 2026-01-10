@@ -95,10 +95,10 @@ export default component$(() => {
               <h1 class="font-heading font-extrabold text-3xl md:text-4xl lg:text-5xl text-white mb-4 leading-tight">
                 Solar &amp; Energy Storage Components You Can Count On
               </h1>
-              <p class="text-white/80 text-lg mb-6 max-w-2xl">
+              <span class="block text-white-safe text-lg mb-6 max-w-2xl">
                 From barn installations to off-grid cabins, we supply first-class components that power real projects.
                 Technical guidance from engineers who've been there.
-              </p>
+              </span>
               <div class="flex flex-wrap gap-3">
                 <Link href="/products/" class="inline-flex items-center gap-2 bg-solamp-green text-solamp-forest font-heading font-bold px-6 py-3 rounded hover:bg-white transition-colors">
                   Browse Products
@@ -122,16 +122,16 @@ export default component$(() => {
                     </svg>
                   </div>
                   <div>
-                    <p class="text-white/60 text-sm">Call a Solar Expert</p>
+                    <p class="text-white-60-safe text-sm">Call a Solar Expert</p>
                     <a href="tel:978-451-6890" class="font-heading font-extrabold text-2xl text-white hover:text-solamp-green transition-colors">978-451-6890</a>
                   </div>
                 </div>
-                <p class="text-white/70 text-sm leading-relaxed">
+                <p class="text-white-70-safe text-sm leading-relaxed">
                   Not sure which inverter pairs with your battery bank? Need help sizing a system for a customer?
                   Our engineers understand the real-world challenges of solar installation.
                 </p>
                 <div class="mt-4 pt-4 border-t border-white/10">
-                  <p class="text-xs text-white/50">Mon-Fri 8am-5pm EST • Boxboro, MA</p>
+                  <p class="text-xs text-white-50-safe">Mon-Fri 8am-5pm EST • Boxboro, MA</p>
                 </div>
               </div>
             </div>
@@ -195,7 +195,7 @@ export default component$(() => {
                   {/* Text content */}
                   <div class="absolute inset-0 flex flex-col justify-end p-4">
                     <h3 class="font-heading font-extrabold text-xl text-white">{cat.title}</h3>
-                    <p class="text-white/80 text-sm">{cat.description || `${cat.count} products`}</p>
+                    <p class="text-white-safe text-sm">{cat.description || `${cat.count} products`}</p>
                   </div>
                   {/* Hover arrow */}
                   <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-2 group-hover:translate-x-0">
@@ -249,7 +249,7 @@ export default component$(() => {
                     </div>
                     <div class="flex-1 min-w-0">
                       <h3 class="font-heading font-bold text-lg text-white">{project.name}</h3>
-                      <p class="text-white/80 text-sm line-clamp-2">{project.description}</p>
+                      <p class="text-white-safe text-sm line-clamp-2">{project.description}</p>
                     </div>
                   </div>
                   {/* Products list */}
@@ -328,7 +328,7 @@ export default component$(() => {
           <div class="flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
               <h3 class="font-heading font-extrabold text-2xl text-white">Ready to quote your next project?</h3>
-              <p class="text-white/70 mt-1">Send us your project details online, on the phone, or in person.</p>
+              <p class="text-white-70-safe mt-1">Send us your project details online, on the phone, or in person.</p>
             </div>
             <div class="flex gap-4">
               <Link href="/contact/" class="inline-flex items-center gap-2 bg-solamp-green text-solamp-forest font-heading font-bold px-6 py-3 rounded hover:bg-white transition-colors">

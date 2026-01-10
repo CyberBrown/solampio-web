@@ -2,6 +2,45 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+ * Fix for white box rendering bug
+ * Issue: Semi-transparent white text (text-white/XX) sometimes renders as white boxes
+ * Root cause: Unknown - possibly GPU compositing or caching issue
+ * Solution: Explicit background reset + isolation to prevent stacking context issues
+ */
+@layer utilities {
+  .text-white-safe {
+    color: rgba(255, 255, 255, 0.8) !important;
+    background-color: transparent !important;
+    background: none !important;
+  }
+  .text-white-60-safe {
+    color: rgba(255, 255, 255, 0.6) !important;
+    background-color: transparent !important;
+    background: none !important;
+  }
+  .text-white-70-safe {
+    color: rgba(255, 255, 255, 0.7) !important;
+    background-color: transparent !important;
+    background: none !important;
+  }
+  .text-white-50-safe {
+    color: rgba(255, 255, 255, 0.5) !important;
+    background-color: transparent !important;
+    background: none !important;
+  }
+}
+
+/* Aggressive reset for elements that show white boxes */
+.hero-text-fix {
+  color: inherit;
+  background: none !important;
+  background-color: transparent !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  -webkit-text-fill-color: unset !important;
+}
+
 /* Ensure prose text is readable */
 .prose {
   --tw-prose-body: #374151 !important; /* gray-700 */

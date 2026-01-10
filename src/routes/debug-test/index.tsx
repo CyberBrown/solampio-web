@@ -115,6 +115,29 @@ export default component$(() => {
         </div>
       </section>
 
+      {/* Test Section 8: Safe classes with explicit background reset */}
+      <section class="bg-solamp-forest p-8 mt-4">
+        <h2 class="text-2xl font-bold text-white mb-4">Test 8: Safe classes (with background reset)</h2>
+
+        <div class="space-y-4">
+          <p class="text-white-safe text-lg">P with text-white-safe (80% opacity + background:none)</p>
+          <p class="text-white-60-safe text-lg">P with text-white-60-safe (60% opacity + background:none)</p>
+          <p class="text-white-70-safe text-lg">P with text-white-70-safe (70% opacity + background:none)</p>
+          <p class="text-white-50-safe text-lg">P with text-white-50-safe (50% opacity + background:none)</p>
+        </div>
+      </section>
+
+      {/* Test Section 9: Safe classes inside backdrop-blur */}
+      <section class="bg-solamp-forest p-8 mt-4">
+        <h2 class="text-2xl font-bold text-white mb-4">Test 9: Safe classes inside backdrop-blur</h2>
+
+        <div class="bg-white/10 backdrop-blur border border-white/20 rounded-lg p-6">
+          <p class="text-white-60-safe text-sm mb-2">Label with text-white-60-safe</p>
+          <p class="text-white-70-safe">Description with text-white-70-safe</p>
+          <p class="text-white-50-safe text-xs mt-2">Footer with text-white-50-safe</p>
+        </div>
+      </section>
+
       {/* Reference: This should work */}
       <section class="bg-gray-100 p-8 mt-4">
         <h2 class="text-2xl font-bold text-gray-800 mb-4">Reference: Dark text on light bg (should work)</h2>

@@ -168,3 +168,37 @@ When white boxes appear, use dev tools to:
 - `src/routes/index.tsx` - Changed text-white/80 to text-white-80
 - `tailwind.config.js` - Tested with/without DaisyUI
 - `src/root.tsx` - Tested with/without data-theme attribute
+
+## Fix Attempt (Jan 10, 2026)
+
+### Solution: "Safe" utility classes with explicit background reset
+
+Created new utility classes in global.css that:
+1. Set color with explicit RGBA values
+2. Add `background: none !important` to prevent any background from being added
+3. Add `background-color: transparent !important` as double protection
+
+**New classes:**
+- `text-white-safe` - 80% white + bg reset
+- `text-white-60-safe` - 60% white + bg reset
+- `text-white-70-safe` - 70% white + bg reset
+- `text-white-50-safe` - 50% white + bg reset
+
+**Files changed:**
+- `src/global.css` - Added @layer utilities with safe classes
+- `src/routes/index.tsx` - Updated all affected elements to use safe classes
+- `src/routes/debug-test/index.tsx` - Added Tests 8 & 9 for safe classes
+
+**Rationale:**
+Since the CSS is correct and even inline styles didn't fix the issue, the white boxes might be caused by:
+1. An overlaying element (which the background:none won't fix)
+2. A GPU compositing issue (which explicit styles might help with)
+3. Stale cached CSS (which the build hash will fix)
+
+The safe classes ensure that even if something tries to add a background to these elements, it will be overridden with !important.
+
+**To test:**
+1. Deploy the new build
+2. Clear all caches (browser + Cloudflare)
+3. Visit /debug-test/ and check Tests 8 & 9
+4. Visit homepage and verify hero/contact card render correctly
