@@ -4,6 +4,7 @@ import { SidebarContext } from '../../context/sidebar-context';
 import { CartContext } from '../../context/cart-context';
 import type { Category } from '../../lib/db';
 import { cleanSlug } from '../../lib/db';
+import { getCategoryImageUrl } from '../../lib/images';
 
 // Navigation category with subcategories
 interface NavCategory extends Category {
@@ -236,6 +237,7 @@ export const Header = component$<HeaderProps>(({ categories }) => {
           {/* Dynamic Mega Menus */}
           {priorityCategories.map((cat) => {
             const slug = cleanSlug(cat.slug);
+            const categoryImageUrl = getCategoryImageUrl(cat, 'card');
             return (
               <div
                 key={cat.id}
@@ -272,27 +274,49 @@ export const Header = component$<HeaderProps>(({ categories }) => {
                         </Link>
                       </div>
                     </div>
-                    <div class="w-64 bg-solamp-mist rounded-lg p-5">
-                      <p class="text-xs font-mono text-solamp-forest/50 uppercase tracking-wide mb-3">Quick Links</p>
-                      <ul class="space-y-3">
-                        <li>
-                          <Link href="/learn/" onClick$={closeMenu} class="text-sm text-solamp-forest hover:text-solamp-blue transition-colors flex items-center gap-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-solamp-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                            </svg>
-                            {cat.title} Guide
-                          </Link>
-                        </li>
-                        <li>
-                          <Link href="/contact/" onClick$={closeMenu} class="text-sm text-solamp-forest hover:text-solamp-blue transition-colors flex items-center gap-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-solamp-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                            </svg>
-                            Get Expert Help
-                          </Link>
-                        </li>
-                      </ul>
-                    </div>
+                    {categoryImageUrl ? (
+                      <Link
+                        href={`/products/category/${slug}/`}
+                        onClick$={closeMenu}
+                        class="w-64 rounded-lg overflow-hidden group"
+                      >
+                        <div class="relative aspect-[4/3]">
+                          <img
+                            src={categoryImageUrl}
+                            alt={cat.title}
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            loading="lazy"
+                          />
+                          <div class="absolute inset-0 bg-gradient-to-t from-solamp-forest/80 to-transparent" />
+                          <div class="absolute bottom-0 left-0 right-0 p-4">
+                            <p class="text-white font-heading font-bold text-lg">{cat.title}</p>
+                            <p class="text-white/80 text-sm">Shop all {cat.count} products →</p>
+                          </div>
+                        </div>
+                      </Link>
+                    ) : (
+                      <div class="w-64 bg-solamp-mist rounded-lg p-5">
+                        <p class="text-xs font-mono text-solamp-forest/50 uppercase tracking-wide mb-3">Quick Links</p>
+                        <ul class="space-y-3">
+                          <li>
+                            <Link href="/learn/" onClick$={closeMenu} class="text-sm text-solamp-forest hover:text-solamp-blue transition-colors flex items-center gap-2">
+                              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-solamp-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                              </svg>
+                              {cat.title} Guide
+                            </Link>
+                          </li>
+                          <li>
+                            <Link href="/contact/" onClick$={closeMenu} class="text-sm text-solamp-forest hover:text-solamp-blue transition-colors flex items-center gap-2">
+                              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-solamp-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                              </svg>
+                              Get Expert Help
+                            </Link>
+                          </li>
+                        </ul>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

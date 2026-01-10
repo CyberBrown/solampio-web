@@ -3,6 +3,7 @@ import type { DocumentHead } from '@builder.io/qwik-city';
 import { Link, routeLoader$ } from '@builder.io/qwik-city';
 import { getDB } from '../../lib/db';
 import { ProductCard } from '../../components/product/ProductCard';
+import { getCategoryImageUrl } from '../../lib/images';
 
 /**
  * Load top-level product categories from D1
@@ -53,17 +54,34 @@ export default component$(() => {
         <div class="px-6">
           <h2 class="font-heading font-extrabold text-xl text-[#042e0d] mb-5">Shop by Category</h2>
           <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
-            {categories.value.map((cat) => (
-              <Link key={cat.id} href={`/products/category/${cat.slug}/`} class="group bg-[#f1f1f2] border border-gray-200 rounded-lg p-4 hover:border-[#042e0d] hover:shadow-lg transition-all">
-                <div class="flex justify-between items-start mb-2">
-                  <h3 class="font-heading font-bold text-lg text-[#042e0d] group-hover:text-[#5974c3] transition-colors">{cat.title}</h3>
-                  <span class="text-xs font-mono text-[#c3a859] bg-[#c3a859]/10 px-2 py-1 rounded">{cat.count} items</span>
-                </div>
-                {cat.description && (
-                  <p class="text-sm text-gray-600 mt-1">{cat.description.substring(0, 100)}{cat.description.length > 100 ? '...' : ''}</p>
-                )}
-              </Link>
-            ))}
+            {categories.value.map((cat) => {
+              const imageUrl = getCategoryImageUrl(cat, 'card');
+              return (
+                <Link key={cat.id} href={`/products/category/${cat.slug}/`} class="group bg-white border border-gray-200 rounded-lg overflow-hidden hover:border-[#042e0d] hover:shadow-lg transition-all">
+                  {imageUrl && (
+                    <div class="aspect-[16/9] overflow-hidden bg-[#f1f1f2]">
+                      <img
+                        src={imageUrl}
+                        alt={cat.title}
+                        width={400}
+                        height={225}
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        loading="lazy"
+                      />
+                    </div>
+                  )}
+                  <div class="p-4">
+                    <div class="flex justify-between items-start mb-2">
+                      <h3 class="font-heading font-bold text-lg text-[#042e0d] group-hover:text-[#5974c3] transition-colors">{cat.title}</h3>
+                      <span class="text-xs font-mono text-[#c3a859] bg-[#c3a859]/10 px-2 py-1 rounded">{cat.count} items</span>
+                    </div>
+                    {cat.description && (
+                      <p class="text-sm text-gray-600 mt-1">{cat.description.substring(0, 100)}{cat.description.length > 100 ? '...' : ''}</p>
+                    )}
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>

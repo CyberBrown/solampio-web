@@ -3,6 +3,7 @@ import type { DocumentHead } from '@builder.io/qwik-city';
 import { useLocation, Link, routeLoader$ } from '@builder.io/qwik-city';
 import { getDB, cleanSlug } from '../../../../lib/db';
 import { ProductCard } from '../../../../components/product/ProductCard';
+import { getCategoryImageUrl } from '../../../../lib/images';
 
 // Loader to fetch category data and its products (including subcategory products)
 export const useCategoryData = routeLoader$(async (requestEvent) => {
@@ -39,11 +40,24 @@ export default component$(() => {
   const products = data.value.products;
   const productCount = products.length;
 
+  const categoryImageUrl = category ? getCategoryImageUrl(category, 'hero') : null;
+
   return (
     <div>
       {/* Hero */}
-      <section class="bg-[#042e0d] py-8">
-        <div class="px-6">
+      <section class="bg-[#042e0d] py-8 relative overflow-hidden">
+        {categoryImageUrl && (
+          <div class="absolute inset-0 opacity-20">
+            <img
+              src={categoryImageUrl}
+              alt=""
+              class="w-full h-full object-cover"
+              loading="eager"
+            />
+            <div class="absolute inset-0 bg-gradient-to-r from-[#042e0d] via-[#042e0d]/80 to-transparent" />
+          </div>
+        )}
+        <div class="px-6 relative z-10">
           {/* Breadcrumbs */}
           <nav class="mb-4">
             <ol class="flex items-center gap-2 text-sm">

@@ -3,6 +3,7 @@ import type { DocumentHead } from '@builder.io/qwik-city';
 import { useLocation, Link, routeLoader$ } from '@builder.io/qwik-city';
 import { getDB, cleanSlug } from '../../../../../lib/db';
 import { ProductCard } from '../../../../../components/product/ProductCard';
+import { getCategoryImageUrl } from '../../../../../lib/images';
 
 // Loader to fetch subcategory data and its products
 export const useSubcategoryData = routeLoader$(async (requestEvent) => {
@@ -57,11 +58,27 @@ export default component$(() => {
   const products = data.value.products;
   const productCount = subcategory?.count || 0;
 
+  // Use subcategory image if available, otherwise fall back to parent category image
+  const subcategoryImageUrl = subcategory ? getCategoryImageUrl(subcategory, 'hero') : null;
+  const categoryImageUrl = parentCategory ? getCategoryImageUrl(parentCategory, 'hero') : null;
+  const heroImageUrl = subcategoryImageUrl || categoryImageUrl;
+
   return (
     <div>
       {/* Hero */}
-      <section class="bg-[#042e0d] py-8">
-        <div class="px-6">
+      <section class="bg-[#042e0d] py-8 relative overflow-hidden">
+        {heroImageUrl && (
+          <div class="absolute inset-0 opacity-20">
+            <img
+              src={heroImageUrl}
+              alt=""
+              class="w-full h-full object-cover"
+              loading="eager"
+            />
+            <div class="absolute inset-0 bg-gradient-to-r from-[#042e0d] via-[#042e0d]/80 to-transparent" />
+          </div>
+        )}
+        <div class="px-6 relative z-10">
           {/* Breadcrumbs */}
           <nav class="mb-4">
             <ol class="flex items-center gap-2 text-sm flex-wrap">

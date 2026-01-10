@@ -49,6 +49,7 @@ export interface Category {
   is_visible: number;
   count: number;
   image_url: string | null;
+  cf_image_id: string | null;
   sync_source: string;
   last_synced_from_erpnext: string | null;
   created_at: string;

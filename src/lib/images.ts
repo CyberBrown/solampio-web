@@ -86,3 +86,27 @@ export function getBrandLogoUrl(
   }
   return brand.logo_url || null;
 }
+
+/**
+ * Get category image URL from CF Images or fallback
+ *
+ * @param category - Category with image fields
+ * @param variant - CF Images variant to use (default: 'card')
+ * @returns Category image URL or null
+ *
+ * @example
+ * getCategoryImageUrl({ cf_image_id: 'cat-batteries' }, 'hero')
+ * // => 'https://imagedelivery.net/Fdrr4r8cVWsy-JJCR0JU_Q/cat-batteries/hero'
+ */
+export function getCategoryImageUrl(
+  category: {
+    cf_image_id?: string | null;
+    image_url?: string | null;
+  },
+  variant: ImageVariant = 'card'
+): string | null {
+  if (category.cf_image_id) {
+    return getCfImageUrl(category.cf_image_id, variant);
+  }
+  return category.image_url || null;
+}
