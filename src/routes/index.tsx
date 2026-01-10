@@ -156,7 +156,7 @@ export default component$(() => {
         <div class="relative container mx-auto px-4 py-12 md:py-16 lg:py-20">
           <div class="grid lg:grid-cols-5 gap-8 items-center">
             <div class="lg:col-span-3">
-              <div class="inline-flex items-center gap-2 bg-solamp-bronze/20 text-solamp-bronze-dark px-3 py-1 rounded-full text-sm font-semibold mb-4">
+              <div class="inline-flex items-center gap-2 bg-white/80 text-solamp-forest px-3 py-1 rounded-full text-sm font-semibold mb-4">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
                 </svg>
