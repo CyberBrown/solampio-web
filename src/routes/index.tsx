@@ -2,7 +2,7 @@ import { component$, useSignal, useVisibleTask$, $ } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
 import { Link, routeLoader$ } from '@builder.io/qwik-city';
 import { getDB, cleanSlug } from '../lib/db';
-import { getProductThumbnail } from '../lib/images';
+import { getProductThumbnail, getLocalCategoryImage } from '../lib/images';
 import { ProductCard } from '../components/product/ProductCard';
 
 // Load top-level categories from D1
@@ -242,8 +242,10 @@ export default component$(() => {
           <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
             {categories.value.slice(0, 6).map((cat) => {
               const catSlug = cleanSlug(cat.slug);
+              // Prefer local category images, fall back to featured product or legacy URL
+              const localImage = getLocalCategoryImage(cat.title);
               const featuredProduct = featuredByCategory.value[cat.id];
-              const imageUrl = featuredProduct?.image_url || featuredProduct?.thumbnail_url || cat.image_url;
+              const imageUrl = localImage || featuredProduct?.image_url || featuredProduct?.thumbnail_url || cat.image_url;
               return (
                 <Link key={cat.id} href={`/products/category/${catSlug}/`} class="group relative overflow-hidden rounded-lg aspect-[4/3] transform transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
                   {/* Background - featured product photo or category image */}
