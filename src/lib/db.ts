@@ -557,3 +557,243 @@ export function parseCategoryIds(categoriesJson: string | null): string[] {
     return [];
   }
 }
+// Article Types and Methods (for /learn/archives/ section)
+// ============================================================================
+
+export type ArticleSection = 'knowledge-base' | 'guides' | 'faq' | 'videos' | 'payments';
+
+export interface Article {
+  id: string;
+  slug: string;
+  title: string;
+  content: string;
+  excerpt: string | null;
+  section: ArticleSection;
+  category: string | null;
+  tags: string | null; // JSON array
+  related_articles: string | null; // JSON array of slugs
+  related_products: string | null; // JSON array of SKUs
+  source_url: string | null;
+  source_id: string | null;
+  author: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+/**
+ * Parse JSON array fields from Article
+ */
+export function parseArticleTags(tagsJson: string | null): string[] {
+  if (!tagsJson) return [];
+  try {
+    return JSON.parse(tagsJson);
+  } catch {
+    return [];
+  }
+}
+
+export function parseRelatedArticles(relatedJson: string | null): string[] {
+  if (!relatedJson) return [];
+  try {
+    return JSON.parse(relatedJson);
+  } catch {
+    return [];
+  }
+}
+
+export function parseRelatedProducts(relatedJson: string | null): string[] {
+  if (!relatedJson) return [];
+  try {
+    return JSON.parse(relatedJson);
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Get articles by section with optional limit
+ */
+export async function getArticlesBySection(
+  db: D1Database,
+  section: ArticleSection,
+  limit = 50
+): Promise<Article[]> {
+  const result = await db
+    .prepare('SELECT * FROM articles WHERE section = ? ORDER BY updated_at DESC LIMIT ?')
+    .bind(section, limit)
+    .all<Article>();
+  return result.results || [];
+}
+
+/**
+ * Get all articles across all sections
+ */
+export async function getAllArticles(
+  db: D1Database,
+  limit = 100
+): Promise<Article[]> {
+  const result = await db
+    .prepare('SELECT * FROM articles ORDER BY updated_at DESC LIMIT ?')
+    .bind(limit)
+    .all<Article>();
+  return result.results || [];
+}
+
+/**
+ * Get single article by slug
+ */
+export async function getArticleBySlug(
+  db: D1Database,
+  slug: string
+): Promise<Article | null> {
+  const result = await db
+    .prepare('SELECT * FROM articles WHERE slug = ?')
+    .bind(slug)
+    .first<Article>();
+  return result || null;
+}
+
+/**
+ * Get article by source URL (for redirects from old Intercom URLs)
+ */
+export async function getArticleBySourceUrl(
+  db: D1Database,
+  sourceUrl: string
+): Promise<Article | null> {
+  const result = await db
+    .prepare('SELECT * FROM articles WHERE source_url = ?')
+    .bind(sourceUrl)
+    .first<Article>();
+  return result || null;
+}
+
+/**
+ * Get article by source ID (Intercom article ID)
+ */
+export async function getArticleBySourceId(
+  db: D1Database,
+  sourceId: string
+): Promise<Article | null> {
+  const result = await db
+    .prepare('SELECT * FROM articles WHERE source_id = ?')
+    .bind(sourceId)
+    .first<Article>();
+  return result || null;
+}
+
+/**
+ * Search articles by title or content
+ */
+export async function searchArticles(
+  db: D1Database,
+  query: string,
+  limit = 20
+): Promise<Article[]> {
+  const result = await db
+    .prepare(`
+      SELECT * FROM articles
+      WHERE title LIKE ? OR content LIKE ? OR excerpt LIKE ?
+      ORDER BY updated_at DESC
+      LIMIT ?
+    `)
+    .bind(`%${query}%`, `%${query}%`, `%${query}%`, limit)
+    .all<Article>();
+  return result.results || [];
+}
+
+/**
+ * Get related articles by slugs
+ */
+export async function getRelatedArticlesBySlugs(
+  db: D1Database,
+  slugs: string[]
+): Promise<Article[]> {
+  if (slugs.length === 0) return [];
+
+  const placeholders = slugs.map(() => '?').join(', ');
+  const result = await db
+    .prepare(`SELECT * FROM articles WHERE slug IN (${placeholders})`)
+    .bind(...slugs)
+    .all<Article>();
+  return result.results || [];
+}
+
+/**
+ * Upsert article (for sync from ERPNext or migration)
+ */
+export async function upsertArticle(
+  db: D1Database,
+  article: Omit<Article, 'created_at' | 'updated_at'>
+): Promise<void> {
+  const now = new Date().toISOString();
+  await db
+    .prepare(`
+      INSERT INTO articles (
+        id, slug, title, content, excerpt, section, category, tags,
+        related_articles, related_products, source_url, source_id, author,
+        created_at, updated_at
+      )
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      ON CONFLICT(id) DO UPDATE SET
+        slug = excluded.slug,
+        title = excluded.title,
+        content = excluded.content,
+        excerpt = excluded.excerpt,
+        section = excluded.section,
+        category = excluded.category,
+        tags = excluded.tags,
+        related_articles = excluded.related_articles,
+        related_products = excluded.related_products,
+        source_url = excluded.source_url,
+        source_id = excluded.source_id,
+        author = excluded.author,
+        updated_at = excluded.updated_at
+    `)
+    .bind(
+      article.id,
+      article.slug,
+      article.title,
+      article.content,
+      article.excerpt,
+      article.section,
+      article.category,
+      article.tags,
+      article.related_articles,
+      article.related_products,
+      article.source_url,
+      article.source_id,
+      article.author,
+      now,
+      now
+    )
+    .run();
+}
+
+/**
+ * Get article count by section
+ */
+export async function getArticleCountBySection(
+  db: D1Database
+): Promise<Record<ArticleSection, number>> {
+  const result = await db
+    .prepare(`
+      SELECT section, COUNT(*) as count
+      FROM articles
+      GROUP BY section
+    `)
+    .all<{ section: ArticleSection; count: number }>();
+
+  const counts: Record<ArticleSection, number> = {
+    'knowledge-base': 0,
+    'guides': 0,
+    'faq': 0,
+    'videos': 0,
+    'payments': 0,
+  };
+
+  for (const row of result.results || []) {
+    counts[row.section] = row.count;
+  }
+
+  return counts;
+}
