@@ -220,7 +220,7 @@ export default component$(() => {
                 href={`/products/brand/${cleanSlug(brand.slug)}/`}
                 class="bg-white border border-gray-200 rounded px-6 py-3 shadow-sm hover:shadow-md hover:border-solamp-green transition-all"
               >
-                <span class="font-heading font-bold text-solamp-forest/40 hover:text-solamp-forest transition-colors whitespace-nowrap">
+                <span class="font-heading font-bold text-gray-400 hover:text-solamp-forest transition-colors whitespace-nowrap">
                   {brand.title}
                 </span>
               </Link>
@@ -235,7 +235,7 @@ export default component$(() => {
           <div class="flex justify-between items-end mb-8">
             <div>
               <h2 class="font-heading font-extrabold text-2xl md:text-3xl text-solamp-forest">Shop by Category</h2>
-              <p class="text-solamp-forest/70 mt-1">Equipment for every installation type</p>
+              <p class="text-gray-600 mt-1">Equipment for every installation type</p>
             </div>
             <Link href="/products/" class="text-solamp-blue font-bold hover:underline hidden md:block">View All Products →</Link>
           </div>
@@ -288,7 +288,7 @@ export default component$(() => {
           <div class="flex justify-between items-end mb-8">
             <div>
               <h2 class="font-heading font-extrabold text-2xl md:text-3xl text-solamp-forest">Featured Products</h2>
-              <p class="text-solamp-forest/70 mt-1">Popular items from our catalog</p>
+              <p class="text-gray-600 mt-1">Popular items from our catalog</p>
             </div>
             <Link href="/products/" class="text-solamp-blue font-bold hover:underline hidden md:block">View All →</Link>
           </div>
@@ -306,7 +306,7 @@ export default component$(() => {
           <div class="text-center mb-10">
             <p class="text-xs font-mono text-solamp-bronze-dark uppercase tracking-wider mb-2">Shop by Application</p>
             <h2 class="font-heading font-extrabold text-2xl md:text-3xl text-solamp-forest">What Are You Building?</h2>
-            <p class="text-solamp-forest/70 mt-2">Find the right components for your project type</p>
+            <p class="text-gray-600 mt-2">Find the right components for your project type</p>
           </div>
           <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
             {projectTypes.map((project) => (
@@ -326,7 +326,7 @@ export default component$(() => {
                   </div>
                   {/* Products list */}
                   <div class="p-4 flex-1 flex flex-col">
-                    <p class="text-xs font-mono text-solamp-forest/50 uppercase tracking-wide mb-2">Key Components</p>
+                    <p class="text-xs font-mono text-gray-500 uppercase tracking-wide mb-2">Key Components</p>
                     <div class="flex flex-wrap gap-2 flex-1">
                       {project.products.map((prod) => (
                         <span key={prod} class="bg-white border border-gray-200 text-solamp-forest text-xs px-2 py-1 rounded h-fit">{prod}</span>
@@ -349,7 +349,7 @@ export default component$(() => {
           <div class="text-center mb-12">
             <p class="text-xs font-mono text-solamp-bronze-dark uppercase tracking-wider mb-2">The Solamp Difference</p>
             <h2 class="font-heading font-extrabold text-2xl md:text-3xl text-solamp-forest">Why Installers Choose Solamp</h2>
-            <p class="text-solamp-forest/70 mt-3 max-w-2xl mx-auto text-lg">
+            <p class="text-gray-600 mt-3 max-w-2xl mx-auto text-lg">
               We're not a faceless distributor. We're a team of solar professionals who've been in the trenches.
             </p>
           </div>
@@ -361,7 +361,7 @@ export default component$(() => {
                 </svg>
               </div>
               <h3 class="font-heading font-bold text-lg text-solamp-forest mb-2">Technical Guidance</h3>
-              <p class="text-sm text-solamp-forest/70 leading-relaxed">Our team is here to help you find the right components for your project and answer your questions.</p>
+              <p class="text-sm text-gray-600 leading-relaxed">Our team is here to help you find the right components for your project and answer your questions.</p>
             </div>
             <div class="bg-white rounded-lg p-6 border border-gray-200 hover:border-solamp-green hover:shadow-lg transition-all group">
               <div class="w-14 h-14 bg-solamp-forest rounded-lg flex items-center justify-center mb-4 group-hover:bg-solamp-green transition-colors">
@@ -370,7 +370,7 @@ export default component$(() => {
                 </svg>
               </div>
               <h3 class="font-heading font-bold text-lg text-solamp-forest mb-2">First-Class Components</h3>
-              <p class="text-sm text-solamp-forest/70 leading-relaxed">Direct manufacturer relationships. Authorized distributor with full product warranties.</p>
+              <p class="text-sm text-gray-600 leading-relaxed">Direct manufacturer relationships. Authorized distributor with full product warranties.</p>
             </div>
             <div class="bg-white rounded-lg p-6 border border-gray-200 hover:border-solamp-green hover:shadow-lg transition-all group">
               <div class="w-14 h-14 bg-solamp-forest rounded-lg flex items-center justify-center mb-4 group-hover:bg-solamp-green transition-colors">
@@ -379,7 +379,7 @@ export default component$(() => {
                 </svg>
               </div>
               <h3 class="font-heading font-bold text-lg text-solamp-forest mb-2">20+ Years</h3>
-              <p class="text-sm text-solamp-forest/70 leading-relaxed">Built on two decades of industry experience. We've seen it all.</p>
+              <p class="text-sm text-gray-600 leading-relaxed">Built on two decades of industry experience. We've seen it all.</p>
             </div>
             <div class="bg-white rounded-lg p-6 border border-gray-200 hover:border-solamp-green hover:shadow-lg transition-all group">
               <div class="w-14 h-14 bg-solamp-forest rounded-lg flex items-center justify-center mb-4 group-hover:bg-solamp-green transition-colors">
@@ -388,7 +388,7 @@ export default component$(() => {
                 </svg>
               </div>
               <h3 class="font-heading font-bold text-lg text-solamp-forest mb-2">Training & Guides</h3>
-              <p class="text-sm text-solamp-forest/70 leading-relaxed">Courses, documentation, and resources to grow your installation business.</p>
+              <p class="text-sm text-gray-600 leading-relaxed">Courses, documentation, and resources to grow your installation business.</p>
             </div>
           </div>
         </div>
@@ -423,7 +423,7 @@ export default component$(() => {
           <div class="flex justify-between items-end mb-8">
             <div>
               <h2 class="font-heading font-extrabold text-2xl md:text-3xl text-solamp-forest">Resources</h2>
-              <p class="text-solamp-forest/70 mt-1">Guides and tools for solar professionals</p>
+              <p class="text-gray-600 mt-1">Guides and tools for solar professionals</p>
             </div>
             <Link href="/learn/" class="text-solamp-blue font-bold hover:underline hidden md:block">View All →</Link>
           </div>
@@ -433,21 +433,21 @@ export default component$(() => {
                 <span class="bg-solamp-bronze/10 text-solamp-bronze-dark text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Guide</span>
               </div>
               <h3 class="font-heading font-bold text-lg text-solamp-forest group-hover:text-solamp-blue transition-colors">2025 Solar Tax Credit Guide</h3>
-              <p class="text-sm text-solamp-forest/70 mt-2 leading-relaxed">Federal ITC and state incentives explained for installers.</p>
+              <p class="text-sm text-gray-600 mt-2 leading-relaxed">Federal ITC and state incentives explained for installers.</p>
             </Link>
             <Link href="/learn/" class="bg-white rounded-lg border border-transparent shadow-sm hover:shadow-md p-5 transition-shadow group">
               <div class="flex items-center gap-2 mb-3">
                 <span class="bg-solamp-blue/10 text-solamp-blue text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Product</span>
               </div>
               <h3 class="font-heading font-bold text-lg text-solamp-forest group-hover:text-solamp-blue transition-colors">MidNite Solar Rosie Overview</h3>
-              <p class="text-sm text-solamp-forest/70 mt-2 leading-relaxed">Technical specs and installation tips for the Rosie series.</p>
+              <p class="text-sm text-gray-600 mt-2 leading-relaxed">Technical specs and installation tips for the Rosie series.</p>
             </Link>
             <Link href="/learn/" class="bg-white rounded-lg border border-transparent shadow-sm hover:shadow-md p-5 transition-shadow group">
               <div class="flex items-center gap-2 mb-3">
                 <span class="bg-solamp-green/10 text-solamp-forest text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Comparison</span>
               </div>
               <h3 class="font-heading font-bold text-lg text-solamp-forest group-hover:text-solamp-blue transition-colors">LiFePO4 vs Lithium-Ion</h3>
-              <p class="text-sm text-solamp-forest/70 mt-2 leading-relaxed">Battery chemistry comparison for energy storage projects.</p>
+              <p class="text-sm text-gray-600 mt-2 leading-relaxed">Battery chemistry comparison for energy storage projects.</p>
             </Link>
           </div>
         </div>
