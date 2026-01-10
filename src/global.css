@@ -41,6 +41,21 @@
   -webkit-text-fill-color: unset !important;
 }
 
+/*
+ * Hero image viewport-based zoom effect
+ * Narrow viewport = zoomed in on cabin (tight crop)
+ * Wide viewport = zoomed out to reveal full forest clearing
+ * Uses CSS clamp() for smooth scaling between breakpoints
+ */
+.hero-zoom-image {
+  /*
+   * background-size scales from 180% (narrow/zoomed in) to 100% (wide/zoomed out)
+   * 180% at 768px viewport, smoothly scales to 100% at 1920px viewport
+   */
+  background-size: clamp(100%, 250% - 8vw, 180%);
+  transition: background-size 0.1s ease-out;
+}
+
 /* Ensure prose text is readable */
 .prose {
   --tw-prose-body: #374151 !important; /* gray-700 */

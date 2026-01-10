@@ -1,4 +1,4 @@
-import { component$ } from '@builder.io/qwik';
+import { component$, useSignal, useVisibleTask$, $ } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
 import { Link, routeLoader$ } from '@builder.io/qwik-city';
 import { getDB, cleanSlug } from '../lib/db';
@@ -79,11 +79,80 @@ export default component$(() => {
   const brands = useBrands();
   const featuredByCategory = useFeaturedByCategory();
 
+  // Mobile zoom state for hero image
+  const mobileZoomLevel = useSignal(1.4); // Start zoomed in on cabin
+  const isTouching = useSignal(false);
+  const lastPinchDistance = useSignal(0);
+
+  // Handle tap to toggle zoom on mobile
+  const handleTap = $(() => {
+    // Toggle between zoomed in (1.4) and zoomed out (1.0)
+    mobileZoomLevel.value = mobileZoomLevel.value > 1.2 ? 1.0 : 1.4;
+  });
+
+  // Handle pinch zoom on mobile
+  const handleTouchStart = $((e: TouchEvent) => {
+    if (e.touches.length === 2) {
+      isTouching.value = true;
+      const dx = e.touches[0].clientX - e.touches[1].clientX;
+      const dy = e.touches[0].clientY - e.touches[1].clientY;
+      lastPinchDistance.value = Math.sqrt(dx * dx + dy * dy);
+    }
+  });
+
+  const handleTouchMove = $((e: TouchEvent) => {
+    if (e.touches.length === 2 && isTouching.value) {
+      const dx = e.touches[0].clientX - e.touches[1].clientX;
+      const dy = e.touches[0].clientY - e.touches[1].clientY;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+      const delta = distance - lastPinchDistance.value;
+
+      // Adjust zoom based on pinch (inverted: pinch in = zoom in on cabin)
+      const newZoom = Math.max(1.0, Math.min(1.6, mobileZoomLevel.value + delta * 0.002));
+      mobileZoomLevel.value = newZoom;
+      lastPinchDistance.value = distance;
+    }
+  });
+
+  const handleTouchEnd = $(() => {
+    isTouching.value = false;
+  });
+
   return (
     <div class="bg-white">
-      {/* Hero - SOLID Forest Green, no gradients */}
-      <section class="bg-solamp-forest">
-        <div class="container mx-auto px-4 py-12 md:py-16">
+      {/* Hero with responsive zoom image */}
+      <section class="relative overflow-hidden bg-solamp-forest">
+        {/* Background image with viewport-based zoom effect */}
+        {/* Desktop: CSS handles zoom based on viewport width */}
+        {/* Mobile: JavaScript handles tap/pinch interactions */}
+        <div
+          class="absolute inset-0 hero-zoom-image lg:block hidden"
+          style={{
+            backgroundImage: 'url(/images/wide-shot-of-a-small-cabin-far-in-the-di_lMru1hJZQ0yhClg5ZqcrpQ_v8qATksYQgKM-i-cckB5DQ.png)',
+            backgroundPosition: 'center 40%',
+            backgroundRepeat: 'no-repeat',
+          }}
+        />
+        {/* Mobile version with touch controls */}
+        <div
+          class="absolute inset-0 lg:hidden"
+          style={{
+            backgroundImage: 'url(/images/wide-shot-of-a-small-cabin-far-in-the-di_lMru1hJZQ0yhClg5ZqcrpQ_v8qATksYQgKM-i-cckB5DQ.png)',
+            backgroundPosition: 'center 40%',
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: `${mobileZoomLevel.value * 100}%`,
+            transition: isTouching.value ? 'none' : 'background-size 0.3s ease-out',
+          }}
+          onClick$={handleTap}
+          onTouchStart$={handleTouchStart}
+          onTouchMove$={handleTouchMove}
+          onTouchEnd$={handleTouchEnd}
+        />
+        {/* Dark overlay for text readability */}
+        <div class="absolute inset-0 bg-solamp-forest/70" />
+
+        {/* Content */}
+        <div class="relative container mx-auto px-4 py-12 md:py-16 lg:py-20">
           <div class="grid lg:grid-cols-5 gap-8 items-center">
             <div class="lg:col-span-3">
               <div class="inline-flex items-center gap-2 bg-solamp-bronze/20 text-solamp-bronze-dark px-3 py-1 rounded-full text-sm font-semibold mb-4">
@@ -92,10 +161,10 @@ export default component$(() => {
                 </svg>
                 Built on 20+ Years of Experience
               </div>
-              <h1 class="font-heading font-extrabold text-3xl md:text-4xl lg:text-5xl text-white mb-4 leading-tight">
+              <h1 class="font-heading font-extrabold text-3xl md:text-4xl lg:text-5xl text-white mb-4 leading-tight drop-shadow-lg">
                 Solar &amp; Energy Storage Components You Can Count On
               </h1>
-              <span class="block text-white-safe text-lg mb-6 max-w-2xl">
+              <span class="block text-white-safe text-lg mb-6 max-w-2xl drop-shadow">
                 From barn installations to off-grid cabins, we supply first-class components that power real projects.
                 Technical guidance from engineers who've been there.
               </span>
