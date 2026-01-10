@@ -135,13 +135,14 @@ export default component$(() => {
         />
         {/* Mobile version with touch controls */}
         <div
-          class="absolute inset-0 lg:hidden"
+          class="absolute inset-0 lg:hidden outline-none focus:outline-none select-none"
           style={{
             backgroundImage: 'url(/images/wide-shot-of-a-small-cabin-far-in-the-di_lMru1hJZQ0yhClg5ZqcrpQ_v8qATksYQgKM-i-cckB5DQ.png)',
             backgroundPosition: 'center 40%',
             backgroundRepeat: 'no-repeat',
             backgroundSize: `${mobileZoomLevel.value * 100}%`,
             transition: isTouching.value ? 'none' : 'background-size 0.3s ease-out',
+            WebkitTapHighlightColor: 'transparent',
           }}
           onClick$={handleTap}
           onTouchStart$={handleTouchStart}
