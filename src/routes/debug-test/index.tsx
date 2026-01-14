@@ -90,7 +90,7 @@ export default component$(() => {
           </h1>
           <p class="text-white/80 text-lg mb-6 max-w-2xl">
             From barn installations to off-grid cabins, we supply first-class components that power real projects.
-            Technical guidance from engineers who've been there.
+            Technical guidance from people who've been there.
           </p>
         </div>
       </section>

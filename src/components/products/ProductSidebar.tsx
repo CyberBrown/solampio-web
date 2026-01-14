@@ -131,7 +131,7 @@ export const ProductSidebar = component$<ProductSidebarProps>(({ categories, bra
         {/* Help Box */}
         <div class="bg-white border border-gray-200 rounded-lg p-4 mt-6">
           <p class="text-xs font-mono text-[#c3a859] uppercase tracking-wide mb-2">Need Help?</p>
-          <p class="text-sm text-gray-600 mb-3">Our engineers can help you find the right equipment.</p>
+          <p class="text-sm text-gray-600 mb-3">Our team can help you find the right equipment.</p>
           <a
             href="tel:978-451-6890"
             class="flex items-center justify-center gap-2 bg-[#042e0d] text-white text-sm font-bold py-2 px-3 rounded hover:bg-[#042e0d]/80 transition-colors w-full"

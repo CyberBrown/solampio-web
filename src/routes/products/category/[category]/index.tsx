@@ -99,7 +99,7 @@ export default component$(() => {
                     href={`/products/category/${categorySlug}/${subSlug}/`}
                     class="px-4 py-2 bg-white hover:bg-[#042e0d] hover:text-white text-sm font-semibold rounded transition-colors text-[#042e0d] border border-gray-200"
                   >
-                    {sub.title} ({sub.count})
+                    {sub.title}
                   </Link>
                 );
               })}
@@ -132,7 +132,7 @@ export default component$(() => {
           <div class="flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
               <h3 class="font-heading font-extrabold text-2xl text-white">Need help choosing?</h3>
-              <p class="text-white/70 mt-1">Our engineers can help you select the right {categoryName.toLowerCase()} for your project.</p>
+              <p class="text-white/70 mt-1">Our team can help you select the right {categoryName.toLowerCase()} for your project.</p>
             </div>
             <div class="flex flex-wrap gap-3">
               <Link href="/contact/" class="inline-flex items-center gap-2 bg-[#56c270] text-[#042e0d] font-heading font-bold px-5 py-3 rounded hover:bg-white transition-colors">

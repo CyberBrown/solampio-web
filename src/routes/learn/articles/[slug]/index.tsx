@@ -91,7 +91,7 @@ export default component$(() => {
                   <span class="text-white font-bold">S</span>
                 </div>
                 <div>
-                  <p class="font-heading font-bold text-[#042e0d]">Solamp Engineering Team</p>
+                  <p class="font-heading font-bold text-[#042e0d]">Solamp Team</p>
                   <p class="text-sm text-gray-500">Technical content for solar professionals</p>
                 </div>
               </div>
@@ -121,7 +121,7 @@ export default component$(() => {
           <div class="flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
               <h3 class="font-heading font-extrabold text-2xl text-white">Need help with your project?</h3>
-              <p class="text-white/70 mt-1">Our engineers can help with system design and product selection.</p>
+              <p class="text-white/70 mt-1">Our team can help with system design and product selection.</p>
             </div>
             <div class="flex gap-4">
               <Link href="/contact/" class="inline-flex items-center gap-2 bg-[#56c270] text-[#042e0d] font-heading font-bold px-6 py-3 rounded hover:bg-white transition-colors">

@@ -165,7 +165,7 @@ export default component$(() => {
           <div class="flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
               <h3 class="font-heading font-extrabold text-2xl text-white">Questions about {brandName}?</h3>
-              <p class="text-white/70 mt-1">Our engineers can help you select the right products for your project.</p>
+              <p class="text-white/70 mt-1">Our team can help you select the right products for your project.</p>
             </div>
             <div class="flex flex-wrap gap-3">
               <Link href="/contact/" class="inline-flex items-center gap-2 bg-[#56c270] text-[#042e0d] font-heading font-bold px-5 py-3 rounded hover:bg-white transition-colors">

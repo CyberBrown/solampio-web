@@ -5,7 +5,7 @@ import { Link } from '@builder.io/qwik-city';
 const values = [
   {
     title: 'Technical Expertise',
-    description: 'Our team includes engineers who\'ve designed and installed systems in the field.',
+    description: 'Our team has designed and installed systems in the field.',
     icon: 'M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z',
   },
   {
@@ -73,7 +73,7 @@ export default component$(() => {
                 So we built one. What started as a way to source equipment for our own projects became a full-service distribution company serving professional installers across the country.
               </p>
               <p class="text-gray-600">
-                Today we're still installer-focused. Our team includes engineers who've designed systems, climbed on roofs, and troubleshot problems in the field. When you call us, you talk to someone who gets it.
+                Today we're still installer-focused. Our team has designed systems, climbed on roofs, and troubleshot problems in the field. When you call us, you talk to someone who gets it.
               </p>
             </div>
             <div class="bg-[#042e0d]/5 border border-[#042e0d]/10 rounded-lg p-8">
@@ -224,7 +224,7 @@ export const head: DocumentHead = {
   meta: [
     {
       name: 'description',
-      content: 'Solamp has been serving solar installers since 2006. We distribute Tier-1 solar and energy storage equipment with technical support from real engineers.',
+      content: 'Solamp has been serving solar installers since 2006. We distribute Tier-1 solar and energy storage equipment with real technical support.',
     },
   ],
 };

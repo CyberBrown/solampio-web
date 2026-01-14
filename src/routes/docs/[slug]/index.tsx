@@ -152,7 +152,7 @@ export default component$(() => {
           <div class="flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
               <h3 class="font-heading font-extrabold text-2xl text-white">Need technical assistance?</h3>
-              <p class="text-white/70 mt-1">Our engineering team can help with installation questions.</p>
+              <p class="text-white/70 mt-1">Our team can help with installation questions.</p>
             </div>
             <a href="tel:978-451-6890" class="inline-flex items-center gap-2 bg-[#c3a859] text-white font-heading font-bold px-6 py-3 rounded hover:bg-[#c3a859]/80 transition-colors">
               978-451-6890

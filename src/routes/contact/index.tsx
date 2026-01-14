@@ -115,7 +115,7 @@ export default component$(() => {
                 </div>
               </div>
               <p class="text-white/70 text-sm">
-                Mon-Fri 8am-5pm EST. Talk to real engineers who understand system design.
+                Mon-Fri 8am-5pm EST. Talk to real people who understand system design.
               </p>
             </div>
 

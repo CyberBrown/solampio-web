@@ -178,7 +178,7 @@ export default component$(() => {
               </h1>
               <span class="block text-white-safe text-lg mb-6 max-w-2xl drop-shadow">
                 From barn installations to off-grid cabins, we supply first-class components that power real projects.
-                Technical guidance from engineers who've been there.
+                Technical guidance from people who've been there.
               </span>
               <div class="flex flex-wrap gap-3">
                 <Link href="/products/" class="inline-flex items-center gap-2 bg-solamp-green text-solamp-forest font-heading font-bold px-6 py-3 rounded hover:bg-white transition-colors">
@@ -209,7 +209,7 @@ export default component$(() => {
                 </div>
                 <p class="text-white-70-safe text-sm leading-relaxed">
                   Not sure which inverter pairs with your battery bank? Need help sizing a system for a customer?
-                  Our engineers understand the real-world challenges of solar installation.
+                  Our team understands the real-world challenges of solar installation.
                 </p>
                 <div class="mt-4 pt-4 border-t border-white/10">
                   <p class="text-xs text-white-50-safe">Mon-Fri 8am-5pm EST • Boxboro, MA</p>

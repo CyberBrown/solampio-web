@@ -127,7 +127,7 @@ export default component$(() => {
           <div class="flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
               <h3 class="font-heading font-extrabold text-2xl text-white">Need help with system design?</h3>
-              <p class="text-white/70 mt-1">Our engineers can review your calculations and help optimize your system.</p>
+              <p class="text-white/70 mt-1">Our team can review your calculations and help optimize your system.</p>
             </div>
             <a href="tel:978-451-6890" class="inline-flex items-center gap-2 bg-[#c3a859] text-white font-heading font-bold px-6 py-3 rounded hover:bg-[#c3a859]/80 transition-colors">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">

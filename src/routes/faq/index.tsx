@@ -50,7 +50,7 @@ const faqs = [
       },
       {
         q: 'Can you help with system design?',
-        a: 'Our engineering team can assist with system design, component selection, and troubleshooting. Call us to discuss your project requirements.',
+        a: 'Our team can assist with system design, component selection, and troubleshooting. Call us to discuss your project requirements.',
       },
       {
         q: 'Do you carry replacement parts?',
