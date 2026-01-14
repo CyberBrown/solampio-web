@@ -5,12 +5,6 @@ import { getDB, cleanSlug } from '../lib/db';
 import { getProductThumbnail, getLocalCategoryImage } from '../lib/images';
 import { ProductCard } from '../components/product/ProductCard';
 
-// Load top-level categories from D1
-export const useCategories = routeLoader$(async (requestEvent) => {
-  const db = getDB(requestEvent.platform);
-  return await db.getTopLevelCategories();
-});
-
 // Load featured products from D1
 export const useFeaturedProducts = routeLoader$(async (requestEvent) => {
   const db = getDB(requestEvent.platform);
@@ -23,20 +17,39 @@ export const useBrands = routeLoader$(async (requestEvent) => {
   return await db.getBrandsWithProducts();
 });
 
-// Load featured products by category for category tiles
-export const useFeaturedByCategory = routeLoader$(async (requestEvent) => {
-  const db = getDB(requestEvent.platform);
-  const featuredMap = await db.getFeaturedProductsByCategory();
-  // Convert Map to plain object for serialization
-  const result: Record<string, { thumbnail_url: string | null; image_url: string | null }> = {};
-  featuredMap.forEach((product, categoryId) => {
-    result[categoryId] = {
-      thumbnail_url: product.thumbnail_url,
-      image_url: product.image_url
-    };
-  });
-  return result;
-});
+// Fixed categories for Shop by Category section
+const shopByCategories = [
+  {
+    title: 'Solar Panels',
+    slug: 'solar-panels',
+    description: 'Rooftop, ground-mount & portable panels',
+  },
+  {
+    title: 'Batteries',
+    slug: 'batteries',
+    description: 'Lithium, lead-acid & rack-mounted storage',
+  },
+  {
+    title: 'Solar Power Systems',
+    slug: 'solar-power-systems',
+    description: 'Complete kits for any application',
+  },
+  {
+    title: 'Inverters',
+    slug: 'inverters',
+    description: 'Off-grid, hybrid & grid-tie inverters',
+  },
+  {
+    title: 'Mounting and Racking',
+    slug: 'mounting-and-racking',
+    description: 'Roof, ground & pole mount solutions',
+  },
+  {
+    title: 'Solar Training and Education',
+    slug: 'solar-training-and-education',
+    description: 'Courses & certification programs',
+  },
+];
 
 const projectTypes = [
   {
@@ -74,10 +87,8 @@ const projectTypes = [
 ];
 
 export default component$(() => {
-  const categories = useCategories();
   const featuredProducts = useFeaturedProducts();
   const brands = useBrands();
-  const featuredByCategory = useFeaturedByCategory();
 
   // Mobile zoom state for hero image
   const mobileZoomLevel = useSignal(1.4); // Start zoomed in on cabin
@@ -240,15 +251,12 @@ export default component$(() => {
             <Link href="/products/" class="text-solamp-blue font-bold hover:underline hidden md:block">View All Products →</Link>
           </div>
           <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
-            {categories.value.slice(0, 6).map((cat) => {
-              const catSlug = cleanSlug(cat.slug);
-              // Prefer local category images, fall back to featured product or legacy URL
-              const localImage = getLocalCategoryImage(cat.title);
-              const featuredProduct = featuredByCategory.value[cat.id];
-              const imageUrl = localImage || featuredProduct?.image_url || featuredProduct?.thumbnail_url || cat.image_url;
+            {shopByCategories.map((cat) => {
+              // Use local category images
+              const imageUrl = getLocalCategoryImage(cat.title);
               return (
-                <Link key={cat.id} href={`/products/category/${catSlug}/`} class="group relative overflow-hidden rounded-lg aspect-[4/3] transform transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-                  {/* Background - featured product photo or category image */}
+                <Link key={cat.slug} href={`/products/category/${cat.slug}/`} class="group relative overflow-hidden rounded-lg aspect-[4/3] transform transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                  {/* Background - local category image */}
                   {imageUrl ? (
                     <img
                       src={imageUrl}
@@ -267,7 +275,7 @@ export default component$(() => {
                   {/* Text content */}
                   <div class="absolute inset-0 flex flex-col justify-end p-4">
                     <h3 class="font-heading font-extrabold text-xl text-white">{cat.title}</h3>
-                    <p class="text-white-safe text-sm">{cat.description || `${cat.count} products`}</p>
+                    <p class="text-white-safe text-sm">{cat.description}</p>
                   </div>
                   {/* Hover arrow */}
                   <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-2 group-hover:translate-x-0">

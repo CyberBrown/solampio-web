@@ -98,39 +98,11 @@ export function useCart() {
     saveToStorage([]);
   });
 
-  /**
-   * Get total number of items (sum of quantities)
-   */
-  const getItemCount = () => {
-    return cart.items.value.reduce((sum, item) => sum + item.quantity, 0);
-  };
-
-  /**
-   * Get subtotal for items with prices
-   * Returns null if no items have prices
-   */
-  const getSubtotal = () => {
-    const pricedItems = cart.items.value.filter(item => item.price !== null);
-    if (pricedItems.length === 0) return null;
-
-    return pricedItems.reduce((sum, item) => sum + (item.price! * item.quantity), 0);
-  };
-
-  /**
-   * Check if cart has any items without prices (requires quote)
-   */
-  const hasUnpricedItems = () => {
-    return cart.items.value.some(item => item.price === null);
-  };
-
   return {
     items: cart.items,
     addToCart,
     removeFromCart,
     updateQuantity,
     clearCart,
-    getItemCount,
-    getSubtotal,
-    hasUnpricedItems,
   };
 }

@@ -52,10 +52,13 @@ export default component$(() => {
   const errorMessage = useSignal('');
   const checkoutReady = useSignal(false);
 
-  // Get cart data
+  // Get cart data - compute values inline to avoid serialization issues
   const items = cart.items.value;
-  const subtotal = cart.getSubtotal() || 0;
-  const hasUnpricedItems = cart.hasUnpricedItems();
+  const pricedItems = items.filter(item => item.price !== null);
+  const subtotal = pricedItems.length > 0
+    ? pricedItems.reduce((sum, item) => sum + (item.price! * item.quantity), 0)
+    : 0;
+  const hasUnpricedItems = items.some(item => item.price === null);
 
   // Initialize PaymentIntent when checkout loads
   useVisibleTask$(async () => {

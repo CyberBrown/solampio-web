@@ -7,9 +7,13 @@ import { encodeSkuForUrl } from '../../lib/db';
 export default component$(() => {
   const cart = useCart();
   const items = cart.items.value;
-  const itemCount = cart.getItemCount();
-  const subtotal = cart.getSubtotal();
-  const hasUnpriced = cart.hasUnpricedItems();
+  // Compute values inline instead of using helper functions (avoids serialization issues)
+  const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
+  const pricedItems = items.filter(item => item.price !== null);
+  const subtotal = pricedItems.length > 0
+    ? pricedItems.reduce((sum, item) => sum + (item.price! * item.quantity), 0)
+    : null;
+  const hasUnpriced = items.some(item => item.price === null);
 
   return (
     <div class="bg-[#f1f1f2] min-h-screen">
