@@ -4,6 +4,7 @@ import { Link, routeLoader$ } from '@builder.io/qwik-city';
 import { getDB, cleanSlug } from '../lib/db';
 import { getProductThumbnail, getLocalCategoryImage } from '../lib/images';
 import { ProductCard } from '../components/product/ProductCard';
+import { BrandScroll, BrandGrid } from '../components/brand/BrandScroll';
 
 // Load featured products from D1
 export const useFeaturedProducts = routeLoader$(async (requestEvent) => {
@@ -11,10 +12,17 @@ export const useFeaturedProducts = routeLoader$(async (requestEvent) => {
   return await db.getFeaturedProducts(4);
 });
 
-// Load brands that have products
+// Load featured brands for brand scroll, fallback to brands with products
 export const useBrands = routeLoader$(async (requestEvent) => {
   const db = getDB(requestEvent.platform);
-  return await db.getBrandsWithProducts();
+  // Try featured brands first (brands with is_featured=1 and logos)
+  const featured = await db.getFeaturedBrands(12);
+  if (featured.length > 0) {
+    return { brands: featured, hasFeatured: true };
+  }
+  // Fallback to brands with products (original behavior)
+  const brands = await db.getBrandsWithProducts();
+  return { brands: brands.slice(0, 12), hasFeatured: false };
 });
 
 // Fixed categories for Shop by Category section
@@ -88,7 +96,7 @@ const projectTypes = [
 
 export default component$(() => {
   const featuredProducts = useFeaturedProducts();
-  const brands = useBrands();
+  const brandsData = useBrands();
 
   // Mobile zoom state for hero image
   const mobileZoomLevel = useSignal(1.4); // Start zoomed in on cabin
@@ -220,25 +228,18 @@ export default component$(() => {
         </div>
       </section>
 
-      {/* Brand Partners - Visual Polish with Logo cards */}
-      <section class="bg-solamp-mist border-b border-gray-300 py-8">
-        <div class="container mx-auto px-4 text-center">
-          <p class="text-xs font-mono text-solamp-bronze-dark uppercase tracking-widest mb-6">Authorized Technical Distributor</p>
-          <div class="flex flex-wrap items-center justify-center gap-4 md:gap-6">
-            {brands.value.slice(0, 8).map((brand) => (
-              <Link
-                key={brand.id}
-                href={`/products/brand/${cleanSlug(brand.slug)}/`}
-                class="bg-white border border-gray-200 rounded px-6 py-3 shadow-sm hover:shadow-md hover:border-solamp-green transition-all"
-              >
-                <span class="font-heading font-bold text-gray-400 hover:text-solamp-forest transition-colors whitespace-nowrap">
-                  {brand.title}
-                </span>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Brand Partners - Logo scroll with greyscale-to-color effect */}
+      {brandsData.value.hasFeatured ? (
+        <BrandScroll
+          brands={brandsData.value.brands}
+          title="Authorized Technical Distributor"
+        />
+      ) : (
+        <BrandGrid
+          brands={brandsData.value.brands}
+          title="Authorized Technical Distributor"
+        />
+      )}
 
       {/* Category tiles - Photo backgrounds with dark overlay, like SparkFun */}
       <section class="py-12 bg-white">

@@ -3,6 +3,7 @@
  *
  * Receives webhooks from ERPNext to create/update brands and their category associations.
  * When a brand changes in ERPNext, it updates storefront_brands.
+ * Supports brand logo URL updates from Cloudflare Images.
  *
  * POST /api/brands/sync/
  *
@@ -16,6 +17,11 @@
  *   brand_logo?: string,             // Alternative logo URL field
  *   is_visible_on_website: boolean,  // Whether to show on website (opt-in, default false)
  *   disabled: boolean,               // Legacy field (fallback if is_visible_on_website not set)
+ *   is_featured: boolean,            // Show in brand scroll
+ *   cf_logo_full_url: string,        // CF Images full logo URL
+ *   cf_logo_thumb_url: string,       // CF Images thumbnail URL
+ *   cf_logo_greyscale_url: string,   // CF Images greyscale URL
+ *   logo_source_url: string,         // Original logo source URL
  *   associated_categories?: [        // Categories this brand appears in
  *     { item_group: string }
  *   ],
@@ -47,6 +53,11 @@ interface ERPNextBrandPayload {
   brand_logo?: string;
   is_visible_on_website?: boolean | number;
   disabled?: boolean | number;
+  is_featured?: boolean | number;
+  cf_logo_full_url?: string;
+  cf_logo_thumb_url?: string;
+  cf_logo_greyscale_url?: string;
+  logo_source_url?: string;
   associated_categories?: ERPNextCategoryLink[];
   associated_subcategories?: ERPNextCategoryLink[];
 }
@@ -74,6 +85,16 @@ function generateSlug(title: string): string {
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '')
     .substring(0, 100);
+}
+
+/**
+ * Extract CF Images ID from delivery URL
+ * URL format: https://imagedelivery.net/{account_hash}/{image_id}/{variant}
+ */
+function extractCfImageId(url: string | undefined): string | null {
+  if (!url) return null;
+  const match = url.match(/imagedelivery\.net\/[^/]+\/([^/]+)/);
+  return match ? match[1] : null;
 }
 
 /**
@@ -163,7 +184,13 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
     const slug = generateSlug(title);
     const now = new Date().toISOString();
     const isVisible = getVisibility(payload);
+    const isFeatured = payload.is_featured ? 1 : 0;
     const logoUrl = payload.image || payload.brand_logo || null;
+
+    // Extract CF image IDs from URLs
+    const logoCfImageId = extractCfImageId(payload.cf_logo_full_url);
+    const logoThumbCfId = extractCfImageId(payload.cf_logo_thumb_url);
+    const logoGreyscaleCfId = extractCfImageId(payload.cf_logo_greyscale_url);
 
     // Check if brand exists
     const existing = await db
@@ -183,6 +210,11 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
             slug = ?,
             description = COALESCE(?, description),
             logo_url = COALESCE(?, logo_url),
+            logo_cf_image_id = COALESCE(?, logo_cf_image_id),
+            logo_thumb_cf_id = COALESCE(?, logo_thumb_cf_id),
+            logo_greyscale_cf_id = COALESCE(?, logo_greyscale_cf_id),
+            logo_source_url = COALESCE(?, logo_source_url),
+            is_featured = ?,
             is_visible = ?,
             sync_source = 'erpnext',
             last_synced_from_erpnext = ?,
@@ -194,6 +226,11 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
           slug,
           payload.description || null,
           logoUrl,
+          logoCfImageId,
+          logoThumbCfId,
+          logoGreyscaleCfId,
+          payload.logo_source_url || null,
+          isFeatured,
           isVisible,
           now,
           now,
@@ -206,9 +243,11 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
       await db
         .prepare(`
           INSERT INTO storefront_brands (
-            id, erpnext_name, title, slug, description, logo_url, sort_order, is_visible,
+            id, erpnext_name, title, slug, description, logo_url,
+            logo_cf_image_id, logo_thumb_cf_id, logo_greyscale_cf_id, logo_source_url,
+            is_featured, is_visible, sort_order,
             sync_source, last_synced_from_erpnext, created_at, updated_at
-          ) VALUES (?, ?, ?, ?, ?, ?, 0, ?, 'erpnext', ?, ?, ?)
+          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 'erpnext', ?, ?, ?)
         `)
         .bind(
           brandId,
@@ -217,6 +256,11 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
           slug,
           payload.description || null,
           logoUrl,
+          logoCfImageId,
+          logoThumbCfId,
+          logoGreyscaleCfId,
+          payload.logo_source_url || null,
+          isFeatured,
           isVisible,
           now,
           now,
@@ -244,6 +288,8 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
         title,
         slug,
         is_visible: isVisible,
+        is_featured: isFeatured === 1,
+        has_logo: !!logoCfImageId || !!logoUrl,
         updated: !!existing,
         associated_categories: associations.categories,
         associated_subcategories: associations.subcategories,
@@ -287,7 +333,12 @@ export const onPut: RequestHandler = async ({ request, platform, json }) => {
         const slug = generateSlug(title);
         const now = new Date().toISOString();
         const isVisible = getVisibility(payload);
+        const isFeatured = payload.is_featured ? 1 : 0;
         const logoUrl = payload.image || payload.brand_logo || null;
+
+        const logoCfImageId = extractCfImageId(payload.cf_logo_full_url);
+        const logoThumbCfId = extractCfImageId(payload.cf_logo_thumb_url);
+        const logoGreyscaleCfId = extractCfImageId(payload.cf_logo_greyscale_url);
 
         const existing = await db
           .prepare('SELECT id FROM storefront_brands WHERE erpnext_name = ?')
@@ -302,22 +353,41 @@ export const onPut: RequestHandler = async ({ request, platform, json }) => {
             .prepare(`
               UPDATE storefront_brands SET
                 title = ?, slug = ?, description = COALESCE(?, description),
-                logo_url = COALESCE(?, logo_url), is_visible = ?,
+                logo_url = COALESCE(?, logo_url),
+                logo_cf_image_id = COALESCE(?, logo_cf_image_id),
+                logo_thumb_cf_id = COALESCE(?, logo_thumb_cf_id),
+                logo_greyscale_cf_id = COALESCE(?, logo_greyscale_cf_id),
+                logo_source_url = COALESCE(?, logo_source_url),
+                is_featured = ?, is_visible = ?,
                 sync_source = 'erpnext', last_synced_from_erpnext = ?, updated_at = ?
               WHERE erpnext_name = ?
             `)
-            .bind(title, slug, payload.description || null, logoUrl, isVisible, now, now, payload.name)
+            .bind(
+              title, slug, payload.description || null,
+              logoUrl,
+              logoCfImageId, logoThumbCfId, logoGreyscaleCfId,
+              payload.logo_source_url || null,
+              isFeatured, isVisible, now, now, payload.name
+            )
             .run();
         } else {
           brandId = crypto.randomUUID().replace(/-/g, '');
           await db
             .prepare(`
               INSERT INTO storefront_brands (
-                id, erpnext_name, title, slug, description, logo_url, sort_order, is_visible,
+                id, erpnext_name, title, slug, description, logo_url,
+                logo_cf_image_id, logo_thumb_cf_id, logo_greyscale_cf_id, logo_source_url,
+                is_featured, is_visible, sort_order,
                 sync_source, last_synced_from_erpnext, created_at, updated_at
-              ) VALUES (?, ?, ?, ?, ?, ?, 0, ?, 'erpnext', ?, ?, ?)
+              ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 'erpnext', ?, ?, ?)
             `)
-            .bind(brandId, payload.name, title, slug, payload.description || null, logoUrl, isVisible, now, now, now)
+            .bind(
+              brandId, payload.name, title, slug, payload.description || null,
+              logoUrl,
+              logoCfImageId, logoThumbCfId, logoGreyscaleCfId,
+              payload.logo_source_url || null,
+              isFeatured, isVisible, now, now, now
+            )
             .run();
         }
 
@@ -368,7 +438,7 @@ export const onGet: RequestHandler = async ({ json }) => {
       POST: 'Sync single brand',
       PUT: 'Batch sync multiple brands (array)',
     },
-    description: 'Webhook endpoint for ERPNext Brand sync',
+    description: 'Webhook endpoint for ERPNext Brand sync with logo support',
     expectedPayload: {
       name: 'ERPNext Brand name (required)',
       brand: 'Display title (optional, defaults to name)',
@@ -378,9 +448,20 @@ export const onGet: RequestHandler = async ({ json }) => {
       brand_logo: 'Alternative logo URL field',
       is_visible_on_website: 'Set to true to show brand on website (default: false)',
       disabled: 'Legacy field - set to true to hide brand (use is_visible_on_website instead)',
+      is_featured: 'Show in brand scroll (boolean)',
+      cf_logo_full_url: 'CF Images full logo URL (400x200)',
+      cf_logo_thumb_url: 'CF Images thumbnail URL (100x50)',
+      cf_logo_greyscale_url: 'CF Images greyscale URL',
+      logo_source_url: 'Original logo source URL for attribution',
       associated_categories: '[{ item_group: "Category Name" }] - Categories this brand appears in',
       associated_subcategories: '[{ item_group: "Subcategory Name" }] - Subcategories this brand appears in',
     },
     visibilityLogic: 'Brands default to hidden (opt-in). Set is_visible_on_website=true to show.',
+    logoWorkflow: {
+      step1: 'Upload logo to ERPNext Brand doctype',
+      step2: 'Run brand-logos scripts to process and upload to CF Images',
+      step3: 'Send webhook with CF Images URLs to this endpoint',
+      step4: 'Brand scroll will display logos with greyscale-to-color effect',
+    },
   });
 };
