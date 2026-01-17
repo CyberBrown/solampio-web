@@ -1,24 +1,23 @@
 /**
- * Category Sync API Endpoint
+ * Brand Sync API Endpoint
  *
- * Receives webhooks from ERPNext to create/update categories (Item Groups).
- * When a category changes in ERPNext, it updates storefront_categories.
+ * Receives webhooks from ERPNext to create/update brands.
+ * When a brand changes in ERPNext, it updates storefront_brands.
  *
- * POST /api/categories/sync/
+ * POST /api/brands/sync/
  *
- * Expected payload from ERPNext Item Group doctype:
+ * Expected payload from ERPNext Brand doctype:
  * {
- *   name: string,                    // ERPNext Item Group name
- *   item_group_name: string,         // Display name
- *   parent_item_group: string,       // Parent category name (or "All Item Groups" for root)
- *   is_group: boolean,               // Whether this is a parent group
- *   image: string,                   // Image URL (optional)
+ *   name: string,                    // ERPNext Brand name
+ *   brand: string,                   // Brand display name (optional, falls back to name)
+ *   description: string,             // Brand description (optional)
+ *   image: string,                   // Logo URL (optional)
  *   is_visible_on_website: boolean,  // Whether to show on website (opt-in, default false)
  *   disabled: boolean,               // Legacy field (fallback if is_visible_on_website not set)
  * }
  *
  * Visibility Logic:
- * - New categories default to is_visible = 0 (hidden) - opt-in model
+ * - New brands default to is_visible = 0 (hidden) - opt-in model
  * - If is_visible_on_website is set, use that value
  * - If only disabled is set, use !disabled as is_visible (backward compatibility)
  * - If neither is set, default to hidden (0)
@@ -27,11 +26,10 @@
 import type { RequestHandler } from '@builder.io/qwik-city';
 import type { D1Database } from '@cloudflare/workers-types';
 
-interface ERPNextCategoryPayload {
+interface ERPNextBrandPayload {
   name: string;
-  item_group_name?: string;
-  parent_item_group?: string;
-  is_group?: boolean | number;
+  brand?: string;
+  description?: string;
   image?: string;
   is_visible_on_website?: boolean | number;  // New field: true = visible
   disabled?: boolean | number;                // Legacy field: true = hidden
@@ -41,7 +39,7 @@ interface ERPNextCategoryPayload {
  * Determine visibility based on payload fields
  * Priority: is_visible_on_website > !disabled > default (hidden)
  */
-function getVisibility(payload: ERPNextCategoryPayload): number {
+function getVisibility(payload: ERPNextBrandPayload): number {
   // If is_visible_on_website is explicitly set, use it
   if (payload.is_visible_on_website !== undefined) {
     return payload.is_visible_on_website ? 1 : 0;
@@ -65,34 +63,15 @@ function generateSlug(title: string): string {
     .substring(0, 100);
 }
 
-/**
- * Look up parent category ID by ERPNext name
- */
-async function getParentCategoryId(
-  db: D1Database,
-  parentName: string
-): Promise<string | null> {
-  // Skip if parent is "All Item Groups" (ERPNext root)
-  if (parentName === 'All Item Groups') {
-    return null;
-  }
-
-  const result = await db
-    .prepare('SELECT id FROM storefront_categories WHERE erpnext_name = ? OR title = ? LIMIT 1')
-    .bind(parentName, parentName)
-    .first<{ id: string }>();
-  return result?.id || null;
-}
-
 export const onPost: RequestHandler = async ({ request, platform, json }) => {
   try {
-    const db = platform.env?.DB;
+    const db = platform.env?.DB as D1Database | undefined;
     if (!db) {
       json(500, { error: 'Database not configured' });
       return;
     }
 
-    const payload = await request.json() as ERPNextCategoryPayload;
+    const payload = await request.json() as ERPNextBrandPayload;
 
     // Validate required fields
     if (!payload.name) {
@@ -100,31 +79,26 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
       return;
     }
 
-    const title = payload.item_group_name || payload.name;
+    const title = payload.brand || payload.name;
     const slug = generateSlug(title);
     const now = new Date().toISOString();
     const isVisible = getVisibility(payload);
 
-    // Look up parent category ID
-    let parentId: string | null = null;
-    if (payload.parent_item_group) {
-      parentId = await getParentCategoryId(db, payload.parent_item_group);
-    }
-
-    // Check if category exists
+    // Check if brand exists
     const existing = await db
-      .prepare('SELECT id FROM storefront_categories WHERE erpnext_name = ?')
+      .prepare('SELECT id FROM storefront_brands WHERE erpnext_name = ?')
       .bind(payload.name)
       .first() as { id: string } | null;
 
     if (existing) {
-      // Update existing category
+      // Update existing brand
       await db
         .prepare(`
-          UPDATE storefront_categories SET
+          UPDATE storefront_brands SET
             title = ?,
             slug = ?,
-            parent_id = ?,
+            description = COALESCE(?, description),
+            logo_url = COALESCE(?, logo_url),
             is_visible = ?,
             sync_source = 'erpnext',
             last_synced_from_erpnext = ?,
@@ -134,7 +108,8 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
         .bind(
           title,
           slug,
-          parentId,
+          payload.description || null,
+          payload.image || null,
           isVisible,
           now,
           now,
@@ -144,31 +119,32 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
 
       json(200, {
         success: true,
-        category: {
+        brand: {
           id: existing.id,
           erpnext_name: payload.name,
           title,
           slug,
-          parent_id: parentId,
+          is_visible: isVisible,
           updated: true,
         },
       });
     } else {
-      // Insert new category
+      // Insert new brand
       const id = crypto.randomUUID().replace(/-/g, '');
       await db
         .prepare(`
-          INSERT INTO storefront_categories (
-            id, erpnext_name, title, slug, parent_id, sort_order, is_visible,
-            count, sync_source, last_synced_from_erpnext, created_at, updated_at
-          ) VALUES (?, ?, ?, ?, ?, 0, ?, 0, 'erpnext', ?, ?, ?)
+          INSERT INTO storefront_brands (
+            id, erpnext_name, title, slug, description, logo_url, sort_order, is_visible,
+            sync_source, last_synced_from_erpnext, created_at, updated_at
+          ) VALUES (?, ?, ?, ?, ?, ?, 0, ?, 'erpnext', ?, ?, ?)
         `)
         .bind(
           id,
           payload.name,
           title,
           slug,
-          parentId,
+          payload.description || null,
+          payload.image || null,
           isVisible,
           now,
           now,
@@ -178,85 +154,81 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
 
       json(200, {
         success: true,
-        category: {
+        brand: {
           id,
           erpnext_name: payload.name,
           title,
           slug,
-          parent_id: parentId,
+          is_visible: isVisible,
           created: true,
         },
       });
     }
   } catch (error) {
-    console.error('Category sync error:', error);
+    console.error('Brand sync error:', error);
     json(500, {
-      error: 'Failed to sync category',
+      error: 'Failed to sync brand',
       message: error instanceof Error ? error.message : 'Unknown error',
     });
   }
 };
 
-// Batch sync endpoint for multiple categories
+// Batch sync endpoint for multiple brands
 export const onPut: RequestHandler = async ({ request, platform, json }) => {
   try {
-    const db = platform.env?.DB;
+    const db = platform.env?.DB as D1Database | undefined;
     if (!db) {
       json(500, { error: 'Database not configured' });
       return;
     }
 
-    const categories = await request.json() as ERPNextCategoryPayload[];
+    const brands = await request.json() as ERPNextBrandPayload[];
 
-    if (!Array.isArray(categories)) {
-      json(400, { error: 'Expected array of categories' });
+    if (!Array.isArray(brands)) {
+      json(400, { error: 'Expected array of brands' });
       return;
     }
 
     const results: Array<{ name: string; success: boolean; error?: string }> = [];
 
-    for (const payload of categories) {
+    for (const payload of brands) {
       try {
         if (!payload.name) {
           results.push({ name: 'unknown', success: false, error: 'Missing name' });
           continue;
         }
 
-        const title = payload.item_group_name || payload.name;
+        const title = payload.brand || payload.name;
         const slug = generateSlug(title);
         const now = new Date().toISOString();
         const isVisible = getVisibility(payload);
 
-        let parentId: string | null = null;
-        if (payload.parent_item_group) {
-          parentId = await getParentCategoryId(db, payload.parent_item_group);
-        }
-
         const existing = await db
-          .prepare('SELECT id FROM storefront_categories WHERE erpnext_name = ?')
+          .prepare('SELECT id FROM storefront_brands WHERE erpnext_name = ?')
           .bind(payload.name)
           .first() as { id: string } | null;
 
         if (existing) {
           await db
             .prepare(`
-              UPDATE storefront_categories SET
-                title = ?, slug = ?, parent_id = ?, is_visible = ?,
+              UPDATE storefront_brands SET
+                title = ?, slug = ?, description = COALESCE(?, description),
+                logo_url = COALESCE(?, logo_url), is_visible = ?,
                 sync_source = 'erpnext', last_synced_from_erpnext = ?, updated_at = ?
               WHERE erpnext_name = ?
             `)
-            .bind(title, slug, parentId, isVisible, now, now, payload.name)
+            .bind(title, slug, payload.description || null, payload.image || null, isVisible, now, now, payload.name)
             .run();
         } else {
           const id = crypto.randomUUID().replace(/-/g, '');
           await db
             .prepare(`
-              INSERT INTO storefront_categories (
-                id, erpnext_name, title, slug, parent_id, sort_order, is_visible,
-                count, sync_source, last_synced_from_erpnext, created_at, updated_at
-              ) VALUES (?, ?, ?, ?, ?, 0, ?, 0, 'erpnext', ?, ?, ?)
+              INSERT INTO storefront_brands (
+                id, erpnext_name, title, slug, description, logo_url, sort_order, is_visible,
+                sync_source, last_synced_from_erpnext, created_at, updated_at
+              ) VALUES (?, ?, ?, ?, ?, ?, 0, ?, 'erpnext', ?, ?, ?)
             `)
-            .bind(id, payload.name, title, slug, parentId, isVisible, now, now, now)
+            .bind(id, payload.name, title, slug, payload.description || null, payload.image || null, isVisible, now, now, now)
             .run();
         }
 
@@ -274,15 +246,15 @@ export const onPut: RequestHandler = async ({ request, platform, json }) => {
       success: true,
       results,
       summary: {
-        total: categories.length,
+        total: brands.length,
         succeeded: results.filter(r => r.success).length,
         failed: results.filter(r => !r.success).length,
       },
     });
   } catch (error) {
-    console.error('Batch category sync error:', error);
+    console.error('Batch brand sync error:', error);
     json(500, {
-      error: 'Failed to sync categories',
+      error: 'Failed to sync brands',
       message: error instanceof Error ? error.message : 'Unknown error',
     });
   }
@@ -292,20 +264,20 @@ export const onPut: RequestHandler = async ({ request, platform, json }) => {
 export const onGet: RequestHandler = async ({ json }) => {
   json(200, {
     status: 'ok',
-    endpoint: 'categories/sync',
+    endpoint: 'brands/sync',
     methods: {
-      POST: 'Sync single category',
-      PUT: 'Batch sync multiple categories (array)',
+      POST: 'Sync single brand',
+      PUT: 'Batch sync multiple brands (array)',
     },
-    description: 'Webhook endpoint for ERPNext Item Group sync',
+    description: 'Webhook endpoint for ERPNext Brand sync',
     expectedPayload: {
-      name: 'ERPNext Item Group name (required)',
-      item_group_name: 'Display title',
-      parent_item_group: 'Parent category name',
-      is_group: 'Whether this has subcategories',
-      is_visible_on_website: 'Set to true to show category on website (default: false)',
-      disabled: 'Legacy field - set to true to hide category (use is_visible_on_website instead)',
+      name: 'ERPNext Brand name (required)',
+      brand: 'Display title (optional, defaults to name)',
+      description: 'Brand description',
+      image: 'Logo image URL',
+      is_visible_on_website: 'Set to true to show brand on website (default: false)',
+      disabled: 'Legacy field - set to true to hide brand (use is_visible_on_website instead)',
     },
-    visibilityLogic: 'Categories default to hidden (opt-in). Set is_visible_on_website=true to show.',
+    visibilityLogic: 'Brands default to hidden (opt-in). Set is_visible_on_website=true to show.',
   });
 };

@@ -102,7 +102,17 @@ solampio-web/
 ### API Endpoints
 - Product sync (`/api/products/sync`)
 - Category sync (`/api/categories/sync`)
+- Brand sync (`/api/brands/sync`)
 - Articles sync and import (`/api/articles/sync`, `/api/articles/import`)
+
+### Visibility Control (ERPNext Integration)
+Categories and brands use an **opt-in visibility model**:
+- New items default to **hidden** (`is_visible = 0`)
+- Staff enable items via ERPNext by setting `is_visible_on_website = true`
+- The sync endpoints accept:
+  - `is_visible_on_website`: Primary field (true = visible)
+  - `disabled`: Legacy fallback (true = hidden)
+- Frontend filters all queries by `is_visible = 1`
 
 ## Development Commands
 
