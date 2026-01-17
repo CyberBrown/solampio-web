@@ -35,6 +35,9 @@ interface ERPNextCategoryPayload {
   image?: string;
   is_visible_on_website?: boolean | number;  // New field: true = visible
   disabled?: boolean | number;                // Legacy field: true = hidden
+  // Category image fields
+  category_image?: string;  // Attach Image (legacy)
+  cf_category_image_url?: string;  // Cloudflare Images URL
 }
 
 /**
@@ -117,6 +120,9 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
       .bind(payload.name)
       .first() as { id: string } | null;
 
+    // Handle image URL - prefer cf_category_image_url, fallback to image
+    const imageUrl = payload.cf_category_image_url || payload.category_image || payload.image || null;
+
     if (existing) {
       // Update existing category
       await db
@@ -126,6 +132,8 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
             slug = ?,
             parent_id = ?,
             is_visible = ?,
+            cf_category_image_url = COALESCE(?, cf_category_image_url),
+            image_url = COALESCE(?, image_url),
             sync_source = 'erpnext',
             last_synced_from_erpnext = ?,
             updated_at = ?
@@ -136,6 +144,8 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
           slug,
           parentId,
           isVisible,
+          payload.cf_category_image_url || null,
+          imageUrl,
           now,
           now,
           payload.name
@@ -150,6 +160,7 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
           title,
           slug,
           parent_id: parentId,
+          cf_category_image_url: payload.cf_category_image_url || null,
           updated: true,
         },
       });
@@ -160,8 +171,8 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
         .prepare(`
           INSERT INTO storefront_categories (
             id, erpnext_name, title, slug, parent_id, sort_order, is_visible,
-            count, sync_source, last_synced_from_erpnext, created_at, updated_at
-          ) VALUES (?, ?, ?, ?, ?, 0, ?, 0, 'erpnext', ?, ?, ?)
+            count, image_url, cf_category_image_url, sync_source, last_synced_from_erpnext, created_at, updated_at
+          ) VALUES (?, ?, ?, ?, ?, 0, ?, 0, ?, ?, 'erpnext', ?, ?, ?)
         `)
         .bind(
           id,
@@ -170,6 +181,8 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
           slug,
           parentId,
           isVisible,
+          imageUrl,
+          payload.cf_category_image_url || null,
           now,
           now,
           now
@@ -184,6 +197,7 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
           title,
           slug,
           parent_id: parentId,
+          cf_category_image_url: payload.cf_category_image_url || null,
           created: true,
         },
       });
@@ -237,15 +251,19 @@ export const onPut: RequestHandler = async ({ request, platform, json }) => {
           .bind(payload.name)
           .first() as { id: string } | null;
 
+        const imageUrl = payload.cf_category_image_url || payload.category_image || payload.image || null;
+
         if (existing) {
           await db
             .prepare(`
               UPDATE storefront_categories SET
                 title = ?, slug = ?, parent_id = ?, is_visible = ?,
+                cf_category_image_url = COALESCE(?, cf_category_image_url),
+                image_url = COALESCE(?, image_url),
                 sync_source = 'erpnext', last_synced_from_erpnext = ?, updated_at = ?
               WHERE erpnext_name = ?
             `)
-            .bind(title, slug, parentId, isVisible, now, now, payload.name)
+            .bind(title, slug, parentId, isVisible, payload.cf_category_image_url || null, imageUrl, now, now, payload.name)
             .run();
         } else {
           const id = crypto.randomUUID().replace(/-/g, '');
@@ -253,10 +271,10 @@ export const onPut: RequestHandler = async ({ request, platform, json }) => {
             .prepare(`
               INSERT INTO storefront_categories (
                 id, erpnext_name, title, slug, parent_id, sort_order, is_visible,
-                count, sync_source, last_synced_from_erpnext, created_at, updated_at
-              ) VALUES (?, ?, ?, ?, ?, 0, ?, 0, 'erpnext', ?, ?, ?)
+                count, image_url, cf_category_image_url, sync_source, last_synced_from_erpnext, created_at, updated_at
+              ) VALUES (?, ?, ?, ?, ?, 0, ?, 0, ?, ?, 'erpnext', ?, ?, ?)
             `)
-            .bind(id, payload.name, title, slug, parentId, isVisible, now, now, now)
+            .bind(id, payload.name, title, slug, parentId, isVisible, imageUrl, payload.cf_category_image_url || null, now, now, now)
             .run();
         }
 
@@ -305,6 +323,8 @@ export const onGet: RequestHandler = async ({ json }) => {
       is_group: 'Whether this has subcategories',
       is_visible_on_website: 'Set to true to show category on website (default: false)',
       disabled: 'Legacy field - set to true to hide category (use is_visible_on_website instead)',
+      category_image: 'Attach Image URL (optional)',
+      cf_category_image_url: 'Cloudflare Images URL for mega menu display (optional)',
     },
     visibilityLogic: 'Categories default to hidden (opt-in). Set is_visible_on_website=true to show.',
   });

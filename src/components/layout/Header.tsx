@@ -2,23 +2,31 @@ import { component$, useSignal, useVisibleTask$, $, useContext } from '@builder.
 import { Link } from '@builder.io/qwik-city';
 import { SidebarContext } from '../../context/sidebar-context';
 import { CartContext } from '../../context/cart-context';
-import type { Category } from '../../lib/db';
-import { cleanSlug } from '../../lib/db';
-import { getCategoryImageUrl } from '../../lib/images';
+import type { Category, Product, Brand } from '../../lib/db';
+import { cleanSlug, encodeSkuForUrl } from '../../lib/db';
+import { getCategoryImageUrl, getProductThumbnail, getBrandLogoUrl } from '../../lib/images';
 
 // Navigation category with subcategories
 interface NavCategory extends Category {
   subcategories: Category[];
 }
 
+// Featured products by category ID
+type FeaturedProductsMap = Record<string, Product[]>;
+
+// Brands by category ID
+type CategoryBrandsMap = Record<string, Brand[]>;
+
 interface HeaderProps {
   categories: NavCategory[];
+  featuredProducts?: FeaturedProductsMap;
+  categoryBrands?: CategoryBrandsMap;
 }
 
 // Priority categories to show in main nav (others go in "More" dropdown)
 const PRIORITY_SLUGS = ['solar-panels', 'batteries', 'inverters', 'mounting-and-racking', 'charge-controllers', 'balance-of-system'];
 
-export const Header = component$<HeaderProps>(({ categories }) => {
+export const Header = component$<HeaderProps>(({ categories, featuredProducts = {}, categoryBrands = {} }) => {
   const isScrolled = useSignal(false);
   const isHovering = useSignal(false);
   const openMenu = useSignal<string | null>(null);
@@ -238,6 +246,24 @@ export const Header = component$<HeaderProps>(({ categories }) => {
           {priorityCategories.map((cat) => {
             const slug = cleanSlug(cat.slug);
             const categoryImageUrl = getCategoryImageUrl(cat, 'card');
+            // Get featured products for this category (and its subcategories)
+            const categoryFeatured = featuredProducts[cat.id] || [];
+            // Also check subcategories for featured products
+            const allFeatured = [...categoryFeatured];
+            for (const sub of cat.subcategories) {
+              const subFeatured = featuredProducts[sub.id] || [];
+              for (const product of subFeatured) {
+                if (!allFeatured.some(p => p.id === product.id) && allFeatured.length < 3) {
+                  allFeatured.push(product);
+                }
+              }
+            }
+            const displayFeatured = allFeatured.slice(0, 3);
+
+            // Get brands for this category (limit to 4 for display)
+            const categoryBrandsList = categoryBrands[cat.id] || [];
+            const displayBrands = categoryBrandsList.slice(0, 4);
+
             return (
               <div
                 key={cat.id}
@@ -248,6 +274,7 @@ export const Header = component$<HeaderProps>(({ categories }) => {
               >
                 <div class="container mx-auto px-4 py-6">
                   <div class="flex gap-8">
+                    {/* Left side: Subcategories */}
                     <div class="flex-1">
                       <p class="text-xs font-mono text-solamp-forest/50 uppercase tracking-wide mb-3">
                         {cat.title} Categories
@@ -264,7 +291,7 @@ export const Header = component$<HeaderProps>(({ categories }) => {
                           </Link>
                         ))}
                       </div>
-                      <div class="mt-4 pt-4 border-t border-gray-200">
+                      <div class="mt-4 pt-4 border-t border-gray-200 flex items-center justify-between">
                         <Link
                           href={`/products/category/${slug}/`}
                           onClick$={closeMenu}
@@ -272,13 +299,92 @@ export const Header = component$<HeaderProps>(({ categories }) => {
                         >
                           View All {cat.title} →
                         </Link>
+
+                        {/* Brands we carry (if any) */}
+                        {displayBrands.length > 0 && (
+                          <div class="flex items-center gap-2">
+                            <span class="text-xs text-solamp-forest/50">Brands:</span>
+                            <div class="flex items-center gap-1">
+                              {displayBrands.map((brand) => {
+                                const logoUrl = getBrandLogoUrl(brand);
+                                return (
+                                  <Link
+                                    key={brand.id}
+                                    href={`/products/brand/${brand.slug}/`}
+                                    onClick$={closeMenu}
+                                    class="w-8 h-8 rounded bg-white border border-gray-200 flex items-center justify-center hover:border-solamp-blue transition-colors"
+                                    title={brand.title}
+                                  >
+                                    {logoUrl ? (
+                                      <img
+                                        src={logoUrl}
+                                        alt={brand.title}
+                                        class="w-6 h-6 object-contain"
+                                        loading="lazy"
+                                      />
+                                    ) : (
+                                      <span class="text-xs font-bold text-solamp-forest">
+                                        {brand.title.charAt(0)}
+                                      </span>
+                                    )}
+                                  </Link>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        )}
                       </div>
                     </div>
+
+                    {/* Middle: Featured Products (if available) */}
+                    {displayFeatured.length > 0 && (
+                      <div class="w-72">
+                        <p class="text-xs font-mono text-solamp-forest/50 uppercase tracking-wide mb-3">
+                          Featured Products
+                        </p>
+                        <div class="space-y-3">
+                          {displayFeatured.map((product) => {
+                            const productImage = getProductThumbnail(product);
+                            return (
+                              <Link
+                                key={product.id}
+                                href={`/products/${encodeSkuForUrl(product.sku)}/`}
+                                onClick$={closeMenu}
+                                class="flex gap-3 p-2 rounded-lg hover:bg-solamp-mist transition-colors group"
+                              >
+                                {productImage && (
+                                  <div class="w-16 h-16 flex-shrink-0 rounded overflow-hidden bg-gray-100">
+                                    <img
+                                      src={productImage}
+                                      alt={product.title}
+                                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
+                                      loading="lazy"
+                                    />
+                                  </div>
+                                )}
+                                <div class="flex-1 min-w-0">
+                                  <p class="text-sm font-semibold text-solamp-forest line-clamp-2 group-hover:text-solamp-blue transition-colors">
+                                    {product.title}
+                                  </p>
+                                  {product.price && (
+                                    <p class="text-sm text-solamp-green font-bold mt-1">
+                                      ${product.price.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                                    </p>
+                                  )}
+                                </div>
+                              </Link>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Right side: Category Image or Quick Links */}
                     {categoryImageUrl ? (
                       <Link
                         href={`/products/category/${slug}/`}
                         onClick$={closeMenu}
-                        class="w-64 rounded-lg overflow-hidden group"
+                        class="w-56 rounded-lg overflow-hidden group flex-shrink-0"
                       >
                         <div class="relative aspect-[4/3]">
                           <img
@@ -295,7 +401,7 @@ export const Header = component$<HeaderProps>(({ categories }) => {
                         </div>
                       </Link>
                     ) : (
-                      <div class="w-64 bg-solamp-mist rounded-lg p-5">
+                      <div class="w-56 bg-solamp-mist rounded-lg p-5 flex-shrink-0">
                         <p class="text-xs font-mono text-solamp-forest/50 uppercase tracking-wide mb-3">Quick Links</p>
                         <ul class="space-y-3">
                           <li>

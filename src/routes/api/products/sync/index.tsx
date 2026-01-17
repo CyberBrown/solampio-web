@@ -50,6 +50,10 @@ interface ERPNextProductPayload {
   website_image?: string;
   has_variants?: boolean | number;
   variant_of?: string;
+  // Featured product fields
+  is_featured?: boolean | number;
+  featured_in_category?: string;  // ERPNext Item Group name for category featuring
+  featured_in_subcategory?: string;  // ERPNext Item Group name for subcategory featuring
 }
 
 /**
@@ -154,12 +158,24 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
     const isVisible = payload.disabled ? 0 : 1;
     const hasVariants = payload.has_variants ? 1 : 0;
     const showStockStatus = payload.show_stock_status ? 1 : 0;
+    const isFeatured = payload.is_featured ? 1 : 0;
     const categoriesJson = categoryIds.length > 0 ? JSON.stringify(categoryIds) : null;
 
     // Clean description if provided
     const descriptionClean = payload.description ? cleanDescription(payload.description) : null;
     // Generate initial excerpt as summary (AI summary can be generated separately)
     const descriptionSummary = payload.description ? extractExcerpt(payload.description, 500) : null;
+
+    // Look up featured category IDs if provided
+    let featuredCategoryId: string | null = null;
+    if (payload.featured_in_category) {
+      featuredCategoryId = await getCategoryIdByErpnextName(db, payload.featured_in_category);
+    }
+
+    let featuredInSubcategoryId: string | null = null;
+    if (payload.featured_in_subcategory) {
+      featuredInSubcategoryId = await getCategoryIdByErpnextName(db, payload.featured_in_subcategory);
+    }
 
     // Check if product exists
     const existing = await db
@@ -187,6 +203,9 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
             brand_id = COALESCE(?, brand_id),
             has_variants = ?,
             variant_of = COALESCE(?, variant_of),
+            is_featured = ?,
+            featured_category_id = COALESCE(?, featured_category_id),
+            featured_in_subcategory_id = COALESCE(?, featured_in_subcategory_id),
             sync_source = 'erpnext',
             last_synced_from_erpnext = ?,
             updated_at = ?
@@ -208,6 +227,9 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
           brandId,
           hasVariants,
           payload.variant_of || null,
+          isFeatured,
+          featuredCategoryId,
+          featuredInSubcategoryId,
           now,
           now,
           payload.item_code
@@ -222,8 +244,9 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
             id, erpnext_name, sku, title, description, description_clean, description_summary,
             item_group, categories, price, stock_qty, low_stock_threshold, show_stock_status,
             is_visible, brand_id, has_variants, variant_of,
+            is_featured, featured_category_id, featured_in_subcategory_id,
             sync_source, last_synced_from_erpnext, created_at, updated_at
-          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'erpnext', ?, ?, ?)
+          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'erpnext', ?, ?, ?)
         `)
         .bind(
           id,
@@ -243,6 +266,9 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
           brandId,
           hasVariants,
           payload.variant_of || null,
+          isFeatured,
+          featuredCategoryId,
+          featuredInSubcategoryId,
           now,
           now,
           now
@@ -294,6 +320,9 @@ export const onGet: RequestHandler = async ({ json }) => {
       show_stock_status: 'Set to true to show stock status on storefront (default: false)',
       disabled: 'Set to true to hide product',
       brand: 'Brand name',
+      is_featured: 'Set to true to feature in mega menu (optional)',
+      featured_in_category: 'ERPNext Item Group name for category featuring (optional)',
+      featured_in_subcategory: 'ERPNext Item Group name for subcategory featuring (optional)',
     },
     notes: [
       'Descriptions are automatically cleaned (HTML tags, inline styles, BigCommerce artifacts removed)',

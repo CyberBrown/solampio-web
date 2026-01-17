@@ -1,7 +1,7 @@
 /**
  * Brand Sync API Endpoint
  *
- * Receives webhooks from ERPNext to create/update brands.
+ * Receives webhooks from ERPNext to create/update brands and their category associations.
  * When a brand changes in ERPNext, it updates storefront_brands.
  *
  * POST /api/brands/sync/
@@ -10,10 +10,18 @@
  * {
  *   name: string,                    // ERPNext Brand name
  *   brand: string,                   // Brand display name (optional, falls back to name)
+ *   brand_name?: string,             // Alternative display name field
  *   description: string,             // Brand description (optional)
  *   image: string,                   // Logo URL (optional)
+ *   brand_logo?: string,             // Alternative logo URL field
  *   is_visible_on_website: boolean,  // Whether to show on website (opt-in, default false)
  *   disabled: boolean,               // Legacy field (fallback if is_visible_on_website not set)
+ *   associated_categories?: [        // Categories this brand appears in
+ *     { item_group: string }
+ *   ],
+ *   associated_subcategories?: [     // Subcategories this brand appears in
+ *     { item_group: string }
+ *   ],
  * }
  *
  * Visibility Logic:
@@ -26,13 +34,21 @@
 import type { RequestHandler } from '@builder.io/qwik-city';
 import type { D1Database } from '@cloudflare/workers-types';
 
+interface ERPNextCategoryLink {
+  item_group: string;
+}
+
 interface ERPNextBrandPayload {
   name: string;
   brand?: string;
+  brand_name?: string;
   description?: string;
   image?: string;
-  is_visible_on_website?: boolean | number;  // New field: true = visible
-  disabled?: boolean | number;                // Legacy field: true = hidden
+  brand_logo?: string;
+  is_visible_on_website?: boolean | number;
+  disabled?: boolean | number;
+  associated_categories?: ERPNextCategoryLink[];
+  associated_subcategories?: ERPNextCategoryLink[];
 }
 
 /**
@@ -40,15 +56,12 @@ interface ERPNextBrandPayload {
  * Priority: is_visible_on_website > !disabled > default (hidden)
  */
 function getVisibility(payload: ERPNextBrandPayload): number {
-  // If is_visible_on_website is explicitly set, use it
   if (payload.is_visible_on_website !== undefined) {
     return payload.is_visible_on_website ? 1 : 0;
   }
-  // Fallback to disabled field (inverted logic)
   if (payload.disabled !== undefined) {
     return payload.disabled ? 0 : 1;
   }
-  // Default: hidden (opt-in model)
   return 0;
 }
 
@@ -61,6 +74,73 @@ function generateSlug(title: string): string {
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '')
     .substring(0, 100);
+}
+
+/**
+ * Look up category ID by ERPNext name
+ */
+async function getCategoryIdByErpnextName(
+  db: D1Database,
+  erpnextName: string
+): Promise<string | null> {
+  const result = await db
+    .prepare('SELECT id FROM storefront_categories WHERE erpnext_name = ? OR title = ? LIMIT 1')
+    .bind(erpnextName, erpnextName)
+    .first<{ id: string }>();
+  return result?.id || null;
+}
+
+/**
+ * Update brand-category associations
+ */
+async function updateBrandCategoryAssociations(
+  db: D1Database,
+  brandId: string,
+  associatedCategories: ERPNextCategoryLink[],
+  associatedSubcategories: ERPNextCategoryLink[]
+): Promise<{ categories: string[]; subcategories: string[] }> {
+  // Delete existing associations
+  await db
+    .prepare('DELETE FROM brand_category_associations WHERE brand_id = ?')
+    .bind(brandId)
+    .run();
+
+  const linkedCategories: string[] = [];
+  const linkedSubcategories: string[] = [];
+
+  // Insert category associations
+  for (const link of associatedCategories) {
+    const categoryId = await getCategoryIdByErpnextName(db, link.item_group);
+    if (categoryId) {
+      const id = crypto.randomUUID().replace(/-/g, '');
+      await db
+        .prepare(`
+          INSERT INTO brand_category_associations (id, brand_id, category_id, association_type)
+          VALUES (?, ?, ?, 'category')
+        `)
+        .bind(id, brandId, categoryId)
+        .run();
+      linkedCategories.push(link.item_group);
+    }
+  }
+
+  // Insert subcategory associations
+  for (const link of associatedSubcategories) {
+    const categoryId = await getCategoryIdByErpnextName(db, link.item_group);
+    if (categoryId) {
+      const id = crypto.randomUUID().replace(/-/g, '');
+      await db
+        .prepare(`
+          INSERT INTO brand_category_associations (id, brand_id, category_id, association_type)
+          VALUES (?, ?, ?, 'subcategory')
+        `)
+        .bind(id, brandId, categoryId)
+        .run();
+      linkedSubcategories.push(link.item_group);
+    }
+  }
+
+  return { categories: linkedCategories, subcategories: linkedSubcategories };
 }
 
 export const onPost: RequestHandler = async ({ request, platform, json }) => {
@@ -79,10 +159,11 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
       return;
     }
 
-    const title = payload.brand || payload.name;
+    const title = payload.brand || payload.brand_name || payload.name;
     const slug = generateSlug(title);
     const now = new Date().toISOString();
     const isVisible = getVisibility(payload);
+    const logoUrl = payload.image || payload.brand_logo || null;
 
     // Check if brand exists
     const existing = await db
@@ -90,7 +171,10 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
       .bind(payload.name)
       .first() as { id: string } | null;
 
+    let brandId: string;
+
     if (existing) {
+      brandId = existing.id;
       // Update existing brand
       await db
         .prepare(`
@@ -109,28 +193,16 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
           title,
           slug,
           payload.description || null,
-          payload.image || null,
+          logoUrl,
           isVisible,
           now,
           now,
           payload.name
         )
         .run();
-
-      json(200, {
-        success: true,
-        brand: {
-          id: existing.id,
-          erpnext_name: payload.name,
-          title,
-          slug,
-          is_visible: isVisible,
-          updated: true,
-        },
-      });
     } else {
       // Insert new brand
-      const id = crypto.randomUUID().replace(/-/g, '');
+      brandId = crypto.randomUUID().replace(/-/g, '');
       await db
         .prepare(`
           INSERT INTO storefront_brands (
@@ -139,31 +211,44 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
           ) VALUES (?, ?, ?, ?, ?, ?, 0, ?, 'erpnext', ?, ?, ?)
         `)
         .bind(
-          id,
+          brandId,
           payload.name,
           title,
           slug,
           payload.description || null,
-          payload.image || null,
+          logoUrl,
           isVisible,
           now,
           now,
           now
         )
         .run();
-
-      json(200, {
-        success: true,
-        brand: {
-          id,
-          erpnext_name: payload.name,
-          title,
-          slug,
-          is_visible: isVisible,
-          created: true,
-        },
-      });
     }
+
+    // Update category associations if provided
+    let associations = { categories: [] as string[], subcategories: [] as string[] };
+    if (payload.associated_categories || payload.associated_subcategories) {
+      associations = await updateBrandCategoryAssociations(
+        db,
+        brandId,
+        payload.associated_categories || [],
+        payload.associated_subcategories || []
+      );
+    }
+
+    json(200, {
+      success: true,
+      brand: {
+        id: brandId,
+        erpnext_name: payload.name,
+        title,
+        slug,
+        is_visible: isVisible,
+        updated: !!existing,
+        associated_categories: associations.categories,
+        associated_subcategories: associations.subcategories,
+      },
+    });
   } catch (error) {
     console.error('Brand sync error:', error);
     json(500, {
@@ -198,17 +283,21 @@ export const onPut: RequestHandler = async ({ request, platform, json }) => {
           continue;
         }
 
-        const title = payload.brand || payload.name;
+        const title = payload.brand || payload.brand_name || payload.name;
         const slug = generateSlug(title);
         const now = new Date().toISOString();
         const isVisible = getVisibility(payload);
+        const logoUrl = payload.image || payload.brand_logo || null;
 
         const existing = await db
           .prepare('SELECT id FROM storefront_brands WHERE erpnext_name = ?')
           .bind(payload.name)
           .first() as { id: string } | null;
 
+        let brandId: string;
+
         if (existing) {
+          brandId = existing.id;
           await db
             .prepare(`
               UPDATE storefront_brands SET
@@ -217,10 +306,10 @@ export const onPut: RequestHandler = async ({ request, platform, json }) => {
                 sync_source = 'erpnext', last_synced_from_erpnext = ?, updated_at = ?
               WHERE erpnext_name = ?
             `)
-            .bind(title, slug, payload.description || null, payload.image || null, isVisible, now, now, payload.name)
+            .bind(title, slug, payload.description || null, logoUrl, isVisible, now, now, payload.name)
             .run();
         } else {
-          const id = crypto.randomUUID().replace(/-/g, '');
+          brandId = crypto.randomUUID().replace(/-/g, '');
           await db
             .prepare(`
               INSERT INTO storefront_brands (
@@ -228,8 +317,18 @@ export const onPut: RequestHandler = async ({ request, platform, json }) => {
                 sync_source, last_synced_from_erpnext, created_at, updated_at
               ) VALUES (?, ?, ?, ?, ?, ?, 0, ?, 'erpnext', ?, ?, ?)
             `)
-            .bind(id, payload.name, title, slug, payload.description || null, payload.image || null, isVisible, now, now, now)
+            .bind(brandId, payload.name, title, slug, payload.description || null, logoUrl, isVisible, now, now, now)
             .run();
+        }
+
+        // Update category associations if provided
+        if (payload.associated_categories || payload.associated_subcategories) {
+          await updateBrandCategoryAssociations(
+            db,
+            brandId,
+            payload.associated_categories || [],
+            payload.associated_subcategories || []
+          );
         }
 
         results.push({ name: payload.name, success: true });
@@ -273,10 +372,14 @@ export const onGet: RequestHandler = async ({ json }) => {
     expectedPayload: {
       name: 'ERPNext Brand name (required)',
       brand: 'Display title (optional, defaults to name)',
+      brand_name: 'Alternative display title field',
       description: 'Brand description',
       image: 'Logo image URL',
+      brand_logo: 'Alternative logo URL field',
       is_visible_on_website: 'Set to true to show brand on website (default: false)',
       disabled: 'Legacy field - set to true to hide brand (use is_visible_on_website instead)',
+      associated_categories: '[{ item_group: "Category Name" }] - Categories this brand appears in',
+      associated_subcategories: '[{ item_group: "Subcategory Name" }] - Subcategories this brand appears in',
     },
     visibilityLogic: 'Brands default to hidden (opt-in). Set is_visible_on_website=true to show.',
   });
