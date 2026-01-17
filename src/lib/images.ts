@@ -90,6 +90,11 @@ export function getBrandLogoUrl(
 /**
  * Get category image URL from CF Images or fallback
  *
+ * Priority order:
+ * 1. cf_category_image_url (full URL stored in ERPNext)
+ * 2. cf_image_id (construct URL from ID)
+ * 3. image_url (legacy fallback)
+ *
  * @param category - Category with image fields
  * @param variant - CF Images variant to use (default: 'card')
  * @returns Category image URL or null
@@ -101,10 +106,24 @@ export function getBrandLogoUrl(
 export function getCategoryImageUrl(
   category: {
     cf_image_id?: string | null;
+    cf_category_image_url?: string | null;
     image_url?: string | null;
   },
   variant: ImageVariant = 'card'
 ): string | null {
+  // Prefer direct URL from ERPNext (allows staff to edit)
+  if (category.cf_category_image_url) {
+    // If the URL already has a variant, return as-is; otherwise replace variant
+    const url = category.cf_category_image_url;
+    // Check if URL ends with a known variant
+    const variants = ['thumbnail', 'card', 'product', 'hero'];
+    const currentVariant = variants.find(v => url.endsWith(`/${v}`));
+    if (currentVariant && currentVariant !== variant) {
+      return url.replace(`/${currentVariant}`, `/${variant}`);
+    }
+    return url;
+  }
+  // Fall back to constructing from cf_image_id
   if (category.cf_image_id) {
     return getCfImageUrl(category.cf_image_id, variant);
   }

@@ -32,6 +32,7 @@ export interface Product {
   variant_of: string | null;  // SKU of parent product if this is a variant
   is_featured: number;  // 1 if this product should appear in featured sections
   featured_category_id: string | null;  // Category ID where this product is featured (for nav, hero, etc.)
+  featured_in_subcategory_id: string | null;  // Subcategory ID for subcategory-specific featuring
   sync_source: string;
   last_synced_from_erpnext: string | null;
   created_at: string;
@@ -50,6 +51,7 @@ export interface Category {
   count: number;
   image_url: string | null;
   cf_image_id: string | null;
+  cf_category_image_url: string | null;  // Full Cloudflare Images URL for direct editing in ERPNext
   sync_source: string;
   last_synced_from_erpnext: string | null;
   created_at: string;
@@ -70,6 +72,19 @@ export interface Brand {
   last_synced_from_erpnext: string | null;
   created_at: string;
   updated_at: string;
+}
+
+export interface BrandCategoryAssociation {
+  id: string;
+  brand_id: string;
+  category_id: string;
+  association_type: 'category' | 'subcategory';
+  created_at: string;
+}
+
+export interface BrandWithCategories extends Brand {
+  associated_categories: Category[];
+  associated_subcategories: Category[];
 }
 
 export interface ProductFilters {
@@ -528,6 +543,220 @@ export class StorefrontDB {
     `).bind(productId).all<ProductImage>();
 
     return result.results || [];
+  }
+
+  // ============================================================================
+  // Featured Products for Mega Menu
+  // ============================================================================
+
+  /**
+   * Get featured products for a category (for mega menu display)
+   *
+   * Logic:
+   * - Returns up to 3 featured products where:
+   *   1. is_featured = 1 AND product belongs to that category, OR
+   *   2. is_featured = 1 AND featured_category_id matches the category
+   * - Category-level = union of featured from category + all subcategories (deduplicated)
+   * - Prioritizes in-stock products
+   */
+  async getFeaturedProductsForCategoryMenu(categoryId: string, limit: number = 3): Promise<Product[]> {
+    // Get subcategory IDs for this category
+    const subcategories = await this.getSubcategories(categoryId);
+    const allCategoryIds = [categoryId, ...subcategories.map(s => s.id)];
+
+    // Build conditions for category membership or featured_category_id
+    const categoryConditions = allCategoryIds.map(() => 'categories LIKE ?').join(' OR ');
+    const featuredCategoryConditions = allCategoryIds.map(() => 'featured_category_id = ?').join(' OR ');
+
+    const categoryParams = allCategoryIds.map(id => `%"${id}"%`);
+    const featuredParams = allCategoryIds;
+
+    // Query for featured products in category tree or explicitly featured for these categories
+    const result = await this.db.prepare(`
+      SELECT DISTINCT * FROM storefront_products
+      WHERE is_visible = 1 AND has_variants = 0 AND is_featured = 1
+        AND (
+          (${categoryConditions})
+          OR (${featuredCategoryConditions})
+        )
+      ORDER BY
+        CASE WHEN stock_qty > 0 THEN 0 ELSE 1 END,
+        stock_qty DESC,
+        title ASC
+      LIMIT ?
+    `).bind(...categoryParams, ...featuredParams, limit).all<Product>();
+
+    return result.results || [];
+  }
+
+  /**
+   * Get featured products for a specific subcategory (for mega menu display)
+   *
+   * Logic:
+   * - Returns up to 3 featured products where:
+   *   1. is_featured = 1 AND product belongs to that subcategory, OR
+   *   2. is_featured = 1 AND featured_in_subcategory_id matches
+   * - Does NOT inherit from parent category
+   */
+  async getFeaturedProductsForSubcategoryMenu(subcategoryId: string, limit: number = 3): Promise<Product[]> {
+    const result = await this.db.prepare(`
+      SELECT * FROM storefront_products
+      WHERE is_visible = 1 AND has_variants = 0 AND is_featured = 1
+        AND (
+          categories LIKE ?
+          OR featured_in_subcategory_id = ?
+        )
+      ORDER BY
+        CASE WHEN stock_qty > 0 THEN 0 ELSE 1 END,
+        stock_qty DESC,
+        title ASC
+      LIMIT ?
+    `).bind(`%"${subcategoryId}"%`, subcategoryId, limit).all<Product>();
+
+    return result.results || [];
+  }
+
+  /**
+   * Get all featured products for mega menu (keyed by category ID)
+   * Useful for preloading featured products for all categories at once
+   */
+  async getAllFeaturedProductsForMenu(): Promise<Map<string, Product[]>> {
+    // Get all featured products with their categories
+    const result = await this.db.prepare(`
+      SELECT * FROM storefront_products
+      WHERE is_visible = 1 AND has_variants = 0 AND is_featured = 1
+      ORDER BY
+        CASE WHEN stock_qty > 0 THEN 0 ELSE 1 END,
+        stock_qty DESC,
+        title ASC
+    `).all<Product>();
+
+    const categoryMap = new Map<string, Product[]>();
+
+    for (const product of result.results || []) {
+      // Add to explicitly featured categories
+      if (product.featured_category_id) {
+        const existing = categoryMap.get(product.featured_category_id) || [];
+        if (existing.length < 3) {
+          existing.push(product);
+          categoryMap.set(product.featured_category_id, existing);
+        }
+      }
+
+      // Add to subcategory if explicitly featured there
+      if (product.featured_in_subcategory_id) {
+        const existing = categoryMap.get(product.featured_in_subcategory_id) || [];
+        if (existing.length < 3) {
+          existing.push(product);
+          categoryMap.set(product.featured_in_subcategory_id, existing);
+        }
+      }
+
+      // Add to all categories the product belongs to
+      if (product.categories) {
+        try {
+          const categoryIds = JSON.parse(product.categories) as string[];
+          for (const catId of categoryIds) {
+            const existing = categoryMap.get(catId) || [];
+            if (existing.length < 3 && !existing.some(p => p.id === product.id)) {
+              existing.push(product);
+              categoryMap.set(catId, existing);
+            }
+          }
+        } catch {
+          // Skip invalid JSON
+        }
+      }
+    }
+
+    return categoryMap;
+  }
+
+  // ============================================================================
+  // Brand-Category Associations
+  // ============================================================================
+
+  /**
+   * Get brands associated with a category
+   */
+  async getBrandsForCategory(categoryId: string): Promise<Brand[]> {
+    const result = await this.db.prepare(`
+      SELECT b.* FROM storefront_brands b
+      INNER JOIN brand_category_associations bca ON bca.brand_id = b.id
+      WHERE bca.category_id = ? AND bca.association_type = 'category' AND b.is_visible = 1
+      ORDER BY b.sort_order ASC, b.title ASC
+    `).bind(categoryId).all<Brand>();
+
+    return result.results || [];
+  }
+
+  /**
+   * Get brands associated with a subcategory
+   */
+  async getBrandsForSubcategory(subcategoryId: string): Promise<Brand[]> {
+    const result = await this.db.prepare(`
+      SELECT b.* FROM storefront_brands b
+      INNER JOIN brand_category_associations bca ON bca.brand_id = b.id
+      WHERE bca.category_id = ? AND bca.association_type = 'subcategory' AND b.is_visible = 1
+      ORDER BY b.sort_order ASC, b.title ASC
+    `).bind(subcategoryId).all<Brand>();
+
+    return result.results || [];
+  }
+
+  /**
+   * Get categories associated with a brand
+   */
+  async getCategoriesForBrand(brandId: string): Promise<{ categories: Category[]; subcategories: Category[] }> {
+    const categoriesResult = await this.db.prepare(`
+      SELECT c.* FROM storefront_categories c
+      INNER JOIN brand_category_associations bca ON bca.category_id = c.id
+      WHERE bca.brand_id = ? AND bca.association_type = 'category' AND c.is_visible = 1
+      ORDER BY c.sort_order ASC, c.title ASC
+    `).bind(brandId).all<Category>();
+
+    const subcategoriesResult = await this.db.prepare(`
+      SELECT c.* FROM storefront_categories c
+      INNER JOIN brand_category_associations bca ON bca.category_id = c.id
+      WHERE bca.brand_id = ? AND bca.association_type = 'subcategory' AND c.is_visible = 1
+      ORDER BY c.sort_order ASC, c.title ASC
+    `).bind(brandId).all<Category>();
+
+    return {
+      categories: categoriesResult.results || [],
+      subcategories: subcategoriesResult.results || [],
+    };
+  }
+
+  /**
+   * Set brand-category associations (replaces existing)
+   */
+  async setBrandCategoryAssociations(
+    brandId: string,
+    categoryIds: string[],
+    subcategoryIds: string[]
+  ): Promise<void> {
+    // Delete existing associations
+    await this.db.prepare('DELETE FROM brand_category_associations WHERE brand_id = ?')
+      .bind(brandId).run();
+
+    // Insert category associations
+    for (const categoryId of categoryIds) {
+      const id = crypto.randomUUID().replace(/-/g, '');
+      await this.db.prepare(`
+        INSERT INTO brand_category_associations (id, brand_id, category_id, association_type)
+        VALUES (?, ?, ?, 'category')
+      `).bind(id, brandId, categoryId).run();
+    }
+
+    // Insert subcategory associations
+    for (const subcategoryId of subcategoryIds) {
+      const id = crypto.randomUUID().replace(/-/g, '');
+      await this.db.prepare(`
+        INSERT INTO brand_category_associations (id, brand_id, category_id, association_type)
+        VALUES (?, ?, ?, 'subcategory')
+      `).bind(id, brandId, subcategoryId).run();
+    }
   }
 }
 

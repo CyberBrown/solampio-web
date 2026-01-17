@@ -47,6 +47,10 @@ interface ERPNextProductPayload {
   website_image?: string;
   has_variants?: boolean | number;
   variant_of?: string;
+  // Featured product fields
+  is_featured?: boolean | number;
+  featured_in_category?: string;  // ERPNext Item Group name for category featuring
+  featured_in_subcategory?: string;  // ERPNext Item Group name for subcategory featuring
 }
 
 /**
@@ -150,7 +154,19 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
     const now = new Date().toISOString();
     const isVisible = payload.disabled ? 0 : 1;
     const hasVariants = payload.has_variants ? 1 : 0;
+    const isFeatured = payload.is_featured ? 1 : 0;
     const categoriesJson = categoryIds.length > 0 ? JSON.stringify(categoryIds) : null;
+
+    // Look up featured category IDs if provided
+    let featuredCategoryId: string | null = null;
+    if (payload.featured_in_category) {
+      featuredCategoryId = await getCategoryIdByErpnextName(db, payload.featured_in_category);
+    }
+
+    let featuredInSubcategoryId: string | null = null;
+    if (payload.featured_in_subcategory) {
+      featuredInSubcategoryId = await getCategoryIdByErpnextName(db, payload.featured_in_subcategory);
+    }
 
     // Check if product exists
     const existing = await db
@@ -174,6 +190,9 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
             brand_id = COALESCE(?, brand_id),
             has_variants = ?,
             variant_of = COALESCE(?, variant_of),
+            is_featured = ?,
+            featured_category_id = COALESCE(?, featured_category_id),
+            featured_in_subcategory_id = COALESCE(?, featured_in_subcategory_id),
             sync_source = 'erpnext',
             last_synced_from_erpnext = ?,
             updated_at = ?
@@ -191,6 +210,9 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
           brandId,
           hasVariants,
           payload.variant_of || null,
+          isFeatured,
+          featuredCategoryId,
+          featuredInSubcategoryId,
           now,
           now,
           payload.item_code
@@ -204,8 +226,9 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
           INSERT INTO storefront_products (
             id, erpnext_name, sku, title, description, item_group, categories,
             price, stock_qty, is_visible, brand_id, has_variants, variant_of,
+            is_featured, featured_category_id, featured_in_subcategory_id,
             sync_source, last_synced_from_erpnext, created_at, updated_at
-          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'erpnext', ?, ?, ?)
+          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'erpnext', ?, ?, ?)
         `)
         .bind(
           id,
@@ -221,6 +244,9 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
           brandId,
           hasVariants,
           payload.variant_of || null,
+          isFeatured,
+          featuredCategoryId,
+          featuredInSubcategoryId,
           now,
           now,
           now
@@ -269,6 +295,9 @@ export const onGet: RequestHandler = async ({ json }) => {
       stock_qty: 'Stock quantity',
       disabled: 'Set to true to hide product',
       brand: 'Brand name',
+      is_featured: 'Set to true to feature in mega menu (optional)',
+      featured_in_category: 'ERPNext Item Group name for category featuring (optional)',
+      featured_in_subcategory: 'ERPNext Item Group name for subcategory featuring (optional)',
     },
   });
 };
