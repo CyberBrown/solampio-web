@@ -271,10 +271,12 @@ export default component$(() => {
                 </div>
               )}
 
-              {product.description && (
+              {/* Product Summary - uses AI-generated summary or fallback to cleaned text */}
+              {(product.description_summary || product.description) && (
                 <p class="text-gray-600 mb-6">
-                  {product.description.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().substring(0, 200)}
-                  {product.description.length > 200 ? '...' : ''}
+                  {product.description_summary ||
+                    product.description?.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().substring(0, 200) +
+                    ((product.description?.length || 0) > 200 ? '...' : '')}
                 </p>
               )}
 
@@ -381,15 +383,27 @@ export default component$(() => {
       </section>
 
       {/* Product Description Tab */}
-      {product.description && (
+      {(product.description_clean || product.description) && (
         <section class="py-8 bg-[#f1f1f2] border-t border-gray-200">
           <div class="px-6">
             <div class="max-w-3xl">
               <h2 class="font-heading font-bold text-xl text-[#042e0d] mb-4">Product Overview</h2>
-              <div
-                class="prose prose-gray max-w-none prose-headings:font-heading prose-headings:text-[#042e0d] prose-headings:font-bold prose-headings:text-lg prose-headings:mt-6 prose-headings:mb-2 prose-p:text-gray-600 prose-p:mb-4 prose-strong:text-[#042e0d] prose-ul:my-4 prose-li:text-gray-600"
-                dangerouslySetInnerHTML={product.description}
-              />
+              {product.description_clean ? (
+                /* Use cleaned description - render as pre-formatted text with proper styling */
+                <div class="prose prose-gray max-w-none">
+                  {product.description_clean.split('\n\n').map((paragraph, i) => (
+                    <p key={i} class="text-gray-600 mb-4 whitespace-pre-line">
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
+              ) : (
+                /* Fallback to original HTML description */
+                <div
+                  class="prose prose-gray max-w-none prose-headings:font-heading prose-headings:text-[#042e0d] prose-headings:font-bold prose-headings:text-lg prose-headings:mt-6 prose-headings:mb-2 prose-p:text-gray-600 prose-p:mb-4 prose-strong:text-[#042e0d] prose-ul:my-4 prose-li:text-gray-600"
+                  dangerouslySetInnerHTML={product.description || ''}
+                />
+              )}
             </div>
           </div>
         </section>
@@ -427,9 +441,14 @@ export const head: DocumentHead = ({ params, resolveValue }) => {
     .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ');
 
-  const description = product?.description
-    ? product.description.slice(0, 160)
-    : `${title} - Professional solar equipment from Solamp. Contact us for pricing and specifications.`;
+  // Use summary for meta description, fallback to cleaned or raw description
+  const description = product?.description_summary
+    ? product.description_summary.slice(0, 160)
+    : product?.description_clean
+      ? product.description_clean.slice(0, 160)
+      : product?.description
+        ? product.description.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 160)
+        : `${title} - Professional solar equipment from Solamp. Contact us for pricing and specifications.`;
 
   return {
     title: `${title} | Solamp Solar & Energy Storage`,

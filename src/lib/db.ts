@@ -17,6 +17,8 @@ export interface Product {
   sku: string | null;
   title: string;
   description: string | null;
+  description_clean: string | null;  // Cleaned description (HTML stripped, formatted)
+  description_summary: string | null;  // AI-generated short summary (~500 chars)
   brand_id: string | null;
   item_group: string | null;
   categories: string | null;  // JSON array
