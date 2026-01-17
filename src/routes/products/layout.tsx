@@ -59,7 +59,7 @@ export default component$(() => {
         'hidden lg:block fixed top-0 left-0 w-64 h-full z-30 transition-transform duration-300',
         sidebar.visible.value ? 'translate-x-0' : '-translate-x-full'
       ].join(' ')}>
-        <div class="pt-16 h-full overflow-y-auto bg-white border-r border-gray-200 p-4">
+        <div class="pt-20 h-full overflow-y-auto bg-white border-r border-gray-200 p-4">
           <ProductSidebar categories={categories.value} brands={brands.value} />
         </div>
       </div>
