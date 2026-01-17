@@ -28,6 +28,7 @@
 
 import type { RequestHandler } from '@builder.io/qwik-city';
 import type { D1Database } from '@cloudflare/workers-types';
+import { cleanDescription, extractExcerpt } from '../../../../lib/description-cleaner';
 
 interface ERPNextWebsiteItemGroup {
   item_group: string;
@@ -42,6 +43,8 @@ interface ERPNextProductPayload {
   website_item_groups?: ERPNextWebsiteItemGroup[];
   standard_rate?: number;
   stock_qty?: number;
+  low_stock_threshold?: number;  // Quantity at which "Low Stock" displays
+  show_stock_status?: boolean | number;  // Toggle to show stock status on storefront
   disabled?: boolean | number;
   brand?: string;
   website_image?: string;
@@ -150,7 +153,13 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
     const now = new Date().toISOString();
     const isVisible = payload.disabled ? 0 : 1;
     const hasVariants = payload.has_variants ? 1 : 0;
+    const showStockStatus = payload.show_stock_status ? 1 : 0;
     const categoriesJson = categoryIds.length > 0 ? JSON.stringify(categoryIds) : null;
+
+    // Clean description if provided
+    const descriptionClean = payload.description ? cleanDescription(payload.description) : null;
+    // Generate initial excerpt as summary (AI summary can be generated separately)
+    const descriptionSummary = payload.description ? extractExcerpt(payload.description, 500) : null;
 
     // Check if product exists
     const existing = await db
@@ -166,10 +175,14 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
             erpnext_name = ?,
             title = COALESCE(?, title),
             description = COALESCE(?, description),
+            description_clean = COALESCE(?, description_clean),
+            description_summary = COALESCE(?, description_summary),
             item_group = ?,
             categories = ?,
             price = COALESCE(?, price),
             stock_qty = COALESCE(?, stock_qty),
+            low_stock_threshold = COALESCE(?, low_stock_threshold),
+            show_stock_status = ?,
             is_visible = ?,
             brand_id = COALESCE(?, brand_id),
             has_variants = ?,
@@ -183,10 +196,14 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
           payload.name,
           payload.item_name || null,
           payload.description || null,
+          descriptionClean,
+          descriptionSummary,
           payload.item_group || null,
           categoriesJson,
           payload.standard_rate || null,
           payload.stock_qty ?? null,
+          payload.low_stock_threshold ?? null,
+          showStockStatus,
           isVisible,
           brandId,
           hasVariants,
@@ -202,10 +219,11 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
       await db
         .prepare(`
           INSERT INTO storefront_products (
-            id, erpnext_name, sku, title, description, item_group, categories,
-            price, stock_qty, is_visible, brand_id, has_variants, variant_of,
+            id, erpnext_name, sku, title, description, description_clean, description_summary,
+            item_group, categories, price, stock_qty, low_stock_threshold, show_stock_status,
+            is_visible, brand_id, has_variants, variant_of,
             sync_source, last_synced_from_erpnext, created_at, updated_at
-          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'erpnext', ?, ?, ?)
+          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'erpnext', ?, ?, ?)
         `)
         .bind(
           id,
@@ -213,10 +231,14 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
           payload.item_code,
           payload.item_name || payload.name,
           payload.description || null,
+          descriptionClean,
+          descriptionSummary,
           payload.item_group || null,
           categoriesJson,
           payload.standard_rate || null,
           payload.stock_qty ?? 0,
+          payload.low_stock_threshold ?? null,
+          showStockStatus,
           isVisible,
           brandId,
           hasVariants,
@@ -258,17 +280,26 @@ export const onGet: RequestHandler = async ({ json }) => {
     status: 'ok',
     endpoint: 'products/sync',
     method: 'POST',
-    description: 'Webhook endpoint for ERPNext product sync',
+    description: 'Webhook endpoint for ERPNext product sync. Automatically cleans HTML descriptions and generates excerpts.',
     expectedPayload: {
       name: 'ERPNext item name (required)',
       item_code: 'SKU (required)',
       item_name: 'Display title',
+      description: 'Product description (HTML supported, will be auto-cleaned)',
       item_group: 'Primary category',
       website_item_groups: '[{ item_group: "Category Name" }]',
       standard_rate: 'Price',
       stock_qty: 'Stock quantity',
+      low_stock_threshold: 'Quantity at which "Low Stock" displays (optional)',
+      show_stock_status: 'Set to true to show stock status on storefront (default: false)',
       disabled: 'Set to true to hide product',
       brand: 'Brand name',
     },
+    notes: [
+      'Descriptions are automatically cleaned (HTML tags, inline styles, BigCommerce artifacts removed)',
+      'Cleaned description stored in description_clean field',
+      'Summary/excerpt stored in description_summary field (500 chars max)',
+      'Use /api/products/generate-summaries for AI-powered summary generation',
+    ],
   });
 };

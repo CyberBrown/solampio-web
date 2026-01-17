@@ -67,7 +67,12 @@ export default component$(() => {
                   </div>
                   <div class="divide-y divide-gray-100">
                     {items.map((item) => {
-                      const stockStatus = item.stock_qty > 0 ? 'In Stock' : 'Low Stock';
+                      // Simple stock status for cart (informational only)
+                      const isOutOfStock = item.stock_qty <= 0;
+                      const stockLabel = isOutOfStock ? 'Out of Stock' : 'In Stock';
+                      const stockClass = isOutOfStock
+                        ? 'bg-red-100 text-red-700 border border-red-200'
+                        : 'bg-[#56c270]/10 text-[#042e0d] border border-[#56c270]/30';
                       const displayPrice = item.price !== null ? `$${item.price.toFixed(2)}` : 'Call for Pricing';
                       const lineTotal = item.price !== null ? `$${(item.price * item.quantity).toFixed(2)}` : 'Call for Pricing';
 
@@ -89,10 +94,8 @@ export default component$(() => {
                                   {item.title}
                                 </Link>
                                 <p class="text-sm text-gray-500 mt-1">SKU: {item.sku}</p>
-                                <span class={`inline-block text-xs font-bold px-2 py-0.5 rounded mt-2 ${
-                                  stockStatus === 'In Stock' ? 'bg-[#56c270]/10 text-[#042e0d]' : 'bg-[#c3a859]/10 text-[#c3a859]'
-                                }`}>
-                                  {stockStatus}
+                                <span class={`inline-block text-xs font-bold px-2 py-0.5 rounded mt-2 ${stockClass}`}>
+                                  {stockLabel}
                                 </span>
                               </div>
                               <button

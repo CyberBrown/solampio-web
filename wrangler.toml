@@ -8,3 +8,7 @@ pages_build_output_dir = "dist"
 binding = "DB"
 database_name = "solampio-migration"
 database_id = "3cc26873-0453-4331-9e0d-7eb89dcf085c"
+
+# Workers AI binding for product summary generation
+[ai]
+binding = "AI"

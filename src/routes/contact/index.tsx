@@ -134,19 +134,6 @@ export default component$(() => {
                 </div>
                 <div class="flex items-start gap-3">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#c3a859] mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                  <div>
-                    <p class="font-bold text-[#042e0d] text-sm">Address</p>
-                    <p class="text-gray-600 text-sm">
-                      330 Codman Hill Road<br />
-                      Boxboro, MA 01719
-                    </p>
-                  </div>
-                </div>
-                <div class="flex items-start gap-3">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#c3a859] mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                   <div>

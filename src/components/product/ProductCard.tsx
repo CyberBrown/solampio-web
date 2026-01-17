@@ -4,7 +4,7 @@
 import { component$, useSignal, $ } from '@builder.io/qwik';
 import { Link } from '@builder.io/qwik-city';
 import { useCart } from '../../hooks/useCart';
-import { encodeSkuForUrl, type Product } from '../../lib/db';
+import { encodeSkuForUrl, getStockStatus, type Product } from '../../lib/db';
 import { getProductThumbnail } from '../../lib/images';
 
 interface ProductCardProps {
@@ -32,6 +32,7 @@ export const ProductCard = component$<ProductCardProps>(({ product }) => {
   });
 
   const imageUrl = getProductThumbnail(product);
+  const stockInfo = getStockStatus(product);
   const displayPrice = product.sale_price
     ? `$${product.sale_price.toFixed(2)}`
     : product.price
@@ -58,12 +59,14 @@ export const ProductCard = component$<ProductCardProps>(({ product }) => {
               <span class="text-xs">Product Photo</span>
             </div>
           )}
-          <span class={[
-            'absolute top-3 left-3 text-xs font-bold px-2 py-1 rounded',
-            product.stock_qty > 0 ? 'bg-[#56c270] text-[#042e0d]' : 'bg-gray-200 text-gray-600'
-          ].join(' ')}>
-            {product.stock_qty > 0 ? 'In Stock' : 'Out of Stock'}
-          </span>
+          {stockInfo.showBadge && (
+            <span class={[
+              'absolute top-3 left-3 text-xs font-bold px-2 py-1 rounded',
+              stockInfo.badgeClass
+            ].join(' ')}>
+              {stockInfo.label}
+            </span>
+          )}
         </div>
       </Link>
       <div class="p-4">

@@ -140,59 +140,6 @@ export default component$(() => {
         </div>
       </section>
 
-      {/* Location */}
-      <section class="py-12 bg-white">
-        <div class="container mx-auto px-4">
-          <div class="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <p class="text-xs font-mono text-[#c3a859] uppercase tracking-wide mb-2">Visit Us</p>
-              <h2 class="font-heading font-extrabold text-2xl md:text-3xl text-[#042e0d] mb-6">Based in Massachusetts</h2>
-              <p class="text-gray-600 mb-6">
-                We're located in Boxboro, MA, with easy access to I-495 and I-95. Our warehouse stocks popular items for same-day or next-day pickup.
-              </p>
-              <div class="space-y-4">
-                <div class="flex items-start gap-3">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#c3a859] mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                  <div>
-                    <p class="font-bold text-[#042e0d]">Address</p>
-                    <p class="text-gray-600">330 Codman Hill Road<br />Boxboro, MA 01719</p>
-                  </div>
-                </div>
-                <div class="flex items-start gap-3">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#c3a859] mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                  </svg>
-                  <div>
-                    <p class="font-bold text-[#042e0d]">Phone</p>
-                    <a href="tel:978-451-6890" class="text-[#5974c3] hover:underline">978-451-6890</a>
-                  </div>
-                </div>
-                <div class="flex items-start gap-3">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#c3a859] mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  <div>
-                    <p class="font-bold text-[#042e0d]">Hours</p>
-                    <p class="text-gray-600">Monday - Friday: 8am - 5pm EST</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="bg-gray-100 rounded-lg aspect-video flex items-center justify-center">
-              <div class="text-center text-gray-400">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="0.5">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-                </svg>
-                <span class="text-sm">Map</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* CTA */}
       <section class="bg-[#042e0d] py-10">
         <div class="container mx-auto px-4">

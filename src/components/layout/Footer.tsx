@@ -73,10 +73,6 @@ export const Footer = component$(() => {
             <p class="text-xs font-mono text-[#c3a859] mb-3 uppercase tracking-wide">Contact</p>
             <div class="space-y-4 text-sm">
               <div>
-                <p class="text-white/60 text-xs mb-0.5">Address</p>
-                <p class="text-white/80">330 Codman Hill Road<br />Boxboro, MA 01719</p>
-              </div>
-              <div>
                 <p class="text-white/60 text-xs mb-0.5">Phone</p>
                 <a href="tel:978-451-6890" class="text-[#56c270] font-semibold hover:text-white transition-colors">978-451-6890</a>
               </div>

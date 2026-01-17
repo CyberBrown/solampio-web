@@ -17,12 +17,16 @@ export interface Product {
   sku: string | null;
   title: string;
   description: string | null;
+  description_clean: string | null;  // Cleaned description (HTML stripped, formatted)
+  description_summary: string | null;  // AI-generated short summary (~500 chars)
   brand_id: string | null;
   item_group: string | null;
   categories: string | null;  // JSON array
   price: number | null;
   sale_price: number | null;
   stock_qty: number;
+  low_stock_threshold: number | null;  // Quantity at which "Low Stock" displays
+  show_stock_status: number;  // 1 to show stock status, 0 to hide (default: 0)
   is_visible: number;
   cf_image_id: string | null;
   thumbnail_url: string | null;
@@ -36,6 +40,75 @@ export interface Product {
   last_synced_from_erpnext: string | null;
   created_at: string;
   updated_at: string;
+}
+
+// ============================================================================
+// Stock Status Types and Helpers
+// ============================================================================
+
+export type StockStatus = 'out_of_stock' | 'low_stock' | 'in_stock' | null;
+
+export interface StockStatusInfo {
+  status: StockStatus;
+  label: string;
+  showBadge: boolean;
+  badgeClass: string;
+  textClass: string;
+}
+
+/**
+ * Get stock status information for a product
+ * Returns null status if show_stock_status is disabled
+ *
+ * Logic:
+ * - If show_stock_status = 0 → show nothing (status: null)
+ * - If stock_qty = 0 → "Out of Stock" (red)
+ * - If stock_qty <= low_stock_threshold → "Low Stock" (orange)
+ * - Otherwise → "In Stock" (green, but not shown by default)
+ */
+export function getStockStatus(product: Product, showInStock = false): StockStatusInfo {
+  // If stock status display is disabled, return null status
+  if (!product.show_stock_status) {
+    return {
+      status: null,
+      label: '',
+      showBadge: false,
+      badgeClass: '',
+      textClass: '',
+    };
+  }
+
+  const qty = product.stock_qty;
+  const threshold = product.low_stock_threshold ?? 0;
+
+  if (qty <= 0) {
+    return {
+      status: 'out_of_stock',
+      label: 'Out of Stock',
+      showBadge: true,
+      badgeClass: 'bg-red-100 text-red-700 border border-red-200',
+      textClass: 'text-red-600',
+    };
+  }
+
+  if (threshold > 0 && qty <= threshold) {
+    return {
+      status: 'low_stock',
+      label: `Low Stock${qty <= 5 ? ` (${qty} left)` : ''}`,
+      showBadge: true,
+      badgeClass: 'bg-amber-100 text-amber-700 border border-amber-200',
+      textClass: 'text-amber-600',
+    };
+  }
+
+  // In stock - optionally show badge
+  return {
+    status: 'in_stock',
+    label: 'In Stock',
+    showBadge: showInStock,
+    badgeClass: 'bg-[#56c270]/10 text-[#042e0d] border border-[#56c270]/30',
+    textClass: 'text-[#042e0d]',
+  };
 }
 
 export interface Category {
