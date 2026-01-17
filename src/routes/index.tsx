@@ -212,7 +212,7 @@ export default component$(() => {
                   Our team understands the real-world challenges of solar installation.
                 </p>
                 <div class="mt-4 pt-4 border-t border-white/10">
-                  <p class="text-xs text-white-50-safe">Mon-Fri 8am-5pm EST • Boxboro, MA</p>
+                  <p class="text-xs text-white-50-safe">Mon-Fri 8am-5pm EST</p>
                 </div>
               </div>
             </div>
