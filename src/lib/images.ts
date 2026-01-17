@@ -9,7 +9,31 @@
 const CF_IMAGES_HASH = 'Fdrr4r8cVWsy-JJCR0JU_Q';
 
 // Available image variants (configured in CF Images dashboard)
-export type ImageVariant = 'thumbnail' | 'card' | 'product' | 'hero';
+// NOTE: 'detail' (800px) and 'zoom' (1600px) variants need to be configured in CF Images dashboard
+// See documentation below for configuration specs
+export type ImageVariant = 'thumbnail' | 'card' | 'product' | 'hero' | 'detail' | 'zoom';
+
+/**
+ * CF Images Variant Configuration Requirements
+ *
+ * Configure these variants in Cloudflare Images dashboard:
+ *
+ * | Variant    | Max Width | Fit     | Purpose                    |
+ * |------------|-----------|---------|----------------------------|
+ * | thumbnail  | 150px     | contain | Gallery thumbnails         |
+ * | card       | 400px     | contain | Product cards, listings    |
+ * | product    | 600px     | contain | Standard product view      |
+ * | detail     | 800px     | contain | Main gallery display       |
+ * | zoom       | 1600px    | contain | Zoom/magnify functionality |
+ * | hero       | 1200px    | contain | Hero banners, large images |
+ *
+ * To configure in CF Dashboard:
+ * 1. Go to Images > Variants
+ * 2. Create new variant with name matching above
+ * 3. Set "Fit" to "Contain" (maintains aspect ratio)
+ * 4. Set "Max width" to the specified pixel value
+ * 5. Leave height empty (auto-calculated)
+ */
 
 /**
  * Construct a Cloudflare Images delivery URL
