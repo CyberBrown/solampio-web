@@ -1,7 +1,7 @@
 import { component$, useSignal, $ } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
 import { useLocation, Link, routeLoader$ } from '@builder.io/qwik-city';
-import { getDB, cleanSlug, encodeSkuForUrl, type Product, type ProductImage } from '../../../lib/db';
+import { getDB, cleanSlug, encodeSkuForUrl, getStockStatus, type Product, type ProductImage } from '../../../lib/db';
 import { getProductImageUrl } from '../../../lib/images';
 import { useCart } from '../../../hooks/useCart';
 
@@ -119,7 +119,10 @@ export default component$(() => {
   const currentImage = hasGallery
     ? images[selectedImageIndex.value]?.image_url
     : getProductImageUrl(product, 'product');
-  const stockStatus = product.stock_qty > 0 ? 'In Stock' : 'Out of Stock';
+
+  // Get stock status info - on detail page, we show "In Stock" when enabled
+  const stockInfo = getStockStatus(product, true);
+  const isOutOfStock = stockInfo.status === 'out_of_stock';
   const displayPrice = product.price ? `$${product.price}` : 'Call for Pricing';
 
   return (
@@ -194,12 +197,15 @@ export default component$(() => {
 
             {/* Product Info */}
             <div>
-              <div class={[
-                'inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm font-bold mb-4',
-                stockStatus === 'In Stock' ? 'bg-[#56c270]/10 text-[#042e0d]' : 'bg-gray-200 text-gray-600'
-              ].join(' ')}>
-                {stockStatus} {product.stock_qty > 0 && `(${product.stock_qty} available)`}
-              </div>
+              {stockInfo.showBadge && (
+                <div class={[
+                  'inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm font-bold mb-4',
+                  stockInfo.badgeClass
+                ].join(' ')}>
+                  {stockInfo.label}
+                  {stockInfo.status === 'in_stock' && product.stock_qty > 0 && ` (${product.stock_qty} available)`}
+                </div>
+              )}
 
               {brand && (
                 <Link href={`/products/brand/${cleanSlug(brand.slug)}/`} class="inline-block mb-2">
@@ -308,7 +314,9 @@ export default component$(() => {
                   )}
                   <div class="flex justify-between py-1 border-b border-gray-200">
                     <span class="text-gray-500">Stock</span>
-                    <span class="font-semibold text-[#042e0d]">{product.stock_qty} units</span>
+                    <span class={['font-semibold', stockInfo.status ? stockInfo.textClass : 'text-[#042e0d]'].join(' ')}>
+                      {stockInfo.showBadge ? stockInfo.label : `${product.stock_qty} units`}
+                    </span>
                   </div>
                   <div class="flex justify-between py-1 border-b border-gray-200">
                     <span class="text-gray-500">Warranty</span>
@@ -321,23 +329,42 @@ export default component$(() => {
               <div class="border border-gray-200 rounded-lg p-5 mb-6">
                 <p class="font-heading font-extrabold text-2xl text-[#042e0d] mb-4">{displayPrice}</p>
                 <div class="flex gap-3">
-                  <button
-                    onClick$={handleAddToQuote}
-                    class={[
-                      'flex-1 font-heading font-bold py-3 rounded transition-colors',
-                      addedToCart.value
-                        ? 'bg-[#56c270] text-white'
-                        : 'bg-[#042e0d] text-white hover:bg-[#042e0d]/80'
-                    ].join(' ')}
-                  >
-                    {addedToCart.value ? 'Added!' : 'Add to Cart'}
-                  </button>
-                  <a href="tel:978-451-6890" class="flex items-center justify-center gap-2 bg-[#c3a859] text-white font-bold px-5 py-3 rounded hover:bg-[#c3a859]/80 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                    </svg>
-                    Call
-                  </a>
+                  {isOutOfStock ? (
+                    <>
+                      <button
+                        disabled
+                        class="flex-1 font-heading font-bold py-3 rounded bg-gray-200 text-gray-500 cursor-not-allowed"
+                      >
+                        Out of Stock
+                      </button>
+                      <a href="tel:978-451-6890" class="flex items-center justify-center gap-2 bg-[#042e0d] text-white font-bold px-5 py-3 rounded hover:bg-[#042e0d]/80 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                        </svg>
+                        Call for Availability
+                      </a>
+                    </>
+                  ) : (
+                    <>
+                      <button
+                        onClick$={handleAddToQuote}
+                        class={[
+                          'flex-1 font-heading font-bold py-3 rounded transition-colors',
+                          addedToCart.value
+                            ? 'bg-[#56c270] text-white'
+                            : 'bg-[#042e0d] text-white hover:bg-[#042e0d]/80'
+                        ].join(' ')}
+                      >
+                        {addedToCart.value ? 'Added!' : 'Add to Cart'}
+                      </button>
+                      <a href="tel:978-451-6890" class="flex items-center justify-center gap-2 bg-[#c3a859] text-white font-bold px-5 py-3 rounded hover:bg-[#c3a859]/80 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                        </svg>
+                        Call
+                      </a>
+                    </>
+                  )}
                 </div>
               </div>
 

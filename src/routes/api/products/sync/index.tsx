@@ -42,6 +42,8 @@ interface ERPNextProductPayload {
   website_item_groups?: ERPNextWebsiteItemGroup[];
   standard_rate?: number;
   stock_qty?: number;
+  low_stock_threshold?: number;  // Quantity at which "Low Stock" displays
+  show_stock_status?: boolean | number;  // Toggle to show stock status on storefront
   disabled?: boolean | number;
   brand?: string;
   website_image?: string;
@@ -150,6 +152,7 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
     const now = new Date().toISOString();
     const isVisible = payload.disabled ? 0 : 1;
     const hasVariants = payload.has_variants ? 1 : 0;
+    const showStockStatus = payload.show_stock_status ? 1 : 0;
     const categoriesJson = categoryIds.length > 0 ? JSON.stringify(categoryIds) : null;
 
     // Check if product exists
@@ -170,6 +173,8 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
             categories = ?,
             price = COALESCE(?, price),
             stock_qty = COALESCE(?, stock_qty),
+            low_stock_threshold = COALESCE(?, low_stock_threshold),
+            show_stock_status = ?,
             is_visible = ?,
             brand_id = COALESCE(?, brand_id),
             has_variants = ?,
@@ -187,6 +192,8 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
           categoriesJson,
           payload.standard_rate || null,
           payload.stock_qty ?? null,
+          payload.low_stock_threshold ?? null,
+          showStockStatus,
           isVisible,
           brandId,
           hasVariants,
@@ -203,9 +210,9 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
         .prepare(`
           INSERT INTO storefront_products (
             id, erpnext_name, sku, title, description, item_group, categories,
-            price, stock_qty, is_visible, brand_id, has_variants, variant_of,
+            price, stock_qty, low_stock_threshold, show_stock_status, is_visible, brand_id, has_variants, variant_of,
             sync_source, last_synced_from_erpnext, created_at, updated_at
-          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'erpnext', ?, ?, ?)
+          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'erpnext', ?, ?, ?)
         `)
         .bind(
           id,
@@ -217,6 +224,8 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
           categoriesJson,
           payload.standard_rate || null,
           payload.stock_qty ?? 0,
+          payload.low_stock_threshold ?? null,
+          showStockStatus,
           isVisible,
           brandId,
           hasVariants,
@@ -267,6 +276,8 @@ export const onGet: RequestHandler = async ({ json }) => {
       website_item_groups: '[{ item_group: "Category Name" }]',
       standard_rate: 'Price',
       stock_qty: 'Stock quantity',
+      low_stock_threshold: 'Quantity at which "Low Stock" displays (optional)',
+      show_stock_status: 'Set to true to show stock status on storefront (default: false)',
       disabled: 'Set to true to hide product',
       brand: 'Brand name',
     },
