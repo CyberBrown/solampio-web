@@ -30,72 +30,7 @@ export default component$(() => {
           <div class="lg:col-span-2">
             <div class="bg-[#f1f1f2] rounded-lg p-6 md:p-8">
               <h2 class="font-heading font-extrabold text-xl text-[#042e0d] mb-6">Send us a message</h2>
-              <form class="space-y-5">
-                <div class="grid md:grid-cols-2 gap-5">
-                  <div>
-                    <label class="block text-sm font-bold text-[#042e0d] mb-1.5">Full Name *</label>
-                    <input
-                      type="text"
-                      placeholder="Your name"
-                      class="w-full border border-gray-300 bg-white px-4 py-2.5 text-sm rounded focus:outline-none focus:border-[#042e0d]"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label class="block text-sm font-bold text-[#042e0d] mb-1.5">Email *</label>
-                    <input
-                      type="email"
-                      placeholder="you@company.com"
-                      class="w-full border border-gray-300 bg-white px-4 py-2.5 text-sm rounded focus:outline-none focus:border-[#042e0d]"
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div class="grid md:grid-cols-2 gap-5">
-                  <div>
-                    <label class="block text-sm font-bold text-[#042e0d] mb-1.5">Company</label>
-                    <input
-                      type="text"
-                      placeholder="Your company name"
-                      class="w-full border border-gray-300 bg-white px-4 py-2.5 text-sm rounded focus:outline-none focus:border-[#042e0d]"
-                    />
-                  </div>
-                  <div>
-                    <label class="block text-sm font-bold text-[#042e0d] mb-1.5">Phone</label>
-                    <input
-                      type="tel"
-                      placeholder="(555) 123-4567"
-                      class="w-full border border-gray-300 bg-white px-4 py-2.5 text-sm rounded focus:outline-none focus:border-[#042e0d]"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label class="block text-sm font-bold text-[#042e0d] mb-1.5">Subject *</label>
-                  <select class="w-full border border-gray-300 bg-white px-4 py-2.5 text-sm rounded focus:outline-none focus:border-[#042e0d]" required>
-                    <option disabled selected>Select a topic</option>
-                    <option>Request a Quote</option>
-                    <option>Technical Question</option>
-                    <option>Open Dealer Account</option>
-                    <option>Order Status</option>
-                    <option>General Inquiry</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label class="block text-sm font-bold text-[#042e0d] mb-1.5">Message *</label>
-                  <textarea
-                    placeholder="Tell us about your project or question..."
-                    class="w-full border border-gray-300 bg-white px-4 py-2.5 text-sm rounded focus:outline-none focus:border-[#042e0d] h-32"
-                    required
-                  ></textarea>
-                </div>
-
-                <button type="submit" class="bg-[#042e0d] text-white font-heading font-bold px-8 py-3 rounded hover:bg-[#042e0d]/80 transition-colors">
-                  Send Message
-                </button>
-              </form>
+              <div dangerouslySetInnerHTML={`<script type="text/javascript" src="https://form.jotform.com/jsform/260164461032143"></script>`} />
             </div>
           </div>
 
