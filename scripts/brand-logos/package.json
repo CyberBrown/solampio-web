@@ -1,0 +1,22 @@
+{
+  "name": "brand-logos",
+  "version": "1.0.0",
+  "description": "Brand logo sourcing, processing, and upload scripts",
+  "type": "module",
+  "scripts": {
+    "source": "tsx source-logos.ts",
+    "process": "tsx process-logos.ts",
+    "upload": "tsx upload-to-cf.ts",
+    "sync": "tsx sync-to-erpnext.ts",
+    "all": "npm run source && npm run process && npm run upload && npm run sync"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "sharp": "^0.33.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.3.3"
+  }
+}

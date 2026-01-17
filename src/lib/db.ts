@@ -64,6 +64,10 @@ export interface Brand {
   description: string | null;
   logo_cf_image_id: string | null;
   logo_url: string | null;
+  logo_thumb_cf_id: string | null;
+  logo_greyscale_cf_id: string | null;
+  logo_source_url: string | null;
+  is_featured: number;
   is_visible: number;
   sort_order: number;
   sync_source: string;
@@ -426,6 +430,22 @@ export class StorefrontDB {
     `).bind(idOrSlug, idOrSlug).first<Brand>();
 
     return result || null;
+  }
+
+  /**
+   * Get featured brands for the brand scroll component
+   * Returns brands marked as is_featured=1 with logo images
+   */
+  async getFeaturedBrands(limit: number = 12): Promise<Brand[]> {
+    const result = await this.db.prepare(`
+      SELECT * FROM storefront_brands
+      WHERE is_visible = 1 AND is_featured = 1
+        AND (logo_cf_image_id IS NOT NULL OR logo_url IS NOT NULL)
+      ORDER BY sort_order ASC, title ASC
+      LIMIT ?
+    `).bind(limit).all<Brand>();
+
+    return result.results || [];
   }
 
   /**

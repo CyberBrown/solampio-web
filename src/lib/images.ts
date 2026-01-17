@@ -88,6 +88,53 @@ export function getBrandLogoUrl(
 }
 
 /**
+ * Brand logo variant types
+ */
+export type BrandLogoVariant = 'full' | 'thumb' | 'greyscale';
+
+/**
+ * Get brand logo URL with support for greyscale variant
+ * Used for brand scroll component
+ *
+ * @param brand - Brand with logo image fields
+ * @param logoVariant - Which logo variant to use
+ * @returns Logo URL or null
+ */
+export function getBrandLogoVariant(
+  brand: {
+    logo_cf_image_id?: string | null;
+    logo_thumb_cf_id?: string | null;
+    logo_greyscale_cf_id?: string | null;
+    logo_url?: string | null;
+  },
+  logoVariant: BrandLogoVariant = 'full'
+): string | null {
+  // Select the appropriate CF image ID based on variant
+  let cfImageId: string | null | undefined = null;
+
+  switch (logoVariant) {
+    case 'thumb':
+      cfImageId = brand.logo_thumb_cf_id || brand.logo_cf_image_id;
+      break;
+    case 'greyscale':
+      cfImageId = brand.logo_greyscale_cf_id || brand.logo_cf_image_id;
+      break;
+    case 'full':
+    default:
+      cfImageId = brand.logo_cf_image_id;
+      break;
+  }
+
+  if (cfImageId) {
+    // Use 'public' variant for direct delivery
+    return `https://imagedelivery.net/${CF_IMAGES_HASH}/${cfImageId}/public`;
+  }
+
+  // Fallback to legacy logo_url
+  return brand.logo_url || null;
+}
+
+/**
  * Get category image URL from CF Images or fallback
  *
  * @param category - Category with image fields
