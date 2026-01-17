@@ -1,9 +1,10 @@
 import { component$, useSignal, $ } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
-import { useLocation, Link, routeLoader$ } from '@builder.io/qwik-city';
+import { Link, routeLoader$ } from '@builder.io/qwik-city';
 import { getDB, cleanSlug, encodeSkuForUrl, getStockStatus, type Product, type ProductImage } from '../../../lib/db';
 import { getProductImageUrl } from '../../../lib/images';
 import { useCart } from '../../../hooks/useCart';
+import ProductImageGallery from '../../../components/product/ProductImageGallery';
 
 // Loader to fetch product data by SKU
 export const useProductData = routeLoader$(async (requestEvent) => {
@@ -30,14 +31,22 @@ export const useProductData = routeLoader$(async (requestEvent) => {
 
   // Fetch parent product if this is a variant
   let parentProduct: Product | null = null;
+  let parentImages: ProductImage[] = [];
   if (product.variant_of) {
     parentProduct = await db.getParentProduct(product.variant_of);
     // Also fetch sibling variants (other variants of the same parent)
     variants = await db.getVariants(product.variant_of);
+    // Fetch parent images for fallback
+    if (parentProduct) {
+      parentImages = await db.getProductImages(parentProduct.id);
+    }
   }
 
   // Fetch all images for this product
   const images = await db.getProductImages(product.id);
+
+  // If variant has no images, fall back to parent images
+  const galleryImages = images.length > 0 ? images : parentImages;
 
   // Resolve category IDs to names
   let categories: { id: string; title: string; slug: string }[] = [];
@@ -59,16 +68,13 @@ export const useProductData = routeLoader$(async (requestEvent) => {
     brand,
     variants,
     parentProduct,
-    images,
+    images: galleryImages,
     categories
   };
 });
 
 export default component$(() => {
-  const loc = useLocation();
-  const slug = loc.params.slug;
   const data = useProductData();
-  const selectedImageIndex = useSignal(0);
   const cart = useCart();
   const addedToCart = useSignal(false);
 
@@ -78,6 +84,9 @@ export default component$(() => {
   const parentProduct = data.value.parentProduct;
   const images = data.value.images;
   const categories = data.value.categories;
+
+  // Get fallback image from product if no gallery images
+  const fallbackImage = product ? getProductImageUrl(product, 'detail') : null;
 
   // Handler for Add to Cart button
   const handleAddToQuote = $(() => {
@@ -114,12 +123,6 @@ export default component$(() => {
     );
   }
 
-  // Use images from gallery if available, fallback to single product image
-  const hasGallery = images.length > 0;
-  const currentImage = hasGallery
-    ? images[selectedImageIndex.value]?.image_url
-    : getProductImageUrl(product, 'product');
-
   // Get stock status info - on detail page, we show "In Stock" when enabled
   const stockInfo = getStockStatus(product, true);
   const isOutOfStock = stockInfo.status === 'out_of_stock';
@@ -154,45 +157,11 @@ export default component$(() => {
           <div class="grid lg:grid-cols-2 gap-8 items-start">
             {/* Product Image Gallery */}
             <div class="lg:sticky lg:top-24">
-              {/* Main Image */}
-              <div class="bg-gray-100 rounded-lg aspect-square flex items-center justify-center p-8 mb-4">
-                {currentImage ? (
-                  <img src={currentImage} alt={product.title} class="w-full h-full object-contain" />
-                ) : (
-                  <div class="text-center text-gray-300">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-32 w-32 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="0.5">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
-                    <span class="text-sm">Product Photo</span>
-                  </div>
-                )}
-              </div>
-
-              {/* Thumbnail Gallery */}
-              {hasGallery && images.length > 1 && (
-                <div class="flex gap-2 overflow-x-auto pb-2">
-                  {images.map((img, index) => (
-                    <button
-                      key={img.cf_image_id}
-                      onClick$={() => { selectedImageIndex.value = index; }}
-                      class={[
-                        'flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-colors',
-                        selectedImageIndex.value === index
-                          ? 'border-[#042e0d]'
-                          : 'border-gray-200 hover:border-gray-400'
-                      ].join(' ')}
-                    >
-                      <img
-                        src={img.thumbnail_url}
-                        alt={`${product.title} - Image ${index + 1}`}
-                        class="w-full h-full object-cover"
-                        width={64}
-                        height={64}
-                      />
-                    </button>
-                  ))}
-                </div>
-              )}
+              <ProductImageGallery
+                images={images}
+                productTitle={product.title}
+                fallbackImage={fallbackImage}
+              />
             </div>
 
             {/* Product Info */}
