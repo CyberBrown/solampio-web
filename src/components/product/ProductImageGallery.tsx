@@ -112,7 +112,9 @@ export default component$<ProductImageGalleryProps>(({
 
   // Handle mouse move for zoom lens
   const handleMouseMove = $((e: MouseEvent) => {
-    const target = e.currentTarget as HTMLElement;
+    const target = e.currentTarget as HTMLElement | null;
+    if (!target) return;
+
     const rect = target.getBoundingClientRect();
 
     // Calculate position as percentage

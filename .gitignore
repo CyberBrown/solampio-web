@@ -28,3 +28,6 @@ Thumbs.db
 # Lockfiles (optional - keep bun.lockb if using bun)
 package-lock.json
 yarn.lock
+
+# Wrangler local state
+.wrangler/

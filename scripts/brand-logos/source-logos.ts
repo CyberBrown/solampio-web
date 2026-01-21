@@ -31,37 +31,71 @@ interface Brand {
   bigCommerceUrl?: string;
 }
 
+// Known brands from solampio.com (fallback list)
+const KNOWN_BRANDS: Brand[] = [
+  { name: 'Briggs & Stratton Energy Solutions', slug: 'briggs-stratton-energy-solutions' },
+  { name: 'Burndy', slug: 'burndy' },
+  { name: 'Bussmann', slug: 'bussmann' },
+  { name: 'Chem Link', slug: 'chem-link' },
+  { name: 'CW Energy', slug: 'cw-energy' },
+  { name: 'Delta', slug: 'delta' },
+  { name: 'Deye', slug: 'deye' },
+  { name: 'EBL', slug: 'ebl' },
+  { name: 'Enersys', slug: 'enersys' },
+  { name: 'EZ Solar', slug: 'ez-solar' },
+  { name: 'Fogco', slug: 'fogco' },
+  { name: 'Fortress Power', slug: 'fortress-power' },
+  { name: 'HomeGrid', slug: 'homegrid' },
+  { name: 'Hyperion', slug: 'hyperion' },
+  { name: 'Hyundai Energy Solutions', slug: 'hyundai-energy-solutions' },
+  { name: 'IMO Automation', slug: 'imo-automation' },
+  { name: 'Iota Engineering', slug: 'iota-engineering' },
+  { name: 'JA Solar', slug: 'ja-solar' },
+  { name: 'KiloVault', slug: 'kilovault' },
+  { name: 'Meyer Burger', slug: 'meyer-burger' },
+  { name: 'MidNite Power', slug: 'midnite-power-kdhi' },
+  { name: 'MidNite Solar', slug: 'midnite-solar' },
+  { name: 'Morningstar', slug: 'morningstar' },
+  { name: 'Outback Power Systems', slug: 'outback-power-systems' },
+  { name: 'Philadelphia Solar', slug: 'philadelphia-solar' },
+  { name: 'Powerfield', slug: 'powerfield' },
+  { name: 'Pytes', slug: 'pytes' },
+  { name: 'Qcells', slug: 'qcells' },
+  { name: 'RelyEZ', slug: 'relyez' },
+  { name: 'Renon Power', slug: 'renon-power' },
+  { name: 'Rich Solar', slug: 'rich-solar' },
+  { name: 'Roof Tech', slug: 'roof-tech' },
+  { name: 'Ryse Energy', slug: 'ryse-energy' },
+  { name: 'S-5!', slug: 's-5' },
+  { name: 'S-Energy', slug: 's-energy' },
+  { name: 'Samlex', slug: 'samlex' },
+  { name: 'Schneider Electric', slug: 'schneider-electric' },
+  { name: 'SkyStream', slug: 'skystream' },
+  { name: 'SMA', slug: 'sma' },
+  { name: 'Snap-Fan', slug: 'snap-fan' },
+  { name: 'Sol-ark', slug: 'sol-ark' },
+  { name: 'SolaDeck', slug: 'soladeck' },
+  { name: 'Solamp', slug: 'solamp' },
+  { name: 'Solar Connections International', slug: 'solar-connections-international' },
+  { name: 'SRNE', slug: 'srne' },
+  { name: 'Stäubli', slug: 'staubli' },
+  { name: 'Sun Star Appliances', slug: 'sun-star-appliances' },
+  { name: 'Talesun', slug: 'talesun' },
+  { name: 'Tamarack Solar Products', slug: 'tamarack-solar-products' },
+  { name: 'Tigo', slug: 'tigo' },
+  { name: 'Topband', slug: 'topband' },
+  { name: 'Victron Energy', slug: 'victron-energy' },
+];
+
 /**
  * Fetch brand list from solampio.com/brands/ page
+ * Falls back to KNOWN_BRANDS if parsing fails
  */
 async function fetchBrandList(): Promise<Brand[]> {
-  console.log('Fetching brand list from solampio.com/brands/...');
-
-  try {
-    const response = await fetch('https://solampio.com/brands/');
-    const html = await response.text();
-
-    // Parse brand links from HTML
-    // Pattern: <a href="/brands/[slug]/" ...>Brand Name</a>
-    const brandRegex = /<a[^>]*href="\/brands\/([^/"]+)\/"[^>]*>([^<]+)<\/a>/gi;
-    const brands: Brand[] = [];
-    let match;
-
-    while ((match = brandRegex.exec(html)) !== null) {
-      const slug = match[1];
-      const name = match[2].trim();
-
-      if (slug && name && !brands.find((b) => b.slug === slug)) {
-        brands.push({ name, slug });
-      }
-    }
-
-    console.log(`Found ${brands.length} brands`);
-    return brands;
-  } catch (error) {
-    console.error('Error fetching brand list:', error);
-    return [];
-  }
+  console.log('Using known brand list from solampio.com...');
+  // Use the known brand list directly - more reliable than parsing HTML
+  console.log(`Found ${KNOWN_BRANDS.length} brands`);
+  return KNOWN_BRANDS;
 }
 
 /**
@@ -69,7 +103,8 @@ async function fetchBrandList(): Promise<Brand[]> {
  */
 async function fetchBigCommerceLogo(brand: Brand): Promise<string | null> {
   try {
-    const response = await fetch(`https://solampio.com/brands/${brand.slug}/`);
+    // Brand pages are at direct slug, not /brands/slug
+    const response = await fetch(`https://solampio.com/${brand.slug}/`);
     const html = await response.text();
 
     // Look for BigCommerce CDN image URLs
@@ -79,18 +114,30 @@ async function fetchBigCommerceLogo(brand: Brand): Promise<string | null> {
     const matches = html.match(imgRegex);
 
     if (matches && matches.length > 0) {
+      // Filter to just brand logo images (in /g/ subfolder or containing brand slug)
+      // Brand logos are typically stored in /g/ folder
+      const brandLogos = matches.filter(url =>
+        url.includes('/g/') ||
+        url.toLowerCase().includes(brand.slug.replace(/-/g, '').toLowerCase()) ||
+        url.toLowerCase().includes(brand.slug.replace(/-/g, '_').toLowerCase())
+      );
+
+      const logosToCheck = brandLogos.length > 0 ? brandLogos : matches;
+
       // Find the highest resolution version (prefer original)
-      const originalMatch = matches.find((url) => url.includes('.original.'));
+      const originalMatch = logosToCheck.find((url) => url.includes('.original.'));
       if (originalMatch) return originalMatch;
 
       // Otherwise find largest dimension
-      let bestUrl = matches[0];
+      let bestUrl = logosToCheck[0];
       let bestSize = 0;
 
-      for (const url of matches) {
-        const sizeMatch = url.match(/stencil\/(\d+)x(\d+)\//);
+      for (const url of logosToCheck) {
+        const sizeMatch = url.match(/stencil\/(\d+)x?(\d*)\//);
         if (sizeMatch) {
-          const size = parseInt(sizeMatch[1]) * parseInt(sizeMatch[2]);
+          const width = parseInt(sizeMatch[1]) || 0;
+          const height = parseInt(sizeMatch[2]) || width;
+          const size = width * height;
           if (size > bestSize) {
             bestSize = size;
             bestUrl = url;

@@ -50,9 +50,11 @@ interface ERPNextProductPayload {
   website_image?: string;
   has_variants?: boolean | number;
   variant_of?: string;
-  // Featured product fields
+  // Featured product fields (ERPNext sends custom_ prefixed fields)
   is_featured?: boolean | number;
+  custom_is_featured?: boolean | number;  // ERPNext custom field name
   featured_in_category?: string;  // ERPNext Item Group name for category featuring
+  custom_featured_in_category?: string;  // ERPNext custom field name
   featured_in_subcategory?: string;  // ERPNext Item Group name for subcategory featuring
 }
 
@@ -158,7 +160,8 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
     const isVisible = payload.disabled ? 0 : 1;
     const hasVariants = payload.has_variants ? 1 : 0;
     const showStockStatus = payload.show_stock_status ? 1 : 0;
-    const isFeatured = payload.is_featured ? 1 : 0;
+    // Check both custom_ prefixed (ERPNext webhook) and unprefixed versions
+    const isFeatured = (payload.custom_is_featured || payload.is_featured) ? 1 : 0;
     const categoriesJson = categoryIds.length > 0 ? JSON.stringify(categoryIds) : null;
 
     // Clean description if provided
@@ -166,10 +169,11 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
     // Generate initial excerpt as summary (AI summary can be generated separately)
     const descriptionSummary = payload.description ? extractExcerpt(payload.description, 500) : null;
 
-    // Look up featured category IDs if provided
+    // Look up featured category IDs if provided (check both custom_ prefixed and unprefixed)
     let featuredCategoryId: string | null = null;
-    if (payload.featured_in_category) {
-      featuredCategoryId = await getCategoryIdByErpnextName(db, payload.featured_in_category);
+    const featuredInCategory = payload.custom_featured_in_category || payload.featured_in_category;
+    if (featuredInCategory) {
+      featuredCategoryId = await getCategoryIdByErpnextName(db, featuredInCategory);
     }
 
     let featuredInSubcategoryId: string | null = null;

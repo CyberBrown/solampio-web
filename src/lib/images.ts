@@ -141,7 +141,9 @@ export function getBrandLogoVariant(
       cfImageId = brand.logo_thumb_cf_id || brand.logo_cf_image_id;
       break;
     case 'greyscale':
-      cfImageId = brand.logo_greyscale_cf_id || brand.logo_cf_image_id;
+      // Only return greyscale if we have an actual greyscale image
+      // Don't fall back to color image - let the component use CSS filter instead
+      cfImageId = brand.logo_greyscale_cf_id;
       break;
     case 'full':
     default:
@@ -154,8 +156,12 @@ export function getBrandLogoVariant(
     return `https://imagedelivery.net/${CF_IMAGES_HASH}/${cfImageId}/public`;
   }
 
-  // Fallback to legacy logo_url
-  return brand.logo_url || null;
+  // Fallback to legacy logo_url (only for 'full' and 'thumb' variants)
+  if (logoVariant !== 'greyscale') {
+    return brand.logo_url || null;
+  }
+
+  return null;
 }
 
 /**

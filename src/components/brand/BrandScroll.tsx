@@ -60,7 +60,7 @@ export const BrandScroll = component$<BrandScrollProps>(({
   const scrollBrands = [...brands, ...brands];
 
   return (
-    <section class="bg-solamp-mist border-b border-gray-300 py-8 overflow-hidden">
+    <section class="bg-white border-b border-gray-200 py-8 overflow-hidden">
       <div class="container mx-auto px-4">
         {/* Header */}
         <div class="text-center mb-6">
@@ -82,6 +82,8 @@ export const BrandScroll = component$<BrandScrollProps>(({
           {scrollBrands.map((brand, index) => {
             const greyLogoUrl = getBrandLogoVariant(brand, 'greyscale');
             const colorLogoUrl = getBrandLogoVariant(brand, 'full');
+            const hasGreyscaleImage = !!greyLogoUrl;
+            const logoUrl = colorLogoUrl || greyLogoUrl;
 
             return (
               <Link
@@ -90,32 +92,41 @@ export const BrandScroll = component$<BrandScrollProps>(({
                 class="flex-shrink-0 group relative block"
                 title={brand.title}
               >
-                <div class="w-[150px] h-[75px] flex items-center justify-center bg-white rounded border border-gray-200 px-4 py-2 transition-all group-hover:border-solamp-green group-hover:shadow-md">
-                  {greyLogoUrl || colorLogoUrl ? (
-                    <div class="relative w-full h-full">
-                      {/* Greyscale logo (default) */}
-                      {greyLogoUrl && (
+                <div class="w-[150px] h-[75px] flex items-center justify-center bg-white rounded px-4 py-2 transition-all group-hover:shadow-md">
+                  {logoUrl ? (
+                    <div class="relative w-full h-full flex items-center justify-center">
+                      {hasGreyscaleImage ? (
+                        <>
+                          {/* Greyscale logo image (default) */}
+                          <img
+                            src={greyLogoUrl}
+                            alt={brand.title}
+                            class="absolute max-w-full max-h-full object-contain opacity-60 transition-opacity duration-300 group-hover:opacity-0"
+                            width="150"
+                            height="75"
+                            loading="lazy"
+                          />
+                          {/* Color logo (on hover) */}
+                          <img
+                            src={colorLogoUrl || greyLogoUrl || ''}
+                            alt={brand.title}
+                            class="absolute max-w-full max-h-full object-contain transition-opacity duration-300 opacity-0 group-hover:opacity-100"
+                            width="150"
+                            height="75"
+                            loading="lazy"
+                          />
+                        </>
+                      ) : (
+                        /* Single image with CSS greyscale filter fallback */
                         <img
-                          src={greyLogoUrl}
+                          src={logoUrl}
                           alt={brand.title}
-                          class="absolute inset-0 w-full h-full object-contain opacity-60 transition-opacity duration-300 group-hover:opacity-0"
+                          class="max-w-full max-h-full object-contain transition-all duration-300 grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100"
                           width="150"
                           height="75"
                           loading="lazy"
                         />
                       )}
-                      {/* Color logo (on hover) */}
-                      <img
-                        src={colorLogoUrl || greyLogoUrl || ''}
-                        alt={brand.title}
-                        class={[
-                          'absolute inset-0 w-full h-full object-contain transition-opacity duration-300',
-                          greyLogoUrl ? 'opacity-0 group-hover:opacity-100' : 'opacity-100',
-                        ].join(' ')}
-                        width="150"
-                        height="75"
-                        loading="lazy"
-                      />
                     </div>
                   ) : (
                     // Fallback: text-only
@@ -167,6 +178,8 @@ export const BrandGrid = component$<BrandScrollProps>(({
           {brands.map((brand) => {
             const greyLogoUrl = getBrandLogoVariant(brand, 'greyscale');
             const colorLogoUrl = getBrandLogoVariant(brand, 'full');
+            const hasGreyscaleImage = !!greyLogoUrl;
+            const logoUrl = colorLogoUrl || greyLogoUrl;
 
             return (
               <Link
@@ -175,30 +188,39 @@ export const BrandGrid = component$<BrandScrollProps>(({
                 class="group"
                 title={brand.title}
               >
-                <div class="w-[120px] h-[60px] md:w-[150px] md:h-[75px] flex items-center justify-center bg-white rounded border border-gray-200 px-3 py-2 transition-all group-hover:border-solamp-green group-hover:shadow-md">
-                  {greyLogoUrl || colorLogoUrl ? (
-                    <div class="relative w-full h-full">
-                      {greyLogoUrl && (
+                <div class="w-[120px] h-[60px] md:w-[150px] md:h-[75px] flex items-center justify-center bg-white rounded px-3 py-2 transition-all group-hover:shadow-md">
+                  {logoUrl ? (
+                    <div class="relative w-full h-full flex items-center justify-center">
+                      {hasGreyscaleImage ? (
+                        <>
+                          <img
+                            src={greyLogoUrl}
+                            alt={brand.title}
+                            class="absolute max-w-full max-h-full object-contain opacity-60 transition-opacity duration-300 group-hover:opacity-0"
+                            width="150"
+                            height="75"
+                            loading="lazy"
+                          />
+                          <img
+                            src={colorLogoUrl || greyLogoUrl || ''}
+                            alt={brand.title}
+                            class="absolute max-w-full max-h-full object-contain transition-opacity duration-300 opacity-0 group-hover:opacity-100"
+                            width="150"
+                            height="75"
+                            loading="lazy"
+                          />
+                        </>
+                      ) : (
+                        /* CSS greyscale filter fallback */
                         <img
-                          src={greyLogoUrl}
+                          src={logoUrl}
                           alt={brand.title}
-                          class="absolute inset-0 w-full h-full object-contain opacity-60 transition-opacity duration-300 group-hover:opacity-0"
+                          class="max-w-full max-h-full object-contain transition-all duration-300 grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100"
                           width="150"
                           height="75"
                           loading="lazy"
                         />
                       )}
-                      <img
-                        src={colorLogoUrl || greyLogoUrl || ''}
-                        alt={brand.title}
-                        class={[
-                          'absolute inset-0 w-full h-full object-contain transition-opacity duration-300',
-                          greyLogoUrl ? 'opacity-0 group-hover:opacity-100' : 'opacity-100',
-                        ].join(' ')}
-                        width="150"
-                        height="75"
-                        loading="lazy"
-                      />
                     </div>
                   ) : (
                     <span class="font-heading font-bold text-gray-400 group-hover:text-solamp-forest transition-colors text-center text-sm">

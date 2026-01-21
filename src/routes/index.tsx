@@ -242,7 +242,7 @@ export default component$(() => {
       )}
 
       {/* Category tiles - Photo backgrounds with dark overlay, like SparkFun */}
-      <section class="py-12 bg-white">
+      <section class="py-12 bg-solamp-mist">
         <div class="container mx-auto px-4">
           <div class="flex justify-between items-end mb-8">
             <div>
@@ -292,7 +292,7 @@ export default component$(() => {
       </section>
 
       {/* Featured Products - SparkFun style cards */}
-      <section class="py-12 bg-solamp-mist">
+      <section class="py-12 bg-white">
         <div class="container mx-auto px-4">
           <div class="flex justify-between items-end mb-8">
             <div>
@@ -310,7 +310,7 @@ export default component$(() => {
       </section>
 
       {/* Project Types / Ecosystems - SparkFun inspired */}
-      <section class="py-12 bg-white">
+      <section class="py-12 bg-solamp-mist">
         <div class="container mx-auto px-4">
           <div class="text-center mb-10">
             <p class="text-xs font-mono text-solamp-bronze-dark uppercase tracking-wider mb-2">Shop by Application</p>
@@ -353,7 +353,7 @@ export default component$(() => {
       </section>
 
       {/* Why Solamp - Enhanced with more visual weight */}
-      <section class="py-16 bg-solamp-mist">
+      <section class="py-16 bg-white">
         <div class="container mx-auto px-4">
           <div class="text-center mb-12">
             <p class="text-xs font-mono text-solamp-bronze-dark uppercase tracking-wider mb-2">The Solamp Difference</p>
@@ -427,7 +427,7 @@ export default component$(() => {
       </section>
 
       {/* Resources */}
-      <section class="py-12 bg-solamp-mist">
+      <section class="py-12 bg-white">
         <div class="container mx-auto px-4">
           <div class="flex justify-between items-end mb-8">
             <div>
@@ -463,7 +463,7 @@ export default component$(() => {
       </section>
 
       {/* Trust indicators */}
-      <section class="py-12 bg-white border-t border-gray-100">
+      <section class="py-12 bg-solamp-mist border-t border-gray-200">
         <div class="container mx-auto px-4">
           <div class="flex flex-wrap justify-center items-center gap-10 md:gap-16 text-center">
             <div>

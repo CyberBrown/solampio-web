@@ -1,0 +1,418 @@
+[
+  {
+    "brand": "Briggs & Stratton Energy Solutions",
+    "slug": "briggs-stratton-energy-solutions",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/250x100/solamp_logo_tight_1716513374__10848.original.png",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/briggs-stratton-energy-solutions.png",
+    "source": "bigcommerce",
+    "quality": "high"
+  },
+  {
+    "brand": "Burndy",
+    "slug": "burndy",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/80w/p/burndy-logo_1722379705__81779.original.jpg",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/burndy.jpg",
+    "source": "bigcommerce",
+    "quality": "high"
+  },
+  {
+    "brand": "Bussmann",
+    "slug": "bussmann",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/80w/c/bussmann_2_1722379753__70921.original.jpg",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/bussmann.jpg",
+    "source": "bigcommerce",
+    "quality": "high"
+  },
+  {
+    "brand": "Chem Link",
+    "slug": "chem-link",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/80w/a/chemlink-logoupdated-soprema_1738799740__10335.original.png",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/chem-link.png",
+    "source": "bigcommerce",
+    "quality": "high"
+  },
+  {
+    "brand": "CW Energy",
+    "slug": "cw-energy",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/250x100/solamp_logo_tight_1716513374__10848.original.png",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/cw-energy.png",
+    "source": "bigcommerce",
+    "quality": "high"
+  },
+  {
+    "brand": "Delta",
+    "slug": "delta",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/80w/c/delta_1722379763__52840.original.png",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/delta.png",
+    "source": "bigcommerce",
+    "quality": "high"
+  },
+  {
+    "brand": "Deye",
+    "slug": "deye",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/590x590/products/554/2723/Deye-Deye-BOS-G-IP-20-Indoor-High-Voltage-HV-Batteries_2619__46953.1749578243.jpg?c=1",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/deye.jpg",
+    "source": "bigcommerce",
+    "quality": "medium"
+  },
+  {
+    "brand": "EBL",
+    "slug": "ebl",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/590x590/products/551/2611/EBL-Rechargeable-AA-Lithium-Batteries_2606__30280.1741712162.jpg?c=1",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/ebl.jpg",
+    "source": "bigcommerce",
+    "quality": "medium"
+  },
+  {
+    "brand": "Enersys",
+    "slug": "enersys",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/80w/f/enersys-vector-logo_1735856277__99182.original.png",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/enersys.png",
+    "source": "bigcommerce",
+    "quality": "high"
+  },
+  {
+    "brand": "EZ Solar",
+    "slug": "ez-solar",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/250x100/solamp_logo_tight_1716513374__10848.original.png",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/ez-solar.png",
+    "source": "bigcommerce",
+    "quality": "high"
+  },
+  {
+    "brand": "Fogco",
+    "slug": "fogco",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/590x590/products/670/3517/Fogco-DC-Thermostat-Kit-by-Fogco_3275__23124.1757958818.jpg?c=1",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/fogco.jpg",
+    "source": "bigcommerce",
+    "quality": "medium"
+  },
+  {
+    "brand": "Fortress Power",
+    "slug": "fortress-power",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/250x100/solamp_logo_tight_1716513374__10848.original.png",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/fortress-power.png",
+    "source": "bigcommerce",
+    "quality": "high"
+  },
+  {
+    "brand": "HomeGrid",
+    "slug": "homegrid",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/250x100/solamp_logo_tight_1716513374__10848.original.png",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/homegrid.png",
+    "source": "bigcommerce",
+    "quality": "high"
+  },
+  {
+    "brand": "Hyperion",
+    "slug": "hyperion",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/250x100/solamp_logo_tight_1716513374__10848.original.png",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/hyperion.png",
+    "source": "bigcommerce",
+    "quality": "high"
+  },
+  {
+    "brand": "Hyundai Energy Solutions",
+    "slug": "hyundai-energy-solutions",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/250x100/solamp_logo_tight_1716513374__10848.original.png",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/hyundai-energy-solutions.png",
+    "source": "bigcommerce",
+    "quality": "high"
+  },
+  {
+    "brand": "IMO Automation",
+    "slug": "imo-automation",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/250x100/solamp_logo_tight_1716513374__10848.original.png",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/imo-automation.png",
+    "source": "bigcommerce",
+    "quality": "high"
+  },
+  {
+    "brand": "Iota Engineering",
+    "slug": "iota-engineering",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/250x100/solamp_logo_tight_1716513374__10848.original.png",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/iota-engineering.png",
+    "source": "bigcommerce",
+    "quality": "high"
+  },
+  {
+    "brand": "JA Solar",
+    "slug": "ja-solar",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/250x100/solamp_logo_tight_1716513374__10848.original.png",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/ja-solar.png",
+    "source": "bigcommerce",
+    "quality": "high"
+  },
+  {
+    "brand": "KiloVault",
+    "slug": "kilovault",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/80w/d/kilovault-logo_1725145419__80645.original.jpg",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/kilovault.jpg",
+    "source": "bigcommerce",
+    "quality": "high"
+  },
+  {
+    "brand": "Meyer Burger",
+    "slug": "meyer-burger",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/250x100/solamp_logo_tight_1716513374__10848.original.png",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/meyer-burger.png",
+    "source": "bigcommerce",
+    "quality": "high"
+  },
+  {
+    "brand": "MidNite Power",
+    "slug": "midnite-power-kdhi",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/250x100/solamp_logo_tight_1716513374__10848.original.png",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/midnite-power-kdhi.png",
+    "source": "bigcommerce",
+    "quality": "high"
+  },
+  {
+    "brand": "MidNite Solar",
+    "slug": "midnite-solar",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/80w/g/midnite_1722379804__74835.original.png",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/midnite-solar.png",
+    "source": "bigcommerce",
+    "quality": "high"
+  },
+  {
+    "brand": "Morningstar",
+    "slug": "morningstar",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/80w/q/timeline-1993-morningstar-logo_1722379820__27471.original.png",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/morningstar.png",
+    "source": "bigcommerce",
+    "quality": "high"
+  },
+  {
+    "brand": "Outback Power Systems",
+    "slug": "outback-power-systems",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/250x100/solamp_logo_tight_1716513374__10848.original.png",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/outback-power-systems.png",
+    "source": "bigcommerce",
+    "quality": "high"
+  },
+  {
+    "brand": "Philadelphia Solar",
+    "slug": "philadelphia-solar",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/250x100/solamp_logo_tight_1716513374__10848.original.png",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/philadelphia-solar.png",
+    "source": "bigcommerce",
+    "quality": "high"
+  },
+  {
+    "brand": "Powerfield",
+    "slug": "powerfield",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/590x590/products/529/2398/Powerfield-PowerField-PowerRack-Ground-Mount_2332__20504.1741712151.jpg?c=1",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/powerfield.jpg",
+    "source": "bigcommerce",
+    "quality": "medium"
+  },
+  {
+    "brand": "Pytes",
+    "slug": "pytes",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/80w/l/pytes_1725145432__74424.original.png",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/pytes.png",
+    "source": "bigcommerce",
+    "quality": "high"
+  },
+  {
+    "brand": "Qcells",
+    "slug": "qcells",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/80w/a/qcells_logo_2022_1722379864__11631.original.png",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/qcells.png",
+    "source": "bigcommerce",
+    "quality": "high"
+  },
+  {
+    "brand": "RelyEZ",
+    "slug": "relyez",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/80w/m/relyez_logo_cmyk_1738800030__94708.original.png",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/relyez.png",
+    "source": "bigcommerce",
+    "quality": "high"
+  },
+  {
+    "brand": "Renon Power",
+    "slug": "renon-power",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/250x100/solamp_logo_tight_1716513374__10848.original.png",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/renon-power.png",
+    "source": "bigcommerce",
+    "quality": "high"
+  },
+  {
+    "brand": "Rich Solar",
+    "slug": "rich-solar",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/250x100/solamp_logo_tight_1716513374__10848.original.png",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/rich-solar.png",
+    "source": "bigcommerce",
+    "quality": "high"
+  },
+  {
+    "brand": "Roof Tech",
+    "slug": "roof-tech",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/590x590/products/512/2230/Rooftech-Rooftech-Deckmount-Screw_2229__23407.1741712134.jpg?c=1",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/roof-tech.jpg",
+    "source": "bigcommerce",
+    "quality": "medium"
+  },
+  {
+    "brand": "Ryse Energy",
+    "slug": "ryse-energy",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/250x100/solamp_logo_tight_1716513374__10848.original.png",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/ryse-energy.png",
+    "source": "bigcommerce",
+    "quality": "high"
+  },
+  {
+    "brand": "S-5!",
+    "slug": "s-5",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/250x100/solamp_logo_tight_1716513374__10848.original.png",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/s-5.png",
+    "source": "bigcommerce",
+    "quality": "high"
+  },
+  {
+    "brand": "S-Energy",
+    "slug": "s-energy",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/80w/x/senergy_1722379915__95862.original.jpeg",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/s-energy.jpg",
+    "source": "bigcommerce",
+    "quality": "high"
+  },
+  {
+    "brand": "Samlex",
+    "slug": "samlex",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/80w/m/samlex_1722379926__55221.original.png",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/samlex.png",
+    "source": "bigcommerce",
+    "quality": "high"
+  },
+  {
+    "brand": "Schneider Electric",
+    "slug": "schneider-electric",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/250x100/solamp_logo_tight_1716513374__10848.original.png",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/schneider-electric.png",
+    "source": "bigcommerce",
+    "quality": "high"
+  },
+  {
+    "brand": "SkyStream",
+    "slug": "skystream",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/80w/u/skystream-logo_1762299344__13360.original.jpg",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/skystream.jpg",
+    "source": "bigcommerce",
+    "quality": "high"
+  },
+  {
+    "brand": "SMA",
+    "slug": "sma",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/80w/a/logo_sma.svg_1729287132__21049.original.png",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/sma.png",
+    "source": "bigcommerce",
+    "quality": "high"
+  },
+  {
+    "brand": "Snap-Fan",
+    "slug": "snap-fan",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/500x250/b/snapfan",
+    "localPath": null,
+    "source": "manual",
+    "quality": "not_found"
+  },
+  {
+    "brand": "Sol-ark",
+    "slug": "sol-ark",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/250x100/solamp_logo_tight_1716513374__10848.original.png",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/sol-ark.png",
+    "source": "bigcommerce",
+    "quality": "high"
+  },
+  {
+    "brand": "SolaDeck",
+    "slug": "soladeck",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/80w/z/soladeck_redblack_gradient_1722379973__60123.original.png",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/soladeck.png",
+    "source": "bigcommerce",
+    "quality": "high"
+  },
+  {
+    "brand": "Solamp",
+    "slug": "solamp",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/250x100/solamp_logo_tight_1716513374__10848.original.png",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/solamp.png",
+    "source": "bigcommerce",
+    "quality": "high"
+  },
+  {
+    "brand": "Solar Connections International",
+    "slug": "solar-connections-international",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/250x100/solamp_logo_tight_1716513374__10848.original.png",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/solar-connections-international.png",
+    "source": "bigcommerce",
+    "quality": "high"
+  },
+  {
+    "brand": "SRNE",
+    "slug": "srne",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/80w/p/srne_1725145481__54006.original.png",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/srne.png",
+    "source": "bigcommerce",
+    "quality": "high"
+  },
+  {
+    "brand": "Stäubli",
+    "slug": "staubli",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/500x250/t/logo-staubli-1",
+    "localPath": null,
+    "source": "manual",
+    "quality": "not_found"
+  },
+  {
+    "brand": "Sun Star Appliances",
+    "slug": "sun-star-appliances",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/250x100/solamp_logo_tight_1716513374__10848.original.png",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/sun-star-appliances.png",
+    "source": "bigcommerce",
+    "quality": "high"
+  },
+  {
+    "brand": "Talesun",
+    "slug": "talesun",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/590x590/products/613/2695/Talesun-Talesun-BIPRO-Bifacial-450w-Dual-Glass-Full-Black-Solar-Panel_2658__45930.1749578176.jpg?c=1",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/talesun.jpg",
+    "source": "bigcommerce",
+    "quality": "medium"
+  },
+  {
+    "brand": "Tamarack Solar Products",
+    "slug": "tamarack-solar-products",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/250x100/solamp_logo_tight_1716513374__10848.original.png",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/tamarack-solar-products.png",
+    "source": "bigcommerce",
+    "quality": "high"
+  },
+  {
+    "brand": "Tigo",
+    "slug": "tigo",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/80w/r/tigo_1722379991__61011.original.gif",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/tigo.gif",
+    "source": "bigcommerce",
+    "quality": "high"
+  },
+  {
+    "brand": "Topband",
+    "slug": "topband",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/80w/b/topbands-logo_1722379996__88625.original.png",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/topband.png",
+    "source": "bigcommerce",
+    "quality": "high"
+  },
+  {
+    "brand": "Victron Energy",
+    "slug": "victron-energy",
+    "sourceUrl": "https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/250x100/solamp_logo_tight_1716513374__10848.original.png",
+    "localPath": "/home/chris/projects/solampio-web/scripts/brand-logos/downloads/victron-energy.png",
+    "source": "bigcommerce",
+    "quality": "high"
+  }
+]
