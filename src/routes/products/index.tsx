@@ -57,7 +57,7 @@ export default component$(() => {
             {categories.value.map((cat) => {
               const imageUrl = getCategoryImageUrl(cat, 'card');
               return (
-                <Link key={cat.id} href={`/products/category/${cat.slug}/`} class="group bg-white border border-gray-200 rounded-lg overflow-hidden hover:border-[#042e0d] hover:shadow-lg transition-all">
+                <Link key={cat.id} href={`/categories/${cat.slug}/`} class="group bg-white border border-gray-200 rounded-lg overflow-hidden hover:border-[#042e0d] hover:shadow-lg transition-all">
                   {imageUrl && (
                     <div class="aspect-[16/9] overflow-hidden bg-[#f1f1f2]">
                       <img

@@ -160,7 +160,7 @@ export const ShippingSection = component$<ShippingSectionProps>(
                 id="state"
                 name="state"
                 required
-                autoComplete="address-level1"
+                autocomplete="address-level1"
                 value={state.value}
                 onChange$={(e) =>
                   (state.value = (e.target as HTMLSelectElement).value)

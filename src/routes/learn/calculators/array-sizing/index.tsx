@@ -367,7 +367,7 @@ export default component$(() => {
                   ))}
                 </div>
                 <div class="mt-4 text-center">
-                  <Link href="/products/category/solar-panels/" class="text-[#5974c3] font-semibold hover:underline">
+                  <Link href="/categories/solar-panels/" class="text-[#5974c3] font-semibold hover:underline">
                     View all solar panels →
                   </Link>
                 </div>

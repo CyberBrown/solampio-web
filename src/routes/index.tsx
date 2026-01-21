@@ -1,4 +1,4 @@
-import { component$, useSignal, useVisibleTask$, $ } from '@builder.io/qwik';
+import { component$ } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
 import { Link, routeLoader$ } from '@builder.io/qwik-city';
 import { getDB, cleanSlug } from '../lib/db';
@@ -98,75 +98,21 @@ export default component$(() => {
   const featuredProducts = useFeaturedProducts();
   const brandsData = useBrands();
 
-  // Mobile zoom state for hero image
-  const mobileZoomLevel = useSignal(1.4); // Start zoomed in on cabin
-  const isTouching = useSignal(false);
-  const lastPinchDistance = useSignal(0);
-
-  // Handle tap to toggle zoom on mobile
-  const handleTap = $(() => {
-    // Toggle between zoomed in (1.4) and zoomed out (1.0)
-    mobileZoomLevel.value = mobileZoomLevel.value > 1.2 ? 1.0 : 1.4;
-  });
-
-  // Handle pinch zoom on mobile
-  const handleTouchStart = $((e: TouchEvent) => {
-    if (e.touches.length === 2) {
-      isTouching.value = true;
-      const dx = e.touches[0].clientX - e.touches[1].clientX;
-      const dy = e.touches[0].clientY - e.touches[1].clientY;
-      lastPinchDistance.value = Math.sqrt(dx * dx + dy * dy);
-    }
-  });
-
-  const handleTouchMove = $((e: TouchEvent) => {
-    if (e.touches.length === 2 && isTouching.value) {
-      const dx = e.touches[0].clientX - e.touches[1].clientX;
-      const dy = e.touches[0].clientY - e.touches[1].clientY;
-      const distance = Math.sqrt(dx * dx + dy * dy);
-      const delta = distance - lastPinchDistance.value;
-
-      // Adjust zoom based on pinch (inverted: pinch in = zoom in on cabin)
-      const newZoom = Math.max(1.0, Math.min(1.6, mobileZoomLevel.value + delta * 0.002));
-      mobileZoomLevel.value = newZoom;
-      lastPinchDistance.value = distance;
-    }
-  });
-
-  const handleTouchEnd = $(() => {
-    isTouching.value = false;
-  });
-
   return (
     <div class="bg-white">
       {/* Hero with responsive zoom image */}
       <section class="relative overflow-hidden bg-solamp-forest">
-        {/* Background image with viewport-based zoom effect */}
-        {/* Desktop: CSS handles zoom based on viewport width */}
-        {/* Mobile: JavaScript handles tap/pinch interactions */}
-        <div
-          class="absolute inset-0 hero-zoom-image lg:block hidden"
+        {/* LCP-optimized hero image with fetchpriority="high" */}
+        <img
+          src="/images/wide-shot-of-a-small-cabin-far-in-the-di_lMru1hJZQ0yhClg5ZqcrpQ_v8qATksYQgKM-i-cckB5DQ.png"
+          alt="Off-grid cabin powered by solar"
+          class="absolute inset-0 w-full h-full object-cover hero-zoom-image"
+          width="1920"
+          height="1080"
+          fetchPriority="high"
           style={{
-            backgroundImage: 'url(/images/wide-shot-of-a-small-cabin-far-in-the-di_lMru1hJZQ0yhClg5ZqcrpQ_v8qATksYQgKM-i-cckB5DQ.png)',
-            backgroundPosition: 'center 40%',
-            backgroundRepeat: 'no-repeat',
+            objectPosition: 'center 40%',
           }}
-        />
-        {/* Mobile version with touch controls */}
-        <div
-          class="absolute inset-0 lg:hidden outline-none focus:outline-none select-none"
-          style={{
-            backgroundImage: 'url(/images/wide-shot-of-a-small-cabin-far-in-the-di_lMru1hJZQ0yhClg5ZqcrpQ_v8qATksYQgKM-i-cckB5DQ.png)',
-            backgroundPosition: 'center 40%',
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: `${mobileZoomLevel.value * 100}%`,
-            transition: isTouching.value ? 'none' : 'background-size 0.3s ease-out',
-            WebkitTapHighlightColor: 'transparent',
-          }}
-          onClick$={handleTap}
-          onTouchStart$={handleTouchStart}
-          onTouchMove$={handleTouchMove}
-          onTouchEnd$={handleTouchEnd}
         />
         {/* Dark overlay for text readability */}
         <div class="absolute inset-0 bg-solamp-forest/70" />
@@ -256,7 +202,7 @@ export default component$(() => {
               // Use local category images
               const imageUrl = getLocalCategoryImage(cat.title);
               return (
-                <Link key={cat.slug} href={`/products/category/${cat.slug}/`} class="group relative overflow-hidden rounded-lg aspect-[4/3] transform transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                <Link key={cat.slug} href={`/categories/${cat.slug}/`} class="group relative overflow-hidden rounded-lg aspect-[4/3] transform transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
                   {/* Background - local category image */}
                   {imageUrl ? (
                     <img

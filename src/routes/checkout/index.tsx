@@ -14,6 +14,7 @@ import type { Stripe, StripeCardElement } from '@stripe/stripe-js';
 import { useCart } from '../../hooks/useCart';
 import { ContactSection } from '../../components/checkout/ContactSection';
 import { ShippingSection } from '../../components/checkout/ShippingSection';
+import { ShippingMethodSelector, type ShippingMethod } from '../../components/checkout/ShippingMethodSelector';
 import { OrderSummary } from '../../components/checkout/OrderSummary';
 import { PaymentSection } from '../../components/checkout/PaymentSection';
 import {
@@ -42,6 +43,9 @@ export default component$(() => {
   const city = useSignal('');
   const state = useSignal('');
   const postalCode = useSignal('');
+
+  // Shipping state
+  const selectedShipping = useSignal<ShippingMethod | null>(null);
 
   // Payment state
   const clientSecret = useSignal('');
@@ -120,6 +124,15 @@ export default component$(() => {
     }
   });
 
+  // Handle shipping method change
+  const handleShippingChange = $((method: ShippingMethod | null) => {
+    selectedShipping.value = method;
+  });
+
+  // Calculate total with shipping
+  const shippingCost = selectedShipping.value?.rate ?? 0;
+  const total = subtotal + shippingCost;
+
   // Validate form
   const validateForm = $(() => {
     if (!name.value.trim()) {
@@ -156,6 +169,10 @@ export default component$(() => {
       errorMessage.value = 'Please enter your ZIP code';
       return false;
     }
+    if (!selectedShipping.value) {
+      errorMessage.value = 'Please select a shipping method';
+      return false;
+    }
     return true;
   });
 
@@ -169,6 +186,7 @@ export default component$(() => {
 
     try {
       const cartItems = cart.items.value;
+      const currentShipping = selectedShipping.value;
       const orderResult = await createOrderFromCheckout({
         customerEmail: email.value || undefined,
         customerPhone: phone.value,
@@ -190,7 +208,9 @@ export default component$(() => {
           quantity: item.quantity,
         })),
         subtotal: subtotal,
-        total: subtotal,
+        shipping: currentShipping?.rate ?? 0,
+        shippingMethod: currentShipping ? `${currentShipping.carrier} - ${currentShipping.service}` : undefined,
+        total: subtotal + (currentShipping?.rate ?? 0),
         stripePaymentIntentId: `check_${Date.now()}`, // Unique ID for check payments
         paymentMethod: 'check',
       });
@@ -273,6 +293,7 @@ export default component$(() => {
       } else if (paymentIntent?.status === 'succeeded') {
         // Payment successful - create order and sync to ERPNext
         const cartItems = cart.items.value;
+        const currentShipping = selectedShipping.value;
         const orderResult = await createOrderFromCheckout({
           customerEmail: email.value || undefined,
           customerPhone: phone.value,
@@ -294,7 +315,9 @@ export default component$(() => {
             quantity: item.quantity,
           })),
           subtotal: subtotal,
-          total: subtotal, // TODO: Add shipping/tax when implemented
+          shipping: currentShipping?.rate ?? 0,
+          shippingMethod: currentShipping ? `${currentShipping.carrier} - ${currentShipping.service}` : undefined,
+          total: subtotal + (currentShipping?.rate ?? 0),
           stripePaymentIntentId: paymentIntent.id,
         });
 
@@ -581,6 +604,17 @@ export default component$(() => {
                 postalCode={postalCode}
               />
 
+              {/* Shipping Method Selection */}
+              <ShippingMethodSelector
+                cartItems={items.map(item => ({ id: item.id, quantity: item.quantity }))}
+                postalCode={postalCode}
+                city={city}
+                state={state}
+                addressLine1={addressLine1}
+                selectedMethod={selectedShipping}
+                onShippingChange$={handleShippingChange}
+              />
+
               {/* Payment Method Selection */}
               <div class="bg-white rounded-lg border border-gray-200 p-6">
                 <h2 class="font-heading font-bold text-lg text-[#042e0d] mb-4">
@@ -751,7 +785,12 @@ export default component$(() => {
 
             {/* Right Column - Order Summary */}
             <div class="lg:col-span-1">
-              <OrderSummary items={items} subtotal={subtotal} />
+              <OrderSummary
+                items={items}
+                subtotal={subtotal}
+                shipping={selectedShipping.value?.rate}
+                shippingMethod={selectedShipping.value ? `${selectedShipping.value.carrier} - ${selectedShipping.value.service}` : null}
+              />
             </div>
           </div>
         </div>

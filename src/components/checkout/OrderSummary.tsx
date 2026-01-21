@@ -10,11 +10,17 @@ import type { CartItem } from '../../context/cart-context';
 interface OrderSummaryProps {
   items: CartItem[];
   subtotal: number;
+  shipping?: number | null;
+  shippingMethod?: string | null;
 }
 
 export const OrderSummary = component$<OrderSummaryProps>(
-  ({ items, subtotal }) => {
+  ({ items, subtotal, shipping, shippingMethod }) => {
     const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
+    const shippingCost = shipping ?? 0;
+    const total = subtotal + shippingCost;
+    const isFreeShipping = shipping === 0;
+    const isShippingSelected = shipping !== undefined && shipping !== null;
 
     return (
       <div class="bg-white rounded-lg border border-gray-200 p-6 sticky top-24">
@@ -83,8 +89,20 @@ export const OrderSummary = component$<OrderSummaryProps>(
 
           <div class="flex justify-between text-sm">
             <span class="text-gray-500">Shipping</span>
-            <span class="text-[#56c270] font-medium">FREE</span>
+            {isShippingSelected ? (
+              <span class={isFreeShipping ? 'text-[#56c270] font-medium' : 'font-medium'}>
+                {isFreeShipping ? 'FREE' : `$${shippingCost.toFixed(2)}`}
+              </span>
+            ) : (
+              <span class="text-gray-400 text-xs">Select shipping method</span>
+            )}
           </div>
+
+          {shippingMethod && (
+            <div class="text-xs text-gray-400 text-right">
+              via {shippingMethod}
+            </div>
+          )}
 
           <div class="flex justify-between text-sm">
             <span class="text-gray-500">Tax</span>
@@ -96,11 +114,13 @@ export const OrderSummary = component$<OrderSummaryProps>(
         <div class="border-t border-gray-200 mt-4 pt-4">
           <div class="flex justify-between text-lg font-heading font-bold text-[#042e0d]">
             <span>Total</span>
-            <span>${subtotal.toFixed(2)}</span>
+            <span>${total.toFixed(2)}</span>
           </div>
-          <p class="text-xs text-[#56c270] mt-1 font-medium">
-            Free shipping included
-          </p>
+          {isFreeShipping && isShippingSelected && (
+            <p class="text-xs text-[#56c270] mt-1 font-medium">
+              Free shipping included
+            </p>
+          )}
         </div>
 
         {/* Security Badge */}

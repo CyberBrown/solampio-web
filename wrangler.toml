@@ -12,3 +12,12 @@ database_id = "3cc26873-0453-4331-9e0d-7eb89dcf085c"
 # Workers AI binding for product summary generation
 [ai]
 binding = "AI"
+
+# Required secrets (set via `wrangler secret put` or Cloudflare dashboard):
+# - STRIPE_PUBLISHABLE_KEY
+# - STRIPE_SECRET_KEY
+# - ERPNEXT_URL
+# - ERPNEXT_API_KEY
+# - ERPNEXT_API_SECRET
+# - EASYPOST_PRODUCTION_API_KEY  (for live shipping rates)
+# - EASYPOST_TESTING_API_KEY     (for development/testing)

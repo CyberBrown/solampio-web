@@ -1,0 +1,8 @@
+# 301 Redirects for URL structure migration
+# Old Solamp URLs → New BigCommerce-compatible URLs
+
+# Category redirects (preserve subcategory path)
+/products/category/*  /categories/:splat  301
+
+# Brand redirects
+/products/brand/*  /brands/:splat  301

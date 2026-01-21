@@ -3,6 +3,28 @@
 @tailwind utilities;
 
 /*
+ * Font fallbacks with size-adjust to prevent CLS (Cumulative Layout Shift)
+ * These fallback fonts have adjusted metrics to match the custom fonts
+ */
+@font-face {
+  font-family: 'Barlow Fallback';
+  src: local('Arial');
+  size-adjust: 102%;
+  ascent-override: 95%;
+  descent-override: 22%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'Source Sans 3 Fallback';
+  src: local('Arial');
+  size-adjust: 101%;
+  ascent-override: 95%;
+  descent-override: 25%;
+  line-gap-override: 0%;
+}
+
+/*
  * Fix for white box rendering bug
  * Issue: Semi-transparent white text (text-white/XX) sometimes renders as white boxes
  * Root cause: Unknown - possibly GPU compositing or caching issue

@@ -398,7 +398,7 @@ export default component$(() => {
                   ))}
                 </div>
                 <div class="mt-4 text-center">
-                  <Link href="/products/category/batteries/" class="text-[#5974c3] font-semibold hover:underline">
+                  <Link href="/categories/batteries/" class="text-[#5974c3] font-semibold hover:underline">
                     View all batteries →
                   </Link>
                 </div>

@@ -37,6 +37,24 @@ export interface Product {
   is_featured: number;  // 1 if this product should appear in featured sections
   featured_category_id: string | null;  // Category ID where this product is featured (for nav, hero, etc.)
   featured_in_subcategory_id: string | null;  // Subcategory ID for subcategory-specific featuring
+  // Shipping dimensions (packaged dimensions for carrier rates)
+  shipping_weight: number | null;
+  shipping_weight_uom: string | null;  // 'lb' or 'kg'
+  shipping_length: number | null;
+  shipping_width: number | null;
+  shipping_height: number | null;
+  shipping_dimension_uom: string | null;  // 'in' or 'cm'
+  // Shipping qualification flags
+  ships_usps: number;  // 1 if qualifies for USPS
+  ships_ups: number;  // 1 if qualifies for UPS
+  ships_ltl: number;  // 1 if qualifies for LTL freight
+  ships_pickup: number;  // 1 if available for pickup
+  // Hazmat and oversized flags
+  hazmat_flag: number;  // 1 if hazardous material
+  hazmat_class: string | null;  // UN number and proper shipping name
+  oversized_flag: number;  // 1 if oversized
+  // Variant inheritance
+  inherit_shipping_from_parent: number;  // 1 to use parent's shipping specs
   sync_source: string;
   last_synced_from_erpnext: string | null;
   created_at: string;
@@ -800,6 +818,32 @@ export class StorefrontDB {
     `).bind(categoryId).all<Brand>();
 
     return result.results || [];
+  }
+
+  /**
+   * Get all brand-category associations in a single query (for mega menu)
+   * Returns a map of categoryId -> Brand[]
+   */
+  async getAllCategoryBrands(): Promise<Map<string, Brand[]>> {
+    const result = await this.db.prepare(`
+      SELECT b.*, bca.category_id FROM storefront_brands b
+      INNER JOIN brand_category_associations bca ON bca.brand_id = b.id
+      WHERE bca.association_type = 'category' AND b.is_visible = 1
+      ORDER BY b.sort_order ASC, b.title ASC
+    `).all<Brand & { category_id: string }>();
+
+    const map = new Map<string, Brand[]>();
+    for (const row of result.results || []) {
+      const categoryId = row.category_id;
+      if (!map.has(categoryId)) {
+        map.set(categoryId, []);
+      }
+      // Remove category_id from brand object before adding
+      const { category_id: _, ...brand } = row;
+      map.get(categoryId)!.push(brand as Brand);
+    }
+
+    return map;
   }
 
   /**

@@ -126,7 +126,7 @@ export const Header = component$<HeaderProps>(({ categories, featuredProducts = 
               {/* Logo */}
               <Link href="/" class="flex items-center gap-2 flex-shrink-0 transition-all duration-300">
                 <img
-                  src="https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/500w/solamp_logo_tight_1716513374__10848.original.png"
+                  src="/images/solamp-logo.png"
                   alt="Solamp"
                   class={[
                     'w-auto transition-all duration-300',
@@ -142,7 +142,7 @@ export const Header = component$<HeaderProps>(({ categories, featuredProducts = 
                   return (
                     <Link
                       key={cat.id}
-                      href={`/products/category/${slug}/`}
+                      href={`/categories/${slug}/`}
                       onMouseEnter$={() => { openMenu.value = slug; }}
                       class={[
                         'font-heading font-bold rounded transition-all duration-300',
@@ -283,7 +283,7 @@ export const Header = component$<HeaderProps>(({ categories, featuredProducts = 
                         {cat.subcategories.map((sub) => (
                           <Link
                             key={sub.id}
-                            href={`/products/category/${slug}/${cleanSlug(sub.slug)}/`}
+                            href={`/categories/${slug}/${cleanSlug(sub.slug)}/`}
                             onClick$={closeMenu}
                             class="px-4 py-2 bg-solamp-mist hover:bg-solamp-forest hover:text-white text-sm font-semibold rounded transition-colors text-solamp-forest"
                           >
@@ -293,7 +293,7 @@ export const Header = component$<HeaderProps>(({ categories, featuredProducts = 
                       </div>
                       <div class="mt-4 pt-4 border-t border-gray-200 flex items-center justify-between">
                         <Link
-                          href={`/products/category/${slug}/`}
+                          href={`/categories/${slug}/`}
                           onClick$={closeMenu}
                           class="text-sm font-bold text-solamp-blue hover:underline"
                         >
@@ -310,7 +310,7 @@ export const Header = component$<HeaderProps>(({ categories, featuredProducts = 
                                 return (
                                   <Link
                                     key={brand.id}
-                                    href={`/products/brand/${brand.slug}/`}
+                                    href={`/brands/${brand.slug}/`}
                                     onClick$={closeMenu}
                                     class="w-8 h-8 rounded bg-white border border-gray-200 flex items-center justify-center hover:border-solamp-blue transition-colors"
                                     title={brand.title}
@@ -382,7 +382,7 @@ export const Header = component$<HeaderProps>(({ categories, featuredProducts = 
                     {/* Right side: Category Image or Quick Links */}
                     {categoryImageUrl ? (
                       <Link
-                        href={`/products/category/${slug}/`}
+                        href={`/categories/${slug}/`}
                         onClick$={closeMenu}
                         class="w-56 rounded-lg overflow-hidden group flex-shrink-0"
                       >
@@ -443,7 +443,7 @@ export const Header = component$<HeaderProps>(({ categories, featuredProducts = 
                   {otherCategories.map((cat) => (
                     <div key={cat.id}>
                       <Link
-                        href={`/products/category/${cleanSlug(cat.slug)}/`}
+                        href={`/categories/${cleanSlug(cat.slug)}/`}
                         onClick$={closeMenu}
                         class="font-heading font-bold text-solamp-forest hover:text-solamp-blue transition-colors"
                       >
@@ -454,7 +454,7 @@ export const Header = component$<HeaderProps>(({ categories, featuredProducts = 
                           {cat.subcategories.slice(0, 4).map((sub) => (
                             <li key={sub.id}>
                               <Link
-                                href={`/products/category/${cleanSlug(cat.slug)}/${cleanSlug(sub.slug)}/`}
+                                href={`/categories/${cleanSlug(cat.slug)}/${cleanSlug(sub.slug)}/`}
                                 onClick$={closeMenu}
                                 class="text-sm text-solamp-forest/70 hover:text-solamp-blue transition-colors"
                               >
@@ -465,7 +465,7 @@ export const Header = component$<HeaderProps>(({ categories, featuredProducts = 
                           {cat.subcategories.length > 4 && (
                             <li>
                               <Link
-                                href={`/products/category/${cleanSlug(cat.slug)}/`}
+                                href={`/categories/${cleanSlug(cat.slug)}/`}
                                 onClick$={closeMenu}
                                 class="text-sm text-solamp-blue hover:underline"
                               >
@@ -493,7 +493,7 @@ export const Header = component$<HeaderProps>(({ categories, featuredProducts = 
           <div class="p-4 bg-solamp-forest flex items-center justify-between sticky top-0">
             <Link href="/" class="flex items-center gap-2">
               <img
-                src="https://cdn11.bigcommerce.com/s-yhdp96gt9k/images/stencil/500w/solamp_logo_tight_1716513374__10848.original.png"
+                src="/images/solamp-logo.png"
                 alt="Solamp"
                 class="h-8 w-auto brightness-0 invert"
               />
@@ -521,7 +521,7 @@ export const Header = component$<HeaderProps>(({ categories, featuredProducts = 
                 {categories.map((cat) => (
                   <li key={cat.id}>
                     <Link
-                      href={`/products/category/${cleanSlug(cat.slug)}/`}
+                      href={`/categories/${cleanSlug(cat.slug)}/`}
                       class="block py-2 text-sm font-bold text-solamp-forest hover:text-solamp-green"
                     >
                       {cat.title}

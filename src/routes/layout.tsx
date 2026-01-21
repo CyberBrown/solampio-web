@@ -60,23 +60,18 @@ export const useFeaturedProducts = routeLoader$(async (requestEvent) => {
 });
 
 // Load brands associated with each category (for mega menu "Brands we carry" section)
+// Optimized: single query instead of N+1 queries
 export const useCategoryBrands = routeLoader$(async (requestEvent) => {
   const db = getDB(requestEvent.platform);
   const result: CategoryBrandsMap = {};
 
-  // Get all categories
-  const categories = await db.getCategories();
-
-  // For each category, try to get associated brands
-  for (const category of categories) {
-    try {
-      const brands = await db.getBrandsForCategory(category.id);
-      if (brands.length > 0) {
-        result[category.id] = brands;
-      }
-    } catch {
-      // brand_category_associations table might not exist yet, skip
+  try {
+    const brandsMap = await db.getAllCategoryBrands();
+    for (const [categoryId, brands] of brandsMap) {
+      result[categoryId] = brands;
     }
+  } catch {
+    // brand_category_associations table might not exist yet, skip
   }
 
   return result;

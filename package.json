@@ -10,7 +10,8 @@
     "build.server": "vite build -c adapters/cloudflare-pages/vite.config.ts",
     "build.types": "tsc --incremental --noEmit",
     "preview": "vite preview",
-    "deploy": "wrangler pages deploy dist",
+    "deploy": "npm run build && npm run deploy:prepare && wrangler pages deploy .deploy",
+    "deploy:prepare": "rm -rf .deploy && mkdir -p .deploy && cp -r dist/* .deploy/ && cp -r server .deploy/ && echo 'import { fetch } from \"./server/entry.cloudflare-pages\"; export default { fetch };' > .deploy/_worker.js",
     "start": "vite --open --mode ssr"
   },
   "dependencies": {

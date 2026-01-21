@@ -142,7 +142,7 @@ export default component$(() => {
               {brand && (
                 <>
                   <li class="text-gray-300">/</li>
-                  <li><Link href={`/products/brand/${cleanSlug(brand.slug)}/`} class="text-gray-500 hover:text-[#042e0d] transition-colors">{brand.title}</Link></li>
+                  <li><Link href={`/brands/${cleanSlug(brand.slug)}/`} class="text-gray-500 hover:text-[#042e0d] transition-colors">{brand.title}</Link></li>
                 </>
               )}
               <li class="text-gray-300">/</li>
@@ -178,7 +178,7 @@ export default component$(() => {
               )}
 
               {brand && (
-                <Link href={`/products/brand/${cleanSlug(brand.slug)}/`} class="inline-block mb-2">
+                <Link href={`/brands/${cleanSlug(brand.slug)}/`} class="inline-block mb-2">
                   <p class="text-sm font-mono text-[#5974c3] hover:underline uppercase tracking-wide">
                     {brand.title}
                   </p>

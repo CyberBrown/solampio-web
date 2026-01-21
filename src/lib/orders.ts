@@ -388,6 +388,8 @@ export const createOrderFromCheckout = server$(async function (input: {
   shippingAddress: ShippingAddress;
   items: OrderItem[];
   subtotal: number;
+  shipping?: number;
+  shippingMethod?: string;
   total: number;
   stripePaymentIntentId: string;
   paymentMethod?: 'card' | 'check';
@@ -431,6 +433,7 @@ export const createOrderFromCheckout = server$(async function (input: {
       shippingAddress: input.shippingAddress,
       items: input.items,
       subtotal: input.subtotal,
+      shipping: input.shipping,
       total: input.total,
       stripePaymentIntentId: input.stripePaymentIntentId,
       paymentStatus,

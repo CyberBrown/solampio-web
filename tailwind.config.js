@@ -13,8 +13,8 @@ export default {
         'solamp-mint': '#b1e1bc',
       },
       fontFamily: {
-        'heading': ['Barlow', 'sans-serif'],
-        'body': ['"Source Sans 3"', 'sans-serif'],
+        'heading': ['Barlow', '"Barlow Fallback"', 'Arial', 'sans-serif'],
+        'body': ['"Source Sans 3"', '"Source Sans 3 Fallback"', 'Arial', 'sans-serif'],
         'mono': ['"Roboto Mono"', 'monospace'],
       },
       keyframes: {

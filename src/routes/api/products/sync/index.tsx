@@ -56,6 +56,15 @@ interface ERPNextProductPayload {
   featured_in_category?: string;  // ERPNext Item Group name for category featuring
   custom_featured_in_category?: string;  // ERPNext custom field name
   featured_in_subcategory?: string;  // ERPNext Item Group name for subcategory featuring
+  // Shipping carrier flags
+  ships_usps?: boolean | number;
+  ships_ups?: boolean | number;
+  ships_ltl?: boolean | number;
+  ships_pickup?: boolean | number;
+  hazmat_flag?: boolean | number;
+  hazmat_class?: string;
+  oversized_flag?: boolean | number;
+  inherit_shipping_from_parent?: boolean | number;
 }
 
 /**
@@ -164,6 +173,15 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
     const isFeatured = (payload.custom_is_featured || payload.is_featured) ? 1 : 0;
     const categoriesJson = categoryIds.length > 0 ? JSON.stringify(categoryIds) : null;
 
+    // Shipping carrier flags
+    const shipsUsps = payload.ships_usps ? 1 : 0;
+    const shipsUps = payload.ships_ups ? 1 : 0;
+    const shipsLtl = payload.ships_ltl ? 1 : 0;
+    const shipsPickup = payload.ships_pickup ? 1 : 0;
+    const hazmatFlag = payload.hazmat_flag ? 1 : 0;
+    const oversizedFlag = payload.oversized_flag ? 1 : 0;
+    const inheritShippingFromParent = payload.inherit_shipping_from_parent ? 1 : 0;
+
     // Clean description if provided
     const descriptionClean = payload.description ? cleanDescription(payload.description) : null;
     // Generate initial excerpt as summary (AI summary can be generated separately)
@@ -210,6 +228,14 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
             is_featured = ?,
             featured_category_id = COALESCE(?, featured_category_id),
             featured_in_subcategory_id = COALESCE(?, featured_in_subcategory_id),
+            ships_usps = ?,
+            ships_ups = ?,
+            ships_ltl = ?,
+            ships_pickup = ?,
+            hazmat_flag = ?,
+            hazmat_class = ?,
+            oversized_flag = ?,
+            inherit_shipping_from_parent = ?,
             sync_source = 'erpnext',
             last_synced_from_erpnext = ?,
             updated_at = ?
@@ -234,6 +260,14 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
           isFeatured,
           featuredCategoryId,
           featuredInSubcategoryId,
+          shipsUsps,
+          shipsUps,
+          shipsLtl,
+          shipsPickup,
+          hazmatFlag,
+          payload.hazmat_class || null,
+          oversizedFlag,
+          inheritShippingFromParent,
           now,
           now,
           payload.item_code
@@ -249,8 +283,10 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
             item_group, categories, price, stock_qty, low_stock_threshold, show_stock_status,
             is_visible, brand_id, has_variants, variant_of,
             is_featured, featured_category_id, featured_in_subcategory_id,
+            ships_usps, ships_ups, ships_ltl, ships_pickup,
+            hazmat_flag, hazmat_class, oversized_flag, inherit_shipping_from_parent,
             sync_source, last_synced_from_erpnext, created_at, updated_at
-          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'erpnext', ?, ?, ?)
+          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'erpnext', ?, ?, ?)
         `)
         .bind(
           id,
@@ -273,6 +309,14 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
           isFeatured,
           featuredCategoryId,
           featuredInSubcategoryId,
+          shipsUsps,
+          shipsUps,
+          shipsLtl,
+          shipsPickup,
+          hazmatFlag,
+          payload.hazmat_class || null,
+          oversizedFlag,
+          inheritShippingFromParent,
           now,
           now,
           now
@@ -327,6 +371,14 @@ export const onGet: RequestHandler = async ({ json }) => {
       is_featured: 'Set to true to feature in mega menu (optional)',
       featured_in_category: 'ERPNext Item Group name for category featuring (optional)',
       featured_in_subcategory: 'ERPNext Item Group name for subcategory featuring (optional)',
+      ships_usps: 'Set to true if item can ship via USPS',
+      ships_ups: 'Set to true if item can ship via UPS',
+      ships_ltl: 'Set to true if item can ship via LTL freight',
+      ships_pickup: 'Set to true if item is available for pickup',
+      hazmat_flag: 'Set to true if item is hazardous material',
+      hazmat_class: 'Hazmat classification code (if hazmat_flag is true)',
+      oversized_flag: 'Set to true if item is oversized',
+      inherit_shipping_from_parent: 'Set to true for variants to inherit shipping from parent',
     },
     notes: [
       'Descriptions are automatically cleaned (HTML tags, inline styles, BigCommerce artifacts removed)',
