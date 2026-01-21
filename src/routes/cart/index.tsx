@@ -67,12 +67,6 @@ export default component$(() => {
                   </div>
                   <div class="divide-y divide-gray-100">
                     {items.map((item) => {
-                      // Simple stock status for cart (informational only)
-                      const isOutOfStock = item.stock_qty <= 0;
-                      const stockLabel = isOutOfStock ? 'Out of Stock' : 'In Stock';
-                      const stockClass = isOutOfStock
-                        ? 'bg-red-100 text-red-700 border border-red-200'
-                        : 'bg-[#56c270]/10 text-[#042e0d] border border-[#56c270]/30';
                       const displayPrice = item.price !== null ? `$${item.price.toFixed(2)}` : 'Call for Pricing';
                       const lineTotal = item.price !== null ? `$${(item.price * item.quantity).toFixed(2)}` : 'Call for Pricing';
 
@@ -94,9 +88,6 @@ export default component$(() => {
                                   {item.title}
                                 </Link>
                                 <p class="text-sm text-gray-500 mt-1">SKU: {item.sku}</p>
-                                <span class={`inline-block text-xs font-bold px-2 py-0.5 rounded mt-2 ${stockClass}`}>
-                                  {stockLabel}
-                                </span>
                               </div>
                               <button
                                 onClick$={() => cart.removeFromCart(item.id)}
@@ -183,17 +174,10 @@ export default component$(() => {
                     <span>{subtotal !== null && !hasUnpriced ? `$${subtotal.toFixed(2)}` : 'Get Quote'}</span>
                   </div>
 
-                  <Link
-                    href="/quote-request/"
-                    class="block w-full bg-[#56c270] text-[#042e0d] font-heading font-bold py-3 rounded text-center hover:bg-[#042e0d] hover:text-white transition-colors mb-3"
-                  >
-                    Get Quote
-                  </Link>
-
                   {subtotal !== null && !hasUnpriced && (
                     <Link
                       href="/checkout/"
-                      class="block w-full bg-[#042e0d] text-white font-heading font-bold py-3 rounded text-center hover:bg-[#042e0d]/80 transition-colors mb-4"
+                      class="block w-full bg-[#042e0d] text-white font-heading font-bold py-3 rounded text-center hover:bg-[#042e0d]/80 transition-colors"
                     >
                       Proceed to Checkout
                     </Link>
@@ -209,6 +193,13 @@ export default component$(() => {
                       978-451-6890
                     </a>
                   </div>
+
+                  <Link
+                    href="/quote-request/"
+                    class="block w-full bg-[#56c270] text-[#042e0d] font-heading font-bold py-3 rounded text-center hover:bg-[#042e0d] hover:text-white transition-colors mt-4"
+                  >
+                    Get Quote
+                  </Link>
                 </div>
               </div>
             </div>

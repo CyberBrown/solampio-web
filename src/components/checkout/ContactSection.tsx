@@ -33,6 +33,7 @@ export const ContactSection = component$<ContactSectionProps>(
               id="name"
               name="name"
               required
+              autoComplete="name"
               value={name.value}
               onInput$={(e) =>
                 (name.value = (e.target as HTMLInputElement).value)
@@ -48,13 +49,14 @@ export const ContactSection = component$<ContactSectionProps>(
               for="email"
               class="block text-sm font-bold text-[#042e0d] mb-1"
             >
-              Email Address
-              <span class="text-gray-400 font-normal ml-1">(optional)</span>
+              Email Address <span class="text-red-500">*</span>
             </label>
             <input
               type="email"
               id="email"
               name="email"
+              required
+              autoComplete="email"
               value={email.value}
               onInput$={(e) =>
                 (email.value = (e.target as HTMLInputElement).value)
@@ -63,7 +65,7 @@ export const ContactSection = component$<ContactSectionProps>(
               placeholder="john@example.com"
             />
             <p class="text-xs text-gray-500 mt-1">
-              For order confirmation and updates
+              For order confirmation and receipt
             </p>
           </div>
 
@@ -80,6 +82,7 @@ export const ContactSection = component$<ContactSectionProps>(
               id="phone"
               name="phone"
               required
+              autoComplete="tel"
               value={phone.value}
               onInput$={(e) =>
                 (phone.value = (e.target as HTMLInputElement).value)

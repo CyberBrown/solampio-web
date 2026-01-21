@@ -21,7 +21,7 @@ export const ProductCard = component$<ProductCardProps>(({ product }) => {
       sku: product.sku,
       title: product.title,
       price: product.price,
-      thumbnail_url: product.thumbnail_url,
+      thumbnail_url: getProductThumbnail(product),
       stock_qty: product.stock_qty,
     });
 

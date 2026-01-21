@@ -86,7 +86,8 @@ export default component$(() => {
   const categories = data.value.categories;
 
   // Get fallback image from product if no gallery images
-  const fallbackImage = product ? getProductImageUrl(product, 'detail') : null;
+  // Using 'hero' variant since 'detail' isn't configured in CF Images
+  const fallbackImage = product ? getProductImageUrl(product, 'hero') : null;
 
   // Handler for Add to Cart button
   const handleAddToQuote = $(() => {
@@ -97,7 +98,7 @@ export default component$(() => {
       sku: product.sku,
       title: product.title,
       price: product.price,
-      thumbnail_url: product.thumbnail_url,
+      thumbnail_url: getProductImageUrl(product, 'thumbnail'),
       stock_qty: product.stock_qty,
     });
 
@@ -206,19 +207,20 @@ export default component$(() => {
                     {product.has_variants ? 'Available Options' : 'Other Options'}
                   </p>
                   <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    {/* Show current product as selected if it's a variant */}
-                    {product.variant_of && (
-                      <div class="p-3 border-2 border-[#042e0d] bg-[#042e0d]/5 rounded-lg">
-                        <p class="font-semibold text-[#042e0d] text-sm truncate">{product.title}</p>
-                        <p class="text-xs text-gray-500 font-mono">{product.sku}</p>
-                        {product.price && (
-                          <p class="text-sm font-bold text-[#042e0d] mt-1">${product.price}</p>
-                        )}
-                      </div>
-                    )}
-                    {variants
-                      .filter(v => v.sku !== product.sku) // Don't show current product again
-                      .map((variant) => (
+                    {variants.map((variant) => {
+                      const isCurrentProduct = variant.sku === product.sku;
+                      return isCurrentProduct ? (
+                        <div
+                          key={variant.id}
+                          class="p-3 border-2 border-[#042e0d] bg-[#042e0d]/5 rounded-lg"
+                        >
+                          <p class="font-semibold text-[#042e0d] text-sm truncate">{variant.title}</p>
+                          <p class="text-xs text-gray-500 font-mono">{variant.sku}</p>
+                          {variant.price && (
+                            <p class="text-sm font-bold text-[#042e0d] mt-1">${variant.price}</p>
+                          )}
+                        </div>
+                      ) : (
                         <Link
                           key={variant.id}
                           href={`/products/${encodeSkuForUrl(variant.sku)}/`}
@@ -230,7 +232,8 @@ export default component$(() => {
                             <p class="text-sm font-bold text-[#042e0d] mt-1">${variant.price}</p>
                           )}
                         </Link>
-                      ))}
+                      );
+                    })}
                   </div>
                   {product.has_variants && variants.length > 6 && (
                     <p class="text-xs text-gray-500 mt-2">
@@ -283,12 +286,14 @@ export default component$(() => {
                       <span class="font-semibold text-[#042e0d]">{product.weight_lbs} lbs</span>
                     </div>
                   )}
-                  <div class="flex justify-between py-1 border-b border-gray-200">
-                    <span class="text-gray-500">Stock</span>
-                    <span class={['font-semibold', stockInfo.status ? stockInfo.textClass : 'text-[#042e0d]'].join(' ')}>
-                      {stockInfo.showBadge ? stockInfo.label : `${product.stock_qty} units`}
-                    </span>
-                  </div>
+                  {stockInfo.showBadge && (
+                    <div class="flex justify-between py-1 border-b border-gray-200">
+                      <span class="text-gray-500">Stock</span>
+                      <span class={['font-semibold', stockInfo.textClass].join(' ')}>
+                        {stockInfo.label}
+                      </span>
+                    </div>
+                  )}
                   <div class="flex justify-between py-1 border-b border-gray-200">
                     <span class="text-gray-500">Warranty</span>
                     <span class="font-semibold text-[#042e0d]">Manufacturer Warranty</span>

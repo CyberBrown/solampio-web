@@ -8,8 +8,10 @@ import {
   component$,
   useSignal,
   useVisibleTask$,
+  noSerialize,
   type Signal,
   type QRL,
+  type NoSerialize,
 } from '@builder.io/qwik';
 import { loadStripe, type Stripe, type StripeCardElement } from '@stripe/stripe-js';
 
@@ -25,8 +27,8 @@ export const PaymentSection = component$<PaymentSectionProps>(
   ({ clientSecret, publishableKey, isLoading, errorMessage, onSubmit$ }) => {
     const cardElementRef = useSignal<HTMLDivElement>();
     const stripeReady = useSignal(false);
-    const stripeInstance = useSignal<Stripe | null>(null);
-    const cardElementInstance = useSignal<StripeCardElement | null>(null);
+    const stripeInstance = useSignal<NoSerialize<Stripe> | undefined>(undefined);
+    const cardElementInstance = useSignal<NoSerialize<StripeCardElement> | undefined>(undefined);
 
     // Initialize Stripe on mount
     useVisibleTask$(async () => {
@@ -46,7 +48,7 @@ export const PaymentSection = component$<PaymentSectionProps>(
         }
         console.log('[PaymentSection] Stripe loaded successfully');
 
-        stripeInstance.value = stripe;
+        stripeInstance.value = noSerialize(stripe);
 
         // Create elements without clientSecret (simpler approach)
         const elements = stripe.elements();
@@ -74,7 +76,7 @@ export const PaymentSection = component$<PaymentSectionProps>(
         cardElement.mount(cardElementRef.value);
         console.log('[PaymentSection] Card element mounted');
 
-        cardElementInstance.value = cardElement;
+        cardElementInstance.value = noSerialize(cardElement);
 
         cardElement.on('ready', () => {
           console.log('[PaymentSection] Card element ready!');

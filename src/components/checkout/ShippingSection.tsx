@@ -90,6 +90,7 @@ export const ShippingSection = component$<ShippingSectionProps>(
               id="address1"
               name="address1"
               required
+              autoComplete="address-line1"
               value={addressLine1.value}
               onInput$={(e) =>
                 (addressLine1.value = (e.target as HTMLInputElement).value)
@@ -112,6 +113,7 @@ export const ShippingSection = component$<ShippingSectionProps>(
               type="text"
               id="address2"
               name="address2"
+              autoComplete="address-line2"
               value={addressLine2.value}
               onInput$={(e) =>
                 (addressLine2.value = (e.target as HTMLInputElement).value)
@@ -134,6 +136,7 @@ export const ShippingSection = component$<ShippingSectionProps>(
               id="city"
               name="city"
               required
+              autoComplete="address-level2"
               value={city.value}
               onInput$={(e) =>
                 (city.value = (e.target as HTMLInputElement).value)
@@ -157,6 +160,7 @@ export const ShippingSection = component$<ShippingSectionProps>(
                 id="state"
                 name="state"
                 required
+                autoComplete="address-level1"
                 value={state.value}
                 onChange$={(e) =>
                   (state.value = (e.target as HTMLSelectElement).value)
@@ -184,6 +188,7 @@ export const ShippingSection = component$<ShippingSectionProps>(
                 id="postalCode"
                 name="postalCode"
                 required
+                autoComplete="postal-code"
                 value={postalCode.value}
                 onInput$={(e) =>
                   (postalCode.value = (e.target as HTMLInputElement).value)

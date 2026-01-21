@@ -25,13 +25,49 @@ interface ConfirmationData {
     price: number;
   }>;
   error?: string;
+  paymentMethod?: 'card' | 'check';
 }
 
 // Verify payment and create order on server
 export const useConfirmationData = routeLoader$(
   async (requestEvent): Promise<ConfirmationData> => {
     const paymentIntentId = requestEvent.url.searchParams.get('payment_intent');
+    const orderNumber = requestEvent.url.searchParams.get('order');
+    const method = requestEvent.url.searchParams.get('method') as 'card' | 'check' | null;
 
+    // Handle check payment orders
+    if (orderNumber && method === 'check') {
+      try {
+        const ordersDB = getOrdersDB(requestEvent.platform);
+        const order = await ordersDB.getOrderByNumber(orderNumber);
+
+        if (order) {
+          const items = parseOrderItems(order.items);
+          return {
+            success: true,
+            orderNumber: order.order_number,
+            customerEmail: order.customer_email || undefined,
+            total: order.total,
+            items: items.map((item) => ({
+              title: item.title,
+              quantity: item.quantity,
+              price: item.price,
+            })),
+            paymentMethod: 'check',
+          };
+        }
+      } catch (err) {
+        console.error('Check order lookup error:', err);
+      }
+
+      return {
+        success: true,
+        orderNumber: orderNumber,
+        paymentMethod: 'check',
+      };
+    }
+
+    // Handle card payment orders
     if (!paymentIntentId) {
       return {
         success: false,
@@ -59,6 +95,7 @@ export const useConfirmationData = routeLoader$(
             quantity: item.quantity,
             price: item.price,
           })),
+          paymentMethod: 'card',
         };
       }
 
@@ -68,6 +105,7 @@ export const useConfirmationData = routeLoader$(
       return {
         success: true,
         orderNumber: undefined, // Will be created on client
+        paymentMethod: 'card',
       };
     } catch (err) {
       console.error('Confirmation error:', err);
@@ -84,10 +122,19 @@ export default component$(() => {
   const confirmationData = useConfirmationData();
   const cart = useCart();
 
-  // Clear cart after successful payment (client-side)
+  // Clear cart after successful order (client-side)
   useVisibleTask$(async () => {
     const paymentIntentId = location.url.searchParams.get('payment_intent');
+    const method = location.url.searchParams.get('method');
 
+    // For check payments, cart was already cleared before redirect
+    if (method === 'check' && confirmationData.value.success) {
+      // Cart should already be cleared, but ensure it is
+      cart.clearCart();
+      return;
+    }
+
+    // For card payments, verify with Stripe
     if (paymentIntentId && confirmationData.value.success) {
       try {
         // Verify payment status
@@ -207,6 +254,30 @@ export default component$(() => {
                   {confirmationData.value.orderNumber}
                 </span>
               </p>
+            )}
+
+            {/* Check Payment Notice */}
+            {confirmationData.value.paymentMethod === 'check' && (
+              <div class="bg-[#c3a859]/10 border border-[#c3a859] rounded-lg p-4 mb-6 text-left">
+                <h3 class="font-bold text-[#042e0d] mb-2 flex items-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#c3a859]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                  </svg>
+                  Payment Required
+                </h3>
+                <p class="text-sm text-gray-600 mb-3">
+                  Your order has been submitted. Please mail your check to complete the order:
+                </p>
+                <ul class="text-sm text-gray-600 space-y-1">
+                  <li><strong>Make check payable to:</strong> Solamp</li>
+                  <li><strong>Amount:</strong> ${confirmationData.value.total?.toFixed(2) || 'See order total'}</li>
+                  <li><strong>Reference:</strong> {confirmationData.value.orderNumber}</li>
+                  <li><strong>Mail to:</strong> Solamp, 123 Main St, City, ST 12345</li>
+                </ul>
+                <p class="text-xs text-gray-500 mt-3">
+                  Your order will be processed once payment is received.
+                </p>
+              </div>
             )}
 
             <p class="text-gray-500 mb-8">

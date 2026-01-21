@@ -1,0 +1,8 @@
+# Stripe API Keys
+STRIPE_PUBLISHABLE_KEY=pk_test_xxx
+STRIPE_SECRET_KEY=sk_test_xxx
+
+# ERPNext API
+ERPNEXT_URL=https://your-instance.erpnext.com
+ERPNEXT_API_KEY=your_api_key
+ERPNEXT_API_SECRET=your_api_secret

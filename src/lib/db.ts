@@ -68,8 +68,8 @@ export interface StockStatusInfo {
  * - Otherwise → "In Stock" (green, but not shown by default)
  */
 export function getStockStatus(product: Product, showInStock = false): StockStatusInfo {
-  // If stock status display is disabled, return null status
-  if (!product.show_stock_status) {
+  // Stock status display is OFF by default - only show if explicitly enabled (show_stock_status === 1)
+  if (product.show_stock_status !== 1) {
     return {
       status: null,
       label: '',
@@ -430,7 +430,7 @@ export class StorefrontDB {
   }
 
   /**
-   * Get subcategories of a category
+   * Get subcategories of a category (direct children only)
    */
   async getSubcategories(parentId: string): Promise<Category[]> {
     const result = await this.db.prepare(`
@@ -443,13 +443,32 @@ export class StorefrontDB {
   }
 
   /**
-   * Get products from a category AND all its subcategories
+   * Get all descendant category IDs recursively (children, grandchildren, etc.)
+   */
+  async getAllDescendantCategoryIds(categoryId: string): Promise<string[]> {
+    const allIds: string[] = [];
+    const queue: string[] = [categoryId];
+
+    while (queue.length > 0) {
+      const currentId = queue.shift()!;
+      const children = await this.getSubcategories(currentId);
+      for (const child of children) {
+        allIds.push(child.id);
+        queue.push(child.id);
+      }
+    }
+
+    return allIds;
+  }
+
+  /**
+   * Get products from a category AND all its subcategories (including nested)
    * Used for top-level category pages to show all products in that tree
    */
   async getProductsInCategoryTree(categoryId: string, limit: number = 50): Promise<Product[]> {
-    // Get subcategory IDs
-    const subcategories = await this.getSubcategories(categoryId);
-    const allCategoryIds = [categoryId, ...subcategories.map(s => s.id)];
+    // Get all descendant category IDs recursively
+    const descendantIds = await this.getAllDescendantCategoryIds(categoryId);
+    const allCategoryIds = [categoryId, ...descendantIds];
 
     // Build a query that matches any of these category IDs in the JSON array
     // We use multiple LIKE conditions joined with OR
@@ -653,9 +672,9 @@ export class StorefrontDB {
    * - Prioritizes in-stock products
    */
   async getFeaturedProductsForCategoryMenu(categoryId: string, limit: number = 3): Promise<Product[]> {
-    // Get subcategory IDs for this category
-    const subcategories = await this.getSubcategories(categoryId);
-    const allCategoryIds = [categoryId, ...subcategories.map(s => s.id)];
+    // Get all descendant category IDs recursively
+    const descendantIds = await this.getAllDescendantCategoryIds(categoryId);
+    const allCategoryIds = [categoryId, ...descendantIds];
 
     // Build conditions for category membership or featured_category_id
     const categoryConditions = allCategoryIds.map(() => 'categories LIKE ?').join(' OR ');
