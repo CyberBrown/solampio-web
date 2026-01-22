@@ -13,13 +13,13 @@
  *   parent_item_group: string,       // Parent category name (or "All Item Groups" for root)
  *   is_group: boolean,               // Whether this is a parent group
  *   image: string,                   // Image URL (optional)
- *   is_visible_on_website: boolean,  // Whether to show on website (opt-in, default false)
- *   disabled: boolean,               // Legacy field (fallback if is_visible_on_website not set)
+ *   custom_show_in_website: boolean, // ERPNext custom field: controls website visibility
+ *   disabled: boolean,               // Legacy field (fallback if custom_show_in_website not set)
  * }
  *
  * Visibility Logic:
  * - New categories default to is_visible = 0 (hidden) - opt-in model
- * - If is_visible_on_website is set, use that value
+ * - If custom_show_in_website is set, use that value
  * - If only disabled is set, use !disabled as is_visible (backward compatibility)
  * - If neither is set, default to hidden (0)
  */
@@ -33,8 +33,10 @@ interface ERPNextCategoryPayload {
   parent_item_group?: string;
   is_group?: boolean | number;
   image?: string;
-  is_visible_on_website?: boolean | number;  // New field: true = visible
+  custom_show_in_website?: boolean | number;  // ERPNext custom field: controls visibility
   disabled?: boolean | number;                // Legacy field: true = hidden
+  custom_sort_order?: number;                 // Display order (lower = first)
+  lft?: number;                               // Nested set left value (fallback)
   // Category image fields
   category_image?: string;  // Attach Image (legacy)
   cf_category_image_url?: string;  // Cloudflare Images URL
@@ -42,12 +44,12 @@ interface ERPNextCategoryPayload {
 
 /**
  * Determine visibility based on payload fields
- * Priority: is_visible_on_website > !disabled > default (hidden)
+ * Priority: custom_show_in_website > !disabled > default (hidden)
  */
 function getVisibility(payload: ERPNextCategoryPayload): number {
-  // If is_visible_on_website is explicitly set, use it
-  if (payload.is_visible_on_website !== undefined) {
-    return payload.is_visible_on_website ? 1 : 0;
+  // If custom_show_in_website is explicitly set, use it
+  if (payload.custom_show_in_website !== undefined) {
+    return payload.custom_show_in_website ? 1 : 0;
   }
   // Fallback to disabled field (inverted logic)
   if (payload.disabled !== undefined) {
@@ -123,6 +125,9 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
     // Handle image URL - prefer cf_category_image_url, fallback to image
     const imageUrl = payload.cf_category_image_url || payload.category_image || payload.image || null;
 
+    // Determine sort order: prefer custom_sort_order, fall back to lft, default 0
+    const sortOrder = payload.custom_sort_order ?? payload.lft ?? 0;
+
     if (existing) {
       // Update existing category
       await db
@@ -132,6 +137,7 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
             slug = ?,
             parent_id = ?,
             is_visible = ?,
+            sort_order = ?,
             cf_category_image_url = COALESCE(?, cf_category_image_url),
             image_url = COALESCE(?, image_url),
             sync_source = 'erpnext',
@@ -144,6 +150,7 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
           slug,
           parentId,
           isVisible,
+          sortOrder,
           payload.cf_category_image_url || null,
           imageUrl,
           now,
@@ -172,7 +179,7 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
           INSERT INTO storefront_categories (
             id, erpnext_name, title, slug, parent_id, sort_order, is_visible,
             count, image_url, cf_category_image_url, sync_source, last_synced_from_erpnext, created_at, updated_at
-          ) VALUES (?, ?, ?, ?, ?, 0, ?, 0, ?, ?, 'erpnext', ?, ?, ?)
+          ) VALUES (?, ?, ?, ?, ?, ?, ?, 0, ?, ?, 'erpnext', ?, ?, ?)
         `)
         .bind(
           id,
@@ -180,6 +187,7 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
           title,
           slug,
           parentId,
+          sortOrder,
           isVisible,
           imageUrl,
           payload.cf_category_image_url || null,
@@ -252,18 +260,19 @@ export const onPut: RequestHandler = async ({ request, platform, json }) => {
           .first() as { id: string } | null;
 
         const imageUrl = payload.cf_category_image_url || payload.category_image || payload.image || null;
+        const sortOrder = payload.custom_sort_order ?? payload.lft ?? 0;
 
         if (existing) {
           await db
             .prepare(`
               UPDATE storefront_categories SET
-                title = ?, slug = ?, parent_id = ?, is_visible = ?,
+                title = ?, slug = ?, parent_id = ?, is_visible = ?, sort_order = ?,
                 cf_category_image_url = COALESCE(?, cf_category_image_url),
                 image_url = COALESCE(?, image_url),
                 sync_source = 'erpnext', last_synced_from_erpnext = ?, updated_at = ?
               WHERE erpnext_name = ?
             `)
-            .bind(title, slug, parentId, isVisible, payload.cf_category_image_url || null, imageUrl, now, now, payload.name)
+            .bind(title, slug, parentId, isVisible, sortOrder, payload.cf_category_image_url || null, imageUrl, now, now, payload.name)
             .run();
         } else {
           const id = crypto.randomUUID().replace(/-/g, '');
@@ -272,9 +281,9 @@ export const onPut: RequestHandler = async ({ request, platform, json }) => {
               INSERT INTO storefront_categories (
                 id, erpnext_name, title, slug, parent_id, sort_order, is_visible,
                 count, image_url, cf_category_image_url, sync_source, last_synced_from_erpnext, created_at, updated_at
-              ) VALUES (?, ?, ?, ?, ?, 0, ?, 0, ?, ?, 'erpnext', ?, ?, ?)
+              ) VALUES (?, ?, ?, ?, ?, ?, ?, 0, ?, ?, 'erpnext', ?, ?, ?)
             `)
-            .bind(id, payload.name, title, slug, parentId, isVisible, imageUrl, payload.cf_category_image_url || null, now, now, now)
+            .bind(id, payload.name, title, slug, parentId, sortOrder, isVisible, imageUrl, payload.cf_category_image_url || null, now, now, now)
             .run();
         }
 
@@ -321,11 +330,13 @@ export const onGet: RequestHandler = async ({ json }) => {
       item_group_name: 'Display title',
       parent_item_group: 'Parent category name',
       is_group: 'Whether this has subcategories',
-      is_visible_on_website: 'Set to true to show category on website (default: false)',
-      disabled: 'Legacy field - set to true to hide category (use is_visible_on_website instead)',
+      custom_show_in_website: 'Set to 1 to show category on website (default: hidden)',
+      disabled: 'Legacy field - set to true to hide category',
+      custom_sort_order: 'Display order (lower numbers appear first)',
+      lft: 'Nested set left value (fallback for sort order if custom_sort_order not set)',
       category_image: 'Attach Image URL (optional)',
       cf_category_image_url: 'Cloudflare Images URL for mega menu display (optional)',
     },
-    visibilityLogic: 'Categories default to hidden (opt-in). Set is_visible_on_website=true to show.',
+    visibilityLogic: 'Categories default to hidden (opt-in). Set custom_show_in_website=1 to show.',
   });
 };

@@ -15,8 +15,8 @@
  *   description: string,             // Brand description (optional)
  *   image: string,                   // Logo URL (optional)
  *   brand_logo?: string,             // Alternative logo URL field
- *   is_visible_on_website: boolean,  // Whether to show on website (opt-in, default false)
- *   disabled: boolean,               // Legacy field (fallback if is_visible_on_website not set)
+ *   custom_show_in_website: boolean, // ERPNext custom field: controls website visibility
+ *   disabled: boolean,               // Legacy field (fallback if custom_show_in_website not set)
  *   is_featured: boolean,            // Show in brand scroll
  *   cf_logo_full_url: string,        // CF Images full logo URL
  *   cf_logo_thumb_url: string,       // CF Images thumbnail URL
@@ -32,7 +32,7 @@
  *
  * Visibility Logic:
  * - New brands default to is_visible = 0 (hidden) - opt-in model
- * - If is_visible_on_website is set, use that value
+ * - If custom_show_in_website is set, use that value
  * - If only disabled is set, use !disabled as is_visible (backward compatibility)
  * - If neither is set, default to hidden (0)
  */
@@ -51,7 +51,7 @@ interface ERPNextBrandPayload {
   description?: string;
   image?: string;
   brand_logo?: string;
-  is_visible_on_website?: boolean | number;
+  custom_show_in_website?: boolean | number;
   disabled?: boolean | number;
   is_featured?: boolean | number;
   cf_logo_full_url?: string;
@@ -64,11 +64,11 @@ interface ERPNextBrandPayload {
 
 /**
  * Determine visibility based on payload fields
- * Priority: is_visible_on_website > !disabled > default (hidden)
+ * Priority: custom_show_in_website > !disabled > default (hidden)
  */
 function getVisibility(payload: ERPNextBrandPayload): number {
-  if (payload.is_visible_on_website !== undefined) {
-    return payload.is_visible_on_website ? 1 : 0;
+  if (payload.custom_show_in_website !== undefined) {
+    return payload.custom_show_in_website ? 1 : 0;
   }
   if (payload.disabled !== undefined) {
     return payload.disabled ? 0 : 1;
@@ -446,8 +446,8 @@ export const onGet: RequestHandler = async ({ json }) => {
       description: 'Brand description',
       image: 'Logo image URL',
       brand_logo: 'Alternative logo URL field',
-      is_visible_on_website: 'Set to true to show brand on website (default: false)',
-      disabled: 'Legacy field - set to true to hide brand (use is_visible_on_website instead)',
+      custom_show_in_website: 'Set to 1 to show brand on website (default: hidden)',
+      disabled: 'Legacy field - set to true to hide brand',
       is_featured: 'Show in brand scroll (boolean)',
       cf_logo_full_url: 'CF Images full logo URL (400x200)',
       cf_logo_thumb_url: 'CF Images thumbnail URL (100x50)',
@@ -456,7 +456,7 @@ export const onGet: RequestHandler = async ({ json }) => {
       associated_categories: '[{ item_group: "Category Name" }] - Categories this brand appears in',
       associated_subcategories: '[{ item_group: "Subcategory Name" }] - Subcategories this brand appears in',
     },
-    visibilityLogic: 'Brands default to hidden (opt-in). Set is_visible_on_website=true to show.',
+    visibilityLogic: 'Brands default to hidden (opt-in). Set custom_show_in_website=1 to show.',
     logoWorkflow: {
       step1: 'Upload logo to ERPNext Brand doctype',
       step2: 'Run brand-logos scripts to process and upload to CF Images',
