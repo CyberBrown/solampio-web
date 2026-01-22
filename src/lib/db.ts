@@ -55,6 +55,8 @@ export interface Product {
   oversized_flag: number;  // 1 if oversized
   // Variant inheritance
   inherit_shipping_from_parent: number;  // 1 to use parent's shipping specs
+  // Search boost (for search ranking)
+  search_boost: number;  // Default 1.0, 0 or negative hides from search
   sync_source: string;
   last_synced_from_erpnext: string | null;
   created_at: string;
@@ -749,12 +751,28 @@ export class StorefrontDB {
   /**
    * Get all featured products for mega menu (keyed by category ID)
    * Useful for preloading featured products for all categories at once
+   * Products featured in subcategories also appear in their parent category
    */
   async getAllFeaturedProductsForMenu(): Promise<Map<string, Product[]>> {
+    // Get all categories to build parent lookup
+    const categoriesResult = await this.db.prepare(`
+      SELECT id, parent_id FROM storefront_categories
+    `).all<{ id: string; parent_id: string | null }>();
+
+    // Build a map of category ID -> parent ID for propagation
+    const parentLookup = new Map<string, string>();
+    for (const cat of categoriesResult.results || []) {
+      if (cat.parent_id) {
+        parentLookup.set(cat.id, cat.parent_id);
+      }
+    }
+
     // Get all featured products with their categories
+    // Note: We include products with variants (has_variants = 1) in featured sections
+    // because template products are the main display items that link to variant selection
     const result = await this.db.prepare(`
       SELECT * FROM storefront_products
-      WHERE is_visible = 1 AND has_variants = 0 AND is_featured = 1
+      WHERE is_visible = 1 AND is_featured = 1
       ORDER BY
         CASE WHEN stock_qty > 0 THEN 0 ELSE 1 END,
         stock_qty DESC,
@@ -763,35 +781,42 @@ export class StorefrontDB {
 
     const categoryMap = new Map<string, Product[]>();
 
+    // Helper to add product to a category and propagate to parent
+    const addToCategory = (categoryId: string, product: Product) => {
+      const existing = categoryMap.get(categoryId) || [];
+      if (existing.length < 3 && !existing.some(p => p.id === product.id)) {
+        existing.push(product);
+        categoryMap.set(categoryId, existing);
+      }
+
+      // Also add to parent category (if exists)
+      const parentId = parentLookup.get(categoryId);
+      if (parentId) {
+        const parentExisting = categoryMap.get(parentId) || [];
+        if (parentExisting.length < 3 && !parentExisting.some(p => p.id === product.id)) {
+          parentExisting.push(product);
+          categoryMap.set(parentId, parentExisting);
+        }
+      }
+    };
+
     for (const product of result.results || []) {
-      // Add to explicitly featured categories
+      // Add to explicitly featured categories (and propagate to parent)
       if (product.featured_category_id) {
-        const existing = categoryMap.get(product.featured_category_id) || [];
-        if (existing.length < 3) {
-          existing.push(product);
-          categoryMap.set(product.featured_category_id, existing);
-        }
+        addToCategory(product.featured_category_id, product);
       }
 
-      // Add to subcategory if explicitly featured there
+      // Add to subcategory if explicitly featured there (and propagate to parent)
       if (product.featured_in_subcategory_id) {
-        const existing = categoryMap.get(product.featured_in_subcategory_id) || [];
-        if (existing.length < 3) {
-          existing.push(product);
-          categoryMap.set(product.featured_in_subcategory_id, existing);
-        }
+        addToCategory(product.featured_in_subcategory_id, product);
       }
 
-      // Add to all categories the product belongs to
+      // Add to all categories the product belongs to (and propagate to parents)
       if (product.categories) {
         try {
           const categoryIds = JSON.parse(product.categories) as string[];
           for (const catId of categoryIds) {
-            const existing = categoryMap.get(catId) || [];
-            if (existing.length < 3 && !existing.some(p => p.id === product.id)) {
-              existing.push(product);
-              categoryMap.set(catId, existing);
-            }
+            addToCategory(catId, product);
           }
         } catch {
           // Skip invalid JSON

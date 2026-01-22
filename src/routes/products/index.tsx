@@ -71,12 +71,9 @@ export default component$(() => {
                     </div>
                   )}
                   <div class="p-4">
-                    <div class="flex justify-between items-start mb-2">
-                      <h3 class="font-heading font-bold text-lg text-[#042e0d] group-hover:text-[#5974c3] transition-colors">{cat.title}</h3>
-                      <span class="text-xs font-mono text-[#c3a859] bg-[#c3a859]/10 px-2 py-1 rounded">{cat.count} items</span>
-                    </div>
+                    <h3 class="font-heading font-bold text-lg text-[#042e0d] group-hover:text-[#5974c3] transition-colors">{cat.title}</h3>
                     {cat.description && (
-                      <p class="text-sm text-gray-600 mt-1">{cat.description.substring(0, 100)}{cat.description.length > 100 ? '...' : ''}</p>
+                      <p class="text-sm text-gray-600 mt-2">{cat.description.substring(0, 100)}{cat.description.length > 100 ? '...' : ''}</p>
                     )}
                   </div>
                 </Link>

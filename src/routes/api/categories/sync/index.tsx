@@ -39,7 +39,8 @@ interface ERPNextCategoryPayload {
   lft?: number;                               // Nested set left value (fallback)
   // Category image fields
   category_image?: string;  // Attach Image (legacy)
-  cf_category_image_url?: string;  // Cloudflare Images URL
+  cf_category_image_url?: string;  // Cloudflare Images URL (full URL)
+  custom_cf_image_id?: string;  // Cloudflare Images ID (just the ID, not full URL)
 }
 
 /**
@@ -125,6 +126,14 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
     // Handle image URL - prefer cf_category_image_url, fallback to image
     const imageUrl = payload.cf_category_image_url || payload.category_image || payload.image || null;
 
+    // Get CF image ID - prefer custom_cf_image_id (direct ID), extract from URL if full URL provided
+    let cfImageId = payload.custom_cf_image_id || null;
+    if (!cfImageId && payload.cf_category_image_url) {
+      // Extract ID from URL format: https://imagedelivery.net/{hash}/{image_id}/{variant}
+      const match = payload.cf_category_image_url.match(/imagedelivery\.net\/[^/]+\/([^/]+)/);
+      if (match) cfImageId = match[1];
+    }
+
     // Determine sort order: prefer custom_sort_order, fall back to lft, default 0
     const sortOrder = payload.custom_sort_order ?? payload.lft ?? 0;
 
@@ -138,7 +147,7 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
             parent_id = ?,
             is_visible = ?,
             sort_order = ?,
-            cf_category_image_url = COALESCE(?, cf_category_image_url),
+            cf_image_id = COALESCE(?, cf_image_id),
             image_url = COALESCE(?, image_url),
             sync_source = 'erpnext',
             last_synced_from_erpnext = ?,
@@ -151,7 +160,7 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
           parentId,
           isVisible,
           sortOrder,
-          payload.cf_category_image_url || null,
+          cfImageId,
           imageUrl,
           now,
           now,
@@ -167,7 +176,7 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
           title,
           slug,
           parent_id: parentId,
-          cf_category_image_url: payload.cf_category_image_url || null,
+          cf_image_id: cfImageId,
           updated: true,
         },
       });
@@ -178,7 +187,7 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
         .prepare(`
           INSERT INTO storefront_categories (
             id, erpnext_name, title, slug, parent_id, sort_order, is_visible,
-            count, image_url, cf_category_image_url, sync_source, last_synced_from_erpnext, created_at, updated_at
+            count, image_url, cf_image_id, sync_source, last_synced_from_erpnext, created_at, updated_at
           ) VALUES (?, ?, ?, ?, ?, ?, ?, 0, ?, ?, 'erpnext', ?, ?, ?)
         `)
         .bind(
@@ -190,7 +199,7 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
           sortOrder,
           isVisible,
           imageUrl,
-          payload.cf_category_image_url || null,
+          cfImageId,
           now,
           now,
           now
@@ -205,7 +214,7 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
           title,
           slug,
           parent_id: parentId,
-          cf_category_image_url: payload.cf_category_image_url || null,
+          cf_image_id: cfImageId,
           created: true,
         },
       });
@@ -262,17 +271,24 @@ export const onPut: RequestHandler = async ({ request, platform, json }) => {
         const imageUrl = payload.cf_category_image_url || payload.category_image || payload.image || null;
         const sortOrder = payload.custom_sort_order ?? payload.lft ?? 0;
 
+        // Get CF image ID
+        let cfImageId = payload.custom_cf_image_id || null;
+        if (!cfImageId && payload.cf_category_image_url) {
+          const match = payload.cf_category_image_url.match(/imagedelivery\.net\/[^/]+\/([^/]+)/);
+          if (match) cfImageId = match[1];
+        }
+
         if (existing) {
           await db
             .prepare(`
               UPDATE storefront_categories SET
                 title = ?, slug = ?, parent_id = ?, is_visible = ?, sort_order = ?,
-                cf_category_image_url = COALESCE(?, cf_category_image_url),
+                cf_image_id = COALESCE(?, cf_image_id),
                 image_url = COALESCE(?, image_url),
                 sync_source = 'erpnext', last_synced_from_erpnext = ?, updated_at = ?
               WHERE erpnext_name = ?
             `)
-            .bind(title, slug, parentId, isVisible, sortOrder, payload.cf_category_image_url || null, imageUrl, now, now, payload.name)
+            .bind(title, slug, parentId, isVisible, sortOrder, cfImageId, imageUrl, now, now, payload.name)
             .run();
         } else {
           const id = crypto.randomUUID().replace(/-/g, '');
@@ -280,10 +296,10 @@ export const onPut: RequestHandler = async ({ request, platform, json }) => {
             .prepare(`
               INSERT INTO storefront_categories (
                 id, erpnext_name, title, slug, parent_id, sort_order, is_visible,
-                count, image_url, cf_category_image_url, sync_source, last_synced_from_erpnext, created_at, updated_at
+                count, image_url, cf_image_id, sync_source, last_synced_from_erpnext, created_at, updated_at
               ) VALUES (?, ?, ?, ?, ?, ?, ?, 0, ?, ?, 'erpnext', ?, ?, ?)
             `)
-            .bind(id, payload.name, title, slug, parentId, sortOrder, isVisible, imageUrl, payload.cf_category_image_url || null, now, now, now)
+            .bind(id, payload.name, title, slug, parentId, sortOrder, isVisible, imageUrl, cfImageId, now, now, now)
             .run();
         }
 
@@ -334,8 +350,9 @@ export const onGet: RequestHandler = async ({ json }) => {
       disabled: 'Legacy field - set to true to hide category',
       custom_sort_order: 'Display order (lower numbers appear first)',
       lft: 'Nested set left value (fallback for sort order if custom_sort_order not set)',
-      category_image: 'Attach Image URL (optional)',
-      cf_category_image_url: 'Cloudflare Images URL for mega menu display (optional)',
+      category_image: 'Attach Image URL (optional, legacy)',
+      custom_cf_image_id: 'Cloudflare Images ID (e.g., "cat-batteries")',
+      cf_category_image_url: 'Full Cloudflare Images URL (ID will be extracted)',
     },
     visibilityLogic: 'Categories default to hidden (opt-in). Set custom_show_in_website=1 to show.',
   });

@@ -212,6 +212,54 @@ npx wrangler d1 execute solampio-migration --remote --command "SELECT COUNT(*) F
 npx wrangler d1 execute solampio-migration --remote --command "SELECT title, count FROM storefront_categories WHERE count > 0 ORDER BY count DESC LIMIT 15;"
 ```
 
+## Shipping Calculator System
+
+**Passphrase: stale-coffee-44**
+
+The shipping system calculates real-time rates from multiple carriers based on cart contents and destination.
+
+### Key Files
+- `src/routes/api/shipping/cart-rates/index.tsx` - Main cart shipping rates API
+- `src/lib/easypost.ts` - EasyPost integration (USPS, UPS parcel shipping)
+- `src/lib/uship.ts` - uShip LTL Connect integration (freight shipping)
+- `src/components/checkout/ShippingMethodSelector.tsx` - Frontend shipping selector
+
+### How It Works
+
+1. **Cart Analysis**: When user enters ZIP code, the API analyzes cart items:
+   - Aggregates weight and dimensions across all items
+   - Checks per-product carrier flags: `ships_usps`, `ships_ups`, `ships_ltl`, `ships_pickup`
+   - Determines if LTL freight is required (>150 lbs or >48" dimension)
+
+2. **Warehouse Selection** (Multi-warehouse support):
+   - Finds nearest warehouse with stock for all stocked items
+   - **Dropship/Made-to-Order items**: If a product has NO records in `product_warehouse_stock`, it's treated as dropship/MTO and stock check is skipped
+   - Falls back to nearest warehouse if no single warehouse has all items (allows backorder quotes)
+   - Default fallback address: 3 Post Office Sq, Acton MA 01720
+
+3. **Rate Fetching**:
+   - **Parcel (EasyPost)**: USPS/UPS rates for items under 150 lbs
+   - **LTL Freight (uShip)**: For heavy/oversized items, adds 25% markup
+   - **Local Pickup**: Free if warehouse is a pickup location
+
+4. **Carrier Eligibility Rules**:
+   - ALL items must support a carrier for it to be offered (e.g., if one item is `ships_usps=0`, no USPS rates)
+   - ANY item supporting LTL or pickup makes those options available
+   - Hazmat items disable parcel shipping
+
+### Database Tables
+- `warehouses` - Ship-from locations synced from ERPNext
+- `product_warehouse_stock` - Stock levels per product per warehouse (from ERPNext Bin)
+
+### Sync Endpoints
+- `POST /api/warehouses/sync` - Sync warehouse locations from ERPNext
+- `POST /api/warehouses/stock-sync` - Sync stock levels from ERPNext Bin doctype
+
+### Environment Variables
+- `EASYPOST_PRODUCTION_API_KEY` / `EASYPOST_TESTING_API_KEY`
+- `USHIP_API_KEY`
+- `ERPNEXT_URL`, `ERPNEXT_API_KEY`, `ERPNEXT_API_SECRET`
+
 ## Notes for AI Assistance
 
 - When making changes, respect Qwik's optimization patterns

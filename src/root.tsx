@@ -37,7 +37,10 @@ export default component$(() => {
           href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;700;800&family=Source+Sans+3:wght@400;500;600&family=Roboto+Mono:wght@400;500&display=swap"
           rel="stylesheet"
           media="print"
-          onLoad$={(e) => { (e.target as HTMLLinkElement).media = 'all'; }}
+          onLoad$={(e) => {
+            const link = e.target as HTMLLinkElement | null;
+            if (link) link.media = 'all';
+          }}
         />
         {/* Fallback for no-JS */}
         <noscript>
