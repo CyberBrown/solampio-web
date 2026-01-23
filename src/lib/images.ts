@@ -20,12 +20,15 @@ export type ImageVariant = 'thumbnail' | 'card' | 'product' | 'hero' | 'detail' 
  *
  * | Variant    | Max Width | Fit     | Purpose                    |
  * |------------|-----------|---------|----------------------------|
- * | thumbnail  | 150px     | contain | Gallery thumbnails         |
- * | card       | 400px     | contain | Product cards, listings    |
- * | product    | 600px     | contain | Standard product view      |
- * | detail     | 800px     | contain | Main gallery display       |
- * | zoom       | 1600px    | contain | Zoom/magnify functionality |
- * | hero       | 1200px    | contain | Hero banners, large images |
+ * | thumbnail  | 200px     | contain | Gallery thumbnails         |
+ * | card       | 600px     | contain | Small product cards        |
+ * | product    | 800px     | contain | Product cards, listings    |
+ * | detail     | 1200px    | contain | Main gallery display       |
+ * | zoom       | 2000px    | contain | Zoom/magnify functionality |
+ * | hero       | 1600px    | contain | Hero banners, large images |
+ *
+ * NOTE: For high-DPI (retina) displays, serve images at 2x the display size.
+ * A 300px card needs a 600px image to look sharp on retina displays.
  *
  * To configure in CF Dashboard:
  * 1. Go to Images > Variants
@@ -33,6 +36,9 @@ export type ImageVariant = 'thumbnail' | 'card' | 'product' | 'hero' | 'detail' 
  * 3. Set "Fit" to "Contain" (maintains aspect ratio)
  * 4. Set "Max width" to the specified pixel value
  * 5. Leave height empty (auto-calculated)
+ *
+ * IMPORTANT: CF Images cannot upscale. If source images are small,
+ * they will still appear blurry. Ensure source images are high resolution.
  */
 
 /**
@@ -80,7 +86,8 @@ export function getProductImageUrl(
 
 /**
  * Get the best available thumbnail URL for a product
- * Uses 'card' variant for CF Images, falls back to thumbnail_url
+ * Uses 'product' variant (600px) for CF Images for better quality on high-DPI displays
+ * Falls back to thumbnail_url or image_url
  */
 export function getProductThumbnail(
   product: {
@@ -90,7 +97,7 @@ export function getProductThumbnail(
   }
 ): string | null {
   if (product.cf_image_id) {
-    return getCfImageUrl(product.cf_image_id, 'card');
+    return getCfImageUrl(product.cf_image_id, 'product');
   }
   return product.thumbnail_url || product.image_url || null;
 }
