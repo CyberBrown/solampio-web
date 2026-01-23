@@ -32,6 +32,7 @@ import type { Product } from '~/lib/db';
 import type { EasyPostAddress } from '~/lib/easypost';
 import { getEasyPost, lbsToOunces } from '~/lib/easypost';
 import { getUShip, buildLTLConnectRequest, applyMarkup, LTL_MARKUP } from '~/lib/uship';
+import { getLtlFallbackQuote, isStateSupported } from '~/lib/ltl-fallback-rates';
 
 // Warehouse with address info
 interface Warehouse {
@@ -329,54 +330,108 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
       }
     }
 
-    // Get LTL freight rates via uShip
+    // Get LTL freight rates via uShip, with fallback to static rate table
     let ltlError: string | null = null;
-    if (shouldGetLTLRates && env.USHIP_API_KEY) {
-      try {
-        const uship = getUShip(env);
+    let usedFallbackLtlRates = false;
+    if (shouldGetLTLRates) {
+      let gotLtlRates = false;
 
-        const ltlRequest = buildLTLConnectRequest({
-          fromZip: originAddress.zip,
-          fromCity: originAddress.city,
-          fromState: originAddress.state,
-          toZip: body.destination_zip,
-          toCity: body.destination_city,
-          toState: body.destination_state,
-          toAddress: body.destination_address,
-          weightLbs: profile.total_weight_lbs,
-          lengthIn: profile.total_length_in,
-          widthIn: profile.total_width_in,
-          heightIn: profile.total_height_in,
-          description: 'Solar equipment',
-          liftgateDelivery: profile.requires_liftgate || body.residential,
-          residentialDelivery: body.residential,
-        });
+      // Try uShip API first if configured
+      if (env.USHIP_API_KEY) {
+        try {
+          const uship = getUShip(env);
 
-        const ltlResponse = await uship.getQuotes(ltlRequest);
+          const ltlRequest = buildLTLConnectRequest({
+            fromZip: originAddress.zip,
+            fromCity: originAddress.city,
+            fromState: originAddress.state,
+            toZip: body.destination_zip,
+            toCity: body.destination_city,
+            toState: body.destination_state,
+            toAddress: body.destination_address,
+            weightLbs: profile.total_weight_lbs,
+            lengthIn: profile.total_length_in,
+            widthIn: profile.total_width_in,
+            heightIn: profile.total_height_in,
+            description: 'Solar equipment',
+            liftgateDelivery: profile.requires_liftgate || body.residential,
+            residentialDelivery: body.residential,
+          });
 
-        if (ltlResponse.quotes && ltlResponse.quotes.length > 0) {
-          // Add top 3 LTL quotes
-          const topQuotes = ltlResponse.quotes
-            .sort((a, b) => a.price.total - b.price.total)
-            .slice(0, 3);
+          const ltlResponse = await uship.getQuotes(ltlRequest);
 
-          for (const quote of topQuotes) {
+          if (ltlResponse.quotes && ltlResponse.quotes.length > 0) {
+            // Add top 3 LTL quotes
+            const topQuotes = ltlResponse.quotes
+              .sort((a, b) => a.price.total - b.price.total)
+              .slice(0, 3);
+
+            for (const quote of topQuotes) {
+              shippingMethods.push({
+                method: `ltl_${quote.carrierId}`,
+                carrier: quote.carrierName,
+                service: quote.serviceType || 'LTL Freight',
+                rate: applyMarkup(quote.price.total),
+                transit_days: quote.transitDays || null,
+                delivery_date: quote.estimatedDeliveryDate,
+                guaranteed: quote.guaranteedDelivery,
+              });
+            }
+            gotLtlRates = true;
+          }
+        } catch (error) {
+          const errorMsg = error instanceof Error ? error.message : 'Unknown error';
+          console.error('uShip LTL rate error:', errorMsg);
+          ltlError = errorMsg;
+          // Will try fallback rates below
+        }
+      }
+
+      // Use fallback LTL rates if uShip failed or not configured
+      if (!gotLtlRates && body.destination_state) {
+        // Check if destination state is supported for fallback rates (48 contiguous + DC)
+        if (isStateSupported(body.destination_state)) {
+          const fallbackQuote = getLtlFallbackQuote({
+            destinationState: body.destination_state,
+            weightLbs: profile.total_weight_lbs,
+            // Origin is always our warehouse which has a loading dock
+            liftgatePickup: false,
+            // Delivery accessorials based on request
+            liftgateDelivery: profile.requires_liftgate || body.residential,
+            residentialDelivery: body.residential,
+            hazmat: profile.has_hazmat,
+          });
+
+          if (fallbackQuote.success) {
+            console.log('[Cart Rates] Using fallback LTL rates for zone:', fallbackQuote.zone);
             shippingMethods.push({
-              method: `ltl_${quote.carrierId}`,
-              carrier: quote.carrierName,
-              service: quote.serviceType || 'LTL Freight',
-              rate: applyMarkup(quote.price.total),
-              transit_days: quote.transitDays || null,
-              delivery_date: quote.estimatedDeliveryDate,
-              guaranteed: quote.guaranteedDelivery,
+              method: 'ltl_fallback',
+              carrier: 'LTL Freight',
+              service: `Standard Freight (${fallbackQuote.zoneDescription})`,
+              rate: fallbackQuote.totalRate,
+              transit_days: fallbackQuote.transitDaysEstimate,
+              guaranteed: false,
             });
+            usedFallbackLtlRates = true;
+            // Clear the API error since we have fallback rates
+            ltlError = null;
+          } else {
+            // Fallback also failed (e.g., weight over 5000 lbs or non-contiguous state)
+            console.error('[Cart Rates] Fallback LTL rate error:', fallbackQuote.error);
+            if (!ltlError) {
+              ltlError = fallbackQuote.error;
+            }
+          }
+        } else {
+          // Non-contiguous state (AK, HI, PR) - needs contact for quote
+          console.log('[Cart Rates] Destination state requires contact for LTL quote:', body.destination_state);
+          if (!ltlError) {
+            ltlError = `Shipping to ${body.destination_state} requires a custom quote. Please contact us for pricing.`;
           }
         }
-      } catch (error) {
-        const errorMsg = error instanceof Error ? error.message : 'Unknown error';
-        console.error('uShip LTL rate error:', errorMsg);
-        ltlError = errorMsg;
-        // Continue without LTL rates
+      } else if (!gotLtlRates && !body.destination_state) {
+        // No state provided - can't use fallback
+        console.error('[Cart Rates] Cannot use fallback LTL rates - destination_state not provided');
       }
     }
 
@@ -396,14 +451,14 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
     // Build warnings array for issues that need attention
     const warnings: string[] = [];
 
-    // Warn if LTL is required but uShip API not configured or errored
-    if (shouldGetLTLRates && !env.USHIP_API_KEY) {
-      console.error('[Cart Rates] ERROR: LTL freight required but USHIP_API_KEY not configured');
-      warnings.push('LTL freight rates unavailable - shipping API not configured. Contact support for a quote.');
-    } else if (shouldGetLTLRates && ltlError) {
-      console.error('[Cart Rates] ERROR: LTL freight API error:', ltlError);
-      warnings.push(`LTL freight rates unavailable - ${ltlError}. Contact support for a quote.`);
+    // Warn if LTL is required but no rates available (API and fallback both failed)
+    if (shouldGetLTLRates && ltlError && !usedFallbackLtlRates) {
+      console.error('[Cart Rates] ERROR: LTL freight rates unavailable:', ltlError);
+      warnings.push(`LTL freight: ${ltlError}`);
     }
+
+    // Note when using fallback rates (informational, not a warning)
+    // This is transparent to the customer - we don't need to expose this detail
 
     // Warn if parcel shipping needed but EasyPost not configured
     if (shouldGetParcelRates && !hasEasyPostKey) {
@@ -441,6 +496,7 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
       cart_shipping_profile: profile,
       free_shipping_note: freeShippingNote,
       ltl_markup: shouldGetLTLRates ? `${LTL_MARKUP * 100}%` : null,
+      ltl_rate_source: usedFallbackLtlRates ? 'fallback' : (shouldGetLTLRates ? 'api' : null),
       warnings: warnings.length > 0 ? warnings : undefined,
     });
 
