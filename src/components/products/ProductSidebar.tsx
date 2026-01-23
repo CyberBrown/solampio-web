@@ -94,20 +94,20 @@ export const ProductSidebar = component$<ProductSidebarProps>(({ categories, bra
             const showSubcategories = hasSubcategories && (isCurrentLocation || isPinned || isHovered);
 
             return (
-              <li key={cat.id}>
-                <div
-                  class="flex items-center group"
-                  onMouseEnter$={() => {
-                    if (!isMobile) {
-                      hoveredCategory.value = catId;
-                    }
-                  }}
-                  onMouseLeave$={() => {
-                    if (!isMobile) {
-                      hoveredCategory.value = null;
-                    }
-                  }}
-                >
+              <li
+                key={cat.id}
+                onMouseEnter$={() => {
+                  if (!isMobile) {
+                    hoveredCategory.value = catId;
+                  }
+                }}
+                onMouseLeave$={() => {
+                  if (!isMobile) {
+                    hoveredCategory.value = null;
+                  }
+                }}
+              >
+                <div class="flex items-center group">
                   <Link
                     href={`/categories/${catSlug}/`}
                     class={[
