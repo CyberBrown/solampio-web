@@ -21,11 +21,9 @@ export const ProductSidebar = component$<ProductSidebarProps>(({ categories, bra
   const sidebar = useContext(SidebarContext);
 
   // Track which categories are pinned open (sticky state from clicks)
-  // Default: all categories are expanded on page load
+  // Default: all categories start collapsed, open on hover, pin on click
   // Using Record for Qwik serialization compatibility
-  const expandedCategories = useSignal<Record<string, boolean>>(
-    Object.fromEntries(categories.map(cat => [cat.id.toString(), true]))
-  );
+  const expandedCategories = useSignal<Record<string, boolean>>({});
 
   // Track which category is being hovered (for preview on desktop)
   const hoveredCategory = useSignal<string | null>(null);
@@ -87,12 +85,13 @@ export const ProductSidebar = component$<ProductSidebarProps>(({ categories, bra
             const hasSubcategories = cat.subcategories.length > 0;
 
             // Show subcategories if:
-            // - Currently active or parent of active subcategory
-            // - Pinned open (in expandedCategories)
-            // - Being hovered (desktop only, preview mode)
+            // - Currently active or parent of active subcategory (always show current location)
+            // - Pinned open via click (in expandedCategories)
+            // - Being hovered (desktop only, temporary preview)
             const isPinned = expandedCategories.value[catId] === true;
             const isHovered = !isMobile && hoveredCategory.value === catId;
-            const showSubcategories = hasSubcategories && (isActive || isParentActive || isPinned || isHovered);
+            const isCurrentLocation = isActive || isParentActive;
+            const showSubcategories = hasSubcategories && (isCurrentLocation || isPinned || isHovered);
 
             return (
               <li key={cat.id}>
