@@ -31,3 +31,5 @@ yarn.lock
 
 # Wrangler local state
 .wrangler/
+.dev.vars
+.deploy/

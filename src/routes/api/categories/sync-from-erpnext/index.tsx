@@ -22,6 +22,9 @@ interface ERPNextItemGroup {
   custom_sort_order?: number;
   lft?: number;  // Nested set left value (fallback for sort order)
   disabled?: number;
+  // Category image fields from ERPNext
+  cf_category_image_url?: string;  // Full Cloudflare Images URL
+  custom_cf_image_id?: string;     // Cloudflare Images ID
 }
 
 interface SyncResult {
@@ -85,7 +88,7 @@ export const onPost: RequestHandler = async ({ platform, json, url }) => {
 
   try {
     // Fetch all Item Groups from ERPNext
-    const fields = ['name', 'item_group_name', 'parent_item_group', 'is_group', 'image', 'custom_sort_order', 'lft', 'disabled'];
+    const fields = ['name', 'item_group_name', 'parent_item_group', 'is_group', 'image', 'custom_sort_order', 'lft', 'disabled', 'cf_category_image_url', 'custom_cf_image_id'];
     const itemGroupUrl = `${env.ERPNEXT_URL}/api/resource/Item Group?fields=${JSON.stringify(fields)}&limit_page_length=0`;
 
     console.log('[Category Sync] Fetching Item Groups from ERPNext...');
@@ -164,6 +167,14 @@ export const onPost: RequestHandler = async ({ platform, json, url }) => {
           continue;
         }
 
+        // Get CF image ID - prefer custom_cf_image_id, extract from URL if full URL provided
+        let cfImageId = ig.custom_cf_image_id || null;
+        if (!cfImageId && ig.cf_category_image_url) {
+          // Extract ID from URL format: https://imagedelivery.net/{hash}/{image_id}/{variant}
+          const match = ig.cf_category_image_url.match(/imagedelivery\.net\/[^/]+\/([^/]+)/);
+          if (match) cfImageId = match[1];
+        }
+
         if (existing) {
           // Update existing category - preserve visibility
           await env.DB
@@ -174,6 +185,8 @@ export const onPost: RequestHandler = async ({ platform, json, url }) => {
                 parent_id = ?,
                 sort_order = ?,
                 image_url = COALESCE(?, image_url),
+                cf_image_id = COALESCE(?, cf_image_id),
+                cf_category_image_url = COALESCE(?, cf_category_image_url),
                 sync_source = 'erpnext',
                 last_synced_from_erpnext = ?,
                 updated_at = ?
@@ -185,6 +198,8 @@ export const onPost: RequestHandler = async ({ platform, json, url }) => {
               parentId,
               sortOrder,
               ig.image || null,
+              cfImageId,
+              ig.cf_category_image_url || null,
               now,
               now,
               ig.name
@@ -205,8 +220,8 @@ export const onPost: RequestHandler = async ({ platform, json, url }) => {
             .prepare(`
               INSERT INTO storefront_categories (
                 id, erpnext_name, title, slug, parent_id, sort_order, is_visible,
-                count, image_url, sync_source, last_synced_from_erpnext, created_at, updated_at
-              ) VALUES (?, ?, ?, ?, ?, ?, 0, 0, ?, 'erpnext', ?, ?, ?)
+                count, image_url, cf_image_id, cf_category_image_url, sync_source, last_synced_from_erpnext, created_at, updated_at
+              ) VALUES (?, ?, ?, ?, ?, ?, 0, 0, ?, ?, ?, 'erpnext', ?, ?, ?)
             `)
             .bind(
               id,
@@ -216,6 +231,8 @@ export const onPost: RequestHandler = async ({ platform, json, url }) => {
               parentId,
               sortOrder,
               ig.image || null,
+              cfImageId,
+              ig.cf_category_image_url || null,
               now,
               now,
               now
