@@ -21,7 +21,6 @@ interface ERPNextItemGroup {
   image?: string;
   custom_sort_order?: number;
   lft?: number;  // Nested set left value (fallback for sort order)
-  disabled?: number;
   // Category image fields from ERPNext
   cf_category_image_url?: string;  // Full Cloudflare Images URL
   custom_cf_image_id?: string;     // Cloudflare Images ID
@@ -88,7 +87,8 @@ export const onPost: RequestHandler = async ({ platform, json, url }) => {
 
   try {
     // Fetch all Item Groups from ERPNext
-    const fields = ['name', 'item_group_name', 'parent_item_group', 'is_group', 'image', 'custom_sort_order', 'lft', 'disabled', 'cf_category_image_url', 'custom_cf_image_id'];
+    // Note: 'disabled' field is not permitted in queries, so we skip it
+    const fields = ['name', 'item_group_name', 'parent_item_group', 'is_group', 'image', 'custom_sort_order', 'lft', 'cf_category_image_url', 'custom_cf_image_id'];
     const itemGroupUrl = `${env.ERPNEXT_URL}/api/resource/Item Group?fields=${JSON.stringify(fields)}&limit_page_length=0`;
 
     console.log('[Category Sync] Fetching Item Groups from ERPNext...');
@@ -127,12 +127,6 @@ export const onPost: RequestHandler = async ({ platform, json, url }) => {
       try {
         // Skip "All Item Groups" (ERPNext root)
         if (ig.name === 'All Item Groups') {
-          result.skipped++;
-          continue;
-        }
-
-        // Skip disabled items
-        if (ig.disabled === 1) {
           result.skipped++;
           continue;
         }
