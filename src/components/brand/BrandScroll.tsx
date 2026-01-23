@@ -143,7 +143,7 @@ export const BrandScroll = component$<BrandScrollProps>(({
         {/* View all brands link */}
         <div class="text-center mt-6">
           <Link
-            href="/products/"
+            href="/brands/"
             class="text-solamp-blue text-sm font-bold hover:underline"
           >
             View All Brands
