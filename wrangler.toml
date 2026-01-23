@@ -21,3 +21,5 @@ binding = "AI"
 # - ERPNEXT_API_SECRET
 # - EASYPOST_PRODUCTION_API_KEY  (for live shipping rates)
 # - EASYPOST_TESTING_API_KEY     (for development/testing)
+# - CF_ACCOUNT_ID                (for Cloudflare Images upload)
+# - CF_IMAGES_TOKEN              (for Cloudflare Images upload)
