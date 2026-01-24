@@ -1,16 +1,97 @@
 import { component$ } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
-import { useLocation, Link } from '@builder.io/qwik-city';
+import { Link, routeLoader$ } from '@builder.io/qwik-city';
+import { getArticleBySlug, getAllArticles, type Article } from '~/lib/db';
+
+// Load article from D1 database
+export const useArticle = routeLoader$<{ article: Article | null; relatedArticles: Article[] }>(
+  async ({ platform, params }) => {
+    const db = platform.env?.DB;
+    if (!db) {
+      console.error('D1 database not available');
+      return { article: null, relatedArticles: [] };
+    }
+
+    try {
+      const article = await getArticleBySlug(db, params.slug);
+
+      // Get related articles from the same section (excluding current)
+      let relatedArticles: Article[] = [];
+      if (article) {
+        const allArticles = await getAllArticles(db, 50);
+        relatedArticles = allArticles
+          .filter(a => a.section === article.section && a.slug !== article.slug)
+          .slice(0, 3);
+      }
+
+      return { article, relatedArticles };
+    } catch (error) {
+      console.error('Failed to load article:', error);
+      return { article: null, relatedArticles: [] };
+    }
+  }
+);
+
+// Map sections to display categories
+function getSectionCategory(section: string): string {
+  const sectionMap: Record<string, string> = {
+    'knowledge-base': 'Knowledge Base',
+    'guides': 'Guide',
+    'faq': 'FAQ',
+    'payments': 'Payments',
+    'videos': 'Video',
+  };
+  return sectionMap[section] || 'Article';
+}
+
+// Estimate read time from content length
+function estimateReadTime(content: string): string {
+  const wordsPerMinute = 200;
+  const text = content.replace(/<[^>]*>/g, ' ').trim();
+  const wordCount = text.split(/\s+/).length;
+  const minutes = Math.max(1, Math.ceil(wordCount / wordsPerMinute));
+  return `${minutes} min read`;
+}
 
 export default component$(() => {
-  const loc = useLocation();
-  const slug = loc.params.slug;
+  const data = useArticle();
+  const { article, relatedArticles } = data.value;
 
-  // Format slug to title
-  const title = slug
-    .split('-')
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
+  if (!article) {
+    return (
+      <div class="bg-white min-h-screen">
+        <section class="bg-[#5974c3] py-8">
+          <div class="container mx-auto px-4">
+            <nav class="mb-4">
+              <ol class="flex items-center gap-2 text-sm flex-wrap">
+                <li><Link href="/" class="text-white/50 hover:text-white transition-colors">Home</Link></li>
+                <li class="text-white/30">/</li>
+                <li><Link href="/learn/" class="text-white/50 hover:text-white transition-colors">Learn</Link></li>
+                <li class="text-white/30">/</li>
+                <li><Link href="/learn/articles/" class="text-white/50 hover:text-white transition-colors">Articles</Link></li>
+              </ol>
+            </nav>
+            <h1 class="font-heading font-extrabold text-2xl md:text-3xl text-white mb-3">
+              Article Not Found
+            </h1>
+          </div>
+        </section>
+        <section class="py-10">
+          <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto text-center">
+              <p class="text-gray-500 mb-6">The article you're looking for doesn't exist or has been moved.</p>
+              <Link href="/learn/articles/" class="inline-flex items-center gap-2 bg-[#5974c3] text-white font-heading font-bold px-6 py-3 rounded hover:bg-[#042e0d] transition-colors">
+                Browse All Articles
+              </Link>
+            </div>
+          </div>
+        </section>
+      </div>
+    );
+  }
+
+  const category = getSectionCategory(article.section);
+  const readTime = estimateReadTime(article.content);
 
   return (
     <div class="bg-white min-h-screen">
@@ -25,19 +106,19 @@ export default component$(() => {
               <li class="text-white/30">/</li>
               <li><Link href="/learn/articles/" class="text-white/50 hover:text-white transition-colors">Articles</Link></li>
               <li class="text-white/30">/</li>
-              <li class="text-white font-semibold">{title}</li>
+              <li class="text-white font-semibold truncate max-w-[200px]">{article.title}</li>
             </ol>
           </nav>
           <div class="max-w-3xl">
             <div class="flex items-center gap-3 mb-3">
-              <span class="text-xs font-bold px-2 py-1 rounded bg-white/20 text-white">Guide</span>
-              <span class="text-sm text-white/60">10 min read</span>
+              <span class="text-xs font-bold px-2 py-1 rounded bg-white/20 text-white">{category}</span>
+              <span class="text-sm text-white/60">{readTime}</span>
             </div>
             <h1 class="font-heading font-extrabold text-2xl md:text-3xl text-white mb-3">
-              {title}
+              {article.title}
             </h1>
             <p class="text-white/60 text-sm">
-              Published December 1, 2024 | Updated December 15, 2024
+              Updated {new Date(article.updated_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
             </p>
           </div>
         </div>
@@ -47,42 +128,35 @@ export default component$(() => {
       <section class="py-10">
         <div class="container mx-auto px-4">
           <div class="max-w-3xl mx-auto">
-            {/* Article body placeholder */}
-            <div class="prose prose-lg max-w-none">
-              <div class="bg-[#f1f1f2] border border-gray-200 rounded-lg p-8 text-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-gray-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-                <p class="text-gray-500 mb-2">Article content will be loaded from Strapi CMS</p>
-                <p class="text-sm text-gray-400">Source: info.solampio.com</p>
+            {/* Excerpt/Summary */}
+            {article.excerpt && (
+              <div class="bg-[#f1f1f2] border-l-4 border-[#5974c3] p-4 mb-8 rounded-r">
+                <p class="text-gray-700 italic">{article.excerpt}</p>
               </div>
+            )}
 
-              {/* Sample structure */}
-              <div class="mt-8 space-y-6 text-gray-600">
-                <p>
-                  This is a placeholder for the article content. The actual content will be fetched from the Strapi CMS
-                  or pulled from info.solampio.com via API integration.
-                </p>
+            {/* Article body - render HTML content */}
+            <div
+              class="prose prose-lg max-w-none prose-headings:font-heading prose-headings:text-[#042e0d] prose-a:text-[#5974c3] prose-strong:text-[#042e0d]"
+              dangerouslySetInnerHTML={article.content}
+            />
 
-                <h2 class="font-heading font-bold text-xl text-[#042e0d] mt-8">Overview</h2>
-                <p>
-                  Article sections will include headings, paragraphs, images, code blocks, tables, and other rich content
-                  as needed for technical documentation.
-                </p>
-
-                <h2 class="font-heading font-bold text-xl text-[#042e0d] mt-8">Key Points</h2>
-                <ul class="list-disc pl-6 space-y-2">
-                  <li>Point one with important information</li>
-                  <li>Point two with technical details</li>
-                  <li>Point three with recommendations</li>
-                </ul>
-
-                <h2 class="font-heading font-bold text-xl text-[#042e0d] mt-8">Conclusion</h2>
-                <p>
-                  Summary and next steps for the reader.
+            {/* Source attribution */}
+            {article.source_url && (
+              <div class="mt-8 pt-4 border-t border-gray-200">
+                <p class="text-sm text-gray-400">
+                  Originally published at{' '}
+                  <a
+                    href={article.source_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-[#5974c3] hover:underline"
+                  >
+                    info.solampio.com
+                  </a>
                 </p>
               </div>
-            </div>
+            )}
 
             {/* Author/Source */}
             <div class="mt-10 pt-6 border-t border-gray-200">
@@ -91,26 +165,36 @@ export default component$(() => {
                   <span class="text-white font-bold">S</span>
                 </div>
                 <div>
-                  <p class="font-heading font-bold text-[#042e0d]">Solamp Team</p>
+                  <p class="font-heading font-bold text-[#042e0d]">
+                    {article.author || 'Solamp Team'}
+                  </p>
                   <p class="text-sm text-gray-500">Technical content for solar professionals</p>
                 </div>
               </div>
             </div>
 
             {/* Related Articles */}
-            <div class="mt-10 pt-6 border-t border-gray-200">
-              <h3 class="font-heading font-bold text-lg text-[#042e0d] mb-4">Related Articles</h3>
-              <div class="grid md:grid-cols-2 gap-4">
-                <Link href="/learn/articles/" class="bg-[#f1f1f2] rounded-lg p-4 hover:bg-gray-100 transition-colors group">
-                  <p class="font-heading font-bold text-[#042e0d] group-hover:text-[#5974c3] transition-colors">Battery Sizing for Off-Grid</p>
-                  <p class="text-sm text-gray-500 mt-1">Calculate battery bank size for off-grid systems</p>
-                </Link>
-                <Link href="/learn/articles/" class="bg-[#f1f1f2] rounded-lg p-4 hover:bg-gray-100 transition-colors group">
-                  <p class="font-heading font-bold text-[#042e0d] group-hover:text-[#5974c3] transition-colors">Hybrid Inverter Comparison</p>
-                  <p class="text-sm text-gray-500 mt-1">Compare Sol-Ark, Schneider, and OutBack</p>
-                </Link>
+            {relatedArticles.length > 0 && (
+              <div class="mt-10 pt-6 border-t border-gray-200">
+                <h3 class="font-heading font-bold text-lg text-[#042e0d] mb-4">Related Articles</h3>
+                <div class="grid md:grid-cols-2 gap-4">
+                  {relatedArticles.map((related) => (
+                    <Link
+                      key={related.slug}
+                      href={`/learn/articles/${related.slug}/`}
+                      class="bg-[#f1f1f2] rounded-lg p-4 hover:bg-gray-100 transition-colors group"
+                    >
+                      <p class="font-heading font-bold text-[#042e0d] group-hover:text-[#5974c3] transition-colors">
+                        {related.title}
+                      </p>
+                      <p class="text-sm text-gray-500 mt-1 line-clamp-2">
+                        {related.excerpt || related.title}
+                      </p>
+                    </Link>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </section>
@@ -138,18 +222,28 @@ export default component$(() => {
   );
 });
 
-export const head: DocumentHead = ({ params }) => {
-  const title = params.slug
-    .split('-')
-    .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
+export const head: DocumentHead = ({ resolveValue }) => {
+  const data = resolveValue(useArticle);
+  const article = data?.article;
+
+  if (!article) {
+    return {
+      title: 'Article Not Found | Solamp Solar & Energy Storage',
+      meta: [
+        {
+          name: 'description',
+          content: 'The requested article could not be found.',
+        },
+      ],
+    };
+  }
 
   return {
-    title: `${title} | Solamp Solar & Energy Storage`,
+    title: `${article.title} | Solamp Solar & Energy Storage`,
     meta: [
       {
         name: 'description',
-        content: `${title} - Technical article for professional solar installers from Solamp.`,
+        content: article.excerpt || `${article.title} - Technical article for professional solar installers from Solamp.`,
       },
     ],
   };

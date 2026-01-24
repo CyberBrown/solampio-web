@@ -1,78 +1,53 @@
 import { component$ } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
-import { Link } from '@builder.io/qwik-city';
+import { Link, routeLoader$ } from '@builder.io/qwik-city';
+import { getAllArticles, type Article } from '~/lib/db';
 
-// Placeholder articles - will come from Strapi/info.solampio.com
-const articles = [
-  {
-    title: '2025 Solar Tax Credit Guide',
-    description: 'Federal ITC and state incentives explained for installers and their customers. Updated for 2025 with latest IRS guidance.',
-    category: 'Guide',
-    slug: 'solar-tax-credit-2025',
-    readTime: '8 min read',
-    date: '2024-12-01',
-  },
-  {
-    title: 'LiFePO4 vs Lithium-Ion Batteries',
-    description: 'Battery chemistry comparison to help you choose the right storage solution. Covers lifespan, safety, cost, and performance.',
-    category: 'Comparison',
-    slug: 'lifepo4-vs-lithium-ion',
-    readTime: '12 min read',
-    date: '2024-11-15',
-  },
-  {
-    title: 'Ground Mount vs Roof Mount',
-    description: 'When to choose ground mount systems and site assessment considerations. Includes cost analysis and permitting differences.',
-    category: 'Guide',
-    slug: 'ground-mount-vs-roof-mount',
-    readTime: '10 min read',
-    date: '2024-11-01',
-  },
-  {
-    title: 'Battery Sizing for Off-Grid',
-    description: 'Calculate battery bank size for off-grid residential and commercial systems. Step-by-step methodology with examples.',
-    category: 'Calculator',
-    slug: 'battery-sizing-off-grid',
-    readTime: '15 min read',
-    date: '2024-10-20',
-  },
-  {
-    title: 'Sol-Ark 15K Installation Guide',
-    description: 'Step-by-step installation and commissioning for Sol-Ark hybrid inverters. Includes wiring diagrams and configuration.',
-    category: 'Product',
-    slug: 'sol-ark-15k-installation',
-    readTime: '20 min read',
-    date: '2024-10-10',
-  },
-  {
-    title: 'MidNite Rosie Inverter Overview',
-    description: 'Technical specs, installation tips, and configuration for the Rosie series. Complete feature breakdown.',
-    category: 'Product',
-    slug: 'midnite-rosie-overview',
-    readTime: '10 min read',
-    date: '2024-09-25',
-  },
-  {
-    title: 'NEC 2023 Changes for Solar',
-    description: 'Key code changes affecting solar installations. Rapid shutdown, wire sizing, and grounding updates.',
-    category: 'Code',
-    slug: 'nec-2023-solar-changes',
-    readTime: '12 min read',
-    date: '2024-09-15',
-  },
-  {
-    title: 'Hybrid Inverter Comparison',
-    description: 'Side-by-side comparison of Sol-Ark, Schneider, and OutBack hybrid inverters for residential applications.',
-    category: 'Comparison',
-    slug: 'hybrid-inverter-comparison',
-    readTime: '18 min read',
-    date: '2024-09-01',
-  },
-];
+// Load articles from D1 database
+export const useArticles = routeLoader$<Article[]>(async ({ platform }) => {
+  const db = platform.env?.DB;
+  if (!db) {
+    console.error('D1 database not available');
+    return [];
+  }
 
-const categories = ['All', 'Guide', 'Comparison', 'Product', 'Calculator', 'Code'];
+  try {
+    const articles = await getAllArticles(db, 100);
+    return articles;
+  } catch (error) {
+    console.error('Failed to load articles:', error);
+    return [];
+  }
+});
+
+// Map sections to display categories
+function getSectionCategory(section: string): string {
+  const sectionMap: Record<string, string> = {
+    'knowledge-base': 'Knowledge Base',
+    'guides': 'Guide',
+    'faq': 'FAQ',
+    'payments': 'Payments',
+    'videos': 'Video',
+  };
+  return sectionMap[section] || 'Article';
+}
+
+// Estimate read time from content length
+function estimateReadTime(content: string): string {
+  const wordsPerMinute = 200;
+  const text = content.replace(/<[^>]*>/g, ' ').trim();
+  const wordCount = text.split(/\s+/).length;
+  const minutes = Math.max(1, Math.ceil(wordCount / wordsPerMinute));
+  return `${minutes} min read`;
+}
 
 export default component$(() => {
+  const articlesSignal = useArticles();
+  const articles = articlesSignal.value;
+
+  // Get unique sections for filter buttons
+  const sections = ['All', ...new Set(articles.map(a => getSectionCategory(a.section)))];
+
   return (
     <div class="bg-white min-h-screen">
       {/* Hero */}
@@ -94,6 +69,9 @@ export default component$(() => {
             <p class="text-white/80 text-lg">
               In-depth guides, comparisons, and technical resources for professional solar installers.
             </p>
+            <p class="text-white/60 text-sm mt-2">
+              {articles.length} articles available
+            </p>
           </div>
         </div>
       </section>
@@ -103,7 +81,7 @@ export default component$(() => {
         <div class="container mx-auto px-4">
           <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
             <div class="flex flex-wrap gap-2">
-              {categories.map((cat) => (
+              {sections.map((cat) => (
                 <button
                   key={cat}
                   class={`px-4 py-2 text-sm font-semibold rounded transition-colors ${
@@ -133,40 +111,45 @@ export default component$(() => {
       {/* Articles Grid */}
       <section class="py-10">
         <div class="container mx-auto px-4">
-          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {articles.map((article) => (
-              <Link
-                key={article.slug}
-                href={`/learn/articles/${article.slug}/`}
-                class="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg hover:border-[#5974c3] transition-all group"
-              >
-                <div class="flex items-center gap-3 mb-3">
-                  <span class={`text-xs font-bold px-2 py-1 rounded ${
-                    article.category === 'Guide' ? 'bg-[#c3a859]/10 text-[#c3a859]' :
-                    article.category === 'Comparison' ? 'bg-[#56c270]/10 text-[#042e0d]' :
-                    article.category === 'Product' ? 'bg-[#5974c3]/10 text-[#5974c3]' :
-                    article.category === 'Calculator' ? 'bg-[#042e0d]/10 text-[#042e0d]' :
-                    'bg-gray-100 text-gray-600'
-                  }`}>{article.category}</span>
-                  <span class="text-xs text-gray-400">{article.readTime}</span>
-                </div>
-                <h2 class="font-heading font-bold text-lg text-[#042e0d] group-hover:text-[#5974c3] transition-colors mb-2">
-                  {article.title}
-                </h2>
-                <p class="text-sm text-gray-500 mb-4">{article.description}</p>
-                <p class="text-xs text-gray-400">
-                  {new Date(article.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
-                </p>
-              </Link>
-            ))}
-          </div>
-
-          {/* Load More */}
-          <div class="text-center mt-10">
-            <button class="bg-white border-2 border-[#5974c3] text-[#5974c3] font-heading font-bold px-8 py-3 rounded hover:bg-[#5974c3] hover:text-white transition-colors">
-              Load More Articles
-            </button>
-          </div>
+          {articles.length === 0 ? (
+            <div class="text-center py-12">
+              <p class="text-gray-500">No articles available yet.</p>
+            </div>
+          ) : (
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {articles.map((article) => {
+                const category = getSectionCategory(article.section);
+                const readTime = estimateReadTime(article.content);
+                return (
+                  <Link
+                    key={article.slug}
+                    href={`/learn/articles/${article.slug}/`}
+                    class="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg hover:border-[#5974c3] transition-all group"
+                  >
+                    <div class="flex items-center gap-3 mb-3">
+                      <span class={`text-xs font-bold px-2 py-1 rounded ${
+                        category === 'Guide' ? 'bg-[#c3a859]/10 text-[#c3a859]' :
+                        category === 'Knowledge Base' ? 'bg-[#56c270]/10 text-[#042e0d]' :
+                        category === 'FAQ' ? 'bg-[#5974c3]/10 text-[#5974c3]' :
+                        category === 'Payments' ? 'bg-[#042e0d]/10 text-[#042e0d]' :
+                        'bg-gray-100 text-gray-600'
+                      }`}>{category}</span>
+                      <span class="text-xs text-gray-400">{readTime}</span>
+                    </div>
+                    <h2 class="font-heading font-bold text-lg text-[#042e0d] group-hover:text-[#5974c3] transition-colors mb-2">
+                      {article.title}
+                    </h2>
+                    <p class="text-sm text-gray-500 mb-4 line-clamp-3">
+                      {article.excerpt || article.title}
+                    </p>
+                    <p class="text-xs text-gray-400">
+                      {new Date(article.updated_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                    </p>
+                  </Link>
+                );
+              })}
+            </div>
+          )}
         </div>
       </section>
 
