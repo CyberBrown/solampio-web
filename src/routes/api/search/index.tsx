@@ -4,8 +4,13 @@
  * Provides live search for products using FTS5 full-text search.
  * Supports prefix matching for autocomplete functionality.
  * Includes search_boost for ranking control:
- *   - Higher values rank higher in results
+ *   - Higher values (e.g., 2.0) rank higher in results
+ *   - Default value is 1.0 (no boost)
  *   - Zero or negative values hide the product from search
+ *
+ * Ranking formula: bm25() * search_boost (sorted ascending)
+ * Since bm25() returns negative scores, multiplying by a higher boost
+ * makes the score more negative, which ranks higher when sorted ascending.
  *
  * GET /api/search?q=solar+panel&limit=8
  *
@@ -134,8 +139,10 @@ export const onGet: RequestHandler = async ({ url, platform, json }) => {
       try {
         // Search using FTS5 with ranking and search_boost
         // - bm25() returns negative scores (more negative = better match)
-        // - Multiply by search_boost to adjust ranking (higher boost = better rank)
+        // - Multiply by search_boost to adjust ranking (higher boost = more negative = better rank)
         // - Filter out products with search_boost <= 0 (hidden from search)
+        // NOTE: We multiply (not divide) because bm25() is negative.
+        //       With multiplication: search_boost=2.0 makes score 2x more negative = ranks higher
         const ftsResults = await db
           .prepare(`
             SELECT
@@ -150,7 +157,7 @@ export const onGet: RequestHandler = async ({ url, platform, json }) => {
               p.brand_id,
               bm25(products_fts) as fts_rank,
               p.search_boost,
-              (bm25(products_fts) / COALESCE(p.search_boost, 1.0)) as boosted_rank
+              (bm25(products_fts) * COALESCE(p.search_boost, 1.0)) as boosted_rank
             FROM products_fts fts
             JOIN storefront_products p ON fts.rowid = p.rowid
             WHERE products_fts MATCH ?
