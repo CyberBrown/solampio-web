@@ -6,6 +6,13 @@ import { getProductImageUrl, getCategoryImageUrl, getBrandLogoVariant } from '..
 import { ProductCard } from '../../components/product/ProductCard';
 import { useCart } from '../../hooks/useCart';
 import ProductImageGallery from '../../components/product/ProductImageGallery';
+import {
+  SITE_URL,
+  generateProductSchema,
+  generateBreadcrumbSchema,
+  generateSocialMeta,
+  createJsonLdScript,
+} from '../../lib/seo';
 
 type ContentType = 'category' | 'brand' | 'product' | 'not_found';
 
@@ -748,33 +755,65 @@ export const head: DocumentHead = ({ params, resolveValue }) => {
   const slug = params.slug;
 
   if (data?.type === 'category') {
-    const categoryName = data.category?.title || slug.split('-').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+    const category = data.category;
+    const categoryName = category?.title || slug.split('-').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+    const pageUrl = `${SITE_URL}/${slug}/`;
+    const description = `Shop ${categoryName.toLowerCase()} from trusted manufacturers. Professional-grade solar equipment with full warranty and technical support.`;
+    const imageUrl = category ? getCategoryImageUrl(category, 'hero') : null;
+
     return {
       title: `${categoryName} | Solamp Solar & Energy Storage`,
       meta: [
-        {
-          name: 'description',
-          content: `Shop ${categoryName.toLowerCase()} from trusted manufacturers. Professional-grade solar equipment with full warranty and technical support.`,
-        },
+        { name: 'description', content: description },
+        ...generateSocialMeta({
+          title: `${categoryName} | Solamp Solar & Energy Storage`,
+          description,
+          url: pageUrl,
+          image: imageUrl || `${SITE_URL}/images/solamp-og-image.png`,
+          type: 'website',
+        }),
+      ],
+      scripts: [
+        createJsonLdScript(generateBreadcrumbSchema([
+          { name: 'Home', url: SITE_URL },
+          { name: categoryName, url: pageUrl },
+        ])),
       ],
     };
   }
 
   if (data?.type === 'brand') {
-    const brandName = data.brand?.title || slug.split('-').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+    const brand = data.brand;
+    const brandName = brand?.title || slug.split('-').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+    const pageUrl = `${SITE_URL}/${slug}/`;
+    const description = `Shop ${brandName} products. Authorized distributor with full warranty support and technical assistance. Professional-grade solar equipment.`;
+    const logoUrl = brand ? getBrandLogoVariant(brand, 'full') : null;
+
     return {
       title: `${brandName} Products | Solamp Solar & Energy Storage`,
       meta: [
-        {
-          name: 'description',
-          content: `Shop ${brandName} products. Authorized distributor with full warranty support and technical assistance. Professional-grade solar equipment.`,
-        },
+        { name: 'description', content: description },
+        ...generateSocialMeta({
+          title: `${brandName} Products | Solamp Solar & Energy Storage`,
+          description,
+          url: pageUrl,
+          image: logoUrl || `${SITE_URL}/images/solamp-og-image.png`,
+          type: 'website',
+        }),
+      ],
+      scripts: [
+        createJsonLdScript(generateBreadcrumbSchema([
+          { name: 'Home', url: SITE_URL },
+          { name: 'Brands', url: `${SITE_URL}/brands/` },
+          { name: brandName, url: pageUrl },
+        ])),
       ],
     };
   }
 
   if (data?.type === 'product') {
     const product = data.product;
+    const brand = data.productBrand;
     const title = product?.title || slug.split('-').map((word: string) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
     const description = product?.description_summary
       ? product.description_summary.slice(0, 160)
@@ -784,13 +823,55 @@ export const head: DocumentHead = ({ params, resolveValue }) => {
           ? product.description.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 160)
           : `${title} - Professional solar equipment from Solamp. Contact us for pricing and specifications.`;
 
+    const pageUrl = `${SITE_URL}/${slug}/`;
+    const imageUrl = product ? getProductImageUrl(product, 'hero') : null;
+
+    // Determine availability
+    let availability: 'InStock' | 'OutOfStock' | 'PreOrder' = 'InStock';
+    if (product) {
+      const stockInfo = getStockStatus(product);
+      if (stockInfo.status === 'out_of_stock') {
+        availability = 'OutOfStock';
+      } else if (stockInfo.status === 'low_stock') {
+        availability = 'InStock';
+      }
+    }
+
+    // Build breadcrumb items
+    const breadcrumbs = [{ name: 'Home', url: SITE_URL }];
+    if (brand) {
+      breadcrumbs.push({ name: brand.title, url: `${SITE_URL}/${cleanSlug(brand.slug)}/` });
+    }
+    breadcrumbs.push({ name: title, url: pageUrl });
+
     return {
       title: `${title} | Solamp Solar & Energy Storage`,
       meta: [
-        {
-          name: 'description',
-          content: description,
-        },
+        { name: 'description', content: description },
+        ...generateSocialMeta({
+          title: `${title} | Solamp Solar & Energy Storage`,
+          description,
+          url: pageUrl,
+          image: imageUrl || `${SITE_URL}/images/solamp-og-image.png`,
+          type: 'product',
+        }),
+      ],
+      scripts: [
+        createJsonLdScript([
+          generateProductSchema({
+            name: title,
+            description: description,
+            sku: product?.sku || slug,
+            image: imageUrl || undefined,
+            brand: brand?.title,
+            price: product?.price || undefined,
+            priceCurrency: 'USD',
+            availability,
+            url: pageUrl,
+            category: product?.item_group || undefined,
+          }),
+          generateBreadcrumbSchema(breadcrumbs),
+        ]),
       ],
     };
   }

@@ -2,6 +2,13 @@ import { component$ } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
 import { Link, routeLoader$ } from '@builder.io/qwik-city';
 import { getArticleBySlug, getAllArticles, type Article } from '~/lib/db';
+import {
+  SITE_URL,
+  generateArticleSchema,
+  generateBreadcrumbSchema,
+  generateSocialMeta,
+  createJsonLdScript,
+} from '~/lib/seo';
 
 // Load article from D1 database
 export const useArticle = routeLoader$<{ article: Article | null; relatedArticles: Article[] }>(
@@ -238,13 +245,38 @@ export const head: DocumentHead = ({ resolveValue }) => {
     };
   }
 
+  const pageUrl = `${SITE_URL}/learn/articles/${article.slug}/`;
+  const description = article.excerpt || `${article.title} - Technical article for professional solar installers from Solamp.`;
+
   return {
     title: `${article.title} | Solamp Solar & Energy Storage`,
     meta: [
-      {
-        name: 'description',
-        content: article.excerpt || `${article.title} - Technical article for professional solar installers from Solamp.`,
-      },
+      { name: 'description', content: description },
+      ...generateSocialMeta({
+        title: `${article.title} | Solamp Solar & Energy Storage`,
+        description,
+        url: pageUrl,
+        image: `${SITE_URL}/images/solamp-og-image.png`,
+        type: 'article',
+      }),
+    ],
+    scripts: [
+      createJsonLdScript([
+        generateArticleSchema({
+          headline: article.title,
+          description,
+          datePublished: article.created_at,
+          dateModified: article.updated_at,
+          author: article.author || 'Solamp Team',
+          url: pageUrl,
+        }),
+        generateBreadcrumbSchema([
+          { name: 'Home', url: SITE_URL },
+          { name: 'Learn', url: `${SITE_URL}/learn/` },
+          { name: 'Articles', url: `${SITE_URL}/learn/articles/` },
+          { name: article.title, url: pageUrl },
+        ]),
+      ]),
     ],
   };
 };

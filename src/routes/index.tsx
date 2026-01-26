@@ -5,6 +5,15 @@ import { getDB, cleanSlug } from '../lib/db';
 import { getProductThumbnail, getLocalCategoryImage } from '../lib/images';
 import { ProductCard } from '../components/product/ProductCard';
 import { BrandScroll, BrandGrid } from '../components/brand/BrandScroll';
+import {
+  SITE_URL,
+  SITE_NAME,
+  generateOrganizationSchema,
+  generateWebSiteSchema,
+  generateSocialMeta,
+  createJsonLdScript,
+  combineSchemas,
+} from '../lib/seo';
 
 // Load featured products from D1
 export const useFeaturedProducts = routeLoader$(async (requestEvent) => {
@@ -442,5 +451,18 @@ export const head: DocumentHead = {
       name: 'description',
       content: 'Solar panels, batteries, inverters, and balance of system from Tier-1 manufacturers. 18+ years serving professional solar installers with technical support.',
     },
+    ...generateSocialMeta({
+      title: 'Solamp | Solar & Energy Storage for Professional Installers',
+      description: 'Solar panels, batteries, inverters, and balance of system from Tier-1 manufacturers. 18+ years serving professional solar installers with technical support.',
+      url: SITE_URL,
+      image: `${SITE_URL}/images/solamp-og-image.png`,
+      type: 'website',
+    }),
+  ],
+  scripts: [
+    createJsonLdScript(combineSchemas(
+      generateOrganizationSchema(),
+      generateWebSiteSchema()
+    )),
   ],
 };
