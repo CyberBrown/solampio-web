@@ -20,13 +20,6 @@ export const ORGANIZATION = {
   logo: `${SITE_URL}/images/solamp-logo.png`,
   phone: SITE_PHONE,
   email: 'sales@solampio.com',
-  address: {
-    streetAddress: '123 Solar Way',
-    addressLocality: 'Lowell',
-    addressRegion: 'MA',
-    postalCode: '01852',
-    addressCountry: 'US',
-  },
 };
 
 // -----------------------------------------------------------------------------
@@ -46,10 +39,6 @@ export function generateOrganizationSchema(): object {
     logo: ORGANIZATION.logo,
     telephone: ORGANIZATION.phone,
     email: ORGANIZATION.email,
-    address: {
-      '@type': 'PostalAddress',
-      ...ORGANIZATION.address,
-    },
     sameAs: [
       // Add social media links when available
     ],
