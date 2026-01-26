@@ -104,39 +104,234 @@ export default component$(() => {
             <div class="bg-white border border-gray-200 rounded-lg">
               <details class="group">
                 <summary class="flex items-center justify-between p-4 cursor-pointer font-bold text-[#042e0d]">
-                  Do you sell to homeowners?
+                  What does Solamp IO mean?
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                   </svg>
                 </summary>
                 <div class="px-4 pb-4 text-gray-600">
-                  We primarily serve professional installers and contractors. If you're a homeowner, we recommend working with a local installer who can design and install your system.
+                  "Sol" is short for solar, also the Roman god of the sun. "Amp" is electrical current. Combined with "IO" meaning input/output, it represents solar electricity in and out—in other words, solar batteries.
                 </div>
               </details>
             </div>
             <div class="bg-white border border-gray-200 rounded-lg">
               <details class="group">
                 <summary class="flex items-center justify-between p-4 cursor-pointer font-bold text-[#042e0d]">
-                  How do I open a dealer account?
+                  What does Solamp IO do?
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                   </svg>
                 </summary>
                 <div class="px-4 pb-4 text-gray-600">
-                  Fill out the contact form above or call us. We'll walk you through the application process and get you set up with dealer pricing.
+                  We sell renewable energy products including solar panels and batteries. We operate retail and wholesale locations in Massachusetts and online.
                 </div>
               </details>
             </div>
             <div class="bg-white border border-gray-200 rounded-lg">
               <details class="group">
                 <summary class="flex items-center justify-between p-4 cursor-pointer font-bold text-[#042e0d]">
-                  What's your return policy?
+                  How can I get my question answered about products?
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                   </svg>
                 </summary>
                 <div class="px-4 pb-4 text-gray-600">
-                  We accept returns within 30 days for unopened, undamaged products. Custom orders and special order items may have different policies. Contact us for details.
+                  Product pages feature a "questions and answers" section, or you can contact us online or call 978-451-6890.
+                </div>
+              </details>
+            </div>
+            <div class="bg-white border border-gray-200 rounded-lg">
+              <details class="group">
+                <summary class="flex items-center justify-between p-4 cursor-pointer font-bold text-[#042e0d]">
+                  How do I place an order?
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </summary>
+                <div class="px-4 pb-4 text-gray-600">
+                  Orders can be placed via the website or by phone at 978-451-6890.
+                </div>
+              </details>
+            </div>
+            <div class="bg-white border border-gray-200 rounded-lg">
+              <details class="group">
+                <summary class="flex items-center justify-between p-4 cursor-pointer font-bold text-[#042e0d]">
+                  What payment methods are accepted?
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </summary>
+                <div class="px-4 pb-4 text-gray-600">
+                  American Express, Discover, Mastercard, Visa, Apple Pay, Amazon Pay, Google Pay, Klarna, plus ACH and wire transfers.
+                </div>
+              </details>
+            </div>
+            <div class="bg-white border border-gray-200 rounded-lg">
+              <details class="group">
+                <summary class="flex items-center justify-between p-4 cursor-pointer font-bold text-[#042e0d]">
+                  How much does shipping cost?
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </summary>
+                <div class="px-4 pb-4 text-gray-600">
+                  Free shipping on all items! Some products are local pickup only.
+                </div>
+              </details>
+            </div>
+            <div class="bg-white border border-gray-200 rounded-lg">
+              <details class="group">
+                <summary class="flex items-center justify-between p-4 cursor-pointer font-bold text-[#042e0d]">
+                  How long until delivery?
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </summary>
+                <div class="px-4 pb-4 text-gray-600">
+                  Typically ships within 1-3 business days, arriving within 2-7 business days.
+                </div>
+              </details>
+            </div>
+            <div class="bg-white border border-gray-200 rounded-lg">
+              <details class="group">
+                <summary class="flex items-center justify-between p-4 cursor-pointer font-bold text-[#042e0d]">
+                  What is your return policy?
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </summary>
+                <div class="px-4 pb-4 text-gray-600">
+                  We do not accept returns.
+                </div>
+              </details>
+            </div>
+            <div class="bg-white border border-gray-200 rounded-lg">
+              <details class="group">
+                <summary class="flex items-center justify-between p-4 cursor-pointer font-bold text-[#042e0d]">
+                  How do I initiate a return?
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </summary>
+                <div class="px-4 pb-4 text-gray-600">
+                  Contact support within 15 days of delivery if an incorrect item was received.
+                </div>
+              </details>
+            </div>
+            <div class="bg-white border border-gray-200 rounded-lg">
+              <details class="group">
+                <summary class="flex items-center justify-between p-4 cursor-pointer font-bold text-[#042e0d]">
+                  Do you offer warranties?
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </summary>
+                <div class="px-4 pb-4 text-gray-600">
+                  No; manufacturers provide all product warranties.
+                </div>
+              </details>
+            </div>
+            <div class="bg-white border border-gray-200 rounded-lg">
+              <details class="group">
+                <summary class="flex items-center justify-between p-4 cursor-pointer font-bold text-[#042e0d]">
+                  How do I create an account?
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </summary>
+                <div class="px-4 pb-4 text-gray-600">
+                  Click the "Register" button at the top right of the website.
+                </div>
+              </details>
+            </div>
+            <div class="bg-white border border-gray-200 rounded-lg">
+              <details class="group">
+                <summary class="flex items-center justify-between p-4 cursor-pointer font-bold text-[#042e0d]">
+                  How do I reset my password?
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </summary>
+                <div class="px-4 pb-4 text-gray-600">
+                  Click "Sign In," then select the "Forgot your password?" link.
+                </div>
+              </details>
+            </div>
+            <div class="bg-white border border-gray-200 rounded-lg">
+              <details class="group">
+                <summary class="flex items-center justify-between p-4 cursor-pointer font-bold text-[#042e0d]">
+                  Can I cancel my order?
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </summary>
+                <div class="px-4 pb-4 text-gray-600">
+                  Most orders cannot be cancelled after confirmation because products are custom-built or specially procured. Cancellations are handled case-by-case at our discretion.
+                </div>
+              </details>
+            </div>
+            <div class="bg-white border border-gray-200 rounded-lg">
+              <details class="group">
+                <summary class="flex items-center justify-between p-4 cursor-pointer font-bold text-[#042e0d]">
+                  Do you offer installation services?
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </summary>
+                <div class="px-4 pb-4 text-gray-600">
+                  No. We do not offer any onsite work, site visits, or hands-on installation services. We are a product supplier only.
+                </div>
+              </details>
+            </div>
+            <div class="bg-white border border-gray-200 rounded-lg">
+              <details class="group">
+                <summary class="flex items-center justify-between p-4 cursor-pointer font-bold text-[#042e0d]">
+                  What if my shipment arrives damaged?
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </summary>
+                <div class="px-4 pb-4 text-gray-600">
+                  Inspect all packages before signing. Note any visible damage on the packing slip. Contact us immediately with photos if you discover damage.
+                </div>
+              </details>
+            </div>
+            <div class="bg-white border border-gray-200 rounded-lg">
+              <details class="group">
+                <summary class="flex items-center justify-between p-4 cursor-pointer font-bold text-[#042e0d]">
+                  Who is responsible for permits and system design?
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </summary>
+                <div class="px-4 pb-4 text-gray-600">
+                  You are. Customers are responsible for ensuring product compatibility, securing permits, utility interconnection agreements, and code compliance.
+                </div>
+              </details>
+            </div>
+            <div class="bg-white border border-gray-200 rounded-lg">
+              <details class="group">
+                <summary class="flex items-center justify-between p-4 cursor-pointer font-bold text-[#042e0d]">
+                  Do you help with tax credits or rebates?
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </summary>
+                <div class="px-4 pb-4 text-gray-600">
+                  No. We cannot provide tax or investment advice. Consult a certified tax professional about incentives like the federal solar tax credit.
+                </div>
+              </details>
+            </div>
+            <div class="bg-white border border-gray-200 rounded-lg">
+              <details class="group">
+                <summary class="flex items-center justify-between p-4 cursor-pointer font-bold text-[#042e0d]">
+                  What shipping method do you use?
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </summary>
+                <div class="px-4 pb-4 text-gray-600">
+                  Most orders ship via LTL freight. We also ship some orders via USPS and UPS. Let us know if you need a lift gate, residential delivery, or call-ahead service.
                 </div>
               </details>
             </div>

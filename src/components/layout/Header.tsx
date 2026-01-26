@@ -84,18 +84,35 @@ export const Header = component$<HeaderProps>(({ categories, featuredProducts = 
       <div class="drawer-content flex flex-col">
         {/* Main header */}
         <header
-          class={[
-            'fixed top-0 left-0 right-0 z-50 border-b border-t-4 border-t-solamp-blue transition-all duration-300',
-            isTransparent
-              ? 'bg-white/90 backdrop-blur-md border-gray-200/30'
-              : 'bg-white border-gray-200',
-          ].join(' ')}
+          class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
           onMouseEnter$={() => (isHovering.value = true)}
           onMouseLeave$={() => {
             isHovering.value = false;
             openMenu.value = null;
           }}
         >
+          {/* Top banner */}
+          <div class={[
+            'bg-solamp-blue transition-all duration-300 overflow-hidden',
+            isCompact ? 'h-1' : 'h-7',
+          ].join(' ')}>
+            <div class={[
+              'container mx-auto px-4 flex items-center justify-center h-full transition-opacity duration-300',
+              isCompact ? 'opacity-0' : 'opacity-100',
+            ].join(' ')}>
+              <p class="text-white text-xs text-center truncate">
+                Serving Acton, Boxborough, Maynard, Leominster and surrounding towns, Massachusetts, New England, the United States and the World.
+              </p>
+            </div>
+          </div>
+          <div
+            class={[
+              'border-b transition-all duration-300',
+              isTransparent
+                ? 'bg-white/90 backdrop-blur-md border-gray-200/30'
+                : 'bg-white border-gray-200',
+            ].join(' ')}
+          >
           <div class="container mx-auto px-4">
             <div class={[
               'flex items-center justify-between gap-4 transition-all duration-300',
@@ -465,9 +482,10 @@ export const Header = component$<HeaderProps>(({ categories, featuredProducts = 
               </div>
             </div>
           )}
+          </div>
         </header>
-        {/* Spacer */}
-        <div class="h-16" aria-hidden="true"></div>
+        {/* Spacer - accounts for banner (h-7) + nav height (h-16) */}
+        <div class="h-[5.75rem]" aria-hidden="true"></div>
       </div>
 
       {/* Mobile drawer sidebar */}
