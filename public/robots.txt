@@ -1,0 +1,12 @@
+# Robots.txt for solampio.com
+
+User-agent: *
+Allow: /
+
+# Disallow admin and API endpoints
+Disallow: /api/
+Disallow: /checkout/
+Disallow: /cart/
+
+# Sitemap location
+Sitemap: https://solampio.com/sitemap.xml
