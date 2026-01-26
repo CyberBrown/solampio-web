@@ -41,7 +41,7 @@ export const ProductCard = component$<ProductCardProps>(({ product }) => {
 
   return (
     <div class="bg-white rounded-lg border border-gray-200 overflow-hidden group hover:shadow-lg transition-shadow">
-      <Link href={`/products/${encodeSkuForUrl(product.sku || product.id)}/`} class="block">
+      <Link href={`/${encodeSkuForUrl(product.sku || product.id)}/`} class="block">
         <div class="aspect-[4/3] bg-gray-100 flex items-center justify-center relative p-4">
           {imageUrl ? (
             <img
@@ -71,7 +71,7 @@ export const ProductCard = component$<ProductCardProps>(({ product }) => {
       </Link>
       <div class="p-4">
         <p class="text-xs font-mono text-[#c3a859] uppercase tracking-wide mb-1">{product.item_group || 'Products'}</p>
-        <Link href={`/products/${encodeSkuForUrl(product.sku || product.id)}/`} class="font-heading font-bold text-[#042e0d] group-hover:text-[#5974c3] transition-colors block">
+        <Link href={`/${encodeSkuForUrl(product.sku || product.id)}/`} class="font-heading font-bold text-[#042e0d] group-hover:text-[#5974c3] transition-colors block">
           {product.title}
         </Link>
         {product.sku && (

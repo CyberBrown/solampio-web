@@ -59,12 +59,12 @@ export const Footer = component$(() => {
           <div>
             <p class="text-xs font-mono text-[#c3a859] mb-3 uppercase tracking-wide">Company</p>
             <ul class="space-y-2 text-sm">
-              <li><Link href="/about/" class="text-white/80 hover:text-[#56c270] transition-colors">About Us</Link></li>
+              <li><Link href="/about-us/" class="text-white/80 hover:text-[#56c270] transition-colors">About Us</Link></li>
               <li><a href="#" class="text-white/80 hover:text-[#56c270] transition-colors">Portfolio</a></li>
               <li><a href="#" class="text-white/80 hover:text-[#56c270] transition-colors">Careers</a></li>
               <li><a href="#" class="text-white/80 hover:text-[#56c270] transition-colors">Sponsorships</a></li>
-              <li><Link href="/contact/" class="text-white/80 hover:text-[#56c270] transition-colors">Contact Us</Link></li>
-              <li><a href="#" class="text-white/80 hover:text-[#56c270] transition-colors">FAQ</a></li>
+              <li><Link href="/contact-us/" class="text-white/80 hover:text-[#56c270] transition-colors">Contact Us</Link></li>
+              <li><Link href="/frequently-asked-questions/" class="text-white/80 hover:text-[#56c270] transition-colors">FAQ</Link></li>
             </ul>
           </div>
 
@@ -134,10 +134,10 @@ export const Footer = component$(() => {
 
             {/* Policy Links */}
             <div class="flex flex-wrap justify-center gap-4 text-xs text-white/80">
-              <Link href="/terms/" class="hover:text-white transition-colors">Terms &amp; Conditions</Link>
+              <Link href="/terms-and-conditions/" class="hover:text-white transition-colors">Terms &amp; Conditions</Link>
               <Link href="/shipping/" class="hover:text-white transition-colors">Shipping Policy</Link>
-              <Link href="/privacy/" class="hover:text-white transition-colors">Privacy Policy</Link>
-              <Link href="/returns/" class="hover:text-white transition-colors">Return Policy</Link>
+              <Link href="/privacy-policy/" class="hover:text-white transition-colors">Privacy Policy</Link>
+              <Link href="/refund-return-policy/" class="hover:text-white transition-colors">Return Policy</Link>
             </div>
           </div>
         </div>

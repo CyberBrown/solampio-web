@@ -160,7 +160,7 @@ export const Header = component$<HeaderProps>(({ categories, featuredProducts = 
                   return (
                     <Link
                       key={cat.id}
-                      href={`/categories/${slug}/`}
+                      href={`/${slug}/`}
                       onMouseEnter$={() => { openMenu.value = slug; }}
                       class={[
                         'font-heading font-bold rounded transition-all duration-300',
@@ -284,7 +284,7 @@ export const Header = component$<HeaderProps>(({ categories, featuredProducts = 
                         {cat.subcategories.map((sub) => (
                           <Link
                             key={sub.id}
-                            href={`/categories/${slug}/${cleanSlug(sub.slug)}/`}
+                            href={`/${slug}/${cleanSlug(sub.slug)}/`}
                             onClick$={closeMenu}
                             class="px-4 py-2 bg-solamp-mist hover:bg-solamp-forest hover:text-white text-sm font-semibold rounded transition-colors text-solamp-forest"
                           >
@@ -294,7 +294,7 @@ export const Header = component$<HeaderProps>(({ categories, featuredProducts = 
                       </div>
                       <div class="mt-4 pt-4 border-t border-gray-200 flex items-center justify-between">
                         <Link
-                          href={`/categories/${slug}/`}
+                          href={`/${slug}/`}
                           onClick$={closeMenu}
                           class="text-sm font-bold text-solamp-blue hover:underline"
                         >
@@ -311,7 +311,7 @@ export const Header = component$<HeaderProps>(({ categories, featuredProducts = 
                                 return (
                                   <Link
                                     key={brand.id}
-                                    href={`/brands/${brand.slug}/`}
+                                    href={`/${brand.slug}/`}
                                     onClick$={closeMenu}
                                     class="w-8 h-8 rounded bg-white border border-gray-200 flex items-center justify-center hover:border-solamp-blue transition-colors"
                                     title={brand.title}
@@ -349,7 +349,7 @@ export const Header = component$<HeaderProps>(({ categories, featuredProducts = 
                             return (
                               <Link
                                 key={product.id}
-                                href={`/products/${encodeSkuForUrl(product.sku)}/`}
+                                href={`/${encodeSkuForUrl(product.sku)}/`}
                                 onClick$={closeMenu}
                                 class="flex gap-3 p-2 rounded-lg hover:bg-solamp-mist transition-colors group"
                               >
@@ -383,7 +383,7 @@ export const Header = component$<HeaderProps>(({ categories, featuredProducts = 
                     {/* Right side: Category Image or Quick Links */}
                     {categoryImageUrl ? (
                       <Link
-                        href={`/categories/${slug}/`}
+                        href={`/${slug}/`}
                         onClick$={closeMenu}
                         class="w-56 rounded-lg overflow-hidden group flex-shrink-0"
                       >
@@ -414,7 +414,7 @@ export const Header = component$<HeaderProps>(({ categories, featuredProducts = 
                             </Link>
                           </li>
                           <li>
-                            <Link href="/contact/" onClick$={closeMenu} class="text-sm text-solamp-forest hover:text-solamp-blue transition-colors flex items-center gap-2">
+                            <Link href="/contact-us/" onClick$={closeMenu} class="text-sm text-solamp-forest hover:text-solamp-blue transition-colors flex items-center gap-2">
                               <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-solamp-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                               </svg>
@@ -444,7 +444,7 @@ export const Header = component$<HeaderProps>(({ categories, featuredProducts = 
                   {otherCategories.map((cat) => (
                     <div key={cat.id}>
                       <Link
-                        href={`/categories/${cleanSlug(cat.slug)}/`}
+                        href={`/${cleanSlug(cat.slug)}/`}
                         onClick$={closeMenu}
                         class="font-heading font-bold text-solamp-forest hover:text-solamp-blue transition-colors"
                       >
@@ -455,7 +455,7 @@ export const Header = component$<HeaderProps>(({ categories, featuredProducts = 
                           {cat.subcategories.slice(0, 4).map((sub) => (
                             <li key={sub.id}>
                               <Link
-                                href={`/categories/${cleanSlug(cat.slug)}/${cleanSlug(sub.slug)}/`}
+                                href={`/${cleanSlug(cat.slug)}/${cleanSlug(sub.slug)}/`}
                                 onClick$={closeMenu}
                                 class="text-sm text-solamp-forest/70 hover:text-solamp-blue transition-colors"
                               >
@@ -466,7 +466,7 @@ export const Header = component$<HeaderProps>(({ categories, featuredProducts = 
                           {cat.subcategories.length > 4 && (
                             <li>
                               <Link
-                                href={`/categories/${cleanSlug(cat.slug)}/`}
+                                href={`/${cleanSlug(cat.slug)}/`}
                                 onClick$={closeMenu}
                                 class="text-sm text-solamp-blue hover:underline"
                               >
@@ -518,7 +518,7 @@ export const Header = component$<HeaderProps>(({ categories, featuredProducts = 
                 {categories.map((cat) => (
                   <li key={cat.id}>
                     <Link
-                      href={`/categories/${cleanSlug(cat.slug)}/`}
+                      href={`/${cleanSlug(cat.slug)}/`}
                       class="block py-2 text-sm font-bold text-solamp-forest hover:text-solamp-green"
                     >
                       {cat.title}
@@ -531,8 +531,8 @@ export const Header = component$<HeaderProps>(({ categories, featuredProducts = 
             <div class="border-t border-gray-200 pt-4 mb-4">
               <ul class="space-y-1">
                 <li><Link href="/learn/" class="block py-2 text-sm text-solamp-forest hover:text-solamp-green">Resources</Link></li>
-                <li><Link href="/about/" class="block py-2 text-sm text-solamp-forest hover:text-solamp-green">About Us</Link></li>
-                <li><Link href="/contact/" class="block py-2 text-sm text-solamp-bronze-dark font-bold hover:text-solamp-forest">Contact</Link></li>
+                <li><Link href="/about-us/" class="block py-2 text-sm text-solamp-forest hover:text-solamp-green">About Us</Link></li>
+                <li><Link href="/contact-us/" class="block py-2 text-sm text-solamp-bronze-dark font-bold hover:text-solamp-forest">Contact</Link></li>
               </ul>
             </div>
           </nav>

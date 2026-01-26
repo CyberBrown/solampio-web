@@ -141,7 +141,7 @@ export default component$(() => {
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                   </svg>
                 </Link>
-                <Link href="/contact/" class="inline-flex items-center gap-2 bg-solamp-bronze text-white font-heading font-bold px-6 py-3 rounded hover:bg-solamp-bronze/80 transition-colors">
+                <Link href="/contact-us/" class="inline-flex items-center gap-2 bg-solamp-bronze text-white font-heading font-bold px-6 py-3 rounded hover:bg-solamp-bronze/80 transition-colors">
                   Request Quote
                 </Link>
               </div>
@@ -202,7 +202,7 @@ export default component$(() => {
               // Use local category images
               const imageUrl = getLocalCategoryImage(cat.title);
               return (
-                <Link key={cat.slug} href={`/categories/${cat.slug}/`} class="group relative overflow-hidden rounded-lg aspect-[4/3] transform transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                <Link key={cat.slug} href={`/${cat.slug}/`} class="group relative overflow-hidden rounded-lg aspect-[4/3] transform transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
                   {/* Background - local category image */}
                   {imageUrl ? (
                     <img
@@ -358,7 +358,7 @@ export default component$(() => {
               <p class="text-white-70-safe mt-1">Send us your project details online, on the phone, or in person.</p>
             </div>
             <div class="flex gap-4">
-              <Link href="/contact/" class="inline-flex items-center gap-2 bg-solamp-green text-solamp-forest font-heading font-bold px-6 py-3 rounded hover:bg-white transition-colors">
+              <Link href="/contact-us/" class="inline-flex items-center gap-2 bg-solamp-green text-solamp-forest font-heading font-bold px-6 py-3 rounded hover:bg-white transition-colors">
                 Request Quote
               </Link>
               <a href="tel:978-451-6890" class="inline-flex items-center gap-2 bg-solamp-bronze text-white font-heading font-bold px-6 py-3 rounded hover:bg-solamp-bronze/80 transition-colors">

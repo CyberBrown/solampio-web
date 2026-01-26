@@ -50,7 +50,7 @@ export default component$(() => {
 
       <h2>Contact Us</h2>
       <p>
-        For questions about this privacy policy, please contact us at <a href="tel:978-451-6890">978-451-6890</a> or visit our <a href="/contact/">Contact page</a>.
+        For questions about this privacy policy, please contact us at <a href="tel:978-451-6890">978-451-6890</a> or visit our <a href="/contact-us/">Contact page</a>.
       </p>
 
       <div class="bg-[#f1f1f2] border border-gray-200 rounded-lg p-6 mt-8 not-prose">

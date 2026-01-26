@@ -140,7 +140,7 @@ export default component$(() => {
               <h3 class="font-heading font-extrabold text-2xl text-white">Need training for your team?</h3>
               <p class="text-white/70 mt-1">Contact us about custom training programs for installers.</p>
             </div>
-            <Link href="/contact/" class="inline-flex items-center gap-2 bg-[#c3a859] text-white font-heading font-bold px-6 py-3 rounded hover:bg-[#c3a859]/80 transition-colors">
+            <Link href="/contact-us/" class="inline-flex items-center gap-2 bg-[#c3a859] text-white font-heading font-bold px-6 py-3 rounded hover:bg-[#c3a859]/80 transition-colors">
               Contact Us
             </Link>
           </div>

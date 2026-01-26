@@ -152,7 +152,7 @@ export const SearchMegaMenu = component$<SearchMegaMenuProps>(({ isCompact = fal
         event.preventDefault();
         if (selectedIndex.value >= 0 && selectedIndex.value < results.value.length) {
           const product = results.value[selectedIndex.value];
-          const href = `/products/${encodeURIComponent(product.sku || product.id)}/`;
+          const href = `/${encodeURIComponent(product.sku || product.id)}/`;
           isOpen.value = false;
           searchTerm.value = '';
           nav(href);
@@ -305,7 +305,7 @@ export const SearchMegaMenu = component$<SearchMegaMenuProps>(({ isCompact = fal
                   {results.value.map((product, index) => (
                     <Link
                       key={product.id}
-                      href={`/products/${encodeURIComponent(product.sku || product.id)}/`}
+                      href={`/${encodeURIComponent(product.sku || product.id)}/`}
                       onClick$={handleResultClick}
                       class={[
                         'group block rounded-lg border transition-all',

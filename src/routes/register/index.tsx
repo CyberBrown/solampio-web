@@ -72,7 +72,7 @@ export default component$(() => {
             <div class="mb-6">
               <label class="flex items-start gap-2 text-sm text-gray-600">
                 <input type="checkbox" class="rounded border-gray-300 mt-1" />
-                <span>I agree to the <Link href="/terms/" class="text-[#5974c3] hover:underline">Terms & Conditions</Link> and <Link href="/privacy/" class="text-[#5974c3] hover:underline">Privacy Policy</Link></span>
+                <span>I agree to the <Link href="/terms-and-conditions/" class="text-[#5974c3] hover:underline">Terms & Conditions</Link> and <Link href="/privacy-policy/" class="text-[#5974c3] hover:underline">Privacy Policy</Link></span>
               </label>
             </div>
             <button

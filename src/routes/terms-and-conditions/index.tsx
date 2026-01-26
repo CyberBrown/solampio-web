@@ -35,7 +35,7 @@ export default component$(() => {
 
       <h2>5. Returns and Refunds</h2>
       <p>
-        Returns are subject to our <a href="/returns/">Return Policy</a>. Restocking fees may apply. Products must be in original packaging and unused condition.
+        Returns are subject to our <a href="/refund-return-policy/">Return Policy</a>. Restocking fees may apply. Products must be in original packaging and unused condition.
       </p>
 
       <h2>6. Warranty</h2>
@@ -50,7 +50,7 @@ export default component$(() => {
 
       <h2>8. Contact Information</h2>
       <p>
-        For questions about these terms, please contact us at <a href="tel:978-451-6890">978-451-6890</a> or visit our <a href="/contact/">Contact page</a>.
+        For questions about these terms, please contact us at <a href="tel:978-451-6890">978-451-6890</a> or visit our <a href="/contact-us/">Contact page</a>.
       </p>
 
       <div class="bg-[#f1f1f2] border border-gray-200 rounded-lg p-6 mt-8 not-prose">

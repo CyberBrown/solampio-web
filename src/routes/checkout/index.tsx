@@ -745,11 +745,11 @@ export default component$(() => {
 
                     <p class="text-xs text-gray-500 text-center">
                       By placing your order, you agree to our{' '}
-                      <a href="/terms/" class="text-[#5974c3] hover:underline">
+                      <a href="/terms-and-conditions/" class="text-[#5974c3] hover:underline">
                         Terms of Service
                       </a>{' '}
                       and{' '}
-                      <a href="/privacy/" class="text-[#5974c3] hover:underline">
+                      <a href="/privacy-policy/" class="text-[#5974c3] hover:underline">
                         Privacy Policy
                       </a>
                       .

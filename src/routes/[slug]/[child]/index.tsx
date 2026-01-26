@@ -1,15 +1,15 @@
 import { component$ } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
 import { useLocation, Link, routeLoader$ } from '@builder.io/qwik-city';
-import { getDB, cleanSlug } from '../../../../lib/db';
-import { ProductCard } from '../../../../components/product/ProductCard';
-import { getCategoryImageUrl } from '../../../../lib/images';
+import { getDB, cleanSlug } from '../../../lib/db';
+import { ProductCard } from '../../../components/product/ProductCard';
+import { getCategoryImageUrl } from '../../../lib/images';
 
 // Loader to fetch subcategory data and its products
 export const useSubcategoryData = routeLoader$(async (requestEvent) => {
   const db = getDB(requestEvent.platform);
   const categorySlug = requestEvent.params.slug;
-  const subcategorySlug = requestEvent.params.subcategory;
+  const subcategorySlug = requestEvent.params.child;
 
   // Fetch parent category
   const parentCategory = await db.getCategory(categorySlug);
@@ -47,7 +47,7 @@ export const useSubcategoryData = routeLoader$(async (requestEvent) => {
 export default component$(() => {
   const loc = useLocation();
   const categorySlug = loc.params.slug;
-  const subcategorySlug = loc.params.subcategory;
+  const subcategorySlug = loc.params.child;
   const data = useSubcategoryData();
 
   const parentCategory = data.value.parentCategory;
@@ -84,9 +84,7 @@ export default component$(() => {
             <ol class="flex items-center gap-2 text-sm flex-wrap">
               <li><Link href="/" class="text-white/50 hover:text-white transition-colors">Home</Link></li>
               <li class="text-white/30">/</li>
-              <li><Link href="/products/" class="text-white/50 hover:text-white transition-colors">Products</Link></li>
-              <li class="text-white/30">/</li>
-              <li><Link href={`/categories/${categorySlug}/`} class="text-white/50 hover:text-white transition-colors">{categoryName}</Link></li>
+              <li><Link href={`/${categorySlug}/`} class="text-white/50 hover:text-white transition-colors">{categoryName}</Link></li>
               <li class="text-white/30">/</li>
               <li class="text-white font-semibold">{subcategoryName}</li>
             </ol>
@@ -110,7 +108,7 @@ export default component$(() => {
           <div class="px-6">
             <div class="flex flex-wrap gap-2">
               <Link
-                href={`/categories/${categorySlug}/`}
+                href={`/${categorySlug}/`}
                 class="px-4 py-2 bg-white hover:bg-[#042e0d] hover:text-white text-sm font-semibold rounded transition-colors text-[#042e0d] border border-gray-200"
               >
                 All {categoryName}
@@ -120,7 +118,7 @@ export default component$(() => {
                 return (
                   <Link
                     key={sub.id}
-                    href={`/categories/${categorySlug}/${subSlug}/`}
+                    href={`/${categorySlug}/${subSlug}/`}
                     class={[
                       'px-4 py-2 text-sm font-semibold rounded transition-colors',
                       subSlug === subcategorySlug
@@ -173,7 +171,7 @@ export default component$(() => {
               <p class="text-white/70 mt-1">Our team can help you select the right {subcategoryName.toLowerCase()} for your project.</p>
             </div>
             <div class="flex flex-wrap gap-3">
-              <Link href="/contact/" class="inline-flex items-center gap-2 bg-[#56c270] text-[#042e0d] font-heading font-bold px-5 py-3 rounded hover:bg-white transition-colors">
+              <Link href="/contact-us/" class="inline-flex items-center gap-2 bg-[#56c270] text-[#042e0d] font-heading font-bold px-5 py-3 rounded hover:bg-white transition-colors">
                 Request Quote
               </Link>
               <a href="tel:978-451-6890" class="inline-flex items-center gap-2 bg-[#c3a859] text-white font-heading font-bold px-5 py-3 rounded hover:bg-[#c3a859]/80 transition-colors">
@@ -190,7 +188,7 @@ export default component$(() => {
 export const head: DocumentHead = ({ params, resolveValue }) => {
   const data = resolveValue(useSubcategoryData);
   const categorySlug = params.slug;
-  const subcategorySlug = params.subcategory;
+  const subcategorySlug = params.child;
   const subcategoryName = data?.subcategory?.title || subcategorySlug.split('-').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
   const categoryName = data?.parentCategory?.title || categorySlug.split('-').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
 

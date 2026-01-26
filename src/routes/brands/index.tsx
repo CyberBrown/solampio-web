@@ -80,7 +80,7 @@ export default component$(() => {
                   return (
                     <Link
                       key={brand.id}
-                      href={`/brands/${cleanSlug(brand.slug)}/`}
+                      href={`/${cleanSlug(brand.slug)}/`}
                       class="group bg-white border border-gray-200 rounded-lg p-4 hover:border-[#5974c3] hover:shadow-lg transition-all"
                     >
                       <div class="aspect-[3/2] flex items-center justify-center mb-3 bg-gray-50 rounded">
@@ -140,7 +140,7 @@ export default component$(() => {
               <p class="text-white/70 mt-1">Contact us if you don't see a brand you need. We may be able to source it.</p>
             </div>
             <div class="flex flex-wrap gap-3">
-              <Link href="/contact/" class="inline-flex items-center gap-2 bg-[#56c270] text-[#042e0d] font-heading font-bold px-5 py-3 rounded hover:bg-white transition-colors">
+              <Link href="/contact-us/" class="inline-flex items-center gap-2 bg-[#56c270] text-[#042e0d] font-heading font-bold px-5 py-3 rounded hover:bg-white transition-colors">
                 Request Quote
               </Link>
               <a href="tel:978-451-6890" class="inline-flex items-center gap-2 bg-[#c3a859] text-white font-heading font-bold px-5 py-3 rounded hover:bg-[#c3a859]/80 transition-colors">

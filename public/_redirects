@@ -1,8 +1,16 @@
 # 301 Redirects for URL structure migration
-# Old Solamp URLs → New BigCommerce-compatible URLs
+# Old site URLs → New root-level URLs
 
-# Category redirects (preserve subcategory path)
-/products/category/*  /categories/:splat  301
+# Legacy URLs from old Solamp development site
+/products/category/*           /:splat                        301
+/products/brand/*              /:splat                        301
+/products/*                    /:splat                        301
+/categories/*                  /:splat                        301
 
-# Brand redirects
-/products/brand/*  /brands/:splat  301
+# Static pages - shorter slugs to longer slugs (for anyone with old bookmarks)
+/about/                        /about-us/                     301
+/contact/                      /contact-us/                   301
+/privacy/                      /privacy-policy/               301
+/terms/                        /terms-and-conditions/         301
+/returns/                      /refund-return-policy/         301
+/faq/                          /frequently-asked-questions/   301

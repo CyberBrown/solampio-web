@@ -116,7 +116,7 @@ export default component$(() => {
                   <h3 class="font-heading font-bold text-[#042e0d] group-hover:text-[#5974c3] transition-colors">Browse Products</h3>
                   <p class="text-sm text-gray-500 mt-1">Shop catalog</p>
                 </Link>
-                <Link href="/contact/" class="bg-white rounded-lg border border-gray-200 p-5 hover:shadow-lg hover:border-[#042e0d] transition-all group">
+                <Link href="/contact-us/" class="bg-white rounded-lg border border-gray-200 p-5 hover:shadow-lg hover:border-[#042e0d] transition-all group">
                   <div class="w-10 h-10 bg-[#c3a859]/10 rounded-lg flex items-center justify-center mb-3">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#c3a859]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />

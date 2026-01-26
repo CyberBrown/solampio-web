@@ -88,7 +88,7 @@ export const BrandScroll = component$<BrandScrollProps>(({
             return (
               <Link
                 key={`${brand.id}-${index}`}
-                href={`/brands/${cleanSlug(brand.slug)}/`}
+                href={`/${cleanSlug(brand.slug)}/`}
                 class="flex-shrink-0 group relative block"
                 title={brand.title}
               >
@@ -184,7 +184,7 @@ export const BrandGrid = component$<BrandScrollProps>(({
             return (
               <Link
                 key={brand.id}
-                href={`/brands/${cleanSlug(brand.slug)}/`}
+                href={`/${cleanSlug(brand.slug)}/`}
                 class="group"
                 title={brand.title}
               >

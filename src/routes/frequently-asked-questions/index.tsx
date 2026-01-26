@@ -172,7 +172,7 @@ export default component$(() => {
                 978-451-6890
               </a>
               <Link
-                href="/contact/"
+                href="/contact-us/"
                 class="inline-flex items-center justify-center gap-2 bg-[#56c270] text-[#042e0d] font-heading font-bold px-6 py-3 rounded hover:bg-white transition-colors"
               >
                 Contact Us
@@ -194,7 +194,7 @@ export default component$(() => {
               <Link href="/products/" class="inline-flex items-center gap-2 bg-[#56c270] text-[#042e0d] font-heading font-bold px-6 py-3 rounded hover:bg-white transition-colors">
                 Shop Products
               </Link>
-              <Link href="/contact/" class="inline-flex items-center gap-2 bg-[#c3a859] text-white font-heading font-bold px-6 py-3 rounded hover:bg-[#c3a859]/80 transition-colors">
+              <Link href="/contact-us/" class="inline-flex items-center gap-2 bg-[#c3a859] text-white font-heading font-bold px-6 py-3 rounded hover:bg-[#c3a859]/80 transition-colors">
                 Request Quote
               </Link>
             </div>
