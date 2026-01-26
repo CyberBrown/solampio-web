@@ -9,6 +9,7 @@
 
 import type { RequestHandler } from '@builder.io/qwik-city';
 import type { D1Database } from '@cloudflare/workers-types';
+import { rejectUnauthorized } from '~/lib/api-auth';
 
 interface ERPNextBin {
   name: string;
@@ -47,7 +48,10 @@ export const onGet: RequestHandler = async ({ json }) => {
   });
 };
 
-export const onPost: RequestHandler = async ({ request, platform, json }) => {
+export const onPost: RequestHandler = async (requestEvent) => {
+  if (rejectUnauthorized(requestEvent, 'SYNC_API_KEY')) return;
+
+  const { request, platform, json } = requestEvent;
   const env = platform?.env as {
     DB?: D1Database;
     ERPNEXT_URL?: string;

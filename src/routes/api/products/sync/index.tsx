@@ -29,6 +29,7 @@
 import type { RequestHandler } from '@builder.io/qwik-city';
 import type { D1Database } from '@cloudflare/workers-types';
 import { cleanDescription, extractExcerpt } from '../../../../lib/description-cleaner';
+import { rejectUnauthorized } from '~/lib/api-auth';
 
 interface ERPNextWebsiteItemGroup {
   item_group: string;
@@ -121,7 +122,10 @@ async function updateProductCategoryMappings(
   }
 }
 
-export const onPost: RequestHandler = async ({ request, platform, json }) => {
+export const onPost: RequestHandler = async (requestEvent) => {
+  if (rejectUnauthorized(requestEvent, 'SYNC_API_KEY')) return;
+
+  const { request, platform, json } = requestEvent;
   try {
     const db = platform.env?.DB;
     if (!db) {

@@ -16,8 +16,12 @@ import {
   migrateCategoryImages,
   type MigrationResult,
 } from '../../../../../scripts/migrate-category-images';
+import { rejectUnauthorized } from '~/lib/api-auth';
 
-export const onGet: RequestHandler = async ({ platform, json }) => {
+export const onGet: RequestHandler = async (requestEvent) => {
+  if (rejectUnauthorized(requestEvent, 'ADMIN_API_KEY')) return;
+
+  const { platform, json } = requestEvent;
   try {
     const db = platform.env?.DB;
     if (!db) {
@@ -97,7 +101,10 @@ export const onGet: RequestHandler = async ({ platform, json }) => {
   }
 };
 
-export const onPost: RequestHandler = async ({ platform, json }) => {
+export const onPost: RequestHandler = async (requestEvent) => {
+  if (rejectUnauthorized(requestEvent, 'ADMIN_API_KEY')) return;
+
+  const { platform, json } = requestEvent;
   try {
     const db = platform.env?.DB;
     if (!db) {

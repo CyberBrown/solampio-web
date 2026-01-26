@@ -26,6 +26,7 @@
 
 import type { RequestHandler } from '@builder.io/qwik-city';
 import type { D1Database } from '@cloudflare/workers-types';
+import { rejectUnauthorized } from '~/lib/api-auth';
 
 interface ERPNextCategoryPayload {
   name: string;
@@ -90,7 +91,10 @@ async function getParentCategoryId(
   return result?.id || null;
 }
 
-export const onPost: RequestHandler = async ({ request, platform, json }) => {
+export const onPost: RequestHandler = async (requestEvent) => {
+  if (rejectUnauthorized(requestEvent, 'SYNC_API_KEY')) return;
+
+  const { request, platform, json } = requestEvent;
   try {
     const db = platform.env?.DB;
     if (!db) {
@@ -229,7 +233,10 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
 };
 
 // Batch sync endpoint for multiple categories
-export const onPut: RequestHandler = async ({ request, platform, json }) => {
+export const onPut: RequestHandler = async (requestEvent) => {
+  if (rejectUnauthorized(requestEvent, 'SYNC_API_KEY')) return;
+
+  const { request, platform, json } = requestEvent;
   try {
     const db = platform.env?.DB;
     if (!db) {

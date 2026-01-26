@@ -17,6 +17,7 @@
 import type { RequestHandler } from '@builder.io/qwik-city';
 import type { D1Database } from '@cloudflare/workers-types';
 import { stripHtml, generateSummaryPrompt } from '../../../../lib/description-cleaner';
+import { rejectUnauthorized } from '~/lib/api-auth';
 
 interface Product {
   id: string;
@@ -76,7 +77,10 @@ async function generateSummary(
   }
 }
 
-export const onPost: RequestHandler = async ({ request, platform, json }) => {
+export const onPost: RequestHandler = async (requestEvent) => {
+  if (rejectUnauthorized(requestEvent, 'ADMIN_API_KEY')) return;
+
+  const { request, platform, json } = requestEvent;
   try {
     const db = platform.env?.DB as D1Database | undefined;
     const ai = platform.env?.AI as Ai | undefined;

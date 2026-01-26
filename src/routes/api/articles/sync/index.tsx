@@ -19,6 +19,7 @@
 
 import type { RequestHandler } from '@builder.io/qwik-city';
 import { upsertArticle, type ArticleSection } from '~/lib/db';
+import { rejectUnauthorized } from '~/lib/api-auth';
 
 interface ERPNextWebPagePayload {
   name: string;
@@ -57,7 +58,10 @@ function parseRoute(route: string): { section: ArticleSection | null; slug: stri
   return { section: null, slug: null };
 }
 
-export const onPost: RequestHandler = async ({ request, platform, json }) => {
+export const onPost: RequestHandler = async (requestEvent) => {
+  if (rejectUnauthorized(requestEvent, 'SYNC_API_KEY')) return;
+
+  const { request, platform, json } = requestEvent;
   try {
     const db = platform.env?.DB;
     if (!db) {

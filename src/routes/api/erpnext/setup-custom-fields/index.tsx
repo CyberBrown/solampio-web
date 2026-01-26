@@ -11,6 +11,7 @@
  */
 
 import type { RequestHandler } from '@builder.io/qwik-city';
+import { rejectUnauthorized } from '~/lib/api-auth';
 
 interface CustomFieldDefinition {
   doctype: string;
@@ -98,7 +99,10 @@ export const onGet: RequestHandler = async ({ json }) => {
   });
 };
 
-export const onPost: RequestHandler = async ({ platform, json, url }) => {
+export const onPost: RequestHandler = async (requestEvent) => {
+  if (rejectUnauthorized(requestEvent, 'ADMIN_API_KEY')) return;
+
+  const { platform, json, url } = requestEvent;
   const env = platform?.env as {
     ERPNEXT_URL?: string;
     ERPNEXT_API_KEY?: string;

@@ -22,6 +22,7 @@
 
 import type { RequestHandler } from '@builder.io/qwik-city';
 import type { D1Database } from '@cloudflare/workers-types';
+import { rejectUnauthorized } from '~/lib/api-auth';
 
 const BIGCOMMERCE_BASE = 'https://solampio.com';
 const CF_IMAGES_HASH = 'Fdrr4r8cVWsy-JJCR0JU_Q';
@@ -213,7 +214,10 @@ async function checkImageNeedsUpgrade(cfImageId: string): Promise<{ needsUpgrade
 /**
  * GET handler - Preview products needing upgrade
  */
-export const onGet: RequestHandler = async ({ platform, json, url }) => {
+export const onGet: RequestHandler = async (requestEvent) => {
+  if (rejectUnauthorized(requestEvent, 'ADMIN_API_KEY')) return;
+
+  const { platform, json, url } = requestEvent;
   try {
     const db = platform.env?.DB as D1Database | undefined;
     if (!db) {
@@ -300,7 +304,10 @@ export const onGet: RequestHandler = async ({ platform, json, url }) => {
 /**
  * POST handler - Process and upgrade images
  */
-export const onPost: RequestHandler = async ({ platform, json, url }) => {
+export const onPost: RequestHandler = async (requestEvent) => {
+  if (rejectUnauthorized(requestEvent, 'ADMIN_API_KEY')) return;
+
+  const { platform, json, url } = requestEvent;
   try {
     const db = platform.env?.DB as D1Database | undefined;
     const cfAccountId = platform.env?.CF_ACCOUNT_ID as string | undefined;
