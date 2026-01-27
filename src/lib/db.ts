@@ -71,6 +71,20 @@ export interface Product {
   description_original: string | null;
   seo_last_optimized: string | null;
   seo_competitor_data: string | null;  // JSON array in D1
+  // Google Merchant Center fields
+  gmc_google_category: string | null;
+  gmc_product_type: string | null;
+  gmc_condition: string | null;
+  gmc_availability: string | null;
+  gmc_shipping_label: string | null;
+  gmc_custom_label_0: string | null;
+  gmc_custom_label_1: string | null;
+  gmc_custom_label_2: string | null;
+  gmc_custom_label_3: string | null;
+  gmc_custom_label_4: string | null;
+  gmc_additional_images: string | null;  // JSON string in DB
+  gtin: string | null;
+  mpn: string | null;
   sync_source: string;
   last_synced_from_erpnext: string | null;
   created_at: string;

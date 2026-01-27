@@ -69,6 +69,59 @@ export async function updateProductSEO(db: D1Database, sku: string, seoData: SEO
   ).run();
 }
 
+export async function updateProductSEOAndGMC(
+  db: D1Database,
+  sku: string,
+  seoData: SEOFields,
+  gmcData?: {
+    gmc_google_category?: string;
+    gmc_product_type?: string;
+    gmc_condition?: string;
+    gmc_shipping_label?: string;
+    gmc_custom_label_0?: string;
+    gmc_custom_label_1?: string;
+    gmc_custom_label_2?: string;
+    gmc_custom_label_3?: string;
+    gmc_custom_label_4?: string;
+  },
+): Promise<void> {
+  const updates: string[] = [];
+  const values: (string | null)[] = [];
+
+  const seoFieldNames: (keyof SEOFields)[] = [
+    'seo_title', 'seo_meta_description', 'seo_description_summary',
+    'seo_og_title', 'seo_og_description', 'seo_keywords', 'seo_robots',
+    'seo_faqs', 'seo_related_searches', 'seo_use_cases',
+    'description_original', 'seo_last_optimized', 'seo_competitor_data',
+  ];
+
+  for (const field of seoFieldNames) {
+    if (field in seoData && seoData[field] !== undefined) {
+      updates.push(`${field} = ?`);
+      const value = seoData[field];
+      values.push(typeof value === 'object' && value !== null ? JSON.stringify(value) : value as string | null);
+    }
+  }
+
+  if (gmcData) {
+    for (const [key, value] of Object.entries(gmcData)) {
+      if (value !== undefined) {
+        updates.push(`${key} = ?`);
+        values.push(value);
+      }
+    }
+  }
+
+  if (updates.length === 0) return;
+
+  updates.push('updated_at = datetime(\'now\')');
+  values.push(sku);
+
+  await db.prepare(
+    `UPDATE storefront_products SET ${updates.join(', ')} WHERE sku = ?`
+  ).bind(...values).run();
+}
+
 export async function saveCompetitorIntel(db: D1Database, sku: string, competitors: CompetitorIntel[]): Promise<void> {
   for (const comp of competitors) {
     await db.prepare(`
