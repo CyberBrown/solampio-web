@@ -242,6 +242,44 @@ export class StorefrontDB {
   constructor(private db: D1Database) {}
 
   /**
+   * Fill in missing images for variants by looking up their parent product.
+   * Variants share images with their parent template product.
+   */
+  async fillVariantImages(products: Product[]): Promise<Product[]> {
+    const variantsNeedingImages = products.filter(
+      p => p.variant_of && !p.cf_image_id && !p.image_url && !p.thumbnail_url
+    );
+    if (variantsNeedingImages.length === 0) return products;
+
+    // Get unique parent erpnext_names
+    const parentNames = [...new Set(variantsNeedingImages.map(p => p.variant_of!))];
+    const placeholders = parentNames.map(() => '?').join(',');
+    const parents = await this.db
+      .prepare(`SELECT erpnext_name, cf_image_id, image_url, thumbnail_url FROM storefront_products WHERE erpnext_name IN (${placeholders})`)
+      .bind(...parentNames)
+      .all<{ erpnext_name: string; cf_image_id: string | null; image_url: string | null; thumbnail_url: string | null }>();
+
+    const parentMap = new Map(
+      (parents.results || []).map(p => [p.erpnext_name, p])
+    );
+
+    return products.map(p => {
+      if (p.variant_of && !p.cf_image_id && !p.image_url && !p.thumbnail_url) {
+        const parent = parentMap.get(p.variant_of);
+        if (parent) {
+          return {
+            ...p,
+            cf_image_id: parent.cf_image_id,
+            image_url: parent.image_url,
+            thumbnail_url: parent.thumbnail_url,
+          };
+        }
+      }
+      return p;
+    });
+  }
+
+  /**
    * Get products with optional filtering and pagination
    */
   async getProducts(filters: ProductFilters = {}): Promise<{
@@ -326,8 +364,10 @@ export class StorefrontDB {
     const countResult = await this.db.prepare(countQuery).bind(...countParams).first<{ total: number }>();
     const total = countResult?.total || 0;
 
+    const products = await this.fillVariantImages(result.results || []);
+
     return {
-      products: result.results || [],
+      products,
       pagination: {
         page: Math.floor(offset / limit) + 1,
         limit,
@@ -503,7 +543,7 @@ export class StorefrontDB {
       LIMIT ?
     `).bind(...params, limit).all<Product>();
 
-    return result.results || [];
+    return this.fillVariantImages(result.results || []);
   }
 
   /**
@@ -607,7 +647,7 @@ export class StorefrontDB {
     `).bind(limit).all<Product>();
 
     if (featured.results && featured.results.length > 0) {
-      return featured.results;
+      return this.fillVariantImages(featured.results);
     }
 
     // Fallback: get products with prices, prefer in-stock
@@ -622,7 +662,7 @@ export class StorefrontDB {
       LIMIT ?
     `).bind(limit).all<Product>();
 
-    return result.results || [];
+    return this.fillVariantImages(result.results || []);
   }
 
   /**

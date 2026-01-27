@@ -50,6 +50,7 @@ interface SearchResult {
   cf_image_id: string | null;
   thumbnail_url: string | null;
   brand_id: string | null;
+  _variant_of?: string | null;
 }
 
 interface ProductRow {
@@ -62,6 +63,7 @@ interface ProductRow {
   cf_image_id: string | null;
   thumbnail_url: string | null;
   brand_id: string | null;
+  variant_of: string | null;
 }
 
 /**
@@ -155,6 +157,7 @@ export const onGet: RequestHandler = async ({ url, platform, json }) => {
               p.cf_image_id,
               p.thumbnail_url,
               p.brand_id,
+              p.variant_of,
               bm25(products_fts) as fts_rank,
               p.search_boost,
               (bm25(products_fts) * COALESCE(p.search_boost, 1.0)) as boosted_rank
@@ -181,6 +184,7 @@ export const onGet: RequestHandler = async ({ url, platform, json }) => {
           cf_image_id: row.cf_image_id,
           thumbnail_url: getThumbnailUrl(row.cf_image_id, row.thumbnail_url),
           brand_id: row.brand_id,
+          _variant_of: row.variant_of,
         }));
 
         // Get total count (excluding hidden products with search_boost <= 0)
@@ -222,6 +226,7 @@ export const onGet: RequestHandler = async ({ url, platform, json }) => {
             cf_image_id,
             thumbnail_url,
             brand_id,
+            variant_of,
             search_boost
           FROM storefront_products
           WHERE is_visible = 1
@@ -270,10 +275,37 @@ export const onGet: RequestHandler = async ({ url, platform, json }) => {
       total = countResult?.total || results.length;
     }
 
+    // Fill in missing images for variants from parent products
+    const variantsNeedingImages = results.filter(
+      (r: any) => r._variant_of && !r.cf_image_id && !r.thumbnail_url
+    );
+    if (variantsNeedingImages.length > 0) {
+      const parentNames = [...new Set(variantsNeedingImages.map((r: any) => r._variant_of as string))];
+      const placeholders = parentNames.map(() => '?').join(',');
+      const parents = await db
+        .prepare(`SELECT erpnext_name, cf_image_id, thumbnail_url FROM storefront_products WHERE erpnext_name IN (${placeholders})`)
+        .bind(...parentNames)
+        .all<{ erpnext_name: string; cf_image_id: string | null; thumbnail_url: string | null }>();
+      const parentMap = new Map((parents.results || []).map(p => [p.erpnext_name, p]));
+
+      for (const r of results) {
+        const vr = r as any;
+        if (vr._variant_of && !r.cf_image_id && !r.thumbnail_url) {
+          const parent = parentMap.get(vr._variant_of);
+          if (parent) {
+            r.cf_image_id = parent.cf_image_id;
+            r.thumbnail_url = getThumbnailUrl(parent.cf_image_id, parent.thumbnail_url);
+          }
+        }
+      }
+    }
+    // Strip internal field
+    const cleanResults = results.map(({ _variant_of, ...rest }: any) => rest);
+
     json(200, {
       query,
       total,
-      results,
+      results: cleanResults,
     });
   } catch (error) {
     console.error('Search error:', error);
