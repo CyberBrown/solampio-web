@@ -240,6 +240,7 @@ export const onPost: RequestHandler = async (requestEvent) => {
             hazmat_class = ?,
             oversized_flag = ?,
             inherit_shipping_from_parent = ?,
+            image_url = COALESCE(?, image_url),
             sync_source = 'erpnext',
             last_synced_from_erpnext = ?,
             updated_at = ?
@@ -272,6 +273,7 @@ export const onPost: RequestHandler = async (requestEvent) => {
           payload.hazmat_class || null,
           oversizedFlag,
           inheritShippingFromParent,
+          payload.website_image || null,
           now,
           now,
           payload.item_code
@@ -289,8 +291,8 @@ export const onPost: RequestHandler = async (requestEvent) => {
             is_featured, featured_category_id, featured_in_subcategory_id,
             ships_usps, ships_ups, ships_ltl, ships_pickup,
             hazmat_flag, hazmat_class, oversized_flag, inherit_shipping_from_parent,
-            sync_source, last_synced_from_erpnext, created_at, updated_at
-          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'erpnext', ?, ?, ?)
+            image_url, sync_source, last_synced_from_erpnext, created_at, updated_at
+          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'erpnext', ?, ?, ?)
         `)
         .bind(
           id,
@@ -321,6 +323,7 @@ export const onPost: RequestHandler = async (requestEvent) => {
           payload.hazmat_class || null,
           oversizedFlag,
           inheritShippingFromParent,
+          payload.website_image || null,
           now,
           now,
           now

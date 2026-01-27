@@ -273,8 +273,8 @@ const BrandPage = component$<{ data: PageData }>(({ data }) => {
           <div class="flex items-center gap-6">
             {/* Brand Logo */}
             <div class="w-24 h-24 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">
-              {brand?.logo_url ? (
-                <img src={brand.logo_url} alt={brandName} class="w-full h-full object-contain p-2" />
+              {brand ? (
+                <img src={getBrandLogoVariant(brand, 'full') || ''} alt={brandName} class="w-full h-full object-contain p-2" />
               ) : (
                 <span class="text-white font-heading font-bold text-xl text-center px-2">{brandName.split(' ')[0]}</span>
               )}

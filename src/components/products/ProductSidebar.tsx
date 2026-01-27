@@ -32,14 +32,14 @@ export const ProductSidebar = component$<ProductSidebarProps>(({ categories, bra
   const brandsExpanded = useSignal(true);
 
   // More precise path matching - checks for exact path segment match
+  // Now using root-level URLs (e.g., /batteries/, /batteries/lithium/)
   const matchesCategory = (path: string, catSlug: string) => {
-    // Match /categories/{catSlug}/ or /categories/{catSlug}/{subSlug}/
-    return path.startsWith(`/categories/${catSlug}/`);
+    return path.startsWith(`/${catSlug}/`);
   };
 
   const matchesSubcategory = (path: string, catSlug: string, subSlug: string) => {
-    return path.startsWith(`/categories/${catSlug}/${subSlug}/`) ||
-           path === `/categories/${catSlug}/${subSlug}`;
+    return path.startsWith(`/${catSlug}/${subSlug}/`) ||
+           path === `/${catSlug}/${subSlug}`;
   };
 
   // Toggle category expanded state (for clicks)
@@ -109,7 +109,7 @@ export const ProductSidebar = component$<ProductSidebarProps>(({ categories, bra
               >
                 <div class="flex items-center group">
                   <Link
-                    href={`/categories/${catSlug}/`}
+                    href={`/${catSlug}/`}
                     class={[
                       'flex-1 block py-1.5 px-2 rounded text-sm transition-colors',
                       isActive || isParentActive
@@ -155,7 +155,7 @@ export const ProductSidebar = component$<ProductSidebarProps>(({ categories, bra
                       return (
                         <li key={sub.id}>
                           <Link
-                            href={`/categories/${catSlug}/${subSlug}/`}
+                            href={`/${catSlug}/${subSlug}/`}
                             class={[
                               'block py-1 px-2 rounded text-xs transition-colors',
                               isSubActive
@@ -201,12 +201,12 @@ export const ProductSidebar = component$<ProductSidebarProps>(({ categories, bra
           <ul class="space-y-0.5">
             {brands.map((brand) => {
               const brandSlug = cleanSlug(brand.slug);
-              const isActive = currentPath.startsWith(`/brands/${brandSlug}/`) ||
-                               currentPath === `/brands/${brandSlug}`;
+              const isActive = currentPath.startsWith(`/${brandSlug}/`) ||
+                               currentPath === `/${brandSlug}`;
               return (
                 <li key={brand.id}>
                   <Link
-                    href={`/brands/${brandSlug}/`}
+                    href={`/${brandSlug}/`}
                     class={[
                       'flex items-center justify-between py-1.5 px-2 rounded text-sm transition-colors',
                       isActive

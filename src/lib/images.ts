@@ -133,6 +133,7 @@ export type BrandLogoVariant = 'full' | 'thumb' | 'greyscale';
  */
 export function getBrandLogoVariant(
   brand: {
+    slug?: string | null;
     logo_cf_image_id?: string | null;
     logo_thumb_cf_id?: string | null;
     logo_greyscale_cf_id?: string | null;
@@ -165,7 +166,14 @@ export function getBrandLogoVariant(
 
   // Fallback to legacy logo_url (only for 'full' and 'thumb' variants)
   if (logoVariant !== 'greyscale') {
-    return brand.logo_url || null;
+    if (brand.logo_url) {
+      return brand.logo_url;
+    }
+    // Fallback to local images based on slug
+    if (brand.slug) {
+      const variantPath = logoVariant === 'thumb' ? 'thumb' : 'full';
+      return `/images/brands/${variantPath}/${brand.slug}.png`;
+    }
   }
 
   return null;
