@@ -1,4 +1,4 @@
-import type { SEOOptimizationResult } from './types';
+import type { FullOptimizationResult } from './types';
 
 interface GeminiConfig {
   apiKey?: string;
@@ -13,6 +13,7 @@ interface ProductInput {
   price: number | null;
   description: string | null;
   cf_image_id: string | null;
+  weight_lbs: number | null;
 }
 
 const SEO_RESULT_SCHEMA = {
@@ -53,19 +54,52 @@ const SEO_RESULT_SCHEMA = {
         required: ["name", "url", "differentiators"],
       },
     },
+
+    // GMC fields
+    gmc_google_category: {
+      type: "string",
+      description: "Google Product Category path, e.g., 'Electronics > Solar Energy > Solar Inverters'",
+    },
+    gmc_product_type: {
+      type: "string",
+      description: "Store category breadcrumb, e.g., 'Solar Equipment > Inverters > Hybrid Inverters'",
+    },
+    gmc_condition: {
+      type: "string",
+      enum: ["new", "refurbished", "used"],
+      description: "Product condition, almost always 'new'",
+    },
+    gmc_shipping_label: {
+      type: "string",
+      enum: ["standard", "oversized", "freight", "ltl"],
+      description: "Shipping category based on weight/size",
+    },
+    gmc_custom_labels: {
+      type: "object",
+      properties: {
+        margin_tier: { type: "string", enum: ["high_margin", "medium_margin", "low_margin"] },
+        product_type: { type: "string", description: "Simple category: inverter, panel, battery, racking, bos, accessory" },
+        brand_tier: { type: "string", enum: ["premium", "mid_tier", "value"] },
+        seasonality: { type: "string", enum: ["always_on", "seasonal", "new_launch"] },
+        promo_eligible: { type: "string", enum: ["promo_eligible", "map_protected", "clearance"] },
+      },
+      required: ["margin_tier", "product_type", "brand_tier", "seasonality", "promo_eligible"],
+    },
   },
   required: [
     "seo_title", "seo_meta_description", "seo_description_summary",
     "seo_og_title", "seo_og_description", "seo_keywords", "seo_robots",
     "seo_faqs", "seo_related_searches", "seo_use_cases",
     "optimized_description", "competitors",
+    "gmc_google_category", "gmc_product_type", "gmc_condition",
+    "gmc_shipping_label", "gmc_custom_labels",
   ],
 };
 
 export async function optimizeProductSEO(
   product: ProductInput,
   config: GeminiConfig,
-): Promise<SEOOptimizationResult & { competitors?: Array<{ name: string; url: string; price: string | null; differentiators: string[] }> }> {
+): Promise<FullOptimizationResult & { competitors?: Array<{ name: string; url: string; price: string | null; differentiators: string[] }> }> {
   const baseUrl = config.gatewayUrl || 'https://generativelanguage.googleapis.com/v1beta';
   const url = `${baseUrl}/models/gemini-3-flash-preview:generateContent`;
 
@@ -125,6 +159,7 @@ function buildPrompt(product: ProductInput): string {
 - Brand: ${product.brand || 'Unknown'}
 - Category: ${product.category || 'Uncategorized'}
 - Price: ${product.price ? `$${product.price}` : 'Not set'}
+- Weight: ${product.weight_lbs ? `${product.weight_lbs} lbs` : 'Unknown'}
 - Current Description: ${product.description?.substring(0, 3000) || 'None provided'}
 
 ## Your Task
@@ -134,7 +169,7 @@ function buildPrompt(product: ProductInput): string {
 3. **Analyze top 3-5 competitor listings** - capture their pricing, URLs, and key differentiators
 4. **Generate FAQs** - real questions buyers ask about this product type
 
-## Content Guidelines
+## SEO Content Guidelines
 
 - Target audience: Solar installers, electrical contractors, DIY homeowners
 - Emphasize: Technical specs, compatibility, warranty, certifications
@@ -143,21 +178,49 @@ function buildPrompt(product: ProductInput): string {
 - Do NOT invent specifications - only use what's provided or found via search
 - FAQs should be genuinely useful questions (installation, compatibility, sizing, etc.)
 
-## Output Requirements
+## Google Merchant Center Fields
 
-Generate JSON with:
-- seo_title: Max 60 chars. Format: "[Product] - [Key Benefit] | Solamp"
-- seo_meta_description: Max 155 chars. Include primary keyword and CTA.
-- seo_description_summary: 2-3 sentences for product page hero area.
-- seo_og_title: Max 60 chars, optimized for social clicks.
-- seo_og_description: Max 155 chars, engaging for social sharing.
-- seo_keywords: Array of 5-10 target keywords/phrases.
-- seo_robots: Usually "index, follow"
-- seo_faqs: Array of 3-5 {question, answer} objects. Real buyer questions.
-- seo_related_searches: Array of related search queries people also search.
-- seo_use_cases: Array of specific use cases (e.g., "residential backup", "off-grid cabin").
-- optimized_description: Full HTML description with <h2>/<h3> structure. 300-600 words. Cover: overview, key features, specifications (if found), applications, why buy from Solamp.
-- competitors: Array of {name, url, price, differentiators} from search results.`;
+Also generate these GMC-specific fields:
+
+**gmc_google_category**: The most specific Google Product Category path. For solar equipment:
+- Solar panels: "Electronics > Solar Energy > Solar Panels"
+- Inverters: "Electronics > Solar Energy > Solar Inverters"
+- Batteries: "Electronics > Solar Energy > Solar Energy Storage"
+- Racking/mounting: "Hardware > Building Materials > Roofing & Siding > Solar Panel Mounting Equipment"
+- Charge controllers: "Electronics > Solar Energy > Solar Charge Controllers"
+- Cables/connectors: "Electronics > Electronics Accessories > Cable Management"
+- Monitoring: "Electronics > Solar Energy > Solar Energy System Monitoring"
+
+**gmc_product_type**: Full store category breadcrumb. Format: "Solar Equipment > [Category] > [Subcategory]"
+Examples: "Solar Equipment > Inverters > Hybrid Inverters", "Solar Equipment > Panels > Monocrystalline"
+
+**gmc_condition**: Almost always "new" for Solamp products
+
+**gmc_shipping_label**: Based on product weight/dimensions:
+- "standard": Under 30 lbs, ships via UPS/FedEx Ground
+- "oversized": 30-70 lbs, ships ground with handling fee
+- "freight": 70-150 lbs, needs freight carrier
+- "ltl": Over 150 lbs or palletized (batteries, large inverters, panel pallets)
+
+**gmc_custom_labels**: For campaign management
+- margin_tier: Estimate based on product type
+  - "high_margin": Accessories, BOS components, monitoring
+  - "medium_margin": Inverters, charge controllers, racking
+  - "low_margin": Solar panels, batteries (commodity pricing)
+- product_type: Simple single-word category (inverter, panel, battery, racking, bos, accessory, monitoring, cable)
+- brand_tier: Based on brand reputation
+  - "premium": Sol-Ark, Enphase, SMA, Fronius, Tesla, LG, Panasonic
+  - "mid_tier": Canadian Solar, Hanwha Q Cells, SolarEdge, Generac, Schneider
+  - "value": Generic brands, lesser-known manufacturers
+- seasonality: "always_on" for most solar (seasonal construction slowdown is minimal)
+- promo_eligible:
+  - "map_protected" if major brand with MAP policy (Sol-Ark, Enphase, etc.)
+  - "promo_eligible" if can discount freely
+  - "clearance" if being discontinued
+
+## Output Format
+
+Return a JSON object with all SEO fields (seo_title, seo_meta_description, etc.) plus all GMC fields.`;
 }
 
 export { buildPrompt, SEO_RESULT_SCHEMA };

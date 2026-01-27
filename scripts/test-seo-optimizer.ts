@@ -9,6 +9,7 @@ const TEST_PRODUCTS = [
     price: null as number | null,
     description: 'Sol-Ark Hybrid Inverter',
     cf_image_id: 'sku-SOLARK-2018132f',
+    weight_lbs: 85 as number | null,
   },
   {
     sku: 'CWT410WP',
@@ -18,6 +19,7 @@ const TEST_PRODUCTS = [
     price: 157.19,
     description: 'Power Your Future with the CW Energy 410W Bifacial Monocrystalline Solar Panel. At Solamp, we are committed to providing high-quality, reliable solar solutions. This advanced solar panel utilizes bifacial technology and high-efficiency monocrystalline cells to capture sunlight from both sides of the panel. 410 Wp peak power, 21% module efficiency, 1500V DC max system voltage. 25 year product warranty and 30 year performance warranty.',
     cf_image_id: 'sku-CWT410WP-a4e888d4',
+    weight_lbs: 48 as number | null,
   },
   {
     sku: 'UNI-GR',
@@ -27,6 +29,7 @@ const TEST_PRODUCTS = [
     price: null as number | null,
     description: 'Ground (or Roof) Tilt Mounts',
     cf_image_id: 'sku-UNI-GR-ab0e8e67',
+    weight_lbs: 65 as number | null,
   },
 ];
 
@@ -38,7 +41,7 @@ async function runTest() {
     process.exit(1);
   }
 
-  console.log('Testing SEO optimizer with', TEST_PRODUCTS.length, 'products\n');
+  console.log('Testing SEO+GMC optimizer with', TEST_PRODUCTS.length, 'products\n');
 
   for (const product of TEST_PRODUCTS) {
     console.log(`\n${'='.repeat(60)}`);
@@ -51,6 +54,9 @@ async function runTest() {
       const duration = ((Date.now() - startTime) / 1000).toFixed(1);
 
       console.log(`\nCompleted in ${duration}s\n`);
+
+      // SEO fields
+      console.log('--- SEO Fields ---');
       console.log('SEO Title:', result.seo_title);
       console.log('Meta Description:', result.seo_meta_description);
       console.log('Keywords:', result.seo_keywords?.join(', '));
@@ -63,6 +69,14 @@ async function runTest() {
           console.log(`  ${i + 1}. ${c.name}: ${c.price || 'price N/A'}`);
         });
       }
+
+      // GMC fields
+      console.log('\n--- GMC Fields ---');
+      console.log('Google Category:', result.gmc_google_category);
+      console.log('Product Type:', result.gmc_product_type);
+      console.log('Condition:', result.gmc_condition);
+      console.log('Shipping Label:', result.gmc_shipping_label);
+      console.log('Custom Labels:', JSON.stringify(result.gmc_custom_labels, null, 4));
 
       // Write full result to file for review
       const fs = await import('fs');
