@@ -57,6 +57,20 @@ export interface Product {
   inherit_shipping_from_parent: number;  // 1 to use parent's shipping specs
   // Search boost (for search ranking)
   search_boost: number;  // Default 1.0, 0 or negative hides from search
+  // SEO optimization fields
+  seo_title: string | null;
+  seo_meta_description: string | null;
+  seo_description_summary: string | null;
+  seo_og_title: string | null;
+  seo_og_description: string | null;
+  seo_keywords: string | null;  // JSON array in D1
+  seo_robots: string | null;
+  seo_faqs: string | null;  // JSON array in D1
+  seo_related_searches: string | null;  // JSON array in D1
+  seo_use_cases: string | null;  // JSON array in D1
+  description_original: string | null;
+  seo_last_optimized: string | null;
+  seo_competitor_data: string | null;  // JSON array in D1
   sync_source: string;
   last_synced_from_erpnext: string | null;
   created_at: string;
