@@ -35,6 +35,13 @@ interface ERPNextWebsiteItemGroup {
   item_group: string;
 }
 
+interface ERPNextWebsiteImage {
+  image_url: string;
+  cf_image_id?: string;
+  sort_order?: number;
+  alt_text?: string;
+}
+
 interface ERPNextProductPayload {
   name: string;
   item_code: string;
@@ -49,6 +56,8 @@ interface ERPNextProductPayload {
   disabled?: boolean | number;
   brand?: string;
   website_image?: string;
+  // Multiple images from custom child table
+  custom_website_images?: ERPNextWebsiteImage[];
   has_variants?: boolean | number;
   variant_of?: string;
   // Featured product fields (ERPNext sends custom_ prefixed fields)
@@ -120,6 +129,67 @@ async function updateProductCategoryMappings(
       .bind(productSku, categoryName, new Date().toISOString())
       .run();
   }
+}
+
+/**
+ * Sync product images to storefront_product_images table
+ * Handles multiple images from ERPNext custom_website_images child table
+ */
+async function syncProductImages(
+  db: D1Database,
+  productId: string,
+  images: ERPNextWebsiteImage[]
+): Promise<{ synced: number; primary?: string }> {
+  const now = new Date().toISOString();
+
+  // Delete existing images for this product
+  await db
+    .prepare('DELETE FROM storefront_product_images WHERE product_id = ?')
+    .bind(productId)
+    .run();
+
+  if (!images || images.length === 0) {
+    return { synced: 0 };
+  }
+
+  // Sort by sort_order (0 = primary)
+  const sortedImages = [...images].sort((a, b) => (a.sort_order || 0) - (b.sort_order || 0));
+
+  let synced = 0;
+  let primaryImageUrl: string | undefined;
+
+  for (const img of sortedImages) {
+    if (!img.image_url) continue;
+
+    const imageId = crypto.randomUUID().replace(/-/g, '');
+    const sortOrder = img.sort_order ?? synced;
+
+    await db
+      .prepare(`
+        INSERT INTO storefront_product_images (
+          id, product_id, image_url, cf_image_id, sort_order, alt_text, created_at, updated_at
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+      `)
+      .bind(
+        imageId,
+        productId,
+        img.image_url,
+        img.cf_image_id || null,
+        sortOrder,
+        img.alt_text || null,
+        now,
+        now
+      )
+      .run();
+
+    // Track primary image (first one / sort_order 0)
+    if (synced === 0) {
+      primaryImageUrl = img.image_url;
+    }
+    synced++;
+  }
+
+  return { synced, primary: primaryImageUrl };
 }
 
 export const onPost: RequestHandler = async (requestEvent) => {
@@ -336,6 +406,34 @@ export const onPost: RequestHandler = async (requestEvent) => {
       await updateProductCategoryMappings(db, payload.item_code, categoryNames);
     }
 
+    // Sync multiple images if provided from ERPNext custom_website_images
+    let imagesSynced = 0;
+    let productId: string | undefined = existing?.id;
+    if (!productId) {
+      const newProduct = await db
+        .prepare('SELECT id FROM storefront_products WHERE sku = ?')
+        .bind(payload.item_code)
+        .first() as { id: string } | null;
+      productId = newProduct?.id;
+    }
+
+    if (productId && payload.custom_website_images && payload.custom_website_images.length > 0) {
+      const imageResult = await syncProductImages(db, productId, payload.custom_website_images);
+      imagesSynced = imageResult.synced;
+
+      // Update primary image on the product if we synced images
+      if (imageResult.primary) {
+        await db
+          .prepare(`
+            UPDATE storefront_products
+            SET image_url = ?, updated_at = datetime('now')
+            WHERE id = ?
+          `)
+          .bind(imageResult.primary, productId)
+          .run();
+      }
+    }
+
     json(200, {
       success: true,
       product: {
@@ -343,6 +441,7 @@ export const onPost: RequestHandler = async (requestEvent) => {
         title: payload.item_name || payload.name,
         categories: categoryNames,
         categoryIds,
+        imagesSynced,
         updated: !!existing,
       },
     });
@@ -386,12 +485,15 @@ export const onGet: RequestHandler = async ({ json }) => {
       hazmat_class: 'Hazmat classification code (if hazmat_flag is true)',
       oversized_flag: 'Set to true if item is oversized',
       inherit_shipping_from_parent: 'Set to true for variants to inherit shipping from parent',
+      website_image: 'Primary image URL (legacy single image)',
+      custom_website_images: '[{ image_url, cf_image_id, sort_order, alt_text }] - Multiple images from ERPNext',
     },
     notes: [
       'Descriptions are automatically cleaned (HTML tags, inline styles, BigCommerce artifacts removed)',
       'Cleaned description stored in description_clean field',
       'Summary/excerpt stored in description_summary field (500 chars max)',
       'Use /api/products/generate-summaries for AI-powered summary generation',
+      'Multiple images: Use custom_website_images array with sort_order=0 for primary image',
     ],
   });
 };
