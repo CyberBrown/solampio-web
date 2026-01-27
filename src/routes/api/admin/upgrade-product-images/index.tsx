@@ -586,7 +586,7 @@ export const onPost: RequestHandler = async (requestEvent) => {
         await db
           .prepare(`
             UPDATE storefront_product_images
-            SET cf_image_id = ?, image_url = ?, updated_at = datetime('now')
+            SET cf_image_id = ?, image_url = ?
             WHERE product_id = ? AND sort_order = 0
           `)
           .bind(uploadResult.id, cfImageUrl, product.id)

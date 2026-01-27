@@ -163,12 +163,13 @@ async function syncProductImages(
 
     const imageId = crypto.randomUUID().replace(/-/g, '');
     const sortOrder = img.sort_order ?? synced;
+    const isPrimary = sortOrder === 0 ? 1 : 0;
 
     await db
       .prepare(`
         INSERT INTO storefront_product_images (
-          id, product_id, image_url, cf_image_id, sort_order, alt_text, created_at, updated_at
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+          id, product_id, image_url, cf_image_id, sort_order, is_primary
+        ) VALUES (?, ?, ?, ?, ?, ?)
       `)
       .bind(
         imageId,
@@ -176,9 +177,7 @@ async function syncProductImages(
         img.image_url,
         img.cf_image_id || null,
         sortOrder,
-        img.alt_text || null,
-        now,
-        now
+        isPrimary
       )
       .run();
 
