@@ -227,8 +227,8 @@ export default component$(() => {
           </div>
           <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
             {shopByCategories.map((cat) => {
-              // Use local category images for longer cache (1 year vs 2 days from CF)
-              const imageUrl = `/images/categories/${cat.slug}.webp`;
+              // Use CF Images with 'card' variant (600px) for good quality on retina displays
+              const imageUrl = `https://imagedelivery.net/Fdrr4r8cVWsy-JJCR0JU_Q/${cat.cf_image_id}/card`;
               return (
                 <Link key={cat.slug} href={`/${cat.slug}/`} class="group relative overflow-hidden rounded-lg aspect-[4/3] transform transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
                   {/* Background - CF Images optimized category image */}
@@ -237,8 +237,8 @@ export default component$(() => {
                       src={imageUrl}
                       alt={cat.title}
                       class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      width="200"
-                      height="150"
+                      width="600"
+                      height="450"
                       loading="lazy"
                     />
                   ) : (
