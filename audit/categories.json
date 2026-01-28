@@ -1,0 +1,356 @@
+[
+  {
+    "id": "74cd912f5f24a46dc202b839868355ce",
+    "slug": "batteries",
+    "title": "Batteries",
+    "parent_id": null
+  },
+  {
+    "id": "e239b53de81a4b89d726270dd85a9882",
+    "slug": "solar-panels",
+    "title": "Solar Panels",
+    "parent_id": null
+  },
+  {
+    "id": "dad16ae02c2bbe11b6f3a1da8cfb5429",
+    "slug": "inverters",
+    "title": "Inverters",
+    "parent_id": null
+  },
+  {
+    "id": "7fbd8055c712aea505e0a1795b5aba85",
+    "slug": "charge-controllers",
+    "title": "Charge Controllers",
+    "parent_id": null
+  },
+  {
+    "id": "62dc5127ded58a0fe74d9ce66d38c3ec",
+    "slug": "balance-of-system",
+    "title": "Balance of System",
+    "parent_id": null
+  },
+  {
+    "id": "ac9796230af6d8c1f58a11ce54f9d69e",
+    "slug": "mounting-and-racking",
+    "title": "Mounting and Racking",
+    "parent_id": null
+  },
+  {
+    "id": "8479c81dc61ad1520bf9b97272f9caa5",
+    "slug": "wind-turbines",
+    "title": "Wind Turbines",
+    "parent_id": null
+  },
+  {
+    "id": "4ade6c753af8898e93acd2914b7add4f",
+    "slug": "solar-power-systems",
+    "title": "Solar Power Systems",
+    "parent_id": null
+  },
+  {
+    "id": "10f35898e3d01aab200965aee4974c77",
+    "slug": "swag",
+    "title": "SWAG",
+    "parent_id": null
+  },
+  {
+    "id": "84c218d641d34f16cff5e39c6750dece",
+    "slug": "dc-appliances",
+    "title": "DC Appliances",
+    "parent_id": null
+  },
+  {
+    "id": "3c7b6d6a5ea836b98befbb4ba55b335e",
+    "slug": "solar-training-and-education",
+    "title": "Solar Training and Education",
+    "parent_id": null
+  },
+  {
+    "id": "a7e5afdc58cb50b542d8d58fd8efb09e",
+    "slug": "lithium-batteries",
+    "title": "Lithium Batteries",
+    "parent_id": "74cd912f5f24a46dc202b839868355ce"
+  },
+  {
+    "id": "e1d035db7754a66959cd50ea0ec07cc7",
+    "slug": "agm",
+    "title": "AGM",
+    "parent_id": "74cd912f5f24a46dc202b839868355ce"
+  },
+  {
+    "id": "b8a1aac0b6ed37ceb9b31841b74a89d2",
+    "slug": "portable-power-packs",
+    "title": "Portable Power Packs",
+    "parent_id": "74cd912f5f24a46dc202b839868355ce"
+  },
+  {
+    "id": "80b6d926d08c1a1dcc8962bd9e70159c",
+    "slug": "off-grid-solar-panels",
+    "title": "Off Grid Solar Panels",
+    "parent_id": "e239b53de81a4b89d726270dd85a9882"
+  },
+  {
+    "id": "9366684c9728bcb66918642d2226a8f9",
+    "slug": "portable-solar-panels",
+    "title": "Portable Solar Panels",
+    "parent_id": "e239b53de81a4b89d726270dd85a9882"
+  },
+  {
+    "id": "89f80985dbc640fba5a7a0d69572fd33",
+    "slug": "ground-mounted-solar-panels",
+    "title": "Ground Mounted Solar Panels",
+    "parent_id": "e239b53de81a4b89d726270dd85a9882"
+  },
+  {
+    "id": "a33b3875c20be0fed7c3c9429568a136",
+    "slug": "rooftop-solar-panels",
+    "title": "Rooftop Solar Panels",
+    "parent_id": "e239b53de81a4b89d726270dd85a9882"
+  },
+  {
+    "id": "e837980ba1b0d0f5ee53a4c1c963c947",
+    "slug": "microinverters",
+    "title": "Microinverters",
+    "parent_id": "dad16ae02c2bbe11b6f3a1da8cfb5429"
+  },
+  {
+    "id": "d838307b86c27f48f0035774a95c5b4a",
+    "slug": "hybrid-solar-battery-inverters",
+    "title": "Hybrid Solar Battery Inverters",
+    "parent_id": "dad16ae02c2bbe11b6f3a1da8cfb5429"
+  },
+  {
+    "id": "2aec8e8b706a30f9d92d8b052f1e6a91",
+    "slug": "grid-tie-string-inverter",
+    "title": "Grid Tie String Inverter",
+    "parent_id": "dad16ae02c2bbe11b6f3a1da8cfb5429"
+  },
+  {
+    "id": "3eb56b540a28931c10ba3a58c6d0bf69",
+    "slug": "off-grid-inverters",
+    "title": "Off Grid Inverters",
+    "parent_id": "dad16ae02c2bbe11b6f3a1da8cfb5429"
+  },
+  {
+    "id": "7ec34a2f190e7f9e5c68a972771724b2",
+    "slug": "dc-power-supplies",
+    "title": "DC Power Supplies",
+    "parent_id": "7fbd8055c712aea505e0a1795b5aba85"
+  },
+  {
+    "id": "100fec77598b0b1e6f315aded3ca5800",
+    "slug": "pwm",
+    "title": "PWM",
+    "parent_id": "7fbd8055c712aea505e0a1795b5aba85"
+  },
+  {
+    "id": "597b3b3e308ca27d6f6c4e30017c6343",
+    "slug": "stacking-controllers",
+    "title": "Stacking Controllers",
+    "parent_id": "7fbd8055c712aea505e0a1795b5aba85"
+  },
+  {
+    "id": "183b7ee367ba790eaac637d6fa05712b",
+    "slug": "mppt",
+    "title": "MPPT",
+    "parent_id": "7fbd8055c712aea505e0a1795b5aba85"
+  },
+  {
+    "id": "9f2804bd902ead176a275adce8c5c460",
+    "slug": "rapid-shutdown",
+    "title": "Rapid Shutdown",
+    "parent_id": "62dc5127ded58a0fe74d9ce66d38c3ec"
+  },
+  {
+    "id": "f66573fcdd70aa91f72e6cfdf099e527",
+    "slug": "electrical-boxes",
+    "title": "Electrical Boxes",
+    "parent_id": "62dc5127ded58a0fe74d9ce66d38c3ec"
+  },
+  {
+    "id": "bf3c41a3313fcf66349e77e6b34c57c8",
+    "slug": "voltage-converters",
+    "title": "Voltage Converters",
+    "parent_id": "7fbd8055c712aea505e0a1795b5aba85"
+  },
+  {
+    "id": "c62491ad6f16fa8bc2dbd4ef6ab2c0f0",
+    "slug": "meters-monitoring-and-shunts",
+    "title": "Meters, Monitoring and Shunts",
+    "parent_id": "62dc5127ded58a0fe74d9ce66d38c3ec"
+  },
+  {
+    "id": "85b205ef548f13c52aeb54c6bd2c0530",
+    "slug": "large-flat-roof",
+    "title": "Large Flat Roof",
+    "parent_id": "ac9796230af6d8c1f58a11ce54f9d69e"
+  },
+  {
+    "id": "83e3740ed708965df770e0984898822e",
+    "slug": "ground-mounts",
+    "title": "Ground Mounts",
+    "parent_id": "ac9796230af6d8c1f58a11ce54f9d69e"
+  },
+  {
+    "id": "a5ab6942e3a68aae600469884a7718e3",
+    "slug": "metal-roof",
+    "title": "Metal Roof",
+    "parent_id": "ac9796230af6d8c1f58a11ce54f9d69e"
+  },
+  {
+    "id": "720f578c6f47ba282c886963967c5d47",
+    "slug": "pitched-roof-mounts",
+    "title": "Pitched Roof Mounts",
+    "parent_id": "ac9796230af6d8c1f58a11ce54f9d69e"
+  },
+  {
+    "id": "0caf1fe15658b1d1c2912f4a1c96566e",
+    "slug": "flashing-and-hardware",
+    "title": "Flashing and Hardware",
+    "parent_id": "ac9796230af6d8c1f58a11ce54f9d69e"
+  },
+  {
+    "id": "2eae976b3bd761bdd7dce8a221dc6377",
+    "slug": "side-of-pole",
+    "title": "Side of Pole",
+    "parent_id": "ac9796230af6d8c1f58a11ce54f9d69e"
+  },
+  {
+    "id": "fd67113395a831083fe6c1b5faac5b03",
+    "slug": "top-of-pole",
+    "title": "Top of Pole",
+    "parent_id": "ac9796230af6d8c1f58a11ce54f9d69e"
+  },
+  {
+    "id": "b476df3c49294cec0648387913d2ec2d",
+    "slug": "wire-and-cables",
+    "title": "Wire and Cables",
+    "parent_id": "62dc5127ded58a0fe74d9ce66d38c3ec"
+  },
+  {
+    "id": "2a4fb12c8de9bb77c783bfb5c3e06c18",
+    "slug": "energy-storage-systems",
+    "title": "Energy Storage Systems",
+    "parent_id": "74cd912f5f24a46dc202b839868355ce"
+  },
+  {
+    "id": "db4f3eade92b15e21bfdb91ca4ba90d4",
+    "slug": "breakers-and-fuses",
+    "title": "Breakers and Fuses",
+    "parent_id": "62dc5127ded58a0fe74d9ce66d38c3ec"
+  },
+  {
+    "id": "89fa0722afcf249721b7de9e6e7027e0",
+    "slug": "mounting-kits",
+    "title": "Mounting Kits",
+    "parent_id": "ac9796230af6d8c1f58a11ce54f9d69e"
+  },
+  {
+    "id": "c91f86650212d5b249f9432cd8626f51",
+    "slug": "inverter-accessories",
+    "title": "Inverter Accessories",
+    "parent_id": "dad16ae02c2bbe11b6f3a1da8cfb5429"
+  },
+  {
+    "id": "4ef4f660ab8d24f86d3c4f22e75eb1e1",
+    "slug": "accessories",
+    "title": "Accessories",
+    "parent_id": "62dc5127ded58a0fe74d9ce66d38c3ec"
+  },
+  {
+    "id": "f81ebfd4f94a0f7e919a622483dec905",
+    "slug": "combiners",
+    "title": "Combiners",
+    "parent_id": "62dc5127ded58a0fe74d9ce66d38c3ec"
+  },
+  {
+    "id": "2be85b344e7cb6a15ac2dcef69aa1718",
+    "slug": "e-panel",
+    "title": "E-Panel",
+    "parent_id": "62dc5127ded58a0fe74d9ce66d38c3ec"
+  },
+  {
+    "id": "bdc0dcb559c7e28a47b41adf724c72cb",
+    "slug": "battery-accessories",
+    "title": "Battery Accessories",
+    "parent_id": "74cd912f5f24a46dc202b839868355ce"
+  },
+  {
+    "id": "f195f16f7791fefe5fd772330d78ba06",
+    "slug": "busbars",
+    "title": "Busbars",
+    "parent_id": "62dc5127ded58a0fe74d9ce66d38c3ec"
+  },
+  {
+    "id": "8613a26daa278730078d2f015b82bd76",
+    "slug": "lightning-and-surge-protection",
+    "title": "Lightning and Surge Protection",
+    "parent_id": "62dc5127ded58a0fe74d9ce66d38c3ec"
+  },
+  {
+    "id": "a91083bfeb2349bb498aa60c79844924",
+    "slug": "commercial-inverters",
+    "title": "Commercial Inverters",
+    "parent_id": "dad16ae02c2bbe11b6f3a1da8cfb5429"
+  },
+  {
+    "id": "3e88f71310d7184556cfbfb78d9ddd0c",
+    "slug": "high-voltage-batteries",
+    "title": "High Voltage Batteries",
+    "parent_id": "74cd912f5f24a46dc202b839868355ce"
+  },
+  {
+    "id": "2ffc435cb29132f5355d1eefe5ffb784",
+    "slug": "replacement-parts",
+    "title": "Replacement Parts",
+    "parent_id": "74cd912f5f24a46dc202b839868355ce"
+  },
+  {
+    "id": "75c6e84964ff9f7e070ee0bac57703e6",
+    "slug": "wire-terminals-splitters-and-splicers",
+    "title": "Wire Terminals, Splitters and Splicers",
+    "parent_id": "62dc5127ded58a0fe74d9ce66d38c3ec"
+  },
+  {
+    "id": "9fe9a120ea8bf5e2dc5c037665113c3c",
+    "slug": "charge-controller-accessories",
+    "title": "Charge Controller Accessories",
+    "parent_id": "7fbd8055c712aea505e0a1795b5aba85"
+  },
+  {
+    "id": "48865ac6dcbf13f8efa47616edd7baa8",
+    "slug": "solar-panel-pallet-deals",
+    "title": "Solar Panel Pallet Deals",
+    "parent_id": "e239b53de81a4b89d726270dd85a9882"
+  },
+  {
+    "id": "dfd93fa1011bc9b8bddf423f510f40d2",
+    "slug": "wire-management",
+    "title": "Wire Management",
+    "parent_id": "62dc5127ded58a0fe74d9ce66d38c3ec"
+  },
+  {
+    "id": "c270dba534026551834d36c8cfc69710",
+    "slug": "c-i-energy-storage-systems",
+    "title": "C&I Energy Storage Systems",
+    "parent_id": "74cd912f5f24a46dc202b839868355ce"
+  },
+  {
+    "id": "62b0be1617b0e86aaf4adb7989fb7929",
+    "slug": "rack-mounted-batteries",
+    "title": "Rack Mounted Batteries",
+    "parent_id": "74cd912f5f24a46dc202b839868355ce"
+  },
+  {
+    "id": "9249f3f19b12aa554296f281d5afc45d",
+    "slug": "snap-fan",
+    "title": "Snap-Fan",
+    "parent_id": "84c218d641d34f16cff5e39c6750dece"
+  },
+  {
+    "id": "9c20e8a8-7529-4725-82ae-fffc575989ca",
+    "slug": "greenhouses",
+    "title": "Greenhouses",
+    "parent_id": null
+  }
+]

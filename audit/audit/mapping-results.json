@@ -1,0 +1,415 @@
+[
+  {
+    "id": "b8585ef8-1ed4-4bb0-b173-f4023b0451b4",
+    "old_url": "/shop-all/",
+    "new_url": "/products/",
+    "matched_by": "manual mapping",
+    "notes": "Name: Shop All | Category not found"
+  },
+  {
+    "id": "14f9039b-1147-4a6f-9a30-b08755bdcf30",
+    "old_url": "/batteries",
+    "new_url": "/batteries/",
+    "matched_by": "exact match",
+    "notes": "Name: Batteries | Category not found"
+  },
+  {
+    "id": "7f7e0e71-3371-49c6-94f3-9b4cda1fea66",
+    "old_url": "/lithium-battery",
+    "new_url": "/lithium-batteries/",
+    "matched_by": "manual mapping",
+    "notes": "Name: Lithium Batteries | Category not found"
+  },
+  {
+    "id": "2f39ddde-0d8f-495d-a07f-25e84d45a663",
+    "old_url": "/AGM",
+    "new_url": "/batteries/agm/",
+    "matched_by": "exact match (with parent)",
+    "notes": "Name: AGM | Category not found"
+  },
+  {
+    "id": "f7a0922f-6d5a-465d-80e3-db509abea0a8",
+    "old_url": "/batteries/portable-power-packs/",
+    "new_url": "/batteries/portable-power-packs/",
+    "matched_by": "nested match",
+    "notes": "Name: Portable Power Packs | Category not found"
+  },
+  {
+    "id": "416eac10-1625-460b-967d-0bfe338ae863",
+    "old_url": "/solar-panels/",
+    "new_url": "/solar-panels/",
+    "matched_by": "exact match",
+    "notes": "Name: Solar Panels | Category not found"
+  },
+  {
+    "id": "2e4d9c25-348a-4cb9-bf8b-5ee0ed22e5d5",
+    "old_url": "/solar-panels/off-grid-solar-panels/",
+    "new_url": "/solar-panels/off-grid-solar-panels/",
+    "matched_by": "nested match",
+    "notes": "Name: Off Grid Solar Panels | Category not found"
+  },
+  {
+    "id": "db90d787-1d45-40f2-a777-8df65dcd66d9",
+    "old_url": "/solar-panels/portable-solar-panels/",
+    "new_url": "/solar-panels/portable-solar-panels/",
+    "matched_by": "nested match",
+    "notes": "Name: Portable Solar Panels | Category not found"
+  },
+  {
+    "id": "e3cf1b3d-91a7-444b-b7fa-7e873185868e",
+    "old_url": "/solar-panels/ground-mounted-solar-panels/",
+    "new_url": "/solar-panels/ground-mounted-solar-panels/",
+    "matched_by": "nested match",
+    "notes": "Name: Ground Mounted Solar Panels | Category not found"
+  },
+  {
+    "id": "401fbb4a-ede0-4630-9dbd-5e161d64bed5",
+    "old_url": "/solar-panels/rooftop-solar-panels/",
+    "new_url": "/solar-panels/rooftop-solar-panels/",
+    "matched_by": "nested match",
+    "notes": "Name: Rooftop Solar Panels | Category not found"
+  },
+  {
+    "id": "5bfbbd06-c12f-48ca-b29f-9a2b71ac2dc0",
+    "old_url": "/inverters/",
+    "new_url": "/inverters/",
+    "matched_by": "exact match",
+    "notes": "Name: Inverters | Category not found"
+  },
+  {
+    "id": "1b618524-249e-4c90-a7c5-eb5e2d8e735f",
+    "old_url": "/inverters/microinverters/",
+    "new_url": "/inverters/microinverters/",
+    "matched_by": "nested match",
+    "notes": "Name: Microinverters | Category not found"
+  },
+  {
+    "id": "591ff7f5-ce12-431a-965a-de5b317e95d3",
+    "old_url": "/inverters/hybrid-solar-battery-inverters/",
+    "new_url": "/inverters/hybrid-solar-battery-inverters/",
+    "matched_by": "nested match",
+    "notes": "Name: Hybrid Solar Battery Inverters | Category not found"
+  },
+  {
+    "id": "c7bcb8d3-4fae-45ba-9ebd-e601d7e1010c",
+    "old_url": "/inverters/grid-tie-string-inverters/",
+    "new_url": "/inverters/",
+    "matched_by": "parent only match",
+    "notes": "Name: Grid Tie String Inverter | Category not found"
+  },
+  {
+    "id": "40226e4e-2c24-41df-b555-dbe19a2a0545",
+    "old_url": "/inverters/off-grid-inverters/",
+    "new_url": "/inverters/off-grid-inverters/",
+    "matched_by": "nested match",
+    "notes": "Name: Off Grid Inverters | Category not found"
+  },
+  {
+    "id": "3ea29c19-2b15-46a4-8d4e-23af7cdb3953",
+    "old_url": "/charge-controllers/",
+    "new_url": "/charge-controllers/",
+    "matched_by": "exact match",
+    "notes": "Name: Charge Controllers | Category not found"
+  },
+  {
+    "id": "74372040-f4c4-476d-969e-d263737d4257",
+    "old_url": "/charge-controllers/dc-power-supplies/",
+    "new_url": "/charge-controllers/dc-power-supplies/",
+    "matched_by": "nested match",
+    "notes": "Name: DC Power Supplies | Category not found"
+  },
+  {
+    "id": "e0bb58f2-c03f-4b4c-acba-d38ae2bc077c",
+    "old_url": "/charge-controllers/pwm/",
+    "new_url": "/charge-controllers/pwm/",
+    "matched_by": "nested match",
+    "notes": "Name: PWM | Category not found"
+  },
+  {
+    "id": "fa834de0-4e4b-4abe-8ff9-20234306a931",
+    "old_url": "/charge-controllers/stacking-controllers/",
+    "new_url": "/charge-controllers/stacking-controllers/",
+    "matched_by": "nested match",
+    "notes": "Name: Stacking Controllers | Category not found"
+  },
+  {
+    "id": "c08092de-7e1f-4e40-99ea-03bba25f83b5",
+    "old_url": "/charge-controllers/mppt/",
+    "new_url": "/charge-controllers/mppt/",
+    "matched_by": "nested match",
+    "notes": "Name: MPPT | Category not found"
+  },
+  {
+    "id": "e63775fc-8b48-47ba-b17f-153a2cc5956f",
+    "old_url": "/balance-of-system/",
+    "new_url": "/balance-of-system/",
+    "matched_by": "exact match",
+    "notes": "Name: Balance of System | Category not found"
+  },
+  {
+    "id": "c375bf0c-08f4-44af-8026-0bc5ac53bd96",
+    "old_url": "/rapid-shutdown/",
+    "new_url": "/balance-of-system/rapid-shutdown/",
+    "matched_by": "exact match (with parent)",
+    "notes": "Name: Rapid Shutdown | Category not found"
+  },
+  {
+    "id": "002e5956-c4a7-4e52-9507-6b522aa420a0",
+    "old_url": "/electrical-boxes/",
+    "new_url": "/balance-of-system/electrical-boxes/",
+    "matched_by": "exact match (with parent)",
+    "notes": "Name: Electrical Boxes | Category not found"
+  },
+  {
+    "id": "2de8a7c7-95b0-4d5d-b088-dbc64530154e",
+    "old_url": "/voltage-converters/",
+    "new_url": "/charge-controllers/voltage-converters/",
+    "matched_by": "exact match (with parent)",
+    "notes": "Name: Voltage Converters | Category not found"
+  },
+  {
+    "id": "7eb951db-aa6c-4448-8f9b-77c6edab054a",
+    "old_url": "/meters-monitoring-and-shunts/",
+    "new_url": "/balance-of-system/meters-monitoring-and-shunts/",
+    "matched_by": "exact match (with parent)",
+    "notes": "Name: Meters, Monitoring and Shunts | Category not found"
+  },
+  {
+    "id": "ca040efc-1257-445c-8ec6-6377c9659a9e",
+    "old_url": "/mounting-and-racking/",
+    "new_url": "/mounting-and-racking/",
+    "matched_by": "exact match",
+    "notes": "Name: Mounting and Racking | Category not found"
+  },
+  {
+    "id": "4be30fef-1d3b-47f7-a42c-2a27f95ade41",
+    "old_url": "/mounting-and-racking/large-flat-roof/",
+    "new_url": "/mounting-and-racking/large-flat-roof/",
+    "matched_by": "nested match",
+    "notes": "Name: Large Flat Roof | Category not found"
+  },
+  {
+    "id": "0be9d5bd-ab32-4fa6-9728-b930617f7575",
+    "old_url": "/mounting-and-racking/ground-mounts/",
+    "new_url": "/mounting-and-racking/ground-mounts/",
+    "matched_by": "nested match",
+    "notes": "Name: Ground Mounts | Category not found"
+  },
+  {
+    "id": "1ed35735-fc31-4e26-ac11-3cc32a6bd1d8",
+    "old_url": "/mounting-and-racking/metal-roof/",
+    "new_url": "/mounting-and-racking/metal-roof/",
+    "matched_by": "nested match",
+    "notes": "Name: Metal Roof | Category not found"
+  },
+  {
+    "id": "e165bda3-607c-42e1-a979-9d65791f3ec7",
+    "old_url": "/mounting-and-racking/pitched-roof-mounts/",
+    "new_url": "/mounting-and-racking/pitched-roof-mounts/",
+    "matched_by": "nested match",
+    "notes": "Name: Pitched Roof Mounts | Category not found"
+  },
+  {
+    "id": "03959b3a-d5f3-451f-92a3-26354741ad31",
+    "old_url": "/mounting-and-racking/flashing-and-hardware/",
+    "new_url": "/mounting-and-racking/flashing-and-hardware/",
+    "matched_by": "nested match",
+    "notes": "Name: Flashing and Hardware | Category not found"
+  },
+  {
+    "id": "afd4cb3c-3e3c-4c62-a4a1-f77c72f56679",
+    "old_url": "/mounting-and-racking/side-of-pole/",
+    "new_url": "/mounting-and-racking/side-of-pole/",
+    "matched_by": "nested match",
+    "notes": "Name: Side of Pole | Category not found"
+  },
+  {
+    "id": "0c4e803c-ce30-4f76-ad4e-a8f316a30ed4",
+    "old_url": "/mounting-and-racking/top-of-pole/",
+    "new_url": "/mounting-and-racking/top-of-pole/",
+    "matched_by": "nested match",
+    "notes": "Name: Top of Pole | Category not found"
+  },
+  {
+    "id": "5a8f81d1-b67e-4e60-b870-197b844c3b5b",
+    "old_url": "/balance-of-system/wire-and-cables/",
+    "new_url": "/balance-of-system/wire-and-cables/",
+    "matched_by": "nested match",
+    "notes": "Name: Wire and Cables | Category not found"
+  },
+  {
+    "id": "2cb29f9a-304d-4cda-be0c-bd38b67e5731",
+    "old_url": "/batteries/energy-storage-systems/",
+    "new_url": "/batteries/energy-storage-systems/",
+    "matched_by": "nested match",
+    "notes": "Name: Energy Storage Systems | Category not found"
+  },
+  {
+    "id": "a65e4420-aa2f-45e5-92fa-e2713d7498b4",
+    "old_url": "/balance-of-system/breakers-and-fuses/",
+    "new_url": "/balance-of-system/breakers-and-fuses/",
+    "matched_by": "nested match",
+    "notes": "Name: Breakers and Fuses | Category not found"
+  },
+  {
+    "id": "aab19df9-5256-4ce1-ad68-4c75095a1f83",
+    "old_url": "/mounting-and-racking/mounting-kits/",
+    "new_url": "/mounting-and-racking/mounting-kits/",
+    "matched_by": "nested match",
+    "notes": "Name: Mounting Kits | Category not found"
+  },
+  {
+    "id": "49a7f4d6-a337-4ea2-9b5e-bb96d783b5ed",
+    "old_url": "/inverters/inverter-accessories/",
+    "new_url": "/inverters/inverter-accessories/",
+    "matched_by": "nested match",
+    "notes": "Name: Inverter Accessories | Category not found"
+  },
+  {
+    "id": "722b7a00-1c65-40a6-8a17-11b08ce05985",
+    "old_url": "/balance-of-system/accessories/",
+    "new_url": "/balance-of-system/accessories/",
+    "matched_by": "nested match",
+    "notes": "Name: Accessories | Category not found"
+  },
+  {
+    "id": "65e628c5-ce63-4465-bd9c-15fe05b3d873",
+    "old_url": "/balance-of-system/combiners/",
+    "new_url": "/balance-of-system/combiners/",
+    "matched_by": "nested match",
+    "notes": "Name: Combiners | Category not found"
+  },
+  {
+    "id": "cb0a21c6-711a-45a3-8fee-9129885de0e8",
+    "old_url": "/balance-of-system/e-panel/",
+    "new_url": "/balance-of-system/e-panel/",
+    "matched_by": "nested match",
+    "notes": "Name: E-Panel | Category not found"
+  },
+  {
+    "id": "864d71b9-1c87-4e70-85f6-f8b8acca21e5",
+    "old_url": "/batteries/battery-accessories/",
+    "new_url": "/batteries/battery-accessories/",
+    "matched_by": "nested match",
+    "notes": "Name: Battery Accessories | Category not found"
+  },
+  {
+    "id": "59bc3115-f013-4c48-a947-6a63ae2c6a4c",
+    "old_url": "/balance-of-system/busbars/",
+    "new_url": "/balance-of-system/busbars/",
+    "matched_by": "nested match",
+    "notes": "Name: Busbars | Category not found"
+  },
+  {
+    "id": "0babe7d9-2ff8-4eb0-9237-e701328a5f88",
+    "old_url": "/balance-of-system/lightning-and-surge-protection/",
+    "new_url": "/balance-of-system/lightning-and-surge-protection/",
+    "matched_by": "nested match",
+    "notes": "Name: Lightning and Surge Protection | Category not found"
+  },
+  {
+    "id": "8e4e621b-2240-460d-87e4-4a94c3bbe0cc",
+    "old_url": "/inverters/commercial-inverters/",
+    "new_url": "/inverters/commercial-inverters/",
+    "matched_by": "nested match",
+    "notes": "Name: Commercial Inverters | Category not found"
+  },
+  {
+    "id": "80a247c8-042d-44c5-94d2-7d4f1cd67e6e",
+    "old_url": "/batteries/high-voltage-batteries/",
+    "new_url": "/batteries/high-voltage-batteries/",
+    "matched_by": "nested match",
+    "notes": "Name: High Voltage Batteries | Category not found"
+  },
+  {
+    "id": "0ecbeb4c-479b-4521-a305-c09472e108e2",
+    "old_url": "/wind-turbines/",
+    "new_url": "/wind-turbines/",
+    "matched_by": "exact match",
+    "notes": "Name: Wind Turbines | Category not found"
+  },
+  {
+    "id": "138c9d39-6465-4e29-98f3-b2051db2ea4b",
+    "old_url": "/batteries/replacement-parts/",
+    "new_url": "/batteries/replacement-parts/",
+    "matched_by": "nested match",
+    "notes": "Name: Replacement Parts | Category not found"
+  },
+  {
+    "id": "0c58c2e2-4d65-4248-8ffc-0c1dad068517",
+    "old_url": "/solar-power-systems/",
+    "new_url": "/solar-power-systems/",
+    "matched_by": "exact match",
+    "notes": "Name: Solar Power Systems | Category not found"
+  },
+  {
+    "id": "c03cdf6c-feb8-42eb-8bfa-5936fe551e58",
+    "old_url": "/swag/",
+    "new_url": "/swag/",
+    "matched_by": "exact match",
+    "notes": "Name: SWAG | Category not found"
+  },
+  {
+    "id": "64f2fff1-6c85-49f3-ac2c-e318036f414e",
+    "old_url": "/wire-terminals-splitters-and-splicers/",
+    "new_url": "/balance-of-system/wire-terminals-splitters-and-splicers/",
+    "matched_by": "exact match (with parent)",
+    "notes": "Name: Wire Terminals, Splitters and Splicers | Category not found"
+  },
+  {
+    "id": "93c48b36-d12b-4c2a-b67e-9253a9dd42ab",
+    "old_url": "/charge-controllers/charge-controller-accessories/",
+    "new_url": "/charge-controllers/charge-controller-accessories/",
+    "matched_by": "nested match",
+    "notes": "Name: Charge Controller Accessories | Category not found"
+  },
+  {
+    "id": "4c1bd6ac-3e6f-4255-9bfb-701e532822ea",
+    "old_url": "/solar-panels/solar-panel-pallet-deals/",
+    "new_url": "/solar-panels/solar-panel-pallet-deals/",
+    "matched_by": "nested match",
+    "notes": "Name: Solar Panel Pallet Deals | Category not found"
+  },
+  {
+    "id": "125ce679-3753-407e-ace7-44de4783e9e6",
+    "old_url": "/balance-of-system/wire-management/",
+    "new_url": "/balance-of-system/wire-management/",
+    "matched_by": "nested match",
+    "notes": "Name: Wire Management | Category not found"
+  },
+  {
+    "id": "d29163d2-9fd6-426f-809c-3519693ee2ed",
+    "old_url": "/dc-appliances/",
+    "new_url": "/dc-appliances/",
+    "matched_by": "exact match",
+    "notes": "Name: DC Appliances | Category not found"
+  },
+  {
+    "id": "ccc344ee-4830-4301-b6c2-60e303351341",
+    "old_url": "/batteries/c-i-energy-storage-systems/",
+    "new_url": "/batteries/c-i-energy-storage-systems/",
+    "matched_by": "nested match",
+    "notes": "Name: C&I Energy Storage Systems | Category not found"
+  },
+  {
+    "id": "98a5d652-5fa4-4a0a-bf99-b9b7ba96a035",
+    "old_url": "/batteries/rack-mounted-batteries/",
+    "new_url": "/batteries/rack-mounted-batteries/",
+    "matched_by": "nested match",
+    "notes": "Name: Rack Mounted Batteries | Category not found"
+  },
+  {
+    "id": "12a06ca0-5e78-41bc-8543-24943f9cbafe",
+    "old_url": "/solar-training-and-education/",
+    "new_url": "/solar-training-and-education/",
+    "matched_by": "exact match",
+    "notes": "Name: Solar Training and Education | Category not found"
+  },
+  {
+    "id": "61548b93-4b81-4f84-9d10-0f61e753de23",
+    "old_url": "/dc-appliances/snap-fan/",
+    "new_url": "/dc-appliances/snap-fan/",
+    "matched_by": "nested match",
+    "notes": "Name: Snap-Fan | Category not found"
+  }
+]

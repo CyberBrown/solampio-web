@@ -1,0 +1,357 @@
+[
+  {
+    "id": "53d9b12f-7803-4125-8bd1-373f1bc8ca50",
+    "slug": "apsmart",
+    "title": "APSmart"
+  },
+  {
+    "id": "60597504-62c0-4a57-b387-abfd4863a987",
+    "slug": "bird-in-hand",
+    "title": "Bird In Hand"
+  },
+  {
+    "id": "c41a66a0-371b-4ca5-a810-804f600ce02d",
+    "slug": "blue-sea-systems",
+    "title": "Blue Sea Systems"
+  },
+  {
+    "id": "3283338d-2af0-4cf4-9552-ed6276136695",
+    "slug": "briggs-stratton-energy-solutions",
+    "title": "Briggs & Stratton Energy Solutions"
+  },
+  {
+    "id": "aa5a63cf-0e12-4ad1-a97c-84394c6e12a0",
+    "slug": "burndy",
+    "title": "Burndy"
+  },
+  {
+    "id": "aa238cd5-c1a4-49e3-ada4-26e401884146",
+    "slug": "bussmann",
+    "title": "Bussmann"
+  },
+  {
+    "id": "11500faa-d10b-413e-8214-4b6b05e3331e",
+    "slug": "byd",
+    "title": "BYD"
+  },
+  {
+    "id": "e0cbdaaf-31e0-4832-afb4-acddd368bdd0",
+    "slug": "chem-link",
+    "title": "Chem Link"
+  },
+  {
+    "id": "05b49e60-e89c-4aa2-865e-0adf36215ca2",
+    "slug": "cw-energy",
+    "title": "CW Energy"
+  },
+  {
+    "id": "f6a2893e-293b-432b-89b8-4faadfbfa0c3",
+    "slug": "delta",
+    "title": "Delta"
+  },
+  {
+    "id": "e0b271c6-0c17-4181-a972-8906e5777adc",
+    "slug": "deye",
+    "title": "Deye"
+  },
+  {
+    "id": "99e4008c-c096-49b7-aed5-cff50fd901f4",
+    "slug": "ebl",
+    "title": "EBL"
+  },
+  {
+    "id": "66e11ff1-df34-47f0-a600-7803dea16fb1",
+    "slug": "ecosolaris",
+    "title": "EcoSolaris"
+  },
+  {
+    "id": "e0f65457-d1a3-467e-9f38-1a008fac545a",
+    "slug": "enersys",
+    "title": "Enersys"
+  },
+  {
+    "id": "eab05460-b0b8-453e-92b8-834e12fe9a2a",
+    "slug": "enphase",
+    "title": "Enphase"
+  },
+  {
+    "id": "d341a928-6f98-45b5-a17e-40cb74cd1a8c",
+    "slug": "ez-solar",
+    "title": "EZ Solar"
+  },
+  {
+    "id": "1e0e474c-cd97-4d1a-bed7-fd6719f8d5f3",
+    "slug": "fogco",
+    "title": "Fogco"
+  },
+  {
+    "id": "f948cf5b-3b67-4f37-8e25-183141c34e02",
+    "slug": "fortress-power",
+    "title": "Fortress Power"
+  },
+  {
+    "id": "dd3bb5ba-a510-4001-9d0d-922c60e3e783",
+    "slug": "grandio-greenhouses",
+    "title": "Grandio Greenhouses"
+  },
+  {
+    "id": "ad9430dc-5d17-4706-80ae-6493dfb8227f",
+    "slug": "grundfos",
+    "title": "Grundfos"
+  },
+  {
+    "id": "2fd96b3e-9325-4567-a314-766f0fe40f3c",
+    "slug": "homegrid",
+    "title": "HomeGrid"
+  },
+  {
+    "id": "3af39c82-965f-4ee7-8af6-ca0c60792662",
+    "slug": "hyperion",
+    "title": "Hyperion"
+  },
+  {
+    "id": "3e90ba9e-1cc5-499c-92c5-adc7b7de555b",
+    "slug": "hyundai-energy-solutions",
+    "title": "Hyundai Energy Solutions"
+  },
+  {
+    "id": "2a5613ba-36c1-46fb-9f4e-5f820f136f05",
+    "slug": "imo-automation",
+    "title": "IMO Automation"
+  },
+  {
+    "id": "7b13c017-a029-48c2-a504-48cd7088c018",
+    "slug": "iota-engineering",
+    "title": "Iota Engineering"
+  },
+  {
+    "id": "59b48531-49a1-433d-ae60-c97eef611cf4",
+    "slug": "ja-solar",
+    "title": "JA Solar"
+  },
+  {
+    "id": "fd44e4cf-9125-462b-b1ac-5705ad1d1858",
+    "slug": "kilovault",
+    "title": "KiloVault"
+  },
+  {
+    "id": "30cdb08c-ea5b-4469-b2fc-39aa4fe83164",
+    "slug": "magnum-energy",
+    "title": "Magnum Energy"
+  },
+  {
+    "id": "88c2b330-e833-41d6-981c-76353ac294d3",
+    "slug": "meyer-burger",
+    "title": "Meyer Burger"
+  },
+  {
+    "id": "60437fdf-ed8e-4d2e-861c-3dce2dde2399",
+    "slug": "midnite-solar",
+    "title": "MidNite Solar"
+  },
+  {
+    "id": "09ca879b-0255-48eb-a4cd-808843621dfd",
+    "slug": "morningstar",
+    "title": "Morningstar"
+  },
+  {
+    "id": "aa2a1dd8-8561-4e81-8eaf-45ca4facf210",
+    "slug": "outback-power-systems",
+    "title": "Outback Power Systems"
+  },
+  {
+    "id": "23619bec-14a9-49fe-8795-1ed219472799",
+    "slug": "panasonic",
+    "title": "Panasonic"
+  },
+  {
+    "id": "381cc27a-e74a-483d-b4b7-dd99db9112a4",
+    "slug": "philadelphia-solar",
+    "title": "Philadelphia Solar"
+  },
+  {
+    "id": "94e7eacd-0eb3-45a6-9609-776c3c6595cb",
+    "slug": "phono",
+    "title": "Phono"
+  },
+  {
+    "id": "f9c93fb6-0981-4a4c-bba1-2599f31eca9d",
+    "slug": "polar-wire",
+    "title": "Polar Wire"
+  },
+  {
+    "id": "44cf9f3f-ff26-4eb0-b59b-97498c8ba941",
+    "slug": "powerfield",
+    "title": "Powerfield"
+  },
+  {
+    "id": "92eeec6a-bd07-477f-927e-94f3d2131982",
+    "slug": "primus-windpower",
+    "title": "Primus Windpower"
+  },
+  {
+    "id": "2532a34b-31ba-4d97-a0aa-49deb62f38b0",
+    "slug": "pytes",
+    "title": "Pytes"
+  },
+  {
+    "id": "37aa11d8-ab50-429e-962a-28c1a0ad069a",
+    "slug": "qcells",
+    "title": "Qcells"
+  },
+  {
+    "id": "18a42f03-6c4f-45fe-9937-c626e46c7112",
+    "slug": "rec",
+    "title": "REC"
+  },
+  {
+    "id": "b679282a-37ee-4e71-bff9-3f21283819b7",
+    "slug": "relyez",
+    "title": "RelyEZ"
+  },
+  {
+    "id": "ff087bd1-266d-4e7b-87f8-6005c8ef6fa6",
+    "slug": "renon-power",
+    "title": "Renon Power"
+  },
+  {
+    "id": "02e62618-e99b-4eeb-b7b7-4ab64b89dc61",
+    "slug": "rich-solar",
+    "title": "Rich Solar"
+  },
+  {
+    "id": "d2136a25-fbca-45dd-84f5-2d034171a7fd",
+    "slug": "roof-tech",
+    "title": "Roof Tech"
+  },
+  {
+    "id": "cef926f5-99ec-4b20-8316-ea2e27694dca",
+    "slug": "ryse-energy",
+    "title": "Ryse Energy"
+  },
+  {
+    "id": "f8a50408-4f68-4d04-b0c1-2045637f5622",
+    "slug": "s-5",
+    "title": "S-5!"
+  },
+  {
+    "id": "5ebf15b2-3523-4947-95e9-235e299556bc",
+    "slug": "s-energy",
+    "title": "S-Energy"
+  },
+  {
+    "id": "1881ce78-a4a4-4833-b5c8-c80ab6937759",
+    "slug": "samlex",
+    "title": "Samlex"
+  },
+  {
+    "id": "2a71736a-29a5-4052-b480-e24a046b9553",
+    "slug": "schneider-electric",
+    "title": "Schneider Electric"
+  },
+  {
+    "id": "02f0678c-940a-48de-84d7-fd2762b365aa",
+    "slug": "silfab",
+    "title": "Silfab"
+  },
+  {
+    "id": "f045dafd-6b9f-4762-afc1-8cd8fb6cc1cc",
+    "slug": "simpliphi",
+    "title": "SimpliPhi"
+  },
+  {
+    "id": "c65a758f-5359-4d1a-adfa-81a3e02e012d",
+    "slug": "skystream",
+    "title": "SkyStream"
+  },
+  {
+    "id": "a4623e25-a0d8-4f32-a8d2-5ffd60b106b7",
+    "slug": "sma",
+    "title": "SMA"
+  },
+  {
+    "id": "a4224a98-63ee-428d-a67b-6b2544bb161f",
+    "slug": "snap-fan",
+    "title": "Snap-Fan"
+  },
+  {
+    "id": "6e59173c-8af4-486f-8bdd-5725d18159ef",
+    "slug": "sol-ark",
+    "title": "Sol-ark"
+  },
+  {
+    "id": "7690b869-3c96-467c-8584-4d1dcd9dedcb",
+    "slug": "soladeck",
+    "title": "SolaDeck"
+  },
+  {
+    "id": "bfeb4967-67b9-40f9-a796-174a375092c7",
+    "slug": "solamp",
+    "title": "Solamp"
+  },
+  {
+    "id": "83359951-75d5-4ab9-953d-9b59d4090429",
+    "slug": "solar-connections-international",
+    "title": "Solar Connections International"
+  },
+  {
+    "id": "c8d8de80-5027-431f-b33a-5d9b3b314991",
+    "slug": "solaredge",
+    "title": "SolarEdge"
+  },
+  {
+    "id": "8301c010-c853-476b-9417-a9cc557d0780",
+    "slug": "squared",
+    "title": "SquareD"
+  },
+  {
+    "id": "f3da516b-ce97-4c47-949b-ad92217c1f26",
+    "slug": "srne",
+    "title": "SRNE"
+  },
+  {
+    "id": "72091a1b-a288-46b4-8d3b-235460756ab4",
+    "slug": "staubli",
+    "title": "Stäubli"
+  },
+  {
+    "id": "3a288a71-6d9d-487d-8b43-0fa07dcc8ae0",
+    "slug": "sun-star-appliances",
+    "title": "Sun Star Appliances"
+  },
+  {
+    "id": "ae817b2a-79f3-48c2-b740-3a78f665ea99",
+    "slug": "talesun",
+    "title": "Talesun"
+  },
+  {
+    "id": "703b781c-b8d4-4bd6-b08b-c810e3f553ec",
+    "slug": "tamarack-solar-products",
+    "title": "Tamarack Solar Products"
+  },
+  {
+    "id": "ec95ccf2-e16d-41e3-b347-326be0fcb9ee",
+    "slug": "tigo",
+    "title": "Tigo"
+  },
+  {
+    "id": "83a98d8b-ae9c-4db8-8b45-5fad39e0677c",
+    "slug": "topband",
+    "title": "Topband"
+  },
+  {
+    "id": "eeb3f7d5-af14-4685-95c8-49942e0e7ce6",
+    "slug": "trina-solar",
+    "title": "Trina Solar"
+  },
+  {
+    "id": "8d00273c-862b-447f-9f0d-d661d05ac55a",
+    "slug": "victron-energy",
+    "title": "Victron Energy"
+  },
+  {
+    "id": "8af270cb-b533-4099-8c39-627e130aff1a",
+    "slug": "xantrex",
+    "title": "Xantrex"
+  }
+]

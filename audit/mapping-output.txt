@@ -1,0 +1,233 @@
+-- URL Redirect Mapping Fix
+-- Generated: 2026-01-28T14:48:49.461Z
+-- Matched: 59, Unmatched: 156
+
+UPDATE url_redirects SET new_url = '/products/', status = 'mapped', notes = 'Mapped: manual mapping' WHERE id = 'b8585ef8-1ed4-4bb0-b173-f4023b0451b4';
+UPDATE url_redirects SET new_url = '/batteries/', status = 'mapped', notes = 'Mapped: exact match' WHERE id = '14f9039b-1147-4a6f-9a30-b08755bdcf30';
+UPDATE url_redirects SET new_url = '/lithium-batteries/', status = 'mapped', notes = 'Mapped: manual mapping' WHERE id = '7f7e0e71-3371-49c6-94f3-9b4cda1fea66';
+UPDATE url_redirects SET new_url = '/batteries/agm/', status = 'mapped', notes = 'Mapped: exact match (with parent)' WHERE id = '2f39ddde-0d8f-495d-a07f-25e84d45a663';
+UPDATE url_redirects SET new_url = '/batteries/portable-power-packs/', status = 'mapped', notes = 'Mapped: nested match' WHERE id = 'f7a0922f-6d5a-465d-80e3-db509abea0a8';
+UPDATE url_redirects SET new_url = '/solar-panels/', status = 'mapped', notes = 'Mapped: exact match' WHERE id = '416eac10-1625-460b-967d-0bfe338ae863';
+UPDATE url_redirects SET new_url = '/solar-panels/off-grid-solar-panels/', status = 'mapped', notes = 'Mapped: nested match' WHERE id = '2e4d9c25-348a-4cb9-bf8b-5ee0ed22e5d5';
+UPDATE url_redirects SET new_url = '/solar-panels/portable-solar-panels/', status = 'mapped', notes = 'Mapped: nested match' WHERE id = 'db90d787-1d45-40f2-a777-8df65dcd66d9';
+UPDATE url_redirects SET new_url = '/solar-panels/ground-mounted-solar-panels/', status = 'mapped', notes = 'Mapped: nested match' WHERE id = 'e3cf1b3d-91a7-444b-b7fa-7e873185868e';
+UPDATE url_redirects SET new_url = '/solar-panels/rooftop-solar-panels/', status = 'mapped', notes = 'Mapped: nested match' WHERE id = '401fbb4a-ede0-4630-9dbd-5e161d64bed5';
+UPDATE url_redirects SET new_url = '/inverters/', status = 'mapped', notes = 'Mapped: exact match' WHERE id = '5bfbbd06-c12f-48ca-b29f-9a2b71ac2dc0';
+UPDATE url_redirects SET new_url = '/inverters/microinverters/', status = 'mapped', notes = 'Mapped: nested match' WHERE id = '1b618524-249e-4c90-a7c5-eb5e2d8e735f';
+UPDATE url_redirects SET new_url = '/inverters/hybrid-solar-battery-inverters/', status = 'mapped', notes = 'Mapped: nested match' WHERE id = '591ff7f5-ce12-431a-965a-de5b317e95d3';
+UPDATE url_redirects SET new_url = '/inverters/', status = 'mapped', notes = 'Mapped: parent only match' WHERE id = 'c7bcb8d3-4fae-45ba-9ebd-e601d7e1010c';
+UPDATE url_redirects SET new_url = '/inverters/off-grid-inverters/', status = 'mapped', notes = 'Mapped: nested match' WHERE id = '40226e4e-2c24-41df-b555-dbe19a2a0545';
+UPDATE url_redirects SET new_url = '/charge-controllers/', status = 'mapped', notes = 'Mapped: exact match' WHERE id = '3ea29c19-2b15-46a4-8d4e-23af7cdb3953';
+UPDATE url_redirects SET new_url = '/charge-controllers/dc-power-supplies/', status = 'mapped', notes = 'Mapped: nested match' WHERE id = '74372040-f4c4-476d-969e-d263737d4257';
+UPDATE url_redirects SET new_url = '/charge-controllers/pwm/', status = 'mapped', notes = 'Mapped: nested match' WHERE id = 'e0bb58f2-c03f-4b4c-acba-d38ae2bc077c';
+UPDATE url_redirects SET new_url = '/charge-controllers/stacking-controllers/', status = 'mapped', notes = 'Mapped: nested match' WHERE id = 'fa834de0-4e4b-4abe-8ff9-20234306a931';
+UPDATE url_redirects SET new_url = '/charge-controllers/mppt/', status = 'mapped', notes = 'Mapped: nested match' WHERE id = 'c08092de-7e1f-4e40-99ea-03bba25f83b5';
+UPDATE url_redirects SET new_url = '/balance-of-system/', status = 'mapped', notes = 'Mapped: exact match' WHERE id = 'e63775fc-8b48-47ba-b17f-153a2cc5956f';
+UPDATE url_redirects SET new_url = '/balance-of-system/rapid-shutdown/', status = 'mapped', notes = 'Mapped: exact match (with parent)' WHERE id = 'c375bf0c-08f4-44af-8026-0bc5ac53bd96';
+UPDATE url_redirects SET new_url = '/balance-of-system/electrical-boxes/', status = 'mapped', notes = 'Mapped: exact match (with parent)' WHERE id = '002e5956-c4a7-4e52-9507-6b522aa420a0';
+UPDATE url_redirects SET new_url = '/charge-controllers/voltage-converters/', status = 'mapped', notes = 'Mapped: exact match (with parent)' WHERE id = '2de8a7c7-95b0-4d5d-b088-dbc64530154e';
+UPDATE url_redirects SET new_url = '/balance-of-system/meters-monitoring-and-shunts/', status = 'mapped', notes = 'Mapped: exact match (with parent)' WHERE id = '7eb951db-aa6c-4448-8f9b-77c6edab054a';
+UPDATE url_redirects SET new_url = '/mounting-and-racking/', status = 'mapped', notes = 'Mapped: exact match' WHERE id = 'ca040efc-1257-445c-8ec6-6377c9659a9e';
+UPDATE url_redirects SET new_url = '/mounting-and-racking/large-flat-roof/', status = 'mapped', notes = 'Mapped: nested match' WHERE id = '4be30fef-1d3b-47f7-a42c-2a27f95ade41';
+UPDATE url_redirects SET new_url = '/mounting-and-racking/ground-mounts/', status = 'mapped', notes = 'Mapped: nested match' WHERE id = '0be9d5bd-ab32-4fa6-9728-b930617f7575';
+UPDATE url_redirects SET new_url = '/mounting-and-racking/metal-roof/', status = 'mapped', notes = 'Mapped: nested match' WHERE id = '1ed35735-fc31-4e26-ac11-3cc32a6bd1d8';
+UPDATE url_redirects SET new_url = '/mounting-and-racking/pitched-roof-mounts/', status = 'mapped', notes = 'Mapped: nested match' WHERE id = 'e165bda3-607c-42e1-a979-9d65791f3ec7';
+UPDATE url_redirects SET new_url = '/mounting-and-racking/flashing-and-hardware/', status = 'mapped', notes = 'Mapped: nested match' WHERE id = '03959b3a-d5f3-451f-92a3-26354741ad31';
+UPDATE url_redirects SET new_url = '/mounting-and-racking/side-of-pole/', status = 'mapped', notes = 'Mapped: nested match' WHERE id = 'afd4cb3c-3e3c-4c62-a4a1-f77c72f56679';
+UPDATE url_redirects SET new_url = '/mounting-and-racking/top-of-pole/', status = 'mapped', notes = 'Mapped: nested match' WHERE id = '0c4e803c-ce30-4f76-ad4e-a8f316a30ed4';
+UPDATE url_redirects SET new_url = '/balance-of-system/wire-and-cables/', status = 'mapped', notes = 'Mapped: nested match' WHERE id = '5a8f81d1-b67e-4e60-b870-197b844c3b5b';
+UPDATE url_redirects SET new_url = '/batteries/energy-storage-systems/', status = 'mapped', notes = 'Mapped: nested match' WHERE id = '2cb29f9a-304d-4cda-be0c-bd38b67e5731';
+UPDATE url_redirects SET new_url = '/balance-of-system/breakers-and-fuses/', status = 'mapped', notes = 'Mapped: nested match' WHERE id = 'a65e4420-aa2f-45e5-92fa-e2713d7498b4';
+UPDATE url_redirects SET new_url = '/mounting-and-racking/mounting-kits/', status = 'mapped', notes = 'Mapped: nested match' WHERE id = 'aab19df9-5256-4ce1-ad68-4c75095a1f83';
+UPDATE url_redirects SET new_url = '/inverters/inverter-accessories/', status = 'mapped', notes = 'Mapped: nested match' WHERE id = '49a7f4d6-a337-4ea2-9b5e-bb96d783b5ed';
+UPDATE url_redirects SET new_url = '/balance-of-system/accessories/', status = 'mapped', notes = 'Mapped: nested match' WHERE id = '722b7a00-1c65-40a6-8a17-11b08ce05985';
+UPDATE url_redirects SET new_url = '/balance-of-system/combiners/', status = 'mapped', notes = 'Mapped: nested match' WHERE id = '65e628c5-ce63-4465-bd9c-15fe05b3d873';
+UPDATE url_redirects SET new_url = '/balance-of-system/e-panel/', status = 'mapped', notes = 'Mapped: nested match' WHERE id = 'cb0a21c6-711a-45a3-8fee-9129885de0e8';
+UPDATE url_redirects SET new_url = '/batteries/battery-accessories/', status = 'mapped', notes = 'Mapped: nested match' WHERE id = '864d71b9-1c87-4e70-85f6-f8b8acca21e5';
+UPDATE url_redirects SET new_url = '/balance-of-system/busbars/', status = 'mapped', notes = 'Mapped: nested match' WHERE id = '59bc3115-f013-4c48-a947-6a63ae2c6a4c';
+UPDATE url_redirects SET new_url = '/balance-of-system/lightning-and-surge-protection/', status = 'mapped', notes = 'Mapped: nested match' WHERE id = '0babe7d9-2ff8-4eb0-9237-e701328a5f88';
+UPDATE url_redirects SET new_url = '/inverters/commercial-inverters/', status = 'mapped', notes = 'Mapped: nested match' WHERE id = '8e4e621b-2240-460d-87e4-4a94c3bbe0cc';
+UPDATE url_redirects SET new_url = '/batteries/high-voltage-batteries/', status = 'mapped', notes = 'Mapped: nested match' WHERE id = '80a247c8-042d-44c5-94d2-7d4f1cd67e6e';
+UPDATE url_redirects SET new_url = '/wind-turbines/', status = 'mapped', notes = 'Mapped: exact match' WHERE id = '0ecbeb4c-479b-4521-a305-c09472e108e2';
+UPDATE url_redirects SET new_url = '/batteries/replacement-parts/', status = 'mapped', notes = 'Mapped: nested match' WHERE id = '138c9d39-6465-4e29-98f3-b2051db2ea4b';
+UPDATE url_redirects SET new_url = '/solar-power-systems/', status = 'mapped', notes = 'Mapped: exact match' WHERE id = '0c58c2e2-4d65-4248-8ffc-0c1dad068517';
+UPDATE url_redirects SET new_url = '/swag/', status = 'mapped', notes = 'Mapped: exact match' WHERE id = 'c03cdf6c-feb8-42eb-8bfa-5936fe551e58';
+UPDATE url_redirects SET new_url = '/balance-of-system/wire-terminals-splitters-and-splicers/', status = 'mapped', notes = 'Mapped: exact match (with parent)' WHERE id = '64f2fff1-6c85-49f3-ac2c-e318036f414e';
+UPDATE url_redirects SET new_url = '/charge-controllers/charge-controller-accessories/', status = 'mapped', notes = 'Mapped: nested match' WHERE id = '93c48b36-d12b-4c2a-b67e-9253a9dd42ab';
+UPDATE url_redirects SET new_url = '/solar-panels/solar-panel-pallet-deals/', status = 'mapped', notes = 'Mapped: nested match' WHERE id = '4c1bd6ac-3e6f-4255-9bfb-701e532822ea';
+UPDATE url_redirects SET new_url = '/balance-of-system/wire-management/', status = 'mapped', notes = 'Mapped: nested match' WHERE id = '125ce679-3753-407e-ace7-44de4783e9e6';
+UPDATE url_redirects SET new_url = '/dc-appliances/', status = 'mapped', notes = 'Mapped: exact match' WHERE id = 'd29163d2-9fd6-426f-809c-3519693ee2ed';
+UPDATE url_redirects SET new_url = '/batteries/c-i-energy-storage-systems/', status = 'mapped', notes = 'Mapped: nested match' WHERE id = 'ccc344ee-4830-4301-b6c2-60e303351341';
+UPDATE url_redirects SET new_url = '/batteries/rack-mounted-batteries/', status = 'mapped', notes = 'Mapped: nested match' WHERE id = '98a5d652-5fa4-4a0a-bf99-b9b7ba96a035';
+UPDATE url_redirects SET new_url = '/solar-training-and-education/', status = 'mapped', notes = 'Mapped: exact match' WHERE id = '12a06ca0-5e78-41bc-8543-24943f9cbafe';
+UPDATE url_redirects SET new_url = '/dc-appliances/snap-fan/', status = 'mapped', notes = 'Mapped: nested match' WHERE id = '61548b93-4b81-4f84-9d10-0f61e753de23';
+
+-- UNMATCHED REDIRECTS (need manual review):
+-- /ev-charging/ (category) - Name: EV Charging | Category not found
+-- /yard-sale/ (category) - Name: Yard Sale | Category not found
+-- /b2b-ninja-custom-products/ (category) - Name: B2B Ninja Custom Products | Category not found
+-- /solar-carports-canopies-and-awnings/ (category) - Name: Solar Carports, Canopies and Awnings | Category not found
+-- /aa-batteries/ (category) - Name: AA Batteries | Category not found
+-- /portable-power-station/ (product) - Name: Portable Power Station | Product not found in product data
+-- /pwm-solar-charge-controller/ (product) - Name: PWM Solar Charge Controller | Product not found in product data
+-- /mppt-charge-controller/ (product) - Name: MPPT Charge Controller | Product not found in product data
+-- /industrial-pure-sine-wave-inverter/ (product) - Name: Industrial Pure Sine Wave Inverter | Product not found in product data
+-- /panasonic-evervolt-home-battery-system/ (product) - Name: Panasonic EVERVOLT Home Battery System | Product not found in product data
+-- /philadelphia-solar-panel-dark-phenex-400w/ (product) - Name: Philadelphia Solar Panel - Dark-PHENEX 400W | Product not found in product data
+-- /panasonic-evervolt-solar-panels/ (product) - Name: Panasonic EVERVOLT Solar Panels | Product not found in product data
+-- /xcellent-wall-mounted-battery/ (product) - Name: Xcellent Wall Mounted Battery | Product not found in product data
+-- /ebrick-5-12kwh-rack-mounted-battery-module/ (product) - Name: EBrick 5.12kWh Rack Mounted Battery Module | Product not found in product data
+-- /flex-12kw-inverter/ (product) - Name: Flex 10kW Off Grid Inverter | Product not found in product data
+-- /trina-vertex-s-bifacial-solar-panel-410w-420w/ (product) - Name: Trina Vertex S Bifacial  Solar Panel 410w 420w | Product not found in product data
+-- /conext-accessories/ (product) - Name: Conext Accessories | Product not found in product data
+-- /150vdc-din-rail-mount-breaker-polarized/ (product) - Name: 150VDC din rail mount breaker - Polarized | Product not found in product data
+-- /300vdc-din-rail-mount-breaker-non-polarized-old-dont-use/ (product) - Name: 300VDC din rail mount breaker - non polarized - OLD DONT USE | Product not found in product data
+-- /diy-charge-controller/ (product) - Name: DIY Charge Controller | Product not found in product data
+-- /pre-wired-backup-power-inverter-systems/ (product) - Name: Pre Wired Backup Power Inverter Systems | Product not found in product data
+-- /mn15-12kw-aio-all-in-one-inverter/ (product) - Name: MN15-12KW-AIO All in One inverter | Product not found in product data
+-- /e-panel-for-schneider-electric-xw/ (product) - Name: E-Panel for Schneider Electric XW | Product not found in product data
+-- /midnite-pre-wired-magnum-hybrid-power-panels/ (product) - Name: MidNite Pre Wired Magnum Hybrid Power Panels | Product not found in product data
+-- /pre-wired-dual-schneider-electric-conext-xw-pro-6848-power-panels/ (product) - Name: Pre Wired Dual Schneider Electric Conext XW PRO 6848 Power Panels | Product not found in product data
+-- /samlex-evo-pre-wired-power-panels/ (product) - Name: Samlex EVO Pre Wired Power Panels | Product not found in product data
+-- /pre-wired-schneider-electric-conext-power-panels/ (product) - Name: Pre Wired Schneider Electric Conext Power Panels | Product not found in product data
+-- /pre-wired-magnum-off-grid-inverter-power-panels/ (product) - Name: Pre Wired Magnum Off Grid Inverter Power Panels | Product not found in product data
+-- /samlex-2200-watt-pure-sine-inverter-charger/ (product) - Name: Samlex 2200 Watt Pure Sine Inverter/Charger | Product not found in product data
+-- /300-amp-busbars-set-of-2/ (product) - Name: 300 amp Busbars, Set of 2 | Product not found in product data
+-- /outback-flexware-combiner-box/ (product) - Name: Outback Flexware Combiner box | Product not found in product data
+-- /1-2kwh-deep-cycle-lithium-batteries/ (product) - Name: 1.2kWh Deep Cycle Lithium Batteries | Product not found in product data
+-- /pv-wire-10-awg-2000-volts-500-feet-black-2kv-ul4703/ (product) - Name: PV Wire 10 AWG 2000 Volts 500 Feet Black - 2KV-UL4703 | Product not found in product data
+-- /quoted-shipping/ (product) - Name: Quoted Shipping | Product not found in product data
+-- /s-e-n-d/ (product) - Name: S E N D | Product not found in product data
+-- /s-energy-365w-monocrystalline-bifacial-residential-solar-panels/ (product) - Name: S-Energy 365w Monocrystalline Bifacial Residential Solar Panels | Product not found in product data
+-- /ja-545w-d30-series-bifacial-perc-144-half-cell-solar-panel/ (product) - Name: JA 545w D30 Series Bifacial PERC 144 half cell solar panel | Product not found in product data
+-- /outback-flexmax-charge-controller/ (product) - Name: Outback Flexmax Charge Controller | Product not found in product data
+-- /schneider-electric-inverter-charger/ (product) - Name: Schneider Electric Inverter Charger | Product not found in product data
+-- /schneider-electric-conext-charge-controller/ (product) - Name: Schneider Electric Conext Charge Controller | Product not found in product data
+-- /mega-portable-solar-panel/ (product) - Name: MEGA Portable Solar Panel | Product not found in product data
+-- /rs-w-wall-mounted-battery/ (product) - Name: RS-W Wall Mounted Battery | Product not found in product data
+-- /phono-400w-twinplus-mono-perc-solar-panel/ (product) - Name: Phono 400w Twinplus  MONO-PERC Solar Panel | Product not found in product data
+-- /rapid-charging-1600w-ac-dc-portable-power-station/ (product) - Name: Rapid Charging 1600w AC / DC Portable Power Station | Product not found in product data
+-- /600w-ac-dc-portable-power-station/ (product) - Name: 600w AC / DC Portable Power Station | Product not found in product data
+-- /off-grid-diy-inverter-charger-120vac/ (product) - Name: Off Grid DIY Inverter/Charger 120VAC | Product not found in product data
+-- /mppt-solar-charge-controller-from-srne/ (product) - Name: MPPT Solar Charge Controller from SRNE | Product not found in product data
+-- /pwm-solar-charge-controller-from-srne/ (product) - Name: PWM Solar Charge Controller from SRNE | Product not found in product data
+-- /panasonic-evervolt-solar-and-storage-system/ (product) - Name: Panasonic EVERVOLT Solar and Storage System | Product not found in product data
+-- /imo-frs-esw1-fireraptor-emergency-rapid-shutdown-switch/ (product) - Name: IMO FRS-ESW1 FireRaptor Emergency Rapid Shutdown Switch | Product not found in product data
+-- /mounting-plate-fw500-fw1000-outback-power/ (product) - Name: Mounting Plate (FW500/FW1000) Outback Power | Product not found in product data
+-- /houny-300ah-12-8v-lithium-battery-with-heater/ (product) - Name: Houny 300Ah 12.8v Lithium Battery with heater | Product not found in product data
+-- /outback-power-rts-remote-temperature-sensor/ (product) - Name: Outback Power RTS Remote Temperature Sensor | Product not found in product data
+-- /alpha-12v-lifepo4-battery/ (product) - Name: Alpha 12v LiFePO4 Battery | Product not found in product data
+-- /fangpusun-60amp-48v-mppt-controller/ (product) - Name: Fangpusun 60amp 48v MPPT Controller | Product not found in product data
+-- /fangpusun-80amp-48v-mppt-controller/ (product) - Name: Fangpusun 80amp 48v MPPT Controller | Product not found in product data
+-- /srne-spi-10k-48/ (product) - Name: SRNE SPI-10k-48 | Product not found in product data
+-- /hyperion-405w-all-glass-solar-panel/ (product) - Name: Hyperion 405w All Glass Solar Panel | Product not found in product data
+-- /outback-radian-gs4048a-4kw-48v-120-240vac-inverter-charger/ (product) - Name: Outback Radian GS4048A 4kW, 48V 120/240VAC Inverter/Charger | Product not found in product data
+-- /ma-taxes/ (product) - Name: MA TAXES | Product not found in product data
+-- /shipping-1/ (product) - Name: SHIPPING | Product not found in product data
+-- /extra-charge/ (product) - Name: EXTRA CHARGE | Product not found in product data
+-- /10-watt-48v-dc-led-light-bulb-standard-e26-base/ (product) - Name: 10 Watt 48V DC LED Light Bulb Standard E26 Base | Product not found in product data
+-- /solar-panel/ (product) - Name: Solar Panel | Product not found in product data
+-- /48v-dc-motion-sensor/ (product) - Name: 48v DC Motion Sensor | Product not found in product data
+-- /dc-load-center/ (product) - Name: DC Load Center | Product not found in product data
+-- /custom-cable/ (product) - Name: Custom Cable | Product not found in product data
+-- /spare-parts/ (product) - Name: Spare parts  | Product not found in product data
+-- /talesun-540w-bifacial-monocrystalline-solar-panel/ (product) - Name: Talesun 540w Bifacial Monocrystalline Solar Panel | Product not found in product data
+-- /downunder-buddy-3s-remote-computer/ (product) - Name: Downunder Buddy 3S Remote Computer | Product not found in product data
+-- /rich-solar-kit/ (product) - Name: RICH SOLAR KIT | Product not found in product data
+-- /12v-off-grid-solar-battery-kit/ (product) - Name: 12v Off Grid Solar Battery Kit | Product not found in product data
+-- /m8-bolt/ (product) - Name: M8 Bolt | Product not found in product data
+-- /battery-and-inverter-qa/ (product) - Name: Battery and Inverter QA | Product not found in product data
+-- /downunder-buddy-3s/ (product) - Name: Downunder Buddy 3S | Product not found in product data
+-- /silfab-430w-mono-perc-solar-module-made-in-usa/ (product) - Name: Silfab 430w mono PERC solar module - Made in USA | Product not found in product data
+-- /talesun-hipro-mono-perc-380w-pallets/ (product) - Name: Talesun HIPRO mono PERC 380w (Pallets) | Product not found in product data
+-- /imo-disconnect-switch/ (product) - Name: IMO Disconnect Switch | Product not found in product data
+-- /midnite-aio-powerflo-energy-storage-system-kit/ (product) - Name: MidNite AIO PowerFlo Energy Storage System Kit | Product not found in product data
+-- /3-8-3-0-lug/ (product) - Name: 3/8" 3/0 Lug  | Product not found in product data
+-- /byd-540w-mono-bifacial-half-cell-solar-panels/ (product) - Name: BYD 540w Mono Bifacial Half Cell Solar Panels | Product not found in product data
+-- /product-testing-cycling-and-programing/ (product) - Name: Product Testing, cycling and programing | Product not found in product data
+-- /xtreme-home-battery-power-sytstem-8-batteries/ (product) - Name: Xtreme Home Battery Power Sytstem (8 batteries) | Product not found in product data
+-- /relyez-commercial/ (product) - Name: RelyEZ All-in-One Energy Storage Solution | Product not found in product data
+-- /3-processing-fee/ (product) - Name: 3% processing fee | Product not found in product data
+-- /outback-flexpower-one-vfx-3648-power-panel/ (product) - Name: Outback FlexPower One VFX 3648 Power Panel  | Product not found in product data
+-- /miscellaneous/ (product) - Name: miscellaneous | Product not found in product data
+-- /enphaes-mounting-plate/ (product) - Name: Enphaes Mounting Plate | Product not found in product data
+-- /storage/ (product) - Name: Storage | Product not found in product data
+-- /bos/ (product) - Name: BOS | Product not found in product data
+-- /prewire/ (product) - Name: Prewire | Product not found in product data
+-- /backplate/ (product) - Name: Backplate | Product not found in product data
+-- /gloria225w/ (product) - Name: Gloria225w | Product not found in product data
+-- /solarfoot/ (product) - Name: SOLARFOOT | Product not found in product data
+-- /200wmono/ (product) - Name: 200WMONO | Product not found in product data
+-- /hyundai390w/ (product) - Name: Hyundai390w | Product not found in product data
+-- /hyundai-dual-max-mono-crystalline-390w-solar-module/ (product) - Name: Hyundai Dual Max™ Mono-Crystalline 390w Solar Module | Product not found in product data
+-- /difference-amount-on-491/ (product) - Name: Difference amount on #491 | Product not found in product data
+-- /difference-on-shipping-so-488-491/ (product) - Name: Difference on shipping SO #488 & #491 | Product not found in product data
+-- /gloria1/ (product) - Name: Gloria1 | Product not found in product data
+-- /gloriam/ (product) - Name: GloriaM | Product not found in product data
+-- /heat-chamber/ (product) - Name: Heat chamber | Product not found in product data
+-- /cw170wpanels/ (product) - Name: CW170wpanels | Product not found in product data
+-- /service-entrance-connector-2/ (product) - Name: Service Entrance Connector 2" | Product not found in product data
+-- /rail-extensions-9/ (product) - Name: Rail Extensions 9 | Product not found in product data
+-- /toppanel/ (product) - Name: Toppanel | Product not found in product data
+-- /wire-clip-24-pack-for-po-only-sales-use-88474-solo/ (product) - Name: Wire Clip (24 Pack) (for PO Only - Sales use 88474-SOLO) | Product not found in product data
+-- /ground-lug-assembly-box-of-96-po-use-only-sales-us-88504-solo/ (product) - Name: Ground Lug Assembly Box of 96 (PO use only sales us 88504-solo)  | Product not found in product data
+-- /outback/ (product) - Name: Outback | Product not found in product data
+-- /outback-inverter/ (product) - Name: Outback inverter | Product not found in product data
+-- /mate3s/ (product) - Name: Mate3s | Product not found in product data
+-- /kilovault-battery/ (product) - Name: Kilovault battery | Product not found in product data
+-- /custom-battery-cabinet-with-midnite-powerflo5-battery-50kwh/ (product) - Name: Custom Battery Cabinet with MidNite PowerFlo5 Battery - 50kWh | Product not found in product data
+-- /midnite-solar-training/ (product) - Name: MidNite Solar Training | Product not found in product data
+-- /ev-charger/ (product) - Name: EV Charger | Product not found in product data
+-- /xgi-inverter/ (product) - Name: XGI Inverter | Product not found in product data
+-- /custom-monitoring-and-display/ (product) - Name: Custom Monitoring and Display | Product not found in product data
+-- /midnite-dyi-3000-charger/ (product) - Name: midnite dyi 3000 charger | Product not found in product data
+-- /manual-battery-switch-300amp-48v/ (product) - Name: Manual Battery Switch 300amp 48v | Product not found in product data
+-- /vsun/ (product) - Name: VSUN | Product not found in product data
+-- /test/ (product) - Name: Test | Product not found in product data
+-- /test2/ (product) - Name: Test2 | Product not found in product data
+-- /test3/ (product) - Name: test3 | Product not found in product data
+-- /test4/ (product) - Name: test4 | Product not found in product data
+-- /test5/ (product) - Name: test5 | Product not found in product data
+-- /test6/ (product) - Name: test6 | Product not found in product data
+-- /test7/ (product) - Name: test7 | Product not found in product data
+-- /item8/ (product) - Name: item8 | Product not found in product data
+-- /schneider-conduit-box/ (product) - Name: Schneider Conduit Box | Product not found in product data
+-- /schnieder-120-240-vac-system/ (product) - Name: Schnieder 120/240 Vac system | Product not found in product data
+-- /schneider-breaker-kit/ (product) - Name: Schneider Breaker Kit | Product not found in product data
+-- /conext-on-off-remote-switch/ (product) - Name: Conext ON/OFF Remote Switch | Product not found in product data
+-- /conext-auto-generator-start/ (product) - Name: Conext auto generator start | Product not found in product data
+-- /pytes-hub-110409100001/ (product) - Name: Pytes Hub 110409100001 | Product not found in product data
+-- /iq-cable-single-drop/ (product) - Name: IQ Cable Single Drop | Product not found in product data
+-- /bank-fee/ (product) - Name: BANK FEE | Product not found in product data
+-- /solarconnector/ (product) - Name: solarconnector | Product not found in product data
+-- /cw410-test/ (product) - Name: CW410 Test | Product not found in product data
+-- /sci-powermount-adjust/ (product) - Name: SCI PowerMount Adjust | Product not found in product data
+-- /shipping/ (page) - Name: Solamp Shipping Policy | Static page - needs manual mapping
+-- /terms-and-conditions/ (page) - Name: Terms and Conditions | Static page - needs manual mapping
+-- /frequently-asked-questions/ (page) - Name: Frequently Asked Questions | Static page - needs manual mapping
+-- /disclaimer/ (page) - Name: Disclaimer | Static page - needs manual mapping
+-- /refund-return-policy/ (page) - Name: Refund & Return Policy | Static page - needs manual mapping
+-- /payment-policy/ (page) - Name: Payment Policy | Static page - needs manual mapping
+-- /customer-reviews/ (page) - Name: Customer Reviews | Static page - needs manual mapping
+-- /wholesale/ (page) - Name: Wholesale | Static page - needs manual mapping
+-- /solamp-product-library/ (page) - Name: Solamp Product Library | Static page - needs manual mapping
+-- /ai-voice-chat-with-redacted-chris/ (page) - Name: AI Voice Chat with [Redacted] Chris | Static page - needs manual mapping
+-- /ebay/ (page) - Name: Clearance Items | Static page - needs manual mapping
+-- /sponsorships-affiliations-and-organizations/ (page) - Name: Sponsorships, Affiliations and Organizations | Static page - needs manual mapping
+-- /careers/ (page) - Name: Careers | Static page - needs manual mapping
+-- /portfolio/ (page) - Name: Portfolio | Static page - needs manual mapping
+-- /titanmini/ (product) - Name: Titanmini | Product not found in product data
+-- /ma-state-sales-tax-0625/ (product) - Name: MA State Sales Tax .0625 | Product not found in product data
+-- /8-rail-kit-1-6-rail-93-in-black/ (product) - Name: 8 Rail Kit - 1.6 Rail - 93-IN - Black | Product not found in product data
+
+=== SUMMARY ===
+Total unmapped: 215
+Successfully mapped: 59
+Still need review: 156
+
+Matched by method:
+  nested match: 39
+  exact match: 11
+  exact match (with parent): 6
+  manual mapping: 2
+  parent only match: 1
