@@ -11,14 +11,14 @@ import type { DocumentMeta } from '@builder.io/qwik-city';
 export const SITE_URL = 'https://solampio.com';
 export const SITE_NAME = 'Solamp Solar & Energy Storage';
 export const SITE_PHONE = '978-451-6890';
-export const DEFAULT_OG_IMAGE = `${SITE_URL}/images/solamp-logo.png`;
+export const DEFAULT_OG_IMAGE = `${SITE_URL}/images/solamp-og-image.png`;
 
 // Organization data (used across the site)
 export const ORGANIZATION = {
   name: 'Solamp',
   legalName: 'Solamp Solar & Energy Storage',
   url: SITE_URL,
-  logo: `${SITE_URL}/images/solamp-logo.png`,
+  logo: `${SITE_URL}/images/solamp-logo.webp`,
   phone: SITE_PHONE,
   email: 'sales@solampio.com',
 };

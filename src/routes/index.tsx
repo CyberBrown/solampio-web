@@ -2,7 +2,7 @@ import { component$ } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
 import { Link, routeLoader$ } from '@builder.io/qwik-city';
 import { getDB, cleanSlug } from '../lib/db';
-import { getProductThumbnail, getLocalCategoryImage } from '../lib/images';
+import { getProductThumbnail, getCfImageUrl } from '../lib/images';
 import { ProductCard } from '../components/product/ProductCard';
 import { BrandScroll, BrandGrid } from '../components/brand/BrandScroll';
 import {
@@ -35,36 +35,43 @@ export const useBrands = routeLoader$(async (requestEvent) => {
 });
 
 // Fixed categories for Shop by Category section
+// cf_image_id values match those stored in D1 storefront_categories table
 const shopByCategories = [
   {
     title: 'Solar Panels',
     slug: 'solar-panels',
     description: 'Rooftop, ground-mount & portable panels',
+    cf_image_id: 'cat-solar-panels',
   },
   {
     title: 'Batteries',
     slug: 'batteries',
     description: 'Lithium, lead-acid & rack-mounted storage',
+    cf_image_id: 'cat-batteries',
   },
   {
     title: 'Solar Power Systems',
     slug: 'solar-power-systems',
     description: 'Complete kits for any application',
+    cf_image_id: 'cat-solar-power-systems',
   },
   {
     title: 'Inverters',
     slug: 'inverters',
     description: 'Off-grid, hybrid & grid-tie inverters',
+    cf_image_id: 'cat-inverters',
   },
   {
     title: 'Mounting and Racking',
     slug: 'mounting-and-racking',
     description: 'Roof, ground & pole mount solutions',
+    cf_image_id: 'cat-mounting-and-racking',
   },
   {
     title: 'Solar Training and Education',
     slug: 'solar-training-and-education',
     description: 'Courses & certification programs',
+    cf_image_id: 'cat-solar-training-and-education',
   },
 ];
 
@@ -111,13 +118,13 @@ export default component$(() => {
     <div class="bg-white">
       {/* Hero with responsive zoom image */}
       <section class="relative overflow-hidden bg-solamp-forest">
-        {/* LCP-optimized hero image with fetchpriority="high" */}
+        {/* LCP-optimized hero image with fetchpriority="high" - WebP for 93% smaller size */}
         <img
-          src="/images/wide-shot-of-a-small-cabin-far-in-the-di_lMru1hJZQ0yhClg5ZqcrpQ_v8qATksYQgKM-i-cckB5DQ.png"
+          src="/images/hero-cabin.webp"
           alt="Off-grid cabin powered by solar"
           class="absolute inset-0 w-full h-full object-cover hero-zoom-image"
-          width="1920"
-          height="1080"
+          width="2560"
+          height="1440"
           fetchPriority="high"
           style={{
             objectPosition: 'center 40%',
@@ -208,11 +215,11 @@ export default component$(() => {
           </div>
           <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
             {shopByCategories.map((cat) => {
-              // Use local category images
-              const imageUrl = getLocalCategoryImage(cat.title);
+              // Use CF Images for optimized delivery (WebP/AVIF, proper sizing)
+              const imageUrl = getCfImageUrl(cat.cf_image_id, 'card');
               return (
                 <Link key={cat.slug} href={`/${cat.slug}/`} class="group relative overflow-hidden rounded-lg aspect-[4/3] transform transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-                  {/* Background - local category image */}
+                  {/* Background - CF Images optimized category image */}
                   {imageUrl ? (
                     <img
                       src={imageUrl}
@@ -220,6 +227,7 @@ export default component$(() => {
                       class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       width="400"
                       height="300"
+                      loading="lazy"
                     />
                   ) : (
                     <div class="absolute inset-0 bg-solamp-forest" />
