@@ -11,6 +11,7 @@ import type { DocumentMeta } from '@builder.io/qwik-city';
 export const SITE_URL = 'https://solampio.com';
 export const SITE_NAME = 'Solamp Solar & Energy Storage';
 export const SITE_PHONE = '978-451-6890';
+export const DEFAULT_OG_IMAGE = `${SITE_URL}/images/solamp-logo.png`;
 
 // Organization data (used across the site)
 export const ORGANIZATION = {
