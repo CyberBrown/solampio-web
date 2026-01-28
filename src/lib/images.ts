@@ -165,17 +165,12 @@ export function getBrandLogoVariant(
   }
 
   // Fallback to legacy logo_url (only for 'full' and 'thumb' variants)
-  if (logoVariant !== 'greyscale') {
-    if (brand.logo_url) {
-      return brand.logo_url;
-    }
-    // Fallback to local images based on slug
-    if (brand.slug) {
-      const variantPath = logoVariant === 'thumb' ? 'thumb' : 'full';
-      return `/images/brands/${variantPath}/${brand.slug}.png`;
-    }
+  if (logoVariant !== 'greyscale' && brand.logo_url) {
+    return brand.logo_url;
   }
 
+  // Don't fall back to local files - they may not exist
+  // Let the component show text fallback instead
   return null;
 }
 
