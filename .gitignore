@@ -21,6 +21,7 @@ tmp/
 
 # Logs
 *.log
+seo-batch-checkpoint.json
 
 # OS
 .DS_Store
