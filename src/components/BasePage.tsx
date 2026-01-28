@@ -1,5 +1,5 @@
 import { component$, Slot } from '@builder.io/qwik';
-import { Link } from '@builder.io/qwik-city';
+import { Link } from '~/lib/qwik-city';
 
 interface BasePageProps {
   title: string;

@@ -1,5 +1,5 @@
 import { component$, useContext, useSignal, $ } from '@builder.io/qwik';
-import { Link, useLocation } from '@builder.io/qwik-city';
+import { Link, useLocation } from '~/lib/qwik-city';
 import { SidebarContext } from '../../context/sidebar-context';
 import type { Category, Brand } from '../../lib/db';
 import { cleanSlug } from '../../lib/db';

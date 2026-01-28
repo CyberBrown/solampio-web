@@ -20,7 +20,7 @@ import {
   useOnDocument,
   type QRL,
 } from '@builder.io/qwik';
-import { Link, useNavigate } from '@builder.io/qwik-city';
+import { Link, useNavigate } from '~/lib/qwik-city';
 
 interface SearchResult {
   id: string;

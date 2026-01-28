@@ -1,6 +1,6 @@
 import { component$ } from '@builder.io/qwik';
-import { routeLoader$, Link } from '@builder.io/qwik-city';
-import type { DocumentHead } from '@builder.io/qwik-city';
+import { routeLoader$, Link } from '~/lib/qwik-city';
+import type { DocumentHead } from '~/lib/qwik-city';
 import { getArticleBySlug, parseArticleTags, parseRelatedArticles, getRelatedArticlesBySlugs, type Article } from '~/lib/db';
 
 export const useArticle = routeLoader$(async ({ params, platform, status }) => {

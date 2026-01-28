@@ -1,6 +1,6 @@
 import { component$ } from '@builder.io/qwik';
-import type { DocumentHead } from '@builder.io/qwik-city';
-import { useLocation, Link } from '@builder.io/qwik-city';
+import type { DocumentHead } from '~/lib/qwik-city';
+import { useLocation, Link } from '~/lib/qwik-city';
 
 // Placeholder documents
 const generateDocs = (categoryName: string, count: number) => {

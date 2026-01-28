@@ -2,7 +2,7 @@
  * Reusable Product Card Component with Add to Cart functionality
  */
 import { component$, useSignal, $ } from '@builder.io/qwik';
-import { Link } from '@builder.io/qwik-city';
+import { Link } from '~/lib/qwik-city';
 import { useCart } from '../../hooks/useCart';
 import { encodeSkuForUrl, getStockStatus, type Product } from '../../lib/db';
 import { getProductThumbnail } from '../../lib/images';

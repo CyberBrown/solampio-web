@@ -1,6 +1,6 @@
 import { component$, useSignal, useComputed$, $ } from '@builder.io/qwik';
-import type { DocumentHead } from '@builder.io/qwik-city';
-import { Link } from '@builder.io/qwik-city';
+import type { DocumentHead } from '~/lib/qwik-city';
+import { Link } from '~/lib/qwik-city';
 
 // US average electricity rates by state region
 const electricityRates: Record<string, { name: string; rate: number }> = {

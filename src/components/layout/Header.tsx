@@ -1,5 +1,5 @@
 import { component$, useSignal, useVisibleTask$, $, useContext } from '@builder.io/qwik';
-import { Link } from '@builder.io/qwik-city';
+import { Link } from '~/lib/qwik-city';
 import { SidebarContext } from '../../context/sidebar-context';
 import { CartContext } from '../../context/cart-context';
 import type { Category, Product, Brand } from '../../lib/db';

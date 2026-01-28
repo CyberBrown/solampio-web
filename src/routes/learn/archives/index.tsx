@@ -1,6 +1,6 @@
 import { component$ } from '@builder.io/qwik';
-import { routeLoader$, Link } from '@builder.io/qwik-city';
-import type { DocumentHead } from '@builder.io/qwik-city';
+import { routeLoader$, Link } from '~/lib/qwik-city';
+import type { DocumentHead } from '~/lib/qwik-city';
 import { getArticleCountBySection } from '~/lib/db';
 
 export const useArchiveStats = routeLoader$(async ({ platform }) => {
