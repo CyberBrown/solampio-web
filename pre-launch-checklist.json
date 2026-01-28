@@ -1,0 +1,129 @@
+{
+  "audit_date": "2026-01-28",
+  "site_url": "https://solampio-web.pages.dev",
+  "production_domain": "solampio.com",
+
+  "data_integrity": {
+    "products": {
+      "total": 1136,
+      "templates": 152,
+      "variants": 808,
+      "standalone": 176,
+      "visible_display_products": 742,
+      "status": "PASS"
+    },
+    "categories": {
+      "total": 69,
+      "visible": 59,
+      "status": "PASS"
+    },
+    "brands": {
+      "total": 71,
+      "visible": 71,
+      "with_logos": 25,
+      "with_products": 18,
+      "empty_brands": 53,
+      "status": "WARNING"
+    },
+    "images": {
+      "products_with_cf_image": 310,
+      "products_missing_images_standalone": 5,
+      "missing_are_test_items": true,
+      "status": "PASS"
+    },
+    "prices": {
+      "products_with_price": 605,
+      "products_missing_price": 137,
+      "percentage_with_price": "82%",
+      "status": "PASS"
+    },
+    "shipping_data": {
+      "products_with_shipping_weight": 89,
+      "percentage": "12%",
+      "status": "WARNING"
+    }
+  },
+
+  "seo_coverage": {
+    "products_with_seo_title": 90,
+    "products_with_meta_description": 90,
+    "products_with_summary": 83,
+    "total_products": 742,
+    "coverage_percentage": "12%",
+    "status": "WARNING"
+  },
+
+  "page_functionality": {
+    "homepage": { "status": 200, "works": true },
+    "category_pages": { "status": 200, "works": true },
+    "brand_pages": { "status": 200, "works": true },
+    "product_pages": { "status": 200, "works": true },
+    "cart": { "status": 200, "works": true },
+    "checkout": { "status": 200, "works": true },
+    "search": { "status": 200, "works": true },
+    "about_us": { "status": 200, "works": true },
+    "contact_us": { "status": 200, "works": true },
+    "shipping": { "status": 200, "works": true },
+    "warranty": { "status": 200, "works": true },
+    "faq": { "status": 200, "works": true },
+    "learn": { "status": 200, "works": true }
+  },
+
+  "error_handling": {
+    "404_page_exists": true,
+    "returns_proper_404_status": false,
+    "soft_404_issue": true,
+    "status": "CRITICAL"
+  },
+
+  "redirects": {
+    "bigcommerce_urls_configured": true,
+    "image_redirects_to_cf": true,
+    "static_page_redirects": true,
+    "status": "PASS"
+  },
+
+  "content": {
+    "articles": 49,
+    "status": "PASS"
+  },
+
+  "launch_blockers": [
+    {
+      "issue": "Soft 404 pages return HTTP 200",
+      "severity": "CRITICAL",
+      "impact": "Bad for SEO - Google may index empty pages",
+      "fix": "Set HTTP 404 status in [slug]/index.tsx when type='not_found'"
+    }
+  ],
+
+  "launch_warnings": [
+    {
+      "issue": "53 brands with 0 products",
+      "severity": "MEDIUM",
+      "impact": "Empty brand pages, poor user experience",
+      "fix": "Hide brands with no products or add products"
+    },
+    {
+      "issue": "Only 12% SEO coverage",
+      "severity": "MEDIUM",
+      "impact": "Most products won't have optimized meta tags",
+      "fix": "Run SEO batch optimizer on remaining products"
+    },
+    {
+      "issue": "Only 12% shipping weight coverage",
+      "severity": "MEDIUM",
+      "impact": "Shipping calculator won't work for most products",
+      "fix": "Populate shipping weights in ERPNext"
+    },
+    {
+      "issue": "18% of products missing prices",
+      "severity": "LOW",
+      "impact": "Users see 'Call for Pricing' - may be intentional for B2B",
+      "fix": "Verify intentional or add prices"
+    }
+  ],
+
+  "overall_status": "READY_WITH_ISSUES",
+  "recommendation": "Fix soft 404 issue before launch, other items can be addressed post-launch"
+}
