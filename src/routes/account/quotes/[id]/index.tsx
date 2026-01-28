@@ -1,6 +1,6 @@
 import { component$ } from '@builder.io/qwik';
-import type { DocumentHead } from '@builder.io/qwik-city';
-import { useLocation, Link } from '@builder.io/qwik-city';
+import type { DocumentHead } from '~/lib/qwik-city';
+import { useLocation, Link } from '~/lib/qwik-city';
 
 const quoteItems = [
   { name: 'Sol-Ark 15K-2P Hybrid Inverter', sku: 'SA-15K-2P', quantity: 2, unitPrice: '$5,200.00', total: '$10,400.00' },

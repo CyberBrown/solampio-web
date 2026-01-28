@@ -5,7 +5,7 @@
  * Shows greyscale logos that transition to color on hover.
  */
 import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik';
-import { Link } from '@builder.io/qwik-city';
+import { Link } from '~/lib/qwik-city';
 import { cleanSlug, type Brand } from '../../lib/db';
 import { getBrandLogoVariant } from '../../lib/images';
 

@@ -1,5 +1,5 @@
 import { component$, useContext } from '@builder.io/qwik';
-import { Link } from '@builder.io/qwik-city';
+import { Link } from '~/lib/qwik-city';
 import { SidebarContext } from '../../context/sidebar-context';
 
 export const Footer = component$(() => {

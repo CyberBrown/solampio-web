@@ -1,6 +1,6 @@
 import { component$, useSignal, useComputed$, $ } from '@builder.io/qwik';
-import type { DocumentHead } from '@builder.io/qwik-city';
-import { Link } from '@builder.io/qwik-city';
+import type { DocumentHead } from '~/lib/qwik-city';
+import { Link } from '~/lib/qwik-city';
 
 // AWG wire gauge data: [gauge, diameter_mm, copper_resistance_ohm_per_1000ft, ampacity_75C]
 const awgData = [

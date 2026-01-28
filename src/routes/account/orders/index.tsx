@@ -1,6 +1,6 @@
 import { component$ } from '@builder.io/qwik';
-import type { DocumentHead } from '@builder.io/qwik-city';
-import { Link } from '@builder.io/qwik-city';
+import type { DocumentHead } from '~/lib/qwik-city';
+import { Link } from '~/lib/qwik-city';
 
 const orders = [
   { id: 'ORD-2024-1234', date: '2024-12-15', status: 'Shipped', total: '$12,450.00', items: 3, tracking: '1Z999AA10123456784' },

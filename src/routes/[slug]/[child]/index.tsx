@@ -1,6 +1,6 @@
 import { component$ } from '@builder.io/qwik';
-import type { DocumentHead } from '@builder.io/qwik-city';
-import { useLocation, Link, routeLoader$ } from '@builder.io/qwik-city';
+import type { DocumentHead } from '~/lib/qwik-city';
+import { useLocation, Link, routeLoader$ } from '~/lib/qwik-city';
 import { getDB, cleanSlug } from '../../../lib/db';
 import { ProductCard } from '../../../components/product/ProductCard';
 import { getCategoryImageUrl } from '../../../lib/images';

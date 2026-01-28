@@ -1,6 +1,6 @@
 import { component$ } from '@builder.io/qwik';
-import type { DocumentHead } from '@builder.io/qwik-city';
-import { Link } from '@builder.io/qwik-city';
+import type { DocumentHead } from '~/lib/qwik-city';
+import { Link } from '~/lib/qwik-city';
 
 const quotes = [
   { id: 'QT-2024-0567', date: '2024-12-18', status: 'Pending', items: 8, total: 'Awaiting Quote', expires: '2024-12-25' },

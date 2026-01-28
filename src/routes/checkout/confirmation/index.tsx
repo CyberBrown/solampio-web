@@ -6,9 +6,9 @@
  */
 
 import { component$, useVisibleTask$ } from '@builder.io/qwik';
-import { routeLoader$, useLocation } from '@builder.io/qwik-city';
-import type { DocumentHead } from '@builder.io/qwik-city';
-import { Link } from '@builder.io/qwik-city';
+import { routeLoader$, useLocation } from '~/lib/qwik-city';
+import type { DocumentHead } from '~/lib/qwik-city';
+import { Link } from '~/lib/qwik-city';
 
 import { verifyPaymentIntent } from '../../../lib/stripe';
 import { getOrdersDB, parseOrderItems } from '../../../lib/orders';
