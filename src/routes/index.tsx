@@ -118,18 +118,30 @@ export default component$(() => {
     <div class="bg-white">
       {/* Hero with responsive zoom image */}
       <section class="relative overflow-hidden bg-solamp-forest">
-        {/* LCP-optimized hero image with fetchpriority="high" - WebP for 93% smaller size */}
-        <img
-          src="/images/hero-cabin.webp"
-          alt="Off-grid cabin powered by solar"
-          class="absolute inset-0 w-full h-full object-cover hero-zoom-image"
-          width="2560"
-          height="1440"
-          fetchPriority="high"
-          style={{
-            objectPosition: 'center 40%',
-          }}
-        />
+        {/* LCP-optimized hero image - responsive: 34KB mobile, 360KB desktop */}
+        <picture>
+          <source
+            media="(max-width: 768px)"
+            srcset="/images/hero-cabin-mobile.webp"
+            type="image/webp"
+          />
+          <source
+            media="(min-width: 769px)"
+            srcset="/images/hero-cabin.webp"
+            type="image/webp"
+          />
+          <img
+            src="/images/hero-cabin.webp"
+            alt="Off-grid cabin powered by solar"
+            class="absolute inset-0 w-full h-full object-cover hero-zoom-image"
+            width="2560"
+            height="1440"
+            fetchPriority="high"
+            style={{
+              objectPosition: 'center 40%',
+            }}
+          />
+        </picture>
         {/* Dark overlay for text readability */}
         <div class="absolute inset-0 bg-solamp-forest/70" />
 

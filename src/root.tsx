@@ -14,9 +14,25 @@ export default component$(() => {
       <head>
         <meta charset="utf-8" />
         <link rel="manifest" href="/manifest.json" />
-        {/* Preconnect to Google Fonts */}
+        {/* Preconnect to external resources */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://imagedelivery.net" />
+        {/* Preload hero image for LCP optimization - mobile first */}
+        <link
+          rel="preload"
+          as="image"
+          href="/images/hero-cabin-mobile.webp"
+          type="image/webp"
+          media="(max-width: 768px)"
+        />
+        <link
+          rel="preload"
+          as="image"
+          href="/images/hero-cabin.webp"
+          type="image/webp"
+          media="(min-width: 769px)"
+        />
         {/* Preload critical font files to eliminate request chain */}
         <link
           rel="preload"
