@@ -10,12 +10,13 @@
   },
   "length_distribution": {
     "short_under_100": 0,
-    "medium_100_199": 4,
-    "good_200_299": 185,
-    "long_300_399": 25,
-    "very_long_400_plus": 0
+    "medium_100_199": 22,
+    "good_200_299": 192,
+    "long_300_399": 0,
+    "very_long_400_plus": 0,
+    "note": "25 long summaries were shortened on 2026-01-28"
   },
-  "longest_summaries": [
+  "longest_summaries_before_fix": [
     {"sku": "DELLA", "title": "Delta Lighting Arrestor", "length": 379},
     {"sku": "Envy-Duo-21", "title": "Fortress Power Envy Duo 21 Inverter", "length": 338},
     {"sku": "MNPV-DISCO", "title": "Disconnecting DC Combiners", "length": 334},
