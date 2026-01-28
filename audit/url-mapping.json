@@ -901,7 +901,7 @@
   },
   {
     "old_url": "/12-snap-fan-solar-kit/",
-    "new_url": "/products/12-snap-fan-solar-kit/",
+    "new_url": "/dc-appliances/snap-fan/",
     "source_type": "product"
   },
   {
@@ -1026,7 +1026,7 @@
   },
   {
     "old_url": "/3-4-sleeve-raglan-shirt/",
-    "new_url": "/products/3-4-sleeve-raglan-shirt/",
+    "new_url": "/swag/",
     "source_type": "product"
   },
   {
@@ -1201,12 +1201,12 @@
   },
   {
     "old_url": "/adidas-premium-polo-shirt/",
-    "new_url": "/products/adidas-premium-polo-shirt/",
+    "new_url": "/swag/",
     "source_type": "product"
   },
   {
     "old_url": "/adidas-space-dyed-polo/",
-    "new_url": "/products/adidas-space-dyed-polo/",
+    "new_url": "/swag/",
     "source_type": "product"
   },
   {
@@ -1221,12 +1221,12 @@
   },
   {
     "old_url": "/ap-smart-rapid-shutdown-system/",
-    "new_url": "/products/ap-smart-rapid-shutdown-system/",
+    "new_url": "/apsmart/",
     "source_type": "product"
   },
   {
     "old_url": "/ap-smart-transmitter-kit/",
-    "new_url": "/products/ap-smart-transmitter-kit/",
+    "new_url": "/apsmart/",
     "source_type": "product"
   },
   {
@@ -1326,7 +1326,7 @@
   },
   {
     "old_url": "/bulk-flush-mount-adapters/",
-    "new_url": "/products/bulk-flush-mount-adapters/",
+    "new_url": "/balance-of-system/",
     "source_type": "product"
   },
   {
@@ -1401,7 +1401,7 @@
   },
   {
     "old_url": "/conduit-and-wire/",
-    "new_url": "/products/conduit-and-wire/",
+    "new_url": "/balance-of-system/",
     "source_type": "product"
   },
   {
@@ -1421,12 +1421,12 @@
   },
   {
     "old_url": "/corrubracket-100t/",
-    "new_url": "/products/corrubracket-100t/",
+    "new_url": "/mounting-and-racking/",
     "source_type": "product"
   },
   {
     "old_url": "/corrubracket/",
-    "new_url": "/products/corrubracket/",
+    "new_url": "/mounting-and-racking/",
     "source_type": "product"
   },
   {
@@ -1791,7 +1791,7 @@
   },
   {
     "old_url": "/gx-touch-50/",
-    "new_url": "/products/gx-touch-50/",
+    "new_url": "/victron-energy/",
     "source_type": "product"
   },
   {
@@ -1911,7 +1911,7 @@
   },
   {
     "old_url": "/kids-crew-neck-t-shirt/",
-    "new_url": "/products/kids-crew-neck-t-shirt/",
+    "new_url": "/swag/",
     "source_type": "product"
   },
   {
@@ -1936,7 +1936,7 @@
   },
   {
     "old_url": "/labels/",
-    "new_url": "/products/labels/",
+    "new_url": "/balance-of-system/",
     "source_type": "product"
   },
   {
@@ -2031,7 +2031,7 @@
   },
   {
     "old_url": "/midnite-solar-accessories/",
-    "new_url": "/products/midnite-solar-accessories/",
+    "new_url": "/midnite-solar/",
     "source_type": "product"
   },
   {
@@ -2086,17 +2086,17 @@
   },
   {
     "old_url": "/mneac/",
-    "new_url": "/products/mneac/",
+    "new_url": "/midnite-solar/",
     "source_type": "product"
   },
   {
     "old_url": "/mneacqzd-2p/",
-    "new_url": "/products/mneacqzd-2p/",
+    "new_url": "/midnite-solar/",
     "source_type": "product"
   },
   {
     "old_url": "/mneacqzd/",
-    "new_url": "/products/mneacqzd/",
+    "new_url": "/midnite-solar/",
     "source_type": "product"
   },
   {
@@ -2501,7 +2501,7 @@
   },
   {
     "old_url": "/ribbracket-iii/",
-    "new_url": "/products/ribbracket-iii/",
+    "new_url": "/mounting-and-racking/",
     "source_type": "product"
   },
   {
@@ -2571,87 +2571,87 @@
   },
   {
     "old_url": "/s-5-b-clamp/",
-    "new_url": "/products/s-5-b-clamp/",
+    "new_url": "/S-5-B%20Clamp/",
     "source_type": "product"
   },
   {
     "old_url": "/s-5-e-mini/",
-    "new_url": "/products/s-5-e-mini/",
+    "new_url": "/S-5-E-Mini/",
     "source_type": "product"
   },
   {
     "old_url": "/s-5-e/",
-    "new_url": "/products/s-5-e/",
+    "new_url": "/S-5-E/",
     "source_type": "product"
   },
   {
     "old_url": "/s-5-edge-grab/",
-    "new_url": "/products/s-5-edge-grab/",
+    "new_url": "/S-5%20Edge%20Grab/",
     "source_type": "product"
   },
   {
     "old_url": "/s-5-h90/",
-    "new_url": "/products/s-5-h90/",
+    "new_url": "/S-5-H90/",
     "source_type": "product"
   },
   {
     "old_url": "/s-5-mid-grab/",
-    "new_url": "/products/s-5-mid-grab/",
+    "new_url": "/S-5%20Mid%20Grab/",
     "source_type": "product"
   },
   {
     "old_url": "/s-5-n-1-5/",
-    "new_url": "/products/s-5-n-15/",
+    "new_url": "/S-5-N%201.5/",
     "source_type": "product"
   },
   {
     "old_url": "/s-5-n-mini/",
-    "new_url": "/products/s-5-n-mini/",
+    "new_url": "/S-5-N%20Mini/",
     "source_type": "product"
   },
   {
     "old_url": "/s-5-n/",
-    "new_url": "/products/s-5-n/",
+    "new_url": "/S-5-N/",
     "source_type": "product"
   },
   {
     "old_url": "/s-5-s-mini/",
-    "new_url": "/products/s-5-s-mini/",
+    "new_url": "/S-5-S%20Mini/",
     "source_type": "product"
   },
   {
     "old_url": "/s-5-s/",
-    "new_url": "/products/s-5-s/",
+    "new_url": "/S-5-S/",
     "source_type": "product"
   },
   {
     "old_url": "/s-5-t/",
-    "new_url": "/products/s-5-t/",
+    "new_url": "/S-5-T/",
     "source_type": "product"
   },
   {
     "old_url": "/s-5-u-mini/",
-    "new_url": "/products/s-5-u-mini/",
+    "new_url": "/S-5-U%20Mini/",
     "source_type": "product"
   },
   {
     "old_url": "/s-5-u/",
-    "new_url": "/products/s-5-u/",
+    "new_url": "/S-5-U/",
     "source_type": "product"
   },
   {
     "old_url": "/s-5-v/",
-    "new_url": "/products/s-5-v/",
+    "new_url": "/S-5-V/",
     "source_type": "product"
   },
   {
     "old_url": "/s-5-z-mini/",
-    "new_url": "/products/s-5-z-mini/",
+    "new_url": "/S-5-Z%20Mini/",
     "source_type": "product"
   },
   {
     "old_url": "/s-5-z/",
-    "new_url": "/products/s-5-z/",
+    "new_url": "/S-5-Z/",
     "source_type": "product"
   },
   {
@@ -3311,17 +3311,17 @@
   },
   {
     "old_url": "/unisex-hoodie/",
-    "new_url": "/products/unisex-hoodie/",
+    "new_url": "/swag/",
     "source_type": "product"
   },
   {
     "old_url": "/unisex-pique-polo-shirt/",
-    "new_url": "/products/unisex-pique-polo-shirt/",
+    "new_url": "/swag/",
     "source_type": "product"
   },
   {
     "old_url": "/versabracket-47/",
-    "new_url": "/products/versabracket-47/",
+    "new_url": "/mounting-and-racking/",
     "source_type": "product"
   },
   {
@@ -3356,7 +3356,7 @@
   },
   {
     "old_url": "/wings-tank-top/",
-    "new_url": "/products/wings-tank-top/",
+    "new_url": "/swag/",
     "source_type": "product"
   },
   {

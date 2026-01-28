@@ -71,11 +71,16 @@ Redirects are handled by:
 ## Verified Working
 
 ### Test Results
+**Full Validation:** 680/680 URLs passing (100%)
+
 | Old URL | Response | Destination |
 |---------|----------|-------------|
 | `/batteries/` | 200 | Direct render |
 | `/sol-ark/` | 200 | Direct render |
 | `/lithium-battery/` | 301 | `/lithium-batteries/` |
+| `/ebay/` | 301 | `/products/` |
+| `/s-5-edge-grab/` | 301 | `/S-5%20Edge%20Grab/` |
+| `/3-4-sleeve-raglan-shirt/` | 301 | `/swag/` |
 
 ### Canonical Tags
 - ✅ All pages have `<link rel="canonical">` tags
@@ -95,6 +100,18 @@ Redirects are handled by:
 ### Issue 3: Discontinued Products
 **Problem:** ~100 BigCommerce product URLs point to discontinued products no longer in catalog
 **Resolution:** Redirected to appropriate category pages based on product type keywords
+
+### Issue 4: Plugin Bug - /products/ Target Stripped
+**Problem:** The redirect plugin was stripping `/products/` prefix from ALL targets, including when the target was exactly `/products/` (the listing page), resulting in redirects to `/` instead of `/products/`
+**Resolution:** Updated plugin to check `target !== '/products/'` before stripping prefix (commit `1489f2a`)
+
+### Issue 5: S-5 Products - Spaces in SKUs
+**Problem:** S-5 brand products have SKUs with spaces (e.g., `S-5 Edge Grab`, `S-5-N Mini`), causing redirect targets with literal spaces that don't work as URLs
+**Resolution:** Updated 17 S-5 product redirects to use URL-encoded spaces (e.g., `/S-5%20Edge%20Grab/`)
+
+### Issue 6: SWAG Products - Discontinued
+**Problem:** SWAG products (t-shirts, hoodies, etc.) no longer exist in the catalog
+**Resolution:** Redirected 8 SWAG product URLs to `/swag/` category page
 
 ## Recommendations
 
@@ -123,6 +140,10 @@ Redirects are handled by:
 | `audit/fix-category-mappings.sql` | SQL to fix category mappings |
 | `audit/fix-static-deprecated.sql` | SQL to fix static/deprecated URLs |
 | `audit/final-product-mappings.sql` | SQL to map discontinued products |
+| `audit/fix-s5-products.sql` | SQL to fix S-5 products with URL-encoded spaces |
+| `audit/validate-redirects.ts` | Validation script to test all 680 URLs |
+| `audit/sync-mapping-from-d1.ts` | Script to sync url-mapping.json with D1 database |
+| `audit/validation-results.json` | Detailed validation results (100% pass rate) |
 
 ## Success Criteria Status
 
