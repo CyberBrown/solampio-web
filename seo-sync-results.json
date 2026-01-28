@@ -1,0 +1,28 @@
+{
+  "timestamp": "2026-01-28T15:08:47.749Z",
+  "mode": "execute",
+  "api_url": "https://solampio-migration.solamp.workers.dev",
+  "total": 3,
+  "success": 3,
+  "errors": 0,
+  "results": [
+    {
+      "sku": "`-90682",
+      "erpnext_name": "`-90682",
+      "success": true,
+      "fields_updated": 14
+    },
+    {
+      "sku": "1-S37M-240-60-2-US",
+      "erpnext_name": "1-S37M-240-60-2-US",
+      "success": true,
+      "fields_updated": 14
+    },
+    {
+      "sku": "1-S37M-240-60-2-US-KIT",
+      "erpnext_name": "1-S37M-240-60-2-US-KIT",
+      "success": true,
+      "fields_updated": 14
+    }
+  ]
+}
