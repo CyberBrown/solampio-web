@@ -136,7 +136,7 @@ export default component$(() => {
             class="absolute inset-0 w-full h-full object-cover hero-zoom-image"
             width="2560"
             height="1440"
-            fetchPriority="high"
+            {...{ fetchpriority: 'high' } as any}
             style={{
               objectPosition: 'center 40%',
             }}
@@ -227,8 +227,8 @@ export default component$(() => {
           </div>
           <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
             {shopByCategories.map((cat) => {
-              // Use CF Images for optimized delivery (WebP/AVIF, proper sizing)
-              const imageUrl = getCfImageUrl(cat.cf_image_id, 'card');
+              // Use CF Images thumbnail variant (200px) for 182px display
+              const imageUrl = getCfImageUrl(cat.cf_image_id, 'thumbnail');
               return (
                 <Link key={cat.slug} href={`/${cat.slug}/`} class="group relative overflow-hidden rounded-lg aspect-[4/3] transform transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
                   {/* Background - CF Images optimized category image */}
@@ -237,8 +237,8 @@ export default component$(() => {
                       src={imageUrl}
                       alt={cat.title}
                       class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      width="400"
-                      height="300"
+                      width="200"
+                      height="150"
                       loading="lazy"
                     />
                   ) : (
