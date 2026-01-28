@@ -54,9 +54,9 @@ export interface GMCProduct {
 const BASE_URL = 'https://solampio.com';
 
 export function productToGMCFeedItem(product: GMCProduct): GMCFeedItem {
-  const productUrl = product.category_slug
-    ? `${BASE_URL}/products/${product.category_slug}/${product.slug}`
-    : `${BASE_URL}/products/${product.slug}`;
+  // Products are accessed directly via /{sku}/ in the Qwik app
+  const encodedSku = encodeURIComponent(product.sku);
+  const productUrl = `${BASE_URL}/${encodedSku}/`;
 
   const imageUrl = product.cf_image_id
     ? getCFImageUrl(product.cf_image_id, 'product')
