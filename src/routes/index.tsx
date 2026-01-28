@@ -2,7 +2,7 @@ import { component$ } from '@builder.io/qwik';
 import type { DocumentHead } from '~/lib/qwik-city';
 import { Link, routeLoader$ } from '~/lib/qwik-city';
 import { getDB, cleanSlug } from '../lib/db';
-import { getProductThumbnail, getCfImageUrl } from '../lib/images';
+import { getProductThumbnail } from '../lib/images';
 import { ProductCard } from '../components/product/ProductCard';
 import { BrandScroll, BrandGrid } from '../components/brand/BrandScroll';
 import {
@@ -227,8 +227,8 @@ export default component$(() => {
           </div>
           <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
             {shopByCategories.map((cat) => {
-              // Use CF Images thumbnail variant (200px) for 182px display
-              const imageUrl = getCfImageUrl(cat.cf_image_id, 'thumbnail');
+              // Use local category images for longer cache (1 year vs 2 days from CF)
+              const imageUrl = `/images/categories/${cat.slug}.webp`;
               return (
                 <Link key={cat.slug} href={`/${cat.slug}/`} class="group relative overflow-hidden rounded-lg aspect-[4/3] transform transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
                   {/* Background - CF Images optimized category image */}

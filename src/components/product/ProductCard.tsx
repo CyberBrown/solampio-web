@@ -48,8 +48,9 @@ export const ProductCard = component$<ProductCardProps>(({ product }) => {
               src={imageUrl}
               alt={product.title}
               class="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-300"
-              width="280"
-              height="210"
+              width="200"
+              height="150"
+              loading="lazy"
             />
           ) : (
             <div class="text-center text-gray-300">

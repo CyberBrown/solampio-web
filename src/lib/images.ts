@@ -86,7 +86,7 @@ export function getProductImageUrl(
 
 /**
  * Get the best available thumbnail URL for a product
- * Uses 'product' variant (600px) for CF Images for better quality on high-DPI displays
+ * Uses 'thumbnail' variant (200px) for CF Images - appropriate for card displays (168-280px)
  * Falls back to thumbnail_url or image_url
  */
 export function getProductThumbnail(
@@ -97,7 +97,7 @@ export function getProductThumbnail(
   }
 ): string | null {
   if (product.cf_image_id) {
-    return getCfImageUrl(product.cf_image_id, 'product');
+    return getCfImageUrl(product.cf_image_id, 'thumbnail');
   }
   return product.thumbnail_url || product.image_url || null;
 }
