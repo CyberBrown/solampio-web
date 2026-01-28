@@ -1,0 +1,1250 @@
+[
+  {
+    "id": "81cafb03-12aa-46ee-96ae-c938f8705506",
+    "old_url": "/ev-charging/",
+    "new_url": "",
+    "source_type": "category",
+    "notes": "Name: EV Charging | Category not found",
+    "status": "manual_review"
+  },
+  {
+    "id": "502d80a5-82bc-4a11-bf22-dca5f2f70191",
+    "old_url": "/yard-sale/",
+    "new_url": "",
+    "source_type": "category",
+    "notes": "Name: Yard Sale | Category not found",
+    "status": "manual_review"
+  },
+  {
+    "id": "8d003444-5644-4203-929b-d4bf8ca15dfc",
+    "old_url": "/b2b-ninja-custom-products/",
+    "new_url": "",
+    "source_type": "category",
+    "notes": "Name: B2B Ninja Custom Products | Category not found",
+    "status": "manual_review"
+  },
+  {
+    "id": "5b6c3583-4de1-456a-865d-b41ea8536b6d",
+    "old_url": "/solar-carports-canopies-and-awnings/",
+    "new_url": "",
+    "source_type": "category",
+    "notes": "Name: Solar Carports, Canopies and Awnings | Category not found",
+    "status": "manual_review"
+  },
+  {
+    "id": "c14bf4fc-2b94-4206-854a-627e895b1f60",
+    "old_url": "/aa-batteries/",
+    "new_url": "",
+    "source_type": "category",
+    "notes": "Name: AA Batteries | Category not found",
+    "status": "manual_review"
+  },
+  {
+    "id": "176e633b-d1b5-423b-85fd-9be25999d201",
+    "old_url": "/portable-power-station/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Portable Power Station | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "580149a1-fd89-43c4-8c16-4279c3711386",
+    "old_url": "/pwm-solar-charge-controller/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: PWM Solar Charge Controller | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "da7a5abf-aa96-42d6-bece-b0c0cb429c2a",
+    "old_url": "/mppt-charge-controller/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: MPPT Charge Controller | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "e46d8100-bcd7-49e4-bd33-fcc7e93c9816",
+    "old_url": "/industrial-pure-sine-wave-inverter/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Industrial Pure Sine Wave Inverter | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "903f24cb-84d7-4ee6-86fe-34e04e23725b",
+    "old_url": "/panasonic-evervolt-home-battery-system/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Panasonic EVERVOLT Home Battery System | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "1fe6c220-007c-43e6-a77d-c5e77a1862bd",
+    "old_url": "/philadelphia-solar-panel-dark-phenex-400w/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Philadelphia Solar Panel - Dark-PHENEX 400W | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "c9da889a-931c-4a3e-8b56-967be20ad230",
+    "old_url": "/panasonic-evervolt-solar-panels/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Panasonic EVERVOLT Solar Panels | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "19c74b1a-12ef-4eaf-80bd-fbb6ad979f30",
+    "old_url": "/xcellent-wall-mounted-battery/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Xcellent Wall Mounted Battery | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "eca6a429-3837-4bc6-8e65-5ae93259ce44",
+    "old_url": "/ebrick-5-12kwh-rack-mounted-battery-module/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: EBrick 5.12kWh Rack Mounted Battery Module | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "4e8865d9-62d1-4bf5-af63-a40b98101a72",
+    "old_url": "/flex-12kw-inverter/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Flex 10kW Off Grid Inverter | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "45d24d16-b1c6-4e35-b534-d11de536c482",
+    "old_url": "/trina-vertex-s-bifacial-solar-panel-410w-420w/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Trina Vertex S Bifacial  Solar Panel 410w 420w | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "a9fc4515-9179-47b9-b599-b92d3430e18a",
+    "old_url": "/conext-accessories/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Conext Accessories | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "95a73bea-75ae-4612-9d1e-4bd3a95ae686",
+    "old_url": "/150vdc-din-rail-mount-breaker-polarized/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: 150VDC din rail mount breaker - Polarized | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "ecb8b54b-2c2a-4fc6-8f59-113c02d98350",
+    "old_url": "/300vdc-din-rail-mount-breaker-non-polarized-old-dont-use/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: 300VDC din rail mount breaker - non polarized - OLD DONT USE | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "ac2d77f1-1f60-458d-96b5-0c16e65eb590",
+    "old_url": "/diy-charge-controller/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: DIY Charge Controller | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "1d46b0ee-a85b-4efb-b22c-0f41785e23ac",
+    "old_url": "/pre-wired-backup-power-inverter-systems/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Pre Wired Backup Power Inverter Systems | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "253ed03d-c2fb-4fe1-b46d-e280429ec7f2",
+    "old_url": "/mn15-12kw-aio-all-in-one-inverter/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: MN15-12KW-AIO All in One inverter | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "05149f44-222c-42ed-9155-2ba759f707b5",
+    "old_url": "/e-panel-for-schneider-electric-xw/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: E-Panel for Schneider Electric XW | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "40eff79f-f79e-4071-a01a-76e9192e3895",
+    "old_url": "/midnite-pre-wired-magnum-hybrid-power-panels/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: MidNite Pre Wired Magnum Hybrid Power Panels | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "ac2dc4e9-f672-4ede-b407-41e47c4c6362",
+    "old_url": "/pre-wired-dual-schneider-electric-conext-xw-pro-6848-power-panels/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Pre Wired Dual Schneider Electric Conext XW PRO 6848 Power Panels | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "269011b0-545b-4ffe-8bd8-910e10d73fab",
+    "old_url": "/samlex-evo-pre-wired-power-panels/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Samlex EVO Pre Wired Power Panels | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "190c46ab-d75d-4960-861d-39d0e7216aba",
+    "old_url": "/pre-wired-schneider-electric-conext-power-panels/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Pre Wired Schneider Electric Conext Power Panels | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "4cb95740-1161-477d-8880-b059edf2e53b",
+    "old_url": "/pre-wired-magnum-off-grid-inverter-power-panels/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Pre Wired Magnum Off Grid Inverter Power Panels | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "96c1b4bf-3e9a-43f0-bfe4-03c29f46f037",
+    "old_url": "/samlex-2200-watt-pure-sine-inverter-charger/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Samlex 2200 Watt Pure Sine Inverter/Charger | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "f4214c82-d0e1-4e00-9466-48df3a8a46ff",
+    "old_url": "/300-amp-busbars-set-of-2/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: 300 amp Busbars, Set of 2 | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "c33f4211-b811-46fa-973f-d29cf80dec10",
+    "old_url": "/outback-flexware-combiner-box/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Outback Flexware Combiner box | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "b6c018a5-2b35-42e5-899d-2999cb78d85a",
+    "old_url": "/1-2kwh-deep-cycle-lithium-batteries/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: 1.2kWh Deep Cycle Lithium Batteries | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "3e10259e-3296-4a33-9d16-11f12a73354f",
+    "old_url": "/pv-wire-10-awg-2000-volts-500-feet-black-2kv-ul4703/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: PV Wire 10 AWG 2000 Volts 500 Feet Black - 2KV-UL4703 | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "7c575982-4193-4cd5-891b-7770c0fd32a2",
+    "old_url": "/quoted-shipping/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Quoted Shipping | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "dc47c63b-e9e3-4d30-9b36-56b6ba820ae4",
+    "old_url": "/s-e-n-d/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: S E N D | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "df057ed5-8f7a-4f52-b96a-ed4a1f798503",
+    "old_url": "/s-energy-365w-monocrystalline-bifacial-residential-solar-panels/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: S-Energy 365w Monocrystalline Bifacial Residential Solar Panels | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "e59744c7-d05f-4cd5-959c-98588f136f2a",
+    "old_url": "/ja-545w-d30-series-bifacial-perc-144-half-cell-solar-panel/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: JA 545w D30 Series Bifacial PERC 144 half cell solar panel | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "a38a6424-d5e9-499f-a25b-3b0160a072f8",
+    "old_url": "/outback-flexmax-charge-controller/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Outback Flexmax Charge Controller | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "45ec41c6-3cf5-4ede-8d79-cb7b0b47a2e8",
+    "old_url": "/schneider-electric-inverter-charger/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Schneider Electric Inverter Charger | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "aad5c513-ad33-4496-9fa9-6ee9833f5c90",
+    "old_url": "/schneider-electric-conext-charge-controller/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Schneider Electric Conext Charge Controller | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "debcfe16-38db-4971-b385-02d8661f6eb6",
+    "old_url": "/mega-portable-solar-panel/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: MEGA Portable Solar Panel | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "7f23c78d-9ed4-4691-a9c4-e1edbbafbb12",
+    "old_url": "/rs-w-wall-mounted-battery/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: RS-W Wall Mounted Battery | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "d5945059-5040-47e0-ab57-d5c4e46af5bb",
+    "old_url": "/phono-400w-twinplus-mono-perc-solar-panel/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Phono 400w Twinplus  MONO-PERC Solar Panel | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "89677768-4514-40a3-9015-52eeabf63ab6",
+    "old_url": "/rapid-charging-1600w-ac-dc-portable-power-station/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Rapid Charging 1600w AC / DC Portable Power Station | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "75cf9255-4ead-4f51-bbfa-4f573e94cee8",
+    "old_url": "/600w-ac-dc-portable-power-station/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: 600w AC / DC Portable Power Station | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "4f07f2fa-493f-453a-8ad0-2c1758e9eece",
+    "old_url": "/off-grid-diy-inverter-charger-120vac/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Off Grid DIY Inverter/Charger 120VAC | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "333eca3e-05ef-44b1-ac7e-078617d20247",
+    "old_url": "/mppt-solar-charge-controller-from-srne/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: MPPT Solar Charge Controller from SRNE | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "5a517cf9-a7ec-4b7e-a077-1a37d0b39044",
+    "old_url": "/pwm-solar-charge-controller-from-srne/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: PWM Solar Charge Controller from SRNE | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "d0cd607c-c2ab-4397-81e4-3881f5687449",
+    "old_url": "/panasonic-evervolt-solar-and-storage-system/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Panasonic EVERVOLT Solar and Storage System | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "097e58e0-b28b-4eff-9aed-acc6fdb99ddc",
+    "old_url": "/imo-frs-esw1-fireraptor-emergency-rapid-shutdown-switch/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: IMO FRS-ESW1 FireRaptor Emergency Rapid Shutdown Switch | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "69a8fdb8-f4b0-4d66-839c-ce92e082ebf9",
+    "old_url": "/mounting-plate-fw500-fw1000-outback-power/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Mounting Plate (FW500/FW1000) Outback Power | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "f132dbde-c52b-4fbb-b9cf-72d467543d22",
+    "old_url": "/houny-300ah-12-8v-lithium-battery-with-heater/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Houny 300Ah 12.8v Lithium Battery with heater | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "a80ffbd7-a123-452f-81bb-33dd8b808489",
+    "old_url": "/outback-power-rts-remote-temperature-sensor/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Outback Power RTS Remote Temperature Sensor | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "978d69e9-1236-4251-8a8d-0e1c805b9658",
+    "old_url": "/alpha-12v-lifepo4-battery/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Alpha 12v LiFePO4 Battery | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "33f8c9c0-6114-4e4a-8d88-13ae3f364fae",
+    "old_url": "/fangpusun-60amp-48v-mppt-controller/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Fangpusun 60amp 48v MPPT Controller | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "0f7049c6-0a4e-487b-b4d7-f3a3d7841540",
+    "old_url": "/fangpusun-80amp-48v-mppt-controller/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Fangpusun 80amp 48v MPPT Controller | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "28c01f07-5e72-4bd2-92b3-edef958f4c9a",
+    "old_url": "/srne-spi-10k-48/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: SRNE SPI-10k-48 | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "344fe53b-616f-4790-92e0-f6f29db8c59b",
+    "old_url": "/hyperion-405w-all-glass-solar-panel/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Hyperion 405w All Glass Solar Panel | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "a245ab51-74ef-4ce7-9048-361ead29be41",
+    "old_url": "/outback-radian-gs4048a-4kw-48v-120-240vac-inverter-charger/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Outback Radian GS4048A 4kW, 48V 120/240VAC Inverter/Charger | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "80c0c1d4-ce0b-4693-aa3d-f2ee2e4d10b9",
+    "old_url": "/ma-taxes/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: MA TAXES | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "f188a824-2a05-4ed4-837b-38a3974f1b72",
+    "old_url": "/shipping-1/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: SHIPPING | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "20e081bf-a2bd-4012-9006-a662fd95f4db",
+    "old_url": "/extra-charge/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: EXTRA CHARGE | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "5b3259ce-d9b2-435b-ae2d-2fc6bdd2f549",
+    "old_url": "/10-watt-48v-dc-led-light-bulb-standard-e26-base/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: 10 Watt 48V DC LED Light Bulb Standard E26 Base | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "88ba0aa5-a410-48cf-9b1b-869c502d9cc5",
+    "old_url": "/solar-panel/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Solar Panel | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "3d1ec1b1-90e4-4085-92a6-aa73af882fc1",
+    "old_url": "/48v-dc-motion-sensor/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: 48v DC Motion Sensor | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "e9cc5316-3d4b-433c-954d-0c7afd46c222",
+    "old_url": "/dc-load-center/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: DC Load Center | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "89a5cd39-92fd-424f-b085-64ebf90d2f2a",
+    "old_url": "/custom-cable/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Custom Cable | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "10ef7a90-f7aa-4e1d-800d-631519f35f92",
+    "old_url": "/spare-parts/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Spare parts  | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "796f74e5-782f-406d-a01b-a69c1bda4e9b",
+    "old_url": "/talesun-540w-bifacial-monocrystalline-solar-panel/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Talesun 540w Bifacial Monocrystalline Solar Panel | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "77794c72-b548-4f62-b25f-b95d1da253de",
+    "old_url": "/downunder-buddy-3s-remote-computer/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Downunder Buddy 3S Remote Computer | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "7c769a7e-46b4-4081-bc8e-6731b72d0138",
+    "old_url": "/rich-solar-kit/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: RICH SOLAR KIT | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "84f3074d-7342-42ce-877c-4ca97f04c963",
+    "old_url": "/12v-off-grid-solar-battery-kit/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: 12v Off Grid Solar Battery Kit | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "0a85a350-9ee6-4d49-9973-ccaa39aa73c5",
+    "old_url": "/m8-bolt/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: M8 Bolt | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "18eefcc3-d3be-40da-a508-38090ca8e37f",
+    "old_url": "/battery-and-inverter-qa/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Battery and Inverter QA | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "45624adf-443c-44ed-ab3c-e878ace1c558",
+    "old_url": "/downunder-buddy-3s/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Downunder Buddy 3S | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "197c92da-b769-41a4-bb6b-e629458c6a1a",
+    "old_url": "/silfab-430w-mono-perc-solar-module-made-in-usa/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Silfab 430w mono PERC solar module - Made in USA | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "547c185b-1ed0-4694-a633-22a225f8ab24",
+    "old_url": "/talesun-hipro-mono-perc-380w-pallets/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Talesun HIPRO mono PERC 380w (Pallets) | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "16642fef-fd9e-437c-97c6-d31f2c21d6fd",
+    "old_url": "/imo-disconnect-switch/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: IMO Disconnect Switch | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "41492a66-10fb-4e15-be33-b6bd954838c9",
+    "old_url": "/midnite-aio-powerflo-energy-storage-system-kit/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: MidNite AIO PowerFlo Energy Storage System Kit | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "f2a32140-e9c8-4a44-820a-51c54598cb6e",
+    "old_url": "/3-8-3-0-lug/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: 3/8\" 3/0 Lug  | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "420521ea-fa83-43d4-b05d-7c005cc97027",
+    "old_url": "/byd-540w-mono-bifacial-half-cell-solar-panels/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: BYD 540w Mono Bifacial Half Cell Solar Panels | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "2c1c9998-55a6-4bef-8e49-1c625be76b26",
+    "old_url": "/product-testing-cycling-and-programing/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Product Testing, cycling and programing | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "55ee2cf2-20a1-41b7-9c88-9ff25bed9c59",
+    "old_url": "/xtreme-home-battery-power-sytstem-8-batteries/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Xtreme Home Battery Power Sytstem (8 batteries) | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "5ee2ff85-1d8e-4c92-a982-cca7a1842927",
+    "old_url": "/relyez-commercial/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: RelyEZ All-in-One Energy Storage Solution | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "8d6a838e-2aef-4cd4-84da-3933ed7b7971",
+    "old_url": "/3-processing-fee/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: 3% processing fee | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "01a75721-a664-49c1-a89a-75adcd92654a",
+    "old_url": "/outback-flexpower-one-vfx-3648-power-panel/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Outback FlexPower One VFX 3648 Power Panel  | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "6dc8b7cf-d704-4cd3-884a-8e1807bb6371",
+    "old_url": "/miscellaneous/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: miscellaneous | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "3d0be5aa-c49c-4800-9996-585db9c9b487",
+    "old_url": "/enphaes-mounting-plate/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Enphaes Mounting Plate | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "8b738d40-fc8f-4c47-81c2-740b7d2ed996",
+    "old_url": "/storage/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Storage | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "b085de78-0161-41b5-a7ac-40d07ba6899c",
+    "old_url": "/bos/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: BOS | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "a30630e9-30d9-4136-a67f-d80ef14e5a2e",
+    "old_url": "/prewire/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Prewire | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "ec23cdaa-ea91-4cef-a45f-ac56a2a098a9",
+    "old_url": "/backplate/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Backplate | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "af349d7a-1a3c-45fe-bb2d-382c7e06bc7d",
+    "old_url": "/gloria225w/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Gloria225w | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "47041f45-f6a1-498b-b5e8-dd34eab6ab53",
+    "old_url": "/solarfoot/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: SOLARFOOT | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "d692b68b-aa21-4368-aa86-767ecfdb183b",
+    "old_url": "/200wmono/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: 200WMONO | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "4786d91b-216f-4240-b095-b1c3dad60dde",
+    "old_url": "/hyundai390w/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Hyundai390w | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "b4af7e0d-476e-49a0-900c-593cccc0a8cc",
+    "old_url": "/hyundai-dual-max-mono-crystalline-390w-solar-module/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Hyundai Dual Max™ Mono-Crystalline 390w Solar Module | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "fffddbdc-b142-4c34-8c35-bddb446f907e",
+    "old_url": "/difference-amount-on-491/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Difference amount on #491 | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "1bc0805c-93bf-4354-a5d4-dd3ba2539159",
+    "old_url": "/difference-on-shipping-so-488-491/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Difference on shipping SO #488 & #491 | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "d62225c9-7d4d-43fa-b063-7f7d427fcfc1",
+    "old_url": "/gloria1/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Gloria1 | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "5b00443a-f923-46ed-86ef-1fa93da01731",
+    "old_url": "/gloriam/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: GloriaM | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "cecf415d-254a-4b61-b191-8a4a8c551db7",
+    "old_url": "/heat-chamber/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Heat chamber | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "fb159144-c845-4eb6-ad1b-d2868165196a",
+    "old_url": "/cw170wpanels/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: CW170wpanels | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "0f8c4673-55ee-42b9-8700-8a35b5698b61",
+    "old_url": "/service-entrance-connector-2/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Service Entrance Connector 2\" | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "27f81e1d-37cf-4a82-9921-58c4054c5a61",
+    "old_url": "/rail-extensions-9/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Rail Extensions 9 | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "298c31cc-2166-4f29-8a00-f31483c1574a",
+    "old_url": "/toppanel/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Toppanel | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "5ee1a405-4058-4aab-8be1-e86837ed60e6",
+    "old_url": "/wire-clip-24-pack-for-po-only-sales-use-88474-solo/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Wire Clip (24 Pack) (for PO Only - Sales use 88474-SOLO) | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "e1cca4c8-7b25-45de-8557-76702516e2c7",
+    "old_url": "/ground-lug-assembly-box-of-96-po-use-only-sales-us-88504-solo/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Ground Lug Assembly Box of 96 (PO use only sales us 88504-solo)  | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "128f0d6b-103b-4050-92ee-6b3f58f55e87",
+    "old_url": "/outback/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Outback | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "ee633b8c-c6d7-4935-9eb8-b91714ca3f73",
+    "old_url": "/outback-inverter/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Outback inverter | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "ed529d29-de9c-4346-a17b-ed8574e87305",
+    "old_url": "/mate3s/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Mate3s | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "4e69263e-9513-4058-8025-1917767a2fd2",
+    "old_url": "/kilovault-battery/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Kilovault battery | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "4e3d1154-350b-4e39-a39d-5ee75e78efc2",
+    "old_url": "/custom-battery-cabinet-with-midnite-powerflo5-battery-50kwh/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Custom Battery Cabinet with MidNite PowerFlo5 Battery - 50kWh | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "56c92da8-2f3f-4289-b4e9-d11aeb9501d3",
+    "old_url": "/midnite-solar-training/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: MidNite Solar Training | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "77d0ebd6-8886-4656-b6e4-ea17a3f6f76a",
+    "old_url": "/ev-charger/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: EV Charger | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "32396347-f025-4111-9dfb-30356f310447",
+    "old_url": "/xgi-inverter/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: XGI Inverter | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "223a0840-906f-49c3-a50d-dde4da2576a1",
+    "old_url": "/custom-monitoring-and-display/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Custom Monitoring and Display | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "f647e036-54f1-4a3a-9377-d37873d54154",
+    "old_url": "/midnite-dyi-3000-charger/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: midnite dyi 3000 charger | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "a35db05f-8413-465d-beb6-47b46f5d2002",
+    "old_url": "/manual-battery-switch-300amp-48v/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Manual Battery Switch 300amp 48v | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "9e7377f9-8b90-4d13-bef4-94786786ad75",
+    "old_url": "/vsun/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: VSUN | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "b26ad47f-0f57-4341-9f47-49285b881321",
+    "old_url": "/test/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Test | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "90ea067d-30d8-4598-a573-57a81448d291",
+    "old_url": "/test2/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Test2 | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "f03e425f-bd42-47a6-9dce-3816903eeb2a",
+    "old_url": "/test3/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: test3 | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "4a6974db-9f17-463c-b4d5-218f8aa1bd21",
+    "old_url": "/test4/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: test4 | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "34545272-a7aa-4739-b60a-6fc513008c10",
+    "old_url": "/test5/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: test5 | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "9ed31963-1986-4f42-9cac-96f2c153f0dd",
+    "old_url": "/test6/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: test6 | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "5cf5a834-1351-419a-bc85-d262069056e0",
+    "old_url": "/test7/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: test7 | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "8824cdf7-dc42-4e80-b011-5a9e834365e9",
+    "old_url": "/item8/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: item8 | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "3e4c17f1-9d75-443d-b27a-b452e66b78a5",
+    "old_url": "/schneider-conduit-box/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Schneider Conduit Box | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "f651ed54-9099-4a49-8fa8-d2d2759a87d6",
+    "old_url": "/schnieder-120-240-vac-system/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Schnieder 120/240 Vac system | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "4dfccb73-b466-4bf5-bf32-0a687ba3440b",
+    "old_url": "/schneider-breaker-kit/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Schneider Breaker Kit | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "edf204cc-31e9-44ce-832a-2b340cf0b708",
+    "old_url": "/conext-on-off-remote-switch/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Conext ON/OFF Remote Switch | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "f7a0ba13-e857-4c41-884d-9b30eebf7e3c",
+    "old_url": "/conext-auto-generator-start/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Conext auto generator start | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "b98fd985-c323-44e3-a8b6-d0f82144b792",
+    "old_url": "/pytes-hub-110409100001/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Pytes Hub 110409100001 | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "7c374b5c-5d44-4c7a-a145-0296c45d910a",
+    "old_url": "/iq-cable-single-drop/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: IQ Cable Single Drop | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "f0d0da2e-7ccb-4662-842f-f2071cf274d7",
+    "old_url": "/bank-fee/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: BANK FEE | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "ed6ac4f9-dc37-44e4-b671-f1c16c388914",
+    "old_url": "/solarconnector/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: solarconnector | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "a209c9ab-e1e0-4334-88f4-f90ee162bcfe",
+    "old_url": "/cw410-test/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: CW410 Test | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "9ff69ae6-afea-4e60-ac08-3d7bde923331",
+    "old_url": "/sci-powermount-adjust/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: SCI PowerMount Adjust | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "15c03eb4-e969-410f-a18a-aac3c9752754",
+    "old_url": "/shipping/",
+    "new_url": "/shipping/",
+    "source_type": "page",
+    "notes": "Name: Solamp Shipping Policy | Static page - needs manual mapping",
+    "status": "manual_review"
+  },
+  {
+    "id": "4d4bf14d-29a3-44fb-9ac6-4ee7dee8939f",
+    "old_url": "/terms-and-conditions/",
+    "new_url": "/terms-and-conditions/",
+    "source_type": "page",
+    "notes": "Name: Terms and Conditions | Static page - needs manual mapping",
+    "status": "manual_review"
+  },
+  {
+    "id": "ecbe5695-6205-404f-aa74-e72566dd2d3c",
+    "old_url": "/frequently-asked-questions/",
+    "new_url": "/frequently-asked-questions/",
+    "source_type": "page",
+    "notes": "Name: Frequently Asked Questions | Static page - needs manual mapping",
+    "status": "manual_review"
+  },
+  {
+    "id": "b5659da5-bc63-4203-8c57-4a56e8034f9b",
+    "old_url": "/disclaimer/",
+    "new_url": "/disclaimer/",
+    "source_type": "page",
+    "notes": "Name: Disclaimer | Static page - needs manual mapping",
+    "status": "manual_review"
+  },
+  {
+    "id": "29c42607-494d-4da6-8613-8127ff7eb864",
+    "old_url": "/refund-return-policy/",
+    "new_url": "/refund-return-policy/",
+    "source_type": "page",
+    "notes": "Name: Refund & Return Policy | Static page - needs manual mapping",
+    "status": "manual_review"
+  },
+  {
+    "id": "d385b0f2-8307-4007-9a28-493614b5a3b8",
+    "old_url": "/payment-policy/",
+    "new_url": "/payment-policy/",
+    "source_type": "page",
+    "notes": "Name: Payment Policy | Static page - needs manual mapping",
+    "status": "manual_review"
+  },
+  {
+    "id": "1674c99a-9788-452d-af39-defbf1112b61",
+    "old_url": "/customer-reviews/",
+    "new_url": "/customer-reviews/",
+    "source_type": "page",
+    "notes": "Name: Customer Reviews | Static page - needs manual mapping",
+    "status": "manual_review"
+  },
+  {
+    "id": "978a8ece-047f-4687-ae3b-edadbb937da5",
+    "old_url": "/wholesale/",
+    "new_url": "/wholesale/",
+    "source_type": "page",
+    "notes": "Name: Wholesale | Static page - needs manual mapping",
+    "status": "manual_review"
+  },
+  {
+    "id": "0eaa8179-34b8-4627-bbc2-acc9aa9eb7de",
+    "old_url": "/solamp-product-library/",
+    "new_url": "/solamp-product-library/",
+    "source_type": "page",
+    "notes": "Name: Solamp Product Library | Static page - needs manual mapping",
+    "status": "manual_review"
+  },
+  {
+    "id": "21e0b7a8-92d2-4394-bfea-c20cea40c791",
+    "old_url": "/ai-voice-chat-with-redacted-chris/",
+    "new_url": "/ai-voice-chat-with-redacted-chris/",
+    "source_type": "page",
+    "notes": "Name: AI Voice Chat with [Redacted] Chris | Static page - needs manual mapping",
+    "status": "manual_review"
+  },
+  {
+    "id": "9cf2433b-1f21-4182-9628-354550564077",
+    "old_url": "/ebay/",
+    "new_url": "/ebay/",
+    "source_type": "page",
+    "notes": "Name: Clearance Items | Static page - needs manual mapping",
+    "status": "manual_review"
+  },
+  {
+    "id": "c578466e-ef38-401b-b791-6d5174ec7183",
+    "old_url": "/sponsorships-affiliations-and-organizations/",
+    "new_url": "/sponsorships-affiliations-and-organizations/",
+    "source_type": "page",
+    "notes": "Name: Sponsorships, Affiliations and Organizations | Static page - needs manual mapping",
+    "status": "manual_review"
+  },
+  {
+    "id": "e8e49054-2d74-4e22-aa69-35a52dcc79ec",
+    "old_url": "/careers/",
+    "new_url": "/careers/",
+    "source_type": "page",
+    "notes": "Name: Careers | Static page - needs manual mapping",
+    "status": "manual_review"
+  },
+  {
+    "id": "9ca25c5d-92a6-4788-98b0-485cbe8d6fe7",
+    "old_url": "/portfolio/",
+    "new_url": "/portfolio/",
+    "source_type": "page",
+    "notes": "Name: Portfolio | Static page - needs manual mapping",
+    "status": "manual_review"
+  },
+  {
+    "id": "eb5efdd9-8baa-4c59-822d-ce3c6e546445",
+    "old_url": "/titanmini/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: Titanmini | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "b53be4f2-fd01-4e2e-a637-22ab6b724997",
+    "old_url": "/ma-state-sales-tax-0625/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: MA State Sales Tax .0625 | Product not found in product data",
+    "status": "manual_review"
+  },
+  {
+    "id": "7b832f5e-94d3-4fd7-a243-895328ff6f1d",
+    "old_url": "/8-rail-kit-1-6-rail-93-in-black/",
+    "new_url": "",
+    "source_type": "product",
+    "notes": "Name: 8 Rail Kit - 1.6 Rail - 93-IN - Black | Product not found in product data",
+    "status": "manual_review"
+  }
+]
