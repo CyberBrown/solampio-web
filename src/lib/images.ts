@@ -141,38 +141,21 @@ export function getBrandLogoVariant(
   },
   logoVariant: BrandLogoVariant = 'full'
 ): string | null {
-  // Select the appropriate CF image ID based on variant
-  let cfImageId: string | null | undefined = null;
-
-  switch (logoVariant) {
-    case 'thumb':
-      cfImageId = brand.logo_thumb_cf_id || brand.logo_cf_image_id;
-      break;
-    case 'greyscale':
-      // Only return greyscale if we have an actual greyscale image
-      // Don't fall back to color image - let the component use CSS filter instead
-      cfImageId = brand.logo_greyscale_cf_id;
-      break;
-    case 'full':
-    default:
-      // Fall back to thumb if full isn't available (most brands only have thumb CF IDs)
-      cfImageId = brand.logo_cf_image_id || brand.logo_thumb_cf_id;
-      break;
+  // For greyscale, only return if we have an actual greyscale CF Image
+  // (not placeholder IDs - those return 403)
+  if (logoVariant === 'greyscale') {
+    // Skip greyscale - let component use CSS filter on color image instead
+    // The greyscale CF Image IDs in the database are placeholders that don't exist
+    return null;
   }
 
-  if (cfImageId) {
-    // Use 'public' variant for direct delivery
-    return `https://imagedelivery.net/${CF_IMAGES_HASH}/${cfImageId}/public`;
-  }
-
-  // Fallback to legacy logo_url (only for 'full' and 'thumb' variants)
-  // Skip local file paths that may not exist
-  if (logoVariant !== 'greyscale' && brand.logo_url && !brand.logo_url.startsWith('/images/brands/')) {
+  // For full/thumb variants, use local logo_url if available
+  // Local paths like /images/brands/full/*.png exist in public folder
+  // Note: CF Image IDs in database are placeholders that return 403, so skip them
+  if (brand.logo_url) {
     return brand.logo_url;
   }
 
-  // Don't fall back to local files - they may not exist
-  // Let the component show text fallback instead
   return null;
 }
 
