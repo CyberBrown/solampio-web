@@ -1,0 +1,3022 @@
+{
+  "timestamp": "2026-01-28T15:06:25.682Z",
+  "target": "https://solampio-web.pages.dev",
+  "summary": {
+    "total": 680,
+    "passed": 250,
+    "failed": 430,
+    "passRate": "37%"
+  },
+  "failures": [
+    {
+      "old_url": "/b2b-ninja-custom-products/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/ev-charging/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/shop-all/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/yard-sale/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/ebay/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/solamp-product-library/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/1-0-busbar-cover/",
+      "expected_url": "/products/mn10lbbc/",
+      "actual_status": 301,
+      "actual_location": "/mn10lbbc/",
+      "passed": false
+    },
+    {
+      "old_url": "/10-3-seoow-portable-cord-600v-ul-csa-power-cables/",
+      "expected_url": "/products/seoow-cord/",
+      "actual_status": 301,
+      "actual_location": "/seoow-cord/",
+      "passed": false
+    },
+    {
+      "old_url": "/10-awg-pv-wire-cut-to-order/",
+      "expected_url": "/products/pvwire/",
+      "actual_status": 301,
+      "actual_location": "/pvwire/",
+      "passed": false
+    },
+    {
+      "old_url": "/10-awg-wire/",
+      "expected_url": "/products/wire10awg/",
+      "actual_status": 301,
+      "actual_location": "/wire10awg/",
+      "passed": false
+    },
+    {
+      "old_url": "/10-watt-48v-dc-led-light-bulb-standard-e26-base/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/100-amp-150vdc-panel-mount-dual-dc-ground-fault-protector/",
+      "expected_url": "/products/mndc-gfp100rt-2p/",
+      "actual_status": 301,
+      "actual_location": "/mndc-gfp100rt-2p/",
+      "passed": false
+    },
+    {
+      "old_url": "/100-amp-disconnect/",
+      "expected_url": "/products/100ampd/",
+      "actual_status": 301,
+      "actual_location": "/100ampd/",
+      "passed": false
+    },
+    {
+      "old_url": "/1000-amp-busbar/",
+      "expected_url": "/products/mnbcb-busbar/",
+      "actual_status": 301,
+      "actual_location": "/mnbcb-busbar/",
+      "passed": false
+    },
+    {
+      "old_url": "/1000v-10mm-x-38mm-fuses/",
+      "expected_url": "/products/mn1000fuse-xx/",
+      "actual_status": 301,
+      "actual_location": "/mn1000fuse-xx/",
+      "passed": false
+    },
+    {
+      "old_url": "/10kw-off-grid-kit/",
+      "expected_url": "/products/10kw-og-kit/",
+      "actual_status": 301,
+      "actual_location": "/10kw-og-kit/",
+      "passed": false
+    },
+    {
+      "old_url": "/12-brushless-dc-snap-fan-12-24v-by-fogco/",
+      "expected_url": "/products/sfp12bldc24/",
+      "actual_status": 301,
+      "actual_location": "/sfp12bldc24/",
+      "passed": false
+    },
+    {
+      "old_url": "/12-snap-fan-solar-kit/",
+      "expected_url": "/products/12-snap-fan-solar-kit/",
+      "actual_status": 404,
+      "actual_location": null,
+      "passed": false
+    },
+    {
+      "old_url": "/120a-busbar-for-mnpv6/",
+      "expected_url": "/products/mnpv6-breaker-bb/",
+      "actual_status": 301,
+      "actual_location": "/mnpv6-breaker-bb/",
+      "passed": false
+    },
+    {
+      "old_url": "/125vdc-panel-mount-breaker-3-8-studs-1-5/",
+      "expected_url": "/products/mnedc175250/",
+      "actual_status": 301,
+      "actual_location": "/mnedc175250/",
+      "passed": false
+    },
+    {
+      "old_url": "/125vdc-panel-mount-breaker-width-1-inch-25-4mm-1-4-studs/",
+      "expected_url": "/products/mnedcrt/",
+      "actual_status": 301,
+      "actual_location": "/mnedcrt/",
+      "passed": false
+    },
+    {
+      "old_url": "/150vdc-din-rail-mount-breaker-non-polarized/",
+      "expected_url": "/products/mnepvxx-150-1pnp/",
+      "actual_status": 301,
+      "actual_location": "/mnepvxx-150-1pnp/",
+      "passed": false
+    },
+    {
+      "old_url": "/150vdc-panel-mount-breaker/",
+      "expected_url": "/products/mnedc/",
+      "actual_status": 301,
+      "actual_location": "/mnedc/",
+      "passed": false
+    },
+    {
+      "old_url": "/16-amp-600-vdc-din-rail-mount-breaker/",
+      "expected_url": "/products/mnepv16-600rt/",
+      "actual_status": 301,
+      "actual_location": "/mnepv16-600rt/",
+      "passed": false
+    },
+    {
+      "old_url": "/16-dc-brushless-snap-fan-12-24v-by-fogco/",
+      "expected_url": "/products/sfp16bldc24/",
+      "actual_status": 301,
+      "actual_location": "/sfp16bldc24/",
+      "passed": false
+    },
+    {
+      "old_url": "/168-amp-300vdc-busbar-for-mnpv/",
+      "expected_url": "/products/mnpv6-250-busbar/",
+      "actual_status": 301,
+      "actual_location": "/mnpv6-250-busbar/",
+      "passed": false
+    },
+    {
+      "old_url": "/168-amp-busbar-micro/",
+      "expected_url": "/products/mnac-busbar-micro/",
+      "actual_status": 301,
+      "actual_location": "/mnac-busbar-micro/",
+      "passed": false
+    },
+    {
+      "old_url": "/17-26kw-cold-weather-package/",
+      "expected_url": "/products/6840-6869-6845/",
+      "actual_status": 301,
+      "actual_location": "/6840-6869-6845/",
+      "passed": false
+    },
+    {
+      "old_url": "/180-amp-busbar-for-use-with-a-shunt/",
+      "expected_url": "/products/mntbbn/",
+      "actual_status": 301,
+      "actual_location": "/mntbbn/",
+      "passed": false
+    },
+    {
+      "old_url": "/180-amp-busbar-with-two-1-0-four-6-wire-slots/",
+      "expected_url": "/products/mnsbbn/",
+      "actual_status": 301,
+      "actual_location": "/mnsbbn/",
+      "passed": false
+    },
+    {
+      "old_url": "/180-amp-busbar/",
+      "expected_url": "/products/mntbb/",
+      "actual_status": 301,
+      "actual_location": "/mntbb/",
+      "passed": false
+    },
+    {
+      "old_url": "/180amp-ground-busbar/",
+      "expected_url": "/products/mngbb-busbar/",
+      "actual_status": 301,
+      "actual_location": "/mngbb-busbar/",
+      "passed": false
+    },
+    {
+      "old_url": "/2-0-busbar-insulator-and-cover-with-5-wire-locations/",
+      "expected_url": "/products/mntbb2/",
+      "actual_status": 301,
+      "actual_location": "/mntbb2/",
+      "passed": false
+    },
+    {
+      "old_url": "/2-0-busbar-insulator-and-cover-with-9-wire-locations/",
+      "expected_url": "/products/mntbb2-9/",
+      "actual_status": 301,
+      "actual_location": "/mntbb2-9/",
+      "passed": false
+    },
+    {
+      "old_url": "/2-emt/",
+      "expected_url": "/products/2emt/",
+      "actual_status": 301,
+      "actual_location": "/2emt/",
+      "passed": false
+    },
+    {
+      "old_url": "/20-dc-brushless-snap-fan-12-24v-by-fogco/",
+      "expected_url": "/products/sfp20bldc24/",
+      "actual_status": 301,
+      "actual_location": "/sfp20bldc24/",
+      "passed": false
+    },
+    {
+      "old_url": "/20-hp-dc-brushless-snap-fan-24v-by-fogco/",
+      "expected_url": "/products/sfp20bldc30/",
+      "actual_status": 301,
+      "actual_location": "/sfp20bldc30/",
+      "passed": false
+    },
+    {
+      "old_url": "/2000-amp-busbar/",
+      "expected_url": "/products/mnbcb-busbar2k/",
+      "actual_status": 301,
+      "actual_location": "/mnbcb-busbar2k/",
+      "passed": false
+    },
+    {
+      "old_url": "/200wmono/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/280-amp-busbar/",
+      "expected_url": "/products/mnbigbusbar/",
+      "actual_status": 301,
+      "actual_location": "/mnbigbusbar/",
+      "passed": false
+    },
+    {
+      "old_url": "/3-4-sleeve-raglan-shirt/",
+      "expected_url": "/products/3-4-sleeve-raglan-shirt/",
+      "actual_status": 404,
+      "actual_location": null,
+      "passed": false
+    },
+    {
+      "old_url": "/3-processing-fee/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/300-vdc-panel-mount-breaker/",
+      "expected_url": "/products/mnedc-300/",
+      "actual_status": 301,
+      "actual_location": "/mnedc-300/",
+      "passed": false
+    },
+    {
+      "old_url": "/300a-75mv-shunt-resistor/",
+      "expected_url": "/products/shunt300a75mv/",
+      "actual_status": 301,
+      "actual_location": "/shunt300a75mv/",
+      "passed": false
+    },
+    {
+      "old_url": "/300amp-bus-bar-red-black-set/",
+      "expected_url": "/products/300ampbusbar/",
+      "actual_status": 301,
+      "actual_location": "/300ampbusbar/",
+      "passed": false
+    },
+    {
+      "old_url": "/300amp-busbar/",
+      "expected_url": "/products/300bus/",
+      "actual_status": 301,
+      "actual_location": "/300bus/",
+      "passed": false
+    },
+    {
+      "old_url": "/300vdc-din-rail-mount-breaker-polarized/",
+      "expected_url": "/products/mnepv-300/",
+      "actual_status": 301,
+      "actual_location": "/mnepv-300/",
+      "passed": false
+    },
+    {
+      "old_url": "/300vdc-din-rail-mount-breaker-single-pole-polarized/",
+      "expected_url": "/products/mnepv-300-1pp/",
+      "actual_status": 301,
+      "actual_location": "/mnepv-300-1pp/",
+      "passed": false
+    },
+    {
+      "old_url": "/36k-480v-commercial-string-pv-inverter/",
+      "expected_url": "/products/pvi-36tl-480-v2/",
+      "actual_status": 301,
+      "actual_location": "/pvi-36tl-480-v2/",
+      "passed": false
+    },
+    {
+      "old_url": "/400amp-copper-bus-bar-4x-m10-positive-and-4x-m10-negative/",
+      "expected_url": "/products/busbar400amp8xm10rb/",
+      "actual_status": 301,
+      "actual_location": "/busbar400amp8xm10rb/",
+      "passed": false
+    },
+    {
+      "old_url": "/410w-bifacial-perc-monocrystalline-solar-panel-from-cw-energy/",
+      "expected_url": "/products/cwt410wp/",
+      "actual_status": 301,
+      "actual_location": "/cwt410wp/",
+      "passed": false
+    },
+    {
+      "old_url": "/50-amp-300vdc-ground-fault-protector-din-rail-mount/",
+      "expected_url": "/products/mndc-gfp50-300/",
+      "actual_status": 301,
+      "actual_location": "/mndc-gfp50-300/",
+      "passed": false
+    },
+    {
+      "old_url": "/500-amp-bus-bar-for-the-optional-3rd-bus-bar-in-the-mnbcb-500-50/",
+      "expected_url": "/products/mnbcb-busbar500/",
+      "actual_status": 301,
+      "actual_location": "/mnbcb-busbar500/",
+      "passed": false
+    },
+    {
+      "old_url": "/500-amp-shunt-mounted-busbar/",
+      "expected_url": "/products/mnshunt-busbar/",
+      "actual_status": 301,
+      "actual_location": "/mnshunt-busbar/",
+      "passed": false
+    },
+    {
+      "old_url": "/5050-clamp-30mm-40mm-box-of-144-for-po-only-sales-use-88450-solo/",
+      "expected_url": "/products/88450-box/",
+      "actual_status": 301,
+      "actual_location": "/88450-box/",
+      "passed": false
+    },
+    {
+      "old_url": "/5050-clamp-black-30mm-40mm-12-pack-po-only-sales-use-88450-solo/",
+      "expected_url": "/products/88450/",
+      "actual_status": 301,
+      "actual_location": "/88450/",
+      "passed": false
+    },
+    {
+      "old_url": "/545w-550w-bifacial-perc-monocrystalline-solar-panel-from-cw-energy/",
+      "expected_url": "/products/cwt5xxwp-1/",
+      "actual_status": 301,
+      "actual_location": "/cwt5xxwp-1/",
+      "passed": false
+    },
+    {
+      "old_url": "/60-amp-busbar/",
+      "expected_url": "/products/mnpv3-busbar/",
+      "actual_status": 301,
+      "actual_location": "/mnpv3-busbar/",
+      "passed": false
+    },
+    {
+      "old_url": "/600v-10mm-x-38mm-fuses/",
+      "expected_url": "/products/mn600fuse/",
+      "actual_status": 301,
+      "actual_location": "/mn600fuse/",
+      "passed": false
+    },
+    {
+      "old_url": "/600vdc-din-rail-mount-two-pole-breaker/",
+      "expected_url": "/products/mnepvxx-600-2pp/",
+      "actual_status": 301,
+      "actual_location": "/mnepvxx-600-2pp/",
+      "passed": false
+    },
+    {
+      "old_url": "/63-amp-150vdc-din-rail-mount-dc-ground-fault-protector/",
+      "expected_url": "/products/mndc-gfp63/",
+      "actual_status": 301,
+      "actual_location": "/mndc-gfp63/",
+      "passed": false
+    },
+    {
+      "old_url": "/6awg-bare-copper-wire/",
+      "expected_url": "/products/bcw-awg6/",
+      "actual_status": 301,
+      "actual_location": "/bcw-awg6/",
+      "passed": false
+    },
+    {
+      "old_url": "/80-amp-150vdc-panel-mount-dc-ground-fault-protector/",
+      "expected_url": "/products/mndc-gfp80/",
+      "actual_status": 301,
+      "actual_location": "/mndc-gfp80/",
+      "passed": false
+    },
+    {
+      "old_url": "/80-amp-busbar-for-mnpv6/",
+      "expected_url": "/products/mnpv6-fuse-busbar/",
+      "actual_status": 301,
+      "actual_location": "/mnpv6-fuse-busbar/",
+      "passed": false
+    },
+    {
+      "old_url": "/80-or-100-amp-din-rail-mount-breaker/",
+      "expected_url": "/products/mnepv80or100/",
+      "actual_status": 301,
+      "actual_location": "/mnepv80or100/",
+      "passed": false
+    },
+    {
+      "old_url": "/80-volt-dc-breaker/",
+      "expected_url": "/products/mnepvxxx-80-1pnp/",
+      "actual_status": 301,
+      "actual_location": "/mnepvxxx-80-1pnp/",
+      "passed": false
+    },
+    {
+      "old_url": "/abb-tc10324r-200amp-manual-transfer-switch/",
+      "expected_url": "/products/tc10324r/",
+      "actual_status": 301,
+      "actual_location": "/tc10324r/",
+      "passed": false
+    },
+    {
+      "old_url": "/ac-micro-inverter-combiner/",
+      "expected_url": "/products/mnpv6-disco-ac-micro/",
+      "actual_status": 301,
+      "actual_location": "/mnpv6-disco-ac-micro/",
+      "passed": false
+    },
+    {
+      "old_url": "/access-with-phi-batteries-and-sol-ark-inverter/",
+      "expected_url": "/products/a-phi-sa-12/",
+      "actual_status": 301,
+      "actual_location": "/a-phi-sa-12/",
+      "passed": false
+    },
+    {
+      "old_url": "/adidas-premium-polo-shirt/",
+      "expected_url": "/products/adidas-premium-polo-shirt/",
+      "actual_status": 404,
+      "actual_location": null,
+      "passed": false
+    },
+    {
+      "old_url": "/adidas-space-dyed-polo/",
+      "expected_url": "/products/adidas-space-dyed-polo/",
+      "actual_status": 404,
+      "actual_location": null,
+      "passed": false
+    },
+    {
+      "old_url": "/ampliphi-3-8-lfp-battery/",
+      "expected_url": "/products/ampliphi-38-48/",
+      "actual_status": 301,
+      "actual_location": "/ampliphi-38-48/",
+      "passed": false
+    },
+    {
+      "old_url": "/ap-smart-rapid-shutdown-system/",
+      "expected_url": "/products/ap-smart-rapid-shutdown-system/",
+      "actual_status": 404,
+      "actual_location": null,
+      "passed": false
+    },
+    {
+      "old_url": "/ap-smart-transmitter-kit/",
+      "expected_url": "/products/ap-smart-transmitter-kit/",
+      "actual_status": 404,
+      "actual_location": null,
+      "passed": false
+    },
+    {
+      "old_url": "/ap-smart-transmitter-single-core/",
+      "expected_url": "/products/transmitter-plc-1p/",
+      "actual_status": 301,
+      "actual_location": "/transmitter-plc-1p/",
+      "passed": false
+    },
+    {
+      "old_url": "/arc-fault-and-ground-fault-kit-for-hawkes-bay-and-barcelona/",
+      "expected_url": "/products/mnhbb-afgf-kit/",
+      "actual_status": 301,
+      "actual_location": "/mnhbb-afgf-kit/",
+      "passed": false
+    },
+    {
+      "old_url": "/backplate/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/bank-fee/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/barcelona-backplate/",
+      "expected_url": "/products/mnbclnabackplate/",
+      "actual_status": 301,
+      "actual_location": "/mnbclnabackplate/",
+      "passed": false
+    },
+    {
+      "old_url": "/barcelona-breaker-box/",
+      "expected_url": "/products/mnbclnabb/",
+      "actual_status": 301,
+      "actual_location": "/mnbclnabb/",
+      "passed": false
+    },
+    {
+      "old_url": "/barcelona-pre-wired/",
+      "expected_url": "/products/mnbclna-pw/",
+      "actual_status": 301,
+      "actual_location": "/mnbclna-pw/",
+      "passed": false
+    },
+    {
+      "old_url": "/battery-capacity-meter/",
+      "expected_url": "/products/mnbcm/",
+      "actual_status": 301,
+      "actual_location": "/mnbcm/",
+      "passed": false
+    },
+    {
+      "old_url": "/battery-combiner/",
+      "expected_url": "/products/mnl/",
+      "actual_status": 301,
+      "actual_location": "/mnl/",
+      "passed": false
+    },
+    {
+      "old_url": "/battery-enclosures/",
+      "expected_url": "/products/mnbe/",
+      "actual_status": 301,
+      "actual_location": "/mnbe/",
+      "passed": false
+    },
+    {
+      "old_url": "/battery-hydrometer/",
+      "expected_url": "/products/mnhydrometer/",
+      "actual_status": 301,
+      "actual_location": "/mnhydrometer/",
+      "passed": false
+    },
+    {
+      "old_url": "/blue-mppt-250-85/",
+      "expected_url": "/products/vic-ss-250-85/",
+      "actual_status": 301,
+      "actual_location": "/vic-ss-250-85/",
+      "passed": false
+    },
+    {
+      "old_url": "/bos/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/boss-enclosures-for-phi-batteries/",
+      "expected_url": "/products/boss/",
+      "actual_status": 301,
+      "actual_location": "/boss/",
+      "passed": false
+    },
+    {
+      "old_url": "/brace-add-on-for-uni-sp-01a-side-of-pole-mount/",
+      "expected_url": "/products/sp-knbr-001/",
+      "actual_status": 301,
+      "actual_location": "/sp-knbr-001/",
+      "passed": false
+    },
+    {
+      "old_url": "/brat-charge-controller-kit-with-breakers-and-wire/",
+      "expected_url": "/products/mnbratkit/",
+      "actual_status": 301,
+      "actual_location": "/mnbratkit/",
+      "passed": false
+    },
+    {
+      "old_url": "/breaker-adapter/",
+      "expected_url": "/products/mnbreaker-adapter/",
+      "actual_status": 301,
+      "actual_location": "/mnbreaker-adapter/",
+      "passed": false
+    },
+    {
+      "old_url": "/briggs-stratton-simpliphi-accessories/",
+      "expected_url": "/products/simpacc/",
+      "actual_status": 301,
+      "actual_location": "/simpacc/",
+      "passed": false
+    },
+    {
+      "old_url": "/bulk-flush-mount-adapters/",
+      "expected_url": "/products/bulk-flush-mount-adapters/",
+      "actual_status": 404,
+      "actual_location": null,
+      "passed": false
+    },
+    {
+      "old_url": "/burndy-bibs4-3-multiple-wire-terminal/",
+      "expected_url": "/products/bibs43/",
+      "actual_status": 301,
+      "actual_location": "/bibs43/",
+      "passed": false
+    },
+    {
+      "old_url": "/burndy-bibs4-3/",
+      "expected_url": "/products/bibs4-3/",
+      "actual_status": 301,
+      "actual_location": "/bibs4-3/",
+      "passed": false
+    },
+    {
+      "old_url": "/burndy-insulated-multitap-connector/",
+      "expected_url": "/products/bit04/",
+      "actual_status": 301,
+      "actual_location": "/bit04/",
+      "passed": false
+    },
+    {
+      "old_url": "/busbar-for-mnpv12/",
+      "expected_url": "/products/mnpv12-busbar/",
+      "actual_status": 301,
+      "actual_location": "/mnpv12-busbar/",
+      "passed": false
+    },
+    {
+      "old_url": "/busbar-insulator-and-cover-with-15-wire-locations/",
+      "expected_url": "/products/mntbb2-15/",
+      "actual_status": 301,
+      "actual_location": "/mntbb2-15/",
+      "passed": false
+    },
+    {
+      "old_url": "/bussmann-fusetron-dual-element-class-rk5-fuses/",
+      "expected_url": "/products/bussmannxxxampxxxvac/",
+      "actual_status": 301,
+      "actual_location": "/bussmannxxxampxxxvac/",
+      "passed": false
+    },
+    {
+      "old_url": "/cableloc-wire-management/",
+      "expected_url": "/products/cableloc/",
+      "actual_status": 301,
+      "actual_location": "/cableloc/",
+      "passed": false
+    },
+    {
+      "old_url": "/channel-end-clamp-8-pack/",
+      "expected_url": "/products/88467-solo/",
+      "actual_status": 301,
+      "actual_location": "/88467-solo/",
+      "passed": false
+    },
+    {
+      "old_url": "/channel-nut-5-16-24-pack/",
+      "expected_url": "/products/88498/",
+      "actual_status": 301,
+      "actual_location": "/88498/",
+      "passed": false
+    },
+    {
+      "old_url": "/chem-link-m1/",
+      "expected_url": "/products/f1270bl/",
+      "actual_status": 301,
+      "actual_location": "/f1270bl/",
+      "passed": false
+    },
+    {
+      "old_url": "/classic-controller-accessories/",
+      "expected_url": "/products/mnwb/",
+      "actual_status": 301,
+      "actual_location": "/mnwb/",
+      "passed": false
+    },
+    {
+      "old_url": "/classic-mppt-charge-controller/",
+      "expected_url": "/products/classic/",
+      "actual_status": 301,
+      "actual_location": "/classic/",
+      "passed": false
+    },
+    {
+      "old_url": "/communication-cable-for-tigo-sol-ark-cat-5e-600v-90c-use-2-sunlight-resistant-ul-444/",
+      "expected_url": "/products/cat5e600v/",
+      "actual_status": 301,
+      "actual_location": "/cat5e600v/",
+      "passed": false
+    },
+    {
+      "old_url": "/conduit-and-wire/",
+      "expected_url": "/products/conduit-and-wire/",
+      "actual_status": 404,
+      "actual_location": null,
+      "passed": false
+    },
+    {
+      "old_url": "/corrubracket-100t/",
+      "expected_url": "/products/corrubracket-100t/",
+      "actual_status": 404,
+      "actual_location": null,
+      "passed": false
+    },
+    {
+      "old_url": "/corrubracket/",
+      "expected_url": "/products/corrubracket/",
+      "actual_status": 404,
+      "actual_location": null,
+      "passed": false
+    },
+    {
+      "old_url": "/custom-cable/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/cw170wpanels/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/cw410-test/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/dc-disco-switch-8-pole-4-string-32a-600v/",
+      "expected_url": "/products/si32-pel64r-8/",
+      "actual_status": 301,
+      "actual_location": "/si32-pel64r-8/",
+      "passed": false
+    },
+    {
+      "old_url": "/dc-thermostat-kit-by-fogco/",
+      "expected_url": "/products/sf9939/",
+      "actual_status": 301,
+      "actual_location": "/sf9939/",
+      "passed": false
+    },
+    {
+      "old_url": "/delta-lighting-arrestor/",
+      "expected_url": "/products/della/",
+      "actual_status": 301,
+      "actual_location": "/della/",
+      "passed": false
+    },
+    {
+      "old_url": "/deye-battery/",
+      "expected_url": "/products/se-g51pro-b/",
+      "actual_status": 301,
+      "actual_location": "/se-g51pro-b/",
+      "passed": false
+    },
+    {
+      "old_url": "/deye-bos-g-ip-20-indoor-high-voltage-hv-batteries/",
+      "expected_url": "/products/deye-bos-g/",
+      "actual_status": 301,
+      "actual_location": "/deye-bos-g/",
+      "passed": false
+    },
+    {
+      "old_url": "/deye-ge-f60-ip55-outdoor-61kwh/",
+      "expected_url": "/products/deye-ge-f60/",
+      "actual_status": 301,
+      "actual_location": "/deye-ge-f60/",
+      "passed": false
+    },
+    {
+      "old_url": "/deye-wall-mounted-battery/",
+      "expected_url": "/products/rw-f102-b/",
+      "actual_status": 301,
+      "actual_location": "/rw-f102-b/",
+      "passed": false
+    },
+    {
+      "old_url": "/difference-amount-on-491/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/difference-on-shipping-so-488-491/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/din-rail-mount-277vac-triple-pole-breaker/",
+      "expected_url": "/products/mneac-3p/",
+      "actual_status": 301,
+      "actual_location": "/mneac-3p/",
+      "passed": false
+    },
+    {
+      "old_url": "/disconnecting-dc-combiners/",
+      "expected_url": "/products/mnpv-disco/",
+      "actual_status": 301,
+      "actual_location": "/mnpv-disco/",
+      "passed": false
+    },
+    {
+      "old_url": "/distressed-dad-hat/",
+      "expected_url": "/products/66d65f1665890-10992/",
+      "actual_status": 301,
+      "actual_location": "/66d65f1665890-10992/",
+      "passed": false
+    },
+    {
+      "old_url": "/downunder-buddy-3s-remote-computer/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/downunder-buddy-3s/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/e-box-48100r-lifepo4-battery-pack/",
+      "expected_url": "/products/e-box-48100r/",
+      "actual_status": 301,
+      "actual_location": "/e-box-48100r/",
+      "passed": false
+    },
+    {
+      "old_url": "/e-panel/",
+      "expected_url": "/products/mne/",
+      "actual_status": 301,
+      "actual_location": "/mne/",
+      "passed": false
+    },
+    {
+      "old_url": "/ecosolaris-12-000-btu-hybrid-solar-mini-split-air-conditioner-heat-pump-energy-star-certified/",
+      "expected_url": "/products/eco-split-12k-r32-v2/",
+      "actual_status": 301,
+      "actual_location": "/eco-split-12k-r32-v2/",
+      "passed": false
+    },
+    {
+      "old_url": "/ecosolaris-18-000-btu-hybrid-solar-mini-split-air-conditioner-heat-pump-energy-star-certified/",
+      "expected_url": "/products/eco-split-18k-r32-v2/",
+      "actual_status": 301,
+      "actual_location": "/eco-split-18k-r32-v2/",
+      "passed": false
+    },
+    {
+      "old_url": "/engineering-permitting-interconnection/",
+      "expected_url": "/products/design-package/",
+      "actual_status": 301,
+      "actual_location": "/design-package/",
+      "passed": false
+    },
+    {
+      "old_url": "/enphase-accessories/",
+      "expected_url": "/products/enp-acc/",
+      "actual_status": 301,
+      "actual_location": "/enp-acc/",
+      "passed": false
+    },
+    {
+      "old_url": "/enphase-microinverter/",
+      "expected_url": "/products/enp/",
+      "actual_status": 301,
+      "actual_location": "/enp/",
+      "passed": false
+    },
+    {
+      "old_url": "/enphase-qcable-landscape/",
+      "expected_url": "/products/en-q-cut-land-01/",
+      "actual_status": 301,
+      "actual_location": "/en-q-cut-land-01/",
+      "passed": false
+    },
+    {
+      "old_url": "/ev-charger/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/extra-charge/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/flexible-solar-panels/",
+      "expected_url": "/products/small-pvf/",
+      "actual_status": 301,
+      "actual_location": "/small-pvf/",
+      "passed": false
+    },
+    {
+      "old_url": "/fogco-24-dc-brushless-snap-fan-24v-dc/",
+      "expected_url": "/products/sfp24bldc30/",
+      "actual_status": 301,
+      "actual_location": "/sfp24bldc30/",
+      "passed": false
+    },
+    {
+      "old_url": "/fogco-snap-fan-exhaust-guard/",
+      "expected_url": "/products/sfs2423/",
+      "actual_status": 301,
+      "actual_location": "/sfs2423/",
+      "passed": false
+    },
+    {
+      "old_url": "/fortress-eboost-16kwh-battery/",
+      "expected_url": "/products/eboost-16kwh-battery/",
+      "actual_status": 301,
+      "actual_location": "/eboost-16kwh-battery/",
+      "passed": false
+    },
+    {
+      "old_url": "/fortress-power-cover-for-envy-inverter/",
+      "expected_url": "/products/eforce-cover/",
+      "actual_status": 301,
+      "actual_location": "/eforce-cover/",
+      "passed": false
+    },
+    {
+      "old_url": "/fortress-power-eflex-max-5-4-kw/",
+      "expected_url": "/products/fp-eflex-max/",
+      "actual_status": 301,
+      "actual_location": "/fp-eflex-max/",
+      "passed": false
+    },
+    {
+      "old_url": "/fortress-power-eforce-eway-base/",
+      "expected_url": "/products/eforce-eway-and-base/",
+      "actual_status": 301,
+      "actual_location": "/eforce-eway-and-base/",
+      "passed": false
+    },
+    {
+      "old_url": "/fortress-power-eforce-stackable-whole-home-energy-storage-system/",
+      "expected_url": "/products/eforce/",
+      "actual_status": 301,
+      "actual_location": "/eforce/",
+      "passed": false
+    },
+    {
+      "old_url": "/fortress-power-eforce-wallmount-bracket/",
+      "expected_url": "/products/eforce-wallmount-bracket/",
+      "actual_status": 301,
+      "actual_location": "/eforce-wallmount-bracket/",
+      "passed": false
+    },
+    {
+      "old_url": "/fortress-power-envy-8kw-10kw-all-in-one-hybrid-home-solar-inverter/",
+      "expected_url": "/products/saenvy810/",
+      "actual_status": 301,
+      "actual_location": "/saenvy810/",
+      "passed": false
+    },
+    {
+      "old_url": "/fortress-power-envy-duo-21-inverter/",
+      "expected_url": "/products/envy-duo-21/",
+      "actual_status": 301,
+      "actual_location": "/envy-duo-21/",
+      "passed": false
+    },
+    {
+      "old_url": "/fortress-power-envy-true-12kw-all-in-one-hybrid-inverter/",
+      "expected_url": "/products/envy12/",
+      "actual_status": 301,
+      "actual_location": "/envy12/",
+      "passed": false
+    },
+    {
+      "old_url": "/fortress-power-evault-max-18-5-kwh/",
+      "expected_url": "/products/evault-max/",
+      "actual_status": 301,
+      "actual_location": "/evault-max/",
+      "passed": false
+    },
+    {
+      "old_url": "/fortress-power-eway-for-eboost-16kw/",
+      "expected_url": "/products/eboost-eway/",
+      "actual_status": 301,
+      "actual_location": "/eboost-eway/",
+      "passed": false
+    },
+    {
+      "old_url": "/fortress-power-flextower/",
+      "expected_url": "/products/saflextower/",
+      "actual_status": 301,
+      "actual_location": "/saflextower/",
+      "passed": false
+    },
+    {
+      "old_url": "/fortress-power-guardian-monitoring-tool/",
+      "expected_url": "/products/guardian/",
+      "actual_status": 301,
+      "actual_location": "/guardian/",
+      "passed": false
+    },
+    {
+      "old_url": "/fortress-power-solo-6-5kw-hybrid-inverter/",
+      "expected_url": "/products/offgrid-6500-inverter/",
+      "actual_status": 301,
+      "actual_location": "/offgrid-6500-inverter/",
+      "passed": false
+    },
+    {
+      "old_url": "/frs-200amp-bussman-fuse/",
+      "expected_url": "/products/frs200/",
+      "actual_status": 301,
+      "actual_location": "/frs200/",
+      "passed": false
+    },
+    {
+      "old_url": "/galvanized-steel-pipe-7/",
+      "expected_url": "/products/galv-2-12-x-7-x-sps40-g210/",
+      "actual_status": 301,
+      "actual_location": "/galv-2-12-x-7-x-sps40-g210/",
+      "passed": false
+    },
+    {
+      "old_url": "/galvanized-steel-pipe-8/",
+      "expected_url": "/products/galv-2-12-x-8-x-sps40-g210/",
+      "actual_status": 301,
+      "actual_location": "/galv-2-12-x-8-x-sps40-g210/",
+      "passed": false
+    },
+    {
+      "old_url": "/galvanized-steel-steel-pipe-10/",
+      "expected_url": "/products/galv-2-12-x-10-x-sps40-g210/",
+      "actual_status": 301,
+      "actual_location": "/galv-2-12-x-10-x-sps40-g210/",
+      "passed": false
+    },
+    {
+      "old_url": "/generic-y-branch-solar-connectors/",
+      "expected_url": "/products/gen-sc-y/",
+      "actual_status": 301,
+      "actual_location": "/gen-sc-y/",
+      "passed": false
+    },
+    {
+      "old_url": "/genny-emergency-power-kit/",
+      "expected_url": "/products/genny/",
+      "actual_status": 301,
+      "actual_location": "/genny/",
+      "passed": false
+    },
+    {
+      "old_url": "/genstar-mppt-charge-controller/",
+      "expected_url": "/products/gs/",
+      "actual_status": 301,
+      "actual_location": "/gs/",
+      "passed": false
+    },
+    {
+      "old_url": "/gloria1/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/gloria225w/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/gloriam/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/gripclip-wire-management/",
+      "expected_url": "/products/gripclip/",
+      "actual_status": 301,
+      "actual_location": "/gripclip/",
+      "passed": false
+    },
+    {
+      "old_url": "/ground-lug-assembly/",
+      "expected_url": "/products/88504-solo/",
+      "actual_status": 301,
+      "actual_location": "/88504-solo/",
+      "passed": false
+    },
+    {
+      "old_url": "/ground-or-roof-tilt-mounts/",
+      "expected_url": "/products/uni-gr/",
+      "actual_status": 301,
+      "actual_location": "/uni-gr/",
+      "passed": false
+    },
+    {
+      "old_url": "/ground-screw-foundations/",
+      "expected_url": "/products/tamgroundscrew/",
+      "actual_status": 301,
+      "actual_location": "/tamgroundscrew/",
+      "passed": false
+    },
+    {
+      "old_url": "/grounding-wire-green/",
+      "expected_url": "/products/grndwire-green-100/",
+      "actual_status": 301,
+      "actual_location": "/grndwire-green-100/",
+      "passed": false
+    },
+    {
+      "old_url": "/grundfos-pumps/",
+      "expected_url": "/products/sqf/",
+      "actual_status": 301,
+      "actual_location": "/sqf/",
+      "passed": false
+    },
+    {
+      "old_url": "/gslc-load-center/",
+      "expected_url": "/products/gslc/",
+      "actual_status": 301,
+      "actual_location": "/gslc/",
+      "passed": false
+    },
+    {
+      "old_url": "/gx-touch-50/",
+      "expected_url": "/products/gx-touch-50/",
+      "actual_status": 404,
+      "actual_location": null,
+      "passed": false
+    },
+    {
+      "old_url": "/hanger-bolt/",
+      "expected_url": "/products/hanger-bolt-m10-15x200/",
+      "actual_status": 301,
+      "actual_location": "/hanger-bolt-m10-15x200/",
+      "passed": false
+    },
+    {
+      "old_url": "/hawkes-bay-backplate/",
+      "expected_url": "/products/mnhawkesbaybackplate/",
+      "actual_status": 301,
+      "actual_location": "/mnhawkesbaybackplate/",
+      "passed": false
+    },
+    {
+      "old_url": "/hawkes-bay-breaker-box/",
+      "expected_url": "/products/mnhawkesbaybb125/",
+      "actual_status": 301,
+      "actual_location": "/mnhawkesbaybb125/",
+      "passed": false
+    },
+    {
+      "old_url": "/hawkes-bay-controller/",
+      "expected_url": "/products/mnhawkesbay/",
+      "actual_status": 301,
+      "actual_location": "/mnhawkesbay/",
+      "passed": false
+    },
+    {
+      "old_url": "/hawkes-bay-pre-wired-system/",
+      "expected_url": "/products/mnhawkesbay-pw/",
+      "actual_status": 301,
+      "actual_location": "/mnhawkesbay-pw/",
+      "passed": false
+    },
+    {
+      "old_url": "/heat-chamber/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/homegrid-lithion-stackd-series-battery/",
+      "expected_url": "/products/hg/",
+      "actual_status": 301,
+      "actual_location": "/hg/",
+      "passed": false
+    },
+    {
+      "old_url": "/ilsco-sgb-4-grounding-lug-for-module-frame-10-pack/",
+      "expected_url": "/products/89013/",
+      "actual_status": 301,
+      "actual_location": "/89013/",
+      "passed": false
+    },
+    {
+      "old_url": "/intertie-kit-for-uni-gr-roof-ground-mounts/",
+      "expected_url": "/products/51-0520-005/",
+      "actual_status": 301,
+      "actual_location": "/51-0520-005/",
+      "passed": false
+    },
+    {
+      "old_url": "/iota-engineering-dls-power-converter-and-battery-charger/",
+      "expected_url": "/products/iota-dls/",
+      "actual_status": 301,
+      "actual_location": "/iota-dls/",
+      "passed": false
+    },
+    {
+      "old_url": "/item8/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/ja-solar-440w-595w-615w-620w-bifacial-glass-backsheet-monocrystalline-solar-panel/",
+      "expected_url": "/products/jam/",
+      "actual_status": 301,
+      "actual_location": "/jam/",
+      "passed": false
+    },
+    {
+      "old_url": "/kid-30amp-12v-24v-48v-controller/",
+      "expected_url": "/products/mnkid/",
+      "actual_status": 301,
+      "actual_location": "/mnkid/",
+      "passed": false
+    },
+    {
+      "old_url": "/kid-accessories/",
+      "expected_url": "/products/mnkid-a/",
+      "actual_status": 301,
+      "actual_location": "/mnkid-a/",
+      "passed": false
+    },
+    {
+      "old_url": "/kids-crew-neck-t-shirt/",
+      "expected_url": "/products/kids-crew-neck-t-shirt/",
+      "actual_status": 404,
+      "actual_location": null,
+      "passed": false
+    },
+    {
+      "old_url": "/kilovault-hab-replacement-parts/",
+      "expected_url": "/products/klvhabparts/",
+      "actual_status": 301,
+      "actual_location": "/klvhabparts/",
+      "passed": false
+    },
+    {
+      "old_url": "/kilovault-hlx-replacement-parts/",
+      "expected_url": "/products/klbhlxparts/",
+      "actual_status": 301,
+      "actual_location": "/klbhlxparts/",
+      "passed": false
+    },
+    {
+      "old_url": "/l-foot-with-rail-mount-mill-box-of-144-po-use-only-sales-use-88603-solo/",
+      "expected_url": "/products/88603-box/",
+      "actual_status": 301,
+      "actual_location": "/88603-box/",
+      "passed": false
+    },
+    {
+      "old_url": "/labels/",
+      "expected_url": "/products/labels/",
+      "actual_status": 404,
+      "actual_location": null,
+      "passed": false
+    },
+    {
+      "old_url": "/little-rosie-inverter/",
+      "expected_url": "/products/mnlr3648m/",
+      "actual_status": 301,
+      "actual_location": "/mnlr3648m/",
+      "passed": false
+    },
+    {
+      "old_url": "/m-series-mini-on-off-battery-switch-with-knob-black/",
+      "expected_url": "/products/bss-6006200/",
+      "actual_status": 301,
+      "actual_location": "/bss-6006200/",
+      "passed": false
+    },
+    {
+      "old_url": "/m8-bolt/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/ma-state-sales-tax-0625/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/ma-taxes/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/mamba-general-duty-junction-box/",
+      "expected_url": "/products/mamba/",
+      "actual_status": 301,
+      "actual_location": "/mamba/",
+      "passed": false
+    },
+    {
+      "old_url": "/mate3s/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/mega-off-grid-solar-panel",
+      "expected_url": "/products/offgridpv/",
+      "actual_status": 301,
+      "actual_location": "/offgridpv/",
+      "passed": false
+    },
+    {
+      "old_url": "/mersens-hp10m-photovoltaic-pv-fuse/",
+      "expected_url": "/products/mn1000fuse/",
+      "actual_status": 301,
+      "actual_location": "/mn1000fuse/",
+      "passed": false
+    },
+    {
+      "old_url": "/meyer-burger-390-w-solar-panel/",
+      "expected_url": "/products/mb-390-hjt120-bb-t2/",
+      "actual_status": 301,
+      "actual_location": "/mb-390-hjt120-bb-t2/",
+      "passed": false
+    },
+    {
+      "old_url": "/midnite-aio-powerflo-energy-storage-system-kit/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/midnite-dyi-3000-charger/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/midnite-mnpowerflo16-lithium-iron-phosphate-wall-mounted-battery/",
+      "expected_url": "/products/mnpowerflo16/",
+      "actual_status": 301,
+      "actual_location": "/mnpowerflo16/",
+      "passed": false
+    },
+    {
+      "old_url": "/midnite-prewired-combiners/",
+      "expected_url": "/products/mnpvx-mc4/",
+      "actual_status": 301,
+      "actual_location": "/mnpvx-mc4/",
+      "passed": false
+    },
+    {
+      "old_url": "/midnite-pv-combiners/",
+      "expected_url": "/products/mnpv/",
+      "actual_status": 301,
+      "actual_location": "/mnpv/",
+      "passed": false
+    },
+    {
+      "old_url": "/midnite-solar-accessories/",
+      "expected_url": "/products/midnite-solar-accessories/",
+      "actual_status": 404,
+      "actual_location": null,
+      "passed": false
+    },
+    {
+      "old_url": "/midnite-solar-hawks-bay-breaker-box-125/",
+      "expected_url": "/products/mnhawksbaybb125/",
+      "actual_status": 301,
+      "actual_location": "/mnhawksbaybb125/",
+      "passed": false
+    },
+    {
+      "old_url": "/midnite-solar-mnedc175rt-remote-trip-175-amp-125vdc-panel-mount-breaker/",
+      "expected_url": "/products/midmnedc125rt/",
+      "actual_status": 301,
+      "actual_location": "/midmnedc125rt/",
+      "passed": false
+    },
+    {
+      "old_url": "/midnite-solar-mnpowerflo5-battery/",
+      "expected_url": "/products/mnpowerflo5/",
+      "actual_status": 301,
+      "actual_location": "/mnpowerflo5/",
+      "passed": false
+    },
+    {
+      "old_url": "/midnite-solar-off-grid-kit/",
+      "expected_url": "/products/mnog-kit/",
+      "actual_status": 301,
+      "actual_location": "/mnog-kit/",
+      "passed": false
+    },
+    {
+      "old_url": "/midnite-solar-surge-protector-device/",
+      "expected_url": "/products/mnspd/",
+      "actual_status": 301,
+      "actual_location": "/mnspd/",
+      "passed": false
+    },
+    {
+      "old_url": "/midnite-solar-training/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/mini-dc-disconnect/",
+      "expected_url": "/products/mndc/",
+      "actual_status": 301,
+      "actual_location": "/mndc/",
+      "passed": false
+    },
+    {
+      "old_url": "/miscellaneous/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/mlpe-mount/",
+      "expected_url": "/products/88481-solo/",
+      "actual_status": 301,
+      "actual_location": "/88481-solo/",
+      "passed": false
+    },
+    {
+      "old_url": "/mneac/",
+      "expected_url": "/products/mneac/",
+      "actual_status": 404,
+      "actual_location": null,
+      "passed": false
+    },
+    {
+      "old_url": "/mneacqzd-2p/",
+      "expected_url": "/products/mneacqzd-2p/",
+      "actual_status": 404,
+      "actual_location": null,
+      "passed": false
+    },
+    {
+      "old_url": "/mneacqzd/",
+      "expected_url": "/products/mneacqzd/",
+      "actual_status": 404,
+      "actual_location": null,
+      "passed": false
+    },
+    {
+      "old_url": "/module-lead-clip-box-of-288-po-use-only-sales-use-88474-solo/",
+      "expected_url": "/products/88474-box/",
+      "actual_status": 301,
+      "actual_location": "/88474-box/",
+      "passed": false
+    },
+    {
+      "old_url": "/module-lead-clip/",
+      "expected_url": "/products/88474-solo/",
+      "actual_status": 301,
+      "actual_location": "/88474-solo/",
+      "passed": false
+    },
+    {
+      "old_url": "/morningstar-controller-accessories/",
+      "expected_url": "/products/msca/",
+      "actual_status": 301,
+      "actual_location": "/msca/",
+      "passed": false
+    },
+    {
+      "old_url": "/morningstar-pwm-charge-controller/",
+      "expected_url": "/products/ss/",
+      "actual_status": 301,
+      "actual_location": "/ss/",
+      "passed": false
+    },
+    {
+      "old_url": "/morningstar-suresine-inverter/",
+      "expected_url": "/products/si/",
+      "actual_status": 301,
+      "actual_location": "/si/",
+      "passed": false
+    },
+    {
+      "old_url": "/multimount-flashing-and-standoffs/",
+      "expected_url": "/products/multimount/",
+      "actual_status": 301,
+      "actual_location": "/multimount/",
+      "passed": false
+    },
+    {
+      "old_url": "/northstar-blue-vrla-agm-pure-lead-carbon-battery-183ah-12v-front-terminal/",
+      "expected_url": "/products/nsb190ft-blueplus/",
+      "actual_status": 301,
+      "actual_location": "/nsb190ft-blueplus/",
+      "passed": false
+    },
+    {
+      "old_url": "/off-grid-solar-cables",
+      "expected_url": "/products/rs-cable-parent/",
+      "actual_status": 301,
+      "actual_location": "/rs-cable-parent/",
+      "passed": false
+    },
+    {
+      "old_url": "/outback-bussbar/",
+      "expected_url": "/products/outback-stbb/",
+      "actual_status": 301,
+      "actual_location": "/outback-stbb/",
+      "passed": false
+    },
+    {
+      "old_url": "/outback-flexpower-one-fp1-vfxr3648a-01-48vdc-120vac/",
+      "expected_url": "/products/outfp1vfxr36481/",
+      "actual_status": 301,
+      "actual_location": "/outfp1vfxr36481/",
+      "passed": false
+    },
+    {
+      "old_url": "/outback-fw-aca-flexware-surge-protector/",
+      "expected_url": "/products/outfw-sp-aca/",
+      "actual_status": 301,
+      "actual_location": "/outfw-sp-aca/",
+      "passed": false
+    },
+    {
+      "old_url": "/outback-fw-mb3-f-flexware-mate3-flat-mount-wall-plate/",
+      "expected_url": "/products/outfw-mb3-f/",
+      "actual_status": 301,
+      "actual_location": "/outfw-mb3-f/",
+      "passed": false
+    },
+    {
+      "old_url": "/outback-fw-mb3-mate-3-side-mounting-bracket/",
+      "expected_url": "/products/outfw-mb3/",
+      "actual_status": 301,
+      "actual_location": "/outfw-mb3/",
+      "passed": false
+    },
+    {
+      "old_url": "/outback-inverter-accessories-outback-fw-x240-auto-transformer/",
+      "expected_url": "/products/outfwx240/",
+      "actual_status": 301,
+      "actual_location": "/outfwx240/",
+      "passed": false
+    },
+    {
+      "old_url": "/outback-power-ics-plus-breaker-control-module/",
+      "expected_url": "/products/outbkr-ctrl-dc/",
+      "actual_status": 301,
+      "actual_location": "/outbkr-ctrl-dc/",
+      "passed": false
+    },
+    {
+      "old_url": "/outback-pv-ground-fault-detector-interrupter-80-amp-150vdc-four-pole-panel-mount/",
+      "expected_url": "/products/outpnl-gfdi-80q/",
+      "actual_status": 301,
+      "actual_location": "/outpnl-gfdi-80q/",
+      "passed": false
+    },
+    {
+      "old_url": "/outback-radian-inverter/",
+      "expected_url": "/products/radian8k/",
+      "actual_status": 301,
+      "actual_location": "/radian8k/",
+      "passed": false
+    },
+    {
+      "old_url": "/panasonic-evervolt-solar-and-storage-system/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/passthrough-box-1-4-strings/",
+      "expected_url": "/products/passthroughboxone/",
+      "actual_status": 301,
+      "actual_location": "/passthroughboxone/",
+      "passed": false
+    },
+    {
+      "old_url": "/passthrough-box/",
+      "expected_url": "/products/ptb-alpha-one/",
+      "actual_status": 301,
+      "actual_location": "/ptb-alpha-one/",
+      "passed": false
+    },
+    {
+      "old_url": "/pgrm-component-parts/",
+      "expected_url": "/products/uni-pgrm-part/",
+      "actual_status": 301,
+      "actual_location": "/uni-pgrm-part/",
+      "passed": false
+    },
+    {
+      "old_url": "/phi-1-4-12v-and-24v-lfp-battery/",
+      "expected_url": "/products/phi-14/",
+      "actual_status": 301,
+      "actual_location": "/phi-14/",
+      "passed": false
+    },
+    {
+      "old_url": "/phi-3-8-m-lfp-battery/",
+      "expected_url": "/products/phi-38/",
+      "actual_status": 301,
+      "actual_location": "/phi-38/",
+      "passed": false
+    },
+    {
+      "old_url": "/polar-wire-ultraflex-wire/",
+      "expected_url": "/products/pw-uf/",
+      "actual_status": 301,
+      "actual_location": "/pw-uf/",
+      "passed": false
+    },
+    {
+      "old_url": "/powerbar-1000-12-3-8-terminal-studs/",
+      "expected_url": "/products/1991/",
+      "actual_status": 301,
+      "actual_location": "/1991/",
+      "passed": false
+    },
+    {
+      "old_url": "/powerfield-powerrack-ground-mount/",
+      "expected_url": "/products/powerrack-1000/",
+      "actual_status": 301,
+      "actual_location": "/powerrack-1000/",
+      "passed": false
+    },
+    {
+      "old_url": "/powerprotect-standby-generator-120-240v-aluminum-enclosure-7-year-warranty/",
+      "expected_url": "/products/basco-powerprotect/",
+      "actual_status": 301,
+      "actual_location": "/basco-powerprotect/",
+      "passed": false
+    },
+    {
+      "old_url": "/prewire/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/product-testing-cycling-and-programing/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/professional-design-package/",
+      "expected_url": "/products/design/",
+      "actual_status": 301,
+      "actual_location": "/design/",
+      "passed": false
+    },
+    {
+      "old_url": "/prostar-mppt-solar-charge-controller/",
+      "expected_url": "/products/ps-mppt/",
+      "actual_status": 301,
+      "actual_location": "/ps-mppt/",
+      "passed": false
+    },
+    {
+      "old_url": "/prostar-pwm-solar-charge-controller/",
+      "expected_url": "/products/ps/",
+      "actual_status": 301,
+      "actual_location": "/ps/",
+      "passed": false
+    },
+    {
+      "old_url": "/protocol-d-v01/",
+      "expected_url": "/products/pd-v01/",
+      "actual_status": 301,
+      "actual_location": "/pd-v01/",
+      "passed": false
+    },
+    {
+      "old_url": "/pure-copper-battery-cable-wire/",
+      "expected_url": "/products/batcable/",
+      "actual_status": 301,
+      "actual_location": "/batcable/",
+      "passed": false
+    },
+    {
+      "old_url": "/pv-wire-10-awg-2000-volts-500-feet-black-2kv-ul4703/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/pytes-e-box-48100r-accessories/",
+      "expected_url": "/products/pytesebaccessories-a/",
+      "actual_status": 301,
+      "actual_location": "/pytesebaccessories-a/",
+      "passed": false
+    },
+    {
+      "old_url": "/pytes-v5-accessories/",
+      "expected_url": "/products/pytesv5acc-a/",
+      "actual_status": 301,
+      "actual_location": "/pytesv5acc-a/",
+      "passed": false
+    },
+    {
+      "old_url": "/pytes-v5-lifepo4-battery-pack/",
+      "expected_url": "/products/110000000000-a/",
+      "actual_status": 301,
+      "actual_location": "/110000000000-a/",
+      "passed": false
+    },
+    {
+      "old_url": "/q-cells-q-peak-duo-black-410w-415w-solar-panel/",
+      "expected_url": "/products/hqc-mlqpg10-bk/",
+      "actual_status": 301,
+      "actual_location": "/hqc-mlqpg10-bk/",
+      "passed": false
+    },
+    {
+      "old_url": "/qcells-q-tron-435w-solar-panel/",
+      "expected_url": "/products/hqc-430qtron-mg2-plus-bk/",
+      "actual_status": 301,
+      "actual_location": "/hqc-430qtron-mg2-plus-bk/",
+      "passed": false
+    },
+    {
+      "old_url": "/quoted-shipping/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/rail-end-cap-2-3-box-of-96/",
+      "expected_url": "/products/88429-box/",
+      "actual_status": 301,
+      "actual_location": "/88429-box/",
+      "passed": false
+    },
+    {
+      "old_url": "/rail-end-caps-3-1/",
+      "expected_url": "/products/89846-box/",
+      "actual_status": 301,
+      "actual_location": "/89846-box/",
+      "passed": false
+    },
+    {
+      "old_url": "/rail-splice-2-3-box-of-96-po-use-only-sales-use-88412-solo/",
+      "expected_url": "/products/88412-box/",
+      "actual_status": 301,
+      "actual_location": "/88412-box/",
+      "passed": false
+    },
+    {
+      "old_url": "/rail-tilt-kits-for-flat-and-low-slope-roofs/",
+      "expected_url": "/products/uni-tl1o/",
+      "actual_status": 301,
+      "actual_location": "/uni-tl1o/",
+      "passed": false
+    },
+    {
+      "old_url": "/readyblock/",
+      "expected_url": "/products/tb/",
+      "actual_status": 301,
+      "actual_location": "/tb/",
+      "passed": false
+    },
+    {
+      "old_url": "/real-goods-solar-living-sourcebook-14th-edition/",
+      "expected_url": "/products/solarliving/",
+      "actual_status": 301,
+      "actual_location": "/solarliving/",
+      "passed": false
+    },
+    {
+      "old_url": "/rec-460w-alpha-pure-rx-solar-panel/",
+      "expected_url": "/products/rec-460-aa-pure-rx/",
+      "actual_status": 301,
+      "actual_location": "/rec-460-aa-pure-rx/",
+      "passed": false
+    },
+    {
+      "old_url": "/rechargeable-aa-lithium-batteries-8-pack-with-charger/",
+      "expected_url": "/products/ebl15vaa/",
+      "actual_status": 301,
+      "actual_location": "/ebl15vaa/",
+      "passed": false
+    },
+    {
+      "old_url": "/renon-battery-accessories/",
+      "expected_url": "/products/renonacc/",
+      "actual_status": 301,
+      "actual_location": "/renonacc/",
+      "passed": false
+    },
+    {
+      "old_url": "/renon-ecube-60ap-60kwh-energy-storage-solution-with-optional-sol-ark-30kw-or-60kw-inverter/",
+      "expected_url": "/products/ecube60ap/",
+      "actual_status": 301,
+      "actual_location": "/ecube60ap/",
+      "passed": false
+    },
+    {
+      "old_url": "/renon-mpack-233a-233kwh-liquid-cooling-battery/",
+      "expected_url": "/products/renon-mpack-233a/",
+      "actual_status": 301,
+      "actual_location": "/renon-mpack-233a/",
+      "passed": false
+    },
+    {
+      "old_url": "/renon-xtreme-home-battery-power-system/",
+      "expected_url": "/products/ren-xtreme/",
+      "actual_status": 301,
+      "actual_location": "/ren-xtreme/",
+      "passed": false
+    },
+    {
+      "old_url": "/renon-xtreme-stack-battery-module/",
+      "expected_url": "/products/xtreme-m/",
+      "actual_status": 301,
+      "actual_location": "/xtreme-m/",
+      "passed": false
+    },
+    {
+      "old_url": "/ribbracket-iii/",
+      "expected_url": "/products/ribbracket-iii/",
+      "actual_status": 404,
+      "actual_location": null,
+      "passed": false
+    },
+    {
+      "old_url": "/roof-tech-deck-mount-screw/",
+      "expected_url": "/products/rt-mini-dms/",
+      "actual_status": 301,
+      "actual_location": "/rt-mini-dms/",
+      "passed": false
+    },
+    {
+      "old_url": "/roof-tech-deck-mount-screws-5x60-bag-of-60/",
+      "expected_url": "/products/rt-mini-dms-60/",
+      "actual_status": 301,
+      "actual_location": "/rt-mini-dms-60/",
+      "passed": false
+    },
+    {
+      "old_url": "/roof-tech-mini-ii-base-hardware-box-of-20/",
+      "expected_url": "/products/rt-mini-20/",
+      "actual_status": 301,
+      "actual_location": "/rt-mini-20/",
+      "passed": false
+    },
+    {
+      "old_url": "/rooftech-rt-mini-ii-self-flashing-roof-mount-base-deck-or-rafter-mount-two-in-one/",
+      "expected_url": "/products/rt-mini-8-solo/",
+      "actual_status": 301,
+      "actual_location": "/rt-mini-8-solo/",
+      "passed": false
+    },
+    {
+      "old_url": "/rooftop-flush-mount-kits/",
+      "expected_url": "/products/flushmount/",
+      "actual_status": 301,
+      "actual_location": "/flushmount/",
+      "passed": false
+    },
+    {
+      "old_url": "/rosie-pre-wired-system/",
+      "expected_url": "/products/mnrosiepw/",
+      "actual_status": 301,
+      "actual_location": "/mnrosiepw/",
+      "passed": false
+    },
+    {
+      "old_url": "/rosie-pre-wired/",
+      "expected_url": "/products/mnrosie7048pw/",
+      "actual_status": 301,
+      "actual_location": "/mnrosie7048pw/",
+      "passed": false
+    },
+    {
+      "old_url": "/rosie/",
+      "expected_url": "/products/mnrosie/",
+      "actual_status": 301,
+      "actual_location": "/mnrosie/",
+      "passed": false
+    },
+    {
+      "old_url": "/rs-485-shielded-2-pair-24awg-communication-cable-for-tigo-sol-ark-modbus-canbus-ul-1685/",
+      "expected_url": "/products/rs485coms/",
+      "actual_status": 301,
+      "actual_location": "/rs485coms/",
+      "passed": false
+    },
+    {
+      "old_url": "/ryse-energy-air-wind-turbine/",
+      "expected_url": "/products/primus/",
+      "actual_status": 301,
+      "actual_location": "/primus/",
+      "passed": false
+    },
+    {
+      "old_url": "/ryse-wind-accessories/",
+      "expected_url": "/products/primus-ac/",
+      "actual_status": 301,
+      "actual_location": "/primus-ac/",
+      "passed": false
+    },
+    {
+      "old_url": "/s-5-b-clamp/",
+      "expected_url": "/products/s-5-b-clamp/",
+      "actual_status": 404,
+      "actual_location": null,
+      "passed": false
+    },
+    {
+      "old_url": "/s-5-e-mini/",
+      "expected_url": "/products/s-5-e-mini/",
+      "actual_status": 404,
+      "actual_location": null,
+      "passed": false
+    },
+    {
+      "old_url": "/s-5-e/",
+      "expected_url": "/products/s-5-e/",
+      "actual_status": 404,
+      "actual_location": null,
+      "passed": false
+    },
+    {
+      "old_url": "/s-5-edge-grab/",
+      "expected_url": "/products/s-5-edge-grab/",
+      "actual_status": 404,
+      "actual_location": null,
+      "passed": false
+    },
+    {
+      "old_url": "/s-5-h90/",
+      "expected_url": "/products/s-5-h90/",
+      "actual_status": 404,
+      "actual_location": null,
+      "passed": false
+    },
+    {
+      "old_url": "/s-5-mid-grab/",
+      "expected_url": "/products/s-5-mid-grab/",
+      "actual_status": 404,
+      "actual_location": null,
+      "passed": false
+    },
+    {
+      "old_url": "/s-5-n-1-5/",
+      "expected_url": "/products/s-5-n-15/",
+      "actual_status": 301,
+      "actual_location": "/s-5-n-15/",
+      "passed": false
+    },
+    {
+      "old_url": "/s-5-n-mini/",
+      "expected_url": "/products/s-5-n-mini/",
+      "actual_status": 404,
+      "actual_location": null,
+      "passed": false
+    },
+    {
+      "old_url": "/s-5-n/",
+      "expected_url": "/products/s-5-n/",
+      "actual_status": 404,
+      "actual_location": null,
+      "passed": false
+    },
+    {
+      "old_url": "/s-5-s-mini/",
+      "expected_url": "/products/s-5-s-mini/",
+      "actual_status": 404,
+      "actual_location": null,
+      "passed": false
+    },
+    {
+      "old_url": "/s-5-s/",
+      "expected_url": "/products/s-5-s/",
+      "actual_status": 404,
+      "actual_location": null,
+      "passed": false
+    },
+    {
+      "old_url": "/s-5-t/",
+      "expected_url": "/products/s-5-t/",
+      "actual_status": 404,
+      "actual_location": null,
+      "passed": false
+    },
+    {
+      "old_url": "/s-5-u-mini/",
+      "expected_url": "/products/s-5-u-mini/",
+      "actual_status": 404,
+      "actual_location": null,
+      "passed": false
+    },
+    {
+      "old_url": "/s-5-u/",
+      "expected_url": "/products/s-5-u/",
+      "actual_status": 404,
+      "actual_location": null,
+      "passed": false
+    },
+    {
+      "old_url": "/s-5-v/",
+      "expected_url": "/products/s-5-v/",
+      "actual_status": 404,
+      "actual_location": null,
+      "passed": false
+    },
+    {
+      "old_url": "/s-5-z-mini/",
+      "expected_url": "/products/s-5-z-mini/",
+      "actual_status": 404,
+      "actual_location": null,
+      "passed": false
+    },
+    {
+      "old_url": "/s-5-z/",
+      "expected_url": "/products/s-5-z/",
+      "actual_status": 404,
+      "actual_location": null,
+      "passed": false
+    },
+    {
+      "old_url": "/s-e-n-d/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/s5screws/",
+      "expected_url": "/products/s-5a2-70/",
+      "actual_status": 301,
+      "actual_location": "/s-5a2-70/",
+      "passed": false
+    },
+    {
+      "old_url": "/safety-switch-accessory/",
+      "expected_url": "/products/squgtk03/",
+      "actual_status": 301,
+      "actual_location": "/squgtk03/",
+      "passed": false
+    },
+    {
+      "old_url": "/safety-switch-general-duty/",
+      "expected_url": "/products/squd223nrb/",
+      "actual_status": 301,
+      "actual_location": "/squd223nrb/",
+      "passed": false
+    },
+    {
+      "old_url": "/safety-switch-heavy-duty/",
+      "expected_url": "/products/squhu361rb/",
+      "actual_status": 301,
+      "actual_location": "/squhu361rb/",
+      "passed": false
+    },
+    {
+      "old_url": "/samlex-inverter-installation-kit/",
+      "expected_url": "/products/dc-xxxx-kit/",
+      "actual_status": 301,
+      "actual_location": "/dc-xxxx-kit/",
+      "passed": false
+    },
+    {
+      "old_url": "/samlex-pst-inverter/",
+      "expected_url": "/products/pst/",
+      "actual_status": 301,
+      "actual_location": "/pst/",
+      "passed": false
+    },
+    {
+      "old_url": "/samlex-ssw-series-inverters/",
+      "expected_url": "/products/ssw/",
+      "actual_status": 301,
+      "actual_location": "/ssw/",
+      "passed": false
+    },
+    {
+      "old_url": "/schneider-electric-panel-mount-breaker/",
+      "expected_url": "/products/865dcbrk/",
+      "actual_status": 301,
+      "actual_location": "/865dcbrk/",
+      "passed": false
+    },
+    {
+      "old_url": "/sci-powermount-900-s/",
+      "expected_url": "/products/210-00/",
+      "actual_status": 301,
+      "actual_location": "/210-00/",
+      "passed": false
+    },
+    {
+      "old_url": "/sci-powermount-pmr1-s/",
+      "expected_url": "/products/300-00/",
+      "actual_status": 301,
+      "actual_location": "/300-00/",
+      "passed": false
+    },
+    {
+      "old_url": "/sci-z-bracket/",
+      "expected_url": "/products/205-00/",
+      "actual_status": 301,
+      "actual_location": "/205-00/",
+      "passed": false
+    },
+    {
+      "old_url": "/service-entrance-connector-2/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/shipping-1/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/short-busbar/",
+      "expected_url": "/products/mnsbb/",
+      "actual_status": 301,
+      "actual_location": "/mnsbb/",
+      "passed": false
+    },
+    {
+      "old_url": "/side-of-pole-mounts/",
+      "expected_url": "/products/uni-sp/",
+      "actual_status": 301,
+      "actual_location": "/uni-sp/",
+      "passed": false
+    },
+    {
+      "old_url": "/siemens-hf224nr/",
+      "expected_url": "/products/hf224nr/",
+      "actual_status": 301,
+      "actual_location": "/hf224nr/",
+      "passed": false
+    },
+    {
+      "old_url": "/silfab-580w-xm-bifacial-module-assembled-in-usa/",
+      "expected_url": "/products/sil-580-xmplus/",
+      "actual_status": 301,
+      "actual_location": "/sil-580-xmplus/",
+      "passed": false
+    },
+    {
+      "old_url": "/simpliphi-3-5-24v-battery/",
+      "expected_url": "/products/simpliphi-35-24v/",
+      "actual_status": 301,
+      "actual_location": "/simpliphi-35-24v/",
+      "passed": false
+    },
+    {
+      "old_url": "/simpliphi-4-9-battery/",
+      "expected_url": "/products/52001/",
+      "actual_status": 301,
+      "actual_location": "/52001/",
+      "passed": false
+    },
+    {
+      "old_url": "/simpliphi-6-6-system/",
+      "expected_url": "/products/simpliphi-66-battery-system/",
+      "actual_status": 301,
+      "actual_location": "/simpliphi-66-battery-system/",
+      "passed": false
+    },
+    {
+      "old_url": "/simpliphi-phi-3-8-kwh-lfp-battery-24v/",
+      "expected_url": "/products/phi-38-m/",
+      "actual_status": 301,
+      "actual_location": "/phi-38-m/",
+      "passed": false
+    },
+    {
+      "old_url": "/single-arm-mounts/",
+      "expected_url": "/products/uni-sa/",
+      "actual_status": 301,
+      "actual_location": "/uni-sa/",
+      "passed": false
+    },
+    {
+      "old_url": "/skystream-3-7-marine-ac-wind-turbine/",
+      "expected_url": "/products/1-s37m-240-60-2-us/",
+      "actual_status": 301,
+      "actual_location": "/1-s37m-240-60-2-us/",
+      "passed": false
+    },
+    {
+      "old_url": "/skystream-3-7-pro-ac-wind-turbine-w-mounting-pole-kit/",
+      "expected_url": "/products/1-s37m-240-60-2-us-kit/",
+      "actual_status": 301,
+      "actual_location": "/1-s37m-240-60-2-us-kit/",
+      "passed": false
+    },
+    {
+      "old_url": "/small-breaker-boxes/",
+      "expected_url": "/products/mnbaby/",
+      "actual_status": 301,
+      "actual_location": "/mnbaby/",
+      "passed": false
+    },
+    {
+      "old_url": "/small-solar-panels/",
+      "expected_url": "/products/small-pv-1/",
+      "actual_status": 301,
+      "actual_location": "/small-pv-1/",
+      "passed": false
+    },
+    {
+      "old_url": "/smart-battery-monitor/",
+      "expected_url": "/products/bmv-712/",
+      "actual_status": 301,
+      "actual_location": "/bmv-712/",
+      "passed": false
+    },
+    {
+      "old_url": "/snap-fan-brushless-dc-by-fogco/",
+      "expected_url": "/products/sfsp12bldc/",
+      "actual_status": 301,
+      "actual_location": "/sfsp12bldc/",
+      "passed": false
+    },
+    {
+      "old_url": "/snap-fan-exhaust-shutter-system/",
+      "expected_url": "/products/sfe6900/",
+      "actual_status": 301,
+      "actual_location": "/sfe6900/",
+      "passed": false
+    },
+    {
+      "old_url": "/snap-fan-intake-guard-by-fogco/",
+      "expected_url": "/products/sfs2022/",
+      "actual_status": 301,
+      "actual_location": "/sfs2022/",
+      "passed": false
+    },
+    {
+      "old_url": "/snap-fan-solar-kit-by-fogco/",
+      "expected_url": "/products/sf99blkit/",
+      "actual_status": 301,
+      "actual_location": "/sf99blkit/",
+      "passed": false
+    },
+    {
+      "old_url": "/sol-ark-15kw-deye-5-12-kwh-energy-storage-system/",
+      "expected_url": "/products/solark15deye5kit/",
+      "actual_status": 301,
+      "actual_location": "/solark15deye5kit/",
+      "passed": false
+    },
+    {
+      "old_url": "/sol-ark-commercial-high-voltage-hybrid-inverters/",
+      "expected_url": "/products/sa-xxk-xp-xxxv-n/",
+      "actual_status": 301,
+      "actual_location": "/sa-xxk-xp-xxxv-n/",
+      "passed": false
+    },
+    {
+      "old_url": "/sol-ark-hv-batteries/",
+      "expected_url": "/products/sa-l3/",
+      "actual_status": 301,
+      "actual_location": "/sa-l3/",
+      "passed": false
+    },
+    {
+      "old_url": "/sol-ark-hybrid-inverter/",
+      "expected_url": "/products/solark/",
+      "actual_status": 301,
+      "actual_location": "/solark/",
+      "passed": false
+    },
+    {
+      "old_url": "/soladeck-0799-black/",
+      "expected_url": "/products/rst0799-5b/",
+      "actual_status": 301,
+      "actual_location": "/rst0799-5b/",
+      "passed": false
+    },
+    {
+      "old_url": "/soladeck-0799-gray/",
+      "expected_url": "/products/rst0799-5g/",
+      "actual_status": 301,
+      "actual_location": "/rst0799-5g/",
+      "passed": false
+    },
+    {
+      "old_url": "/soladeck-outdoor-pass-thru-enclosure/",
+      "expected_url": "/products/sd/",
+      "actual_status": 301,
+      "actual_location": "/sd/",
+      "passed": false
+    },
+    {
+      "old_url": "/soladeck-power-block-600v-80a/",
+      "expected_url": "/products/rst1440080/",
+      "actual_status": 301,
+      "actual_location": "/rst1440080/",
+      "passed": false
+    },
+    {
+      "old_url": "/solamp-10kw-off-grid-kit/",
+      "expected_url": "/products/sa-og-kit/",
+      "actual_status": 301,
+      "actual_location": "/sa-og-kit/",
+      "passed": false
+    },
+    {
+      "old_url": "/solamp-off-grid-kits/",
+      "expected_url": "/products/diy-og-kit/",
+      "actual_status": 301,
+      "actual_location": "/diy-og-kit/",
+      "passed": false
+    },
+    {
+      "old_url": "/solamp-power-circuit-tee/",
+      "expected_url": "/products/circuittee/",
+      "actual_status": 301,
+      "actual_location": "/circuittee/",
+      "passed": false
+    },
+    {
+      "old_url": "/solamp-roof-mount-kit/",
+      "expected_url": "/products/roofmountkit/",
+      "actual_status": 301,
+      "actual_location": "/roofmountkit/",
+      "passed": false
+    },
+    {
+      "old_url": "/solamp-stickers/",
+      "expected_url": "/products/sticker/",
+      "actual_status": 301,
+      "actual_location": "/sticker/",
+      "passed": false
+    },
+    {
+      "old_url": "/solamp-trucker-cap/",
+      "expected_url": "/products/truckerhat/",
+      "actual_status": 301,
+      "actual_location": "/truckerhat/",
+      "passed": false
+    },
+    {
+      "old_url": "/solar-cable-made-with-staubli-original-mc4-connectors/",
+      "expected_url": "/products/solarcable/",
+      "actual_status": 301,
+      "actual_location": "/solarcable/",
+      "passed": false
+    },
+    {
+      "old_url": "/solar-kit/",
+      "expected_url": "/products/solarkit/",
+      "actual_status": 301,
+      "actual_location": "/solarkit/",
+      "passed": false
+    },
+    {
+      "old_url": "/solar-pathfinder-case/",
+      "expected_url": "/products/sotpathcase/",
+      "actual_status": 301,
+      "actual_location": "/sotpathcase/",
+      "passed": false
+    },
+    {
+      "old_url": "/solar-pathfinder-with-case-tripod/",
+      "expected_url": "/products/sotpathcasetri/",
+      "actual_status": 301,
+      "actual_location": "/sotpathcasetri/",
+      "passed": false
+    },
+    {
+      "old_url": "/solarconnector/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/spare-parts/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/square-d-du222rb-safety-switch/",
+      "expected_url": "/products/squdu222rb/",
+      "actual_status": 301,
+      "actual_location": "/squdu222rb/",
+      "passed": false
+    },
+    {
+      "old_url": "/square-d-qou230-30a-2-pole-circuit-breaker/",
+      "expected_url": "/products/squqou230/",
+      "actual_status": 301,
+      "actual_location": "/squqou230/",
+      "passed": false
+    },
+    {
+      "old_url": "/squared-ground-kit/",
+      "expected_url": "/products/squgtk0610/",
+      "actual_status": 301,
+      "actual_location": "/squgtk0610/",
+      "passed": false
+    },
+    {
+      "old_url": "/squared-safety-switch/",
+      "expected_url": "/products/squd221nrb/",
+      "actual_status": 301,
+      "actual_location": "/squd221nrb/",
+      "passed": false
+    },
+    {
+      "old_url": "/staubli-mc4-female-connector-10pk/",
+      "expected_url": "/products/stamc4fmcon10pk/",
+      "actual_status": 301,
+      "actual_location": "/stamc4fmcon10pk/",
+      "passed": false
+    },
+    {
+      "old_url": "/staubli-mc4-male-connector-10pk/",
+      "expected_url": "/products/stamc4malecon10pk/",
+      "actual_status": 301,
+      "actual_location": "/stamc4malecon10pk/",
+      "passed": false
+    },
+    {
+      "old_url": "/staubli-mc4-male-female-cable-coupler-set/",
+      "expected_url": "/products/mc4mfset/",
+      "actual_status": 301,
+      "actual_location": "/mc4mfset/",
+      "passed": false
+    },
+    {
+      "old_url": "/storage/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/strain-relief/",
+      "expected_url": "/products/gensr/",
+      "actual_status": 301,
+      "actual_location": "/gensr/",
+      "passed": false
+    },
+    {
+      "old_url": "/sunlight-solar-charge-controller/",
+      "expected_url": "/products/morsl/",
+      "actual_status": 301,
+      "actual_location": "/morsl/",
+      "passed": false
+    },
+    {
+      "old_url": "/sunny-tripower-core1/",
+      "expected_url": "/products/sma-stp/",
+      "actual_status": 301,
+      "actual_location": "/sma-stp/",
+      "passed": false
+    },
+    {
+      "old_url": "/sunsaver-mppt/",
+      "expected_url": "/products/ss-mppt-1/",
+      "actual_status": 301,
+      "actual_location": "/ss-mppt-1/",
+      "passed": false
+    },
+    {
+      "old_url": "/sunstar-dc-chest-freezer/",
+      "expected_url": "/products/sunsaver-cf/",
+      "actual_status": 301,
+      "actual_location": "/sunsaver-cf/",
+      "passed": false
+    },
+    {
+      "old_url": "/sunstar-upright-refrigerator/",
+      "expected_url": "/products/sunstar-rf/",
+      "actual_status": 301,
+      "actual_location": "/sunstar-rf/",
+      "passed": false
+    },
+    {
+      "old_url": "/suresine-300w-inverter-classic/",
+      "expected_url": "/products/msss-classic/",
+      "actual_status": 301,
+      "actual_location": "/msss-classic/",
+      "passed": false
+    },
+    {
+      "old_url": "/talesun-bipro-bifacial-450w-dual-glass-full-black-solar-panel/",
+      "expected_url": "/products/tm7g54m/",
+      "actual_status": 301,
+      "actual_location": "/tm7g54m/",
+      "passed": false
+    },
+    {
+      "old_url": "/tamarack-2-in-pipe-mount-with-u-bolt-8-pk/",
+      "expected_url": "/products/88955/",
+      "actual_status": 301,
+      "actual_location": "/88955/",
+      "passed": false
+    },
+    {
+      "old_url": "/tamarack-2-in-pole-cap-with-u-bolts-box-of-2/",
+      "expected_url": "/products/90682/",
+      "actual_status": 301,
+      "actual_location": "/90682/",
+      "passed": false
+    },
+    {
+      "old_url": "/tamarack-2-in-swivel-t-fitting-galv-steel/",
+      "expected_url": "/products/90699/",
+      "actual_status": 301,
+      "actual_location": "/90699/",
+      "passed": false
+    },
+    {
+      "old_url": "/tamarack-5050-clamp/",
+      "expected_url": "/products/tam5050clamp/",
+      "actual_status": 301,
+      "actual_location": "/tam5050clamp/",
+      "passed": false
+    },
+    {
+      "old_url": "/tamarack-bulk-rails-ltl/",
+      "expected_url": "/products/tspltl/",
+      "actual_status": 301,
+      "actual_location": "/tspltl/",
+      "passed": false
+    },
+    {
+      "old_url": "/tamarack-flush-and-ground-mount-rails/",
+      "expected_url": "/products/fm/",
+      "actual_status": 301,
+      "actual_location": "/fm/",
+      "passed": false
+    },
+    {
+      "old_url": "/tamarack-ground-mount-kit/",
+      "expected_url": "/products/groundmount/",
+      "actual_status": 301,
+      "actual_location": "/groundmount/",
+      "passed": false
+    },
+    {
+      "old_url": "/tamarack-l-foot-with-rail-mount/",
+      "expected_url": "/products/tamlfoot/",
+      "actual_status": 301,
+      "actual_location": "/tamlfoot/",
+      "passed": false
+    },
+    {
+      "old_url": "/tamarack-pipe-kit-for-ttp-a-mounts/",
+      "expected_url": "/products/pipe-kit/",
+      "actual_status": 301,
+      "actual_location": "/pipe-kit/",
+      "passed": false
+    },
+    {
+      "old_url": "/tamarack-rail-end-cap-8-pack/",
+      "expected_url": "/products/88429/",
+      "actual_status": 301,
+      "actual_location": "/88429/",
+      "passed": false
+    },
+    {
+      "old_url": "/tamarack-rail-splice/",
+      "expected_url": "/products/rail-splice/",
+      "actual_status": 301,
+      "actual_location": "/rail-splice/",
+      "passed": false
+    },
+    {
+      "old_url": "/tamarack-rectangular-base-flange/",
+      "expected_url": "/products/89785/",
+      "actual_status": 301,
+      "actual_location": "/89785/",
+      "passed": false
+    },
+    {
+      "old_url": "/tamarack-solar-flush-mount-rail-adapter/",
+      "expected_url": "/products/88436/",
+      "actual_status": 301,
+      "actual_location": "/88436/",
+      "passed": false
+    },
+    {
+      "old_url": "/tamarack-ttp-a-top-of-pole-mount/",
+      "expected_url": "/products/ttp-a/",
+      "actual_status": 301,
+      "actual_location": "/ttp-a/",
+      "passed": false
+    },
+    {
+      "old_url": "/tamarack-uni-pgrm-top-of-pole-mount/",
+      "expected_url": "/products/uni-pgrm/",
+      "actual_status": 301,
+      "actual_location": "/uni-pgrm/",
+      "passed": false
+    },
+    {
+      "old_url": "/terminal-block-blk/",
+      "expected_url": "/products/tb-blk/",
+      "actual_status": 301,
+      "actual_location": "/tb-blk/",
+      "passed": false
+    },
+    {
+      "old_url": "/terminal-block-red/",
+      "expected_url": "/products/tb-red/",
+      "actual_status": 301,
+      "actual_location": "/tb-red/",
+      "passed": false
+    },
+    {
+      "old_url": "/test/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/test2/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/test3/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/test4/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/test5/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/test6/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/test7/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/the-brat-charge-controller/",
+      "expected_url": "/products/mnbrat/",
+      "actual_status": 301,
+      "actual_location": "/mnbrat/",
+      "passed": false
+    },
+    {
+      "old_url": "/the-breaker-protector/",
+      "expected_url": "/products/mnbreaker-protector/",
+      "actual_status": 301,
+      "actual_location": "/mnbreaker-protector/",
+      "passed": false
+    },
+    {
+      "old_url": "/the-ultimate-pv-junction-box/",
+      "expected_url": "/products/jb/",
+      "actual_status": 301,
+      "actual_location": "/jb/",
+      "passed": false
+    },
+    {
+      "old_url": "/tigo-ei-energy-intelligence-9-9kwh-battery/",
+      "expected_url": "/products/tigobatt/",
+      "actual_status": 301,
+      "actual_location": "/tigobatt/",
+      "passed": false
+    },
+    {
+      "old_url": "/tigo-energy-solar-kits/",
+      "expected_url": "/products/tigo-kit/",
+      "actual_status": 301,
+      "actual_location": "/tigo-kit/",
+      "passed": false
+    },
+    {
+      "old_url": "/tigo-hybrid-inverters-and-automatic-transfer-switch/",
+      "expected_url": "/products/tigo-inv/",
+      "actual_status": 301,
+      "actual_location": "/tigo-inv/",
+      "passed": false
+    },
+    {
+      "old_url": "/tigo-mlpe-accessories/",
+      "expected_url": "/products/tigo-acc/",
+      "actual_status": 301,
+      "actual_location": "/tigo-acc/",
+      "passed": false
+    },
+    {
+      "old_url": "/tigo-mlpe-ts4-a-f-484-00252-22/",
+      "expected_url": "/products/ts4-a-f/",
+      "actual_status": 301,
+      "actual_location": "/ts4-a-f/",
+      "passed": false
+    },
+    {
+      "old_url": "/tigo-module-level-power-electronics/",
+      "expected_url": "/products/tigo/",
+      "actual_status": 301,
+      "actual_location": "/tigo/",
+      "passed": false
+    },
+    {
+      "old_url": "/tigo-ts4-a-o/",
+      "expected_url": "/products/511-340112-2001/",
+      "actual_status": 301,
+      "actual_location": "/511-340112-2001/",
+      "passed": false
+    },
+    {
+      "old_url": "/tigo-ts4-a-s/",
+      "expected_url": "/products/ts4-a-s/",
+      "actual_status": 301,
+      "actual_location": "/ts4-a-s/",
+      "passed": false
+    },
+    {
+      "old_url": "/titan-mini-portable-solar-battery-pack/",
+      "expected_url": "/products/titan-mini/",
+      "actual_status": 301,
+      "actual_location": "/titan-mini/",
+      "passed": false
+    },
+    {
+      "old_url": "/titan-power-pack/",
+      "expected_url": "/products/titan/",
+      "actual_status": 301,
+      "actual_location": "/titan/",
+      "passed": false
+    },
+    {
+      "old_url": "/titanmini/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/topband-t-series-lithium-batteries/",
+      "expected_url": "/products/r-t12/",
+      "actual_status": 301,
+      "actual_location": "/r-t12/",
+      "passed": false
+    },
+    {
+      "old_url": "/toppanel/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/touch-safe-fuse-holder-by-adler-for10x38-mm-fuses/",
+      "expected_url": "/products/mnts-ad/",
+      "actual_status": 301,
+      "actual_location": "/mnts-ad/",
+      "passed": false
+    },
+    {
+      "old_url": "/touch-safe-fuse-holder-by-mersen-for10x38-mm-fuses/",
+      "expected_url": "/products/mnts/",
+      "actual_status": 301,
+      "actual_location": "/mnts/",
+      "passed": false
+    },
+    {
+      "old_url": "/tower-kits-and-auger-sets/",
+      "expected_url": "/products/primus-tk/",
+      "actual_status": 301,
+      "actual_location": "/primus-tk/",
+      "passed": false
+    },
+    {
+      "old_url": "/transfer-switch-for-the-big-baby/",
+      "expected_url": "/products/mntransfer/",
+      "actual_status": 301,
+      "actual_location": "/mntransfer/",
+      "passed": false
+    },
+    {
+      "old_url": "/trina-385w/",
+      "expected_url": "/products/trina385w/",
+      "actual_status": 301,
+      "actual_location": "/trina385w/",
+      "passed": false
+    },
+    {
+      "old_url": "/tristar/",
+      "expected_url": "/products/ts/",
+      "actual_status": 301,
+      "actual_location": "/ts/",
+      "passed": false
+    },
+    {
+      "old_url": "/two-pole-din-rail-mount-120-240-vac-breaker/",
+      "expected_url": "/products/mneac-2p/",
+      "actual_status": 301,
+      "actual_location": "/mneac-2p/",
+      "passed": false
+    },
+    {
+      "old_url": "/unisex-hoodie/",
+      "expected_url": "/products/unisex-hoodie/",
+      "actual_status": 404,
+      "actual_location": null,
+      "passed": false
+    },
+    {
+      "old_url": "/unisex-pique-polo-shirt/",
+      "expected_url": "/products/unisex-pique-polo-shirt/",
+      "actual_status": 404,
+      "actual_location": null,
+      "passed": false
+    },
+    {
+      "old_url": "/versabracket-47/",
+      "expected_url": "/products/versabracket-47/",
+      "actual_status": 404,
+      "actual_location": null,
+      "passed": false
+    },
+    {
+      "old_url": "/victron-battery-monitors/",
+      "expected_url": "/products/bmv/",
+      "actual_status": 301,
+      "actual_location": "/bmv/",
+      "passed": false
+    },
+    {
+      "old_url": "/victron-smart-solar-100-50/",
+      "expected_url": "/products/vicssmppt10050/",
+      "actual_status": 301,
+      "actual_location": "/vicssmppt10050/",
+      "passed": false
+    },
+    {
+      "old_url": "/victron-smart-solar-150-60/",
+      "expected_url": "/products/vicssmppt15060/",
+      "actual_status": 301,
+      "actual_location": "/vicssmppt15060/",
+      "passed": false
+    },
+    {
+      "old_url": "/vsun-550w-vsun550-144bmh-dg/",
+      "expected_url": "/products/vsun550/",
+      "actual_status": 301,
+      "actual_location": "/vsun550/",
+      "passed": false
+    },
+    {
+      "old_url": "/vsun/",
+      "expected_url": "/products/",
+      "actual_status": 301,
+      "actual_location": "/",
+      "passed": false
+    },
+    {
+      "old_url": "/wholesale-solar-panels/",
+      "expected_url": "/products/wholesale-solarpanels/",
+      "actual_status": 301,
+      "actual_location": "/wholesale-solarpanels/",
+      "passed": false
+    },
+    {
+      "old_url": "/wings-tank-top/",
+      "expected_url": "/products/wings-tank-top/",
+      "actual_status": 404,
+      "actual_location": null,
+      "passed": false
+    },
+    {
+      "old_url": "/wire-management-tray-for-sol-ark/",
+      "expected_url": "/products/sol-atrwtr-15/",
+      "actual_status": 301,
+      "actual_location": "/sol-atrwtr-15/",
+      "passed": false
+    },
+    {
+      "old_url": "/wrap-strap-service/",
+      "expected_url": "/products/wrapandstrap/",
+      "actual_status": 301,
+      "actual_location": "/wrapandstrap/",
+      "passed": false
+    },
+    {
+      "old_url": "/xtreme-main-control/",
+      "expected_url": "/products/xtreme-c/",
+      "actual_status": 301,
+      "actual_location": "/xtreme-c/",
+      "passed": false
+    },
+    {
+      "old_url": "/znshine-450w-bifacial-solar-panel/",
+      "expected_url": "/products/zxm7-shldd120/",
+      "actual_status": 301,
+      "actual_location": "/zxm7-shldd120/",
+      "passed": false
+    }
+  ]
+}
