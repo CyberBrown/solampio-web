@@ -75,6 +75,9 @@ interface ERPNextProductPayload {
   hazmat_class?: string;
   oversized_flag?: boolean | number;
   inherit_shipping_from_parent?: boolean | number;
+  // Website description fields (custom fields on Item)
+  custom_description_summary?: string;
+  custom_description_clean?: string;
 }
 
 /**
@@ -255,10 +258,11 @@ export const onPost: RequestHandler = async (requestEvent) => {
     const oversizedFlag = payload.oversized_flag ? 1 : 0;
     const inheritShippingFromParent = payload.inherit_shipping_from_parent ? 1 : 0;
 
-    // Clean description if provided
-    const descriptionClean = payload.description ? cleanDescription(payload.description) : null;
-    // Generate initial excerpt as summary (AI summary can be generated separately)
-    const descriptionSummary = payload.description ? extractExcerpt(payload.description, 500) : null;
+    // Use ERPNext custom fields if provided, otherwise auto-generate from HTML description
+    const descriptionClean = payload.custom_description_clean
+      || (payload.description ? cleanDescription(payload.description) : null);
+    const descriptionSummary = payload.custom_description_summary
+      || (payload.description ? extractExcerpt(payload.description, 500) : null);
 
     // Look up featured category IDs if provided (check both custom_ prefixed and unprefixed)
     let featuredCategoryId: string | null = null;
