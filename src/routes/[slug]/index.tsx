@@ -686,8 +686,22 @@ const ProductPage = component$<{ data: PageData }>(({ data }) => {
                 dangerouslySetInnerHTML={(() => {
                   const descClean = product.description_clean || parentProduct?.description_clean;
                   if (descClean) {
+                    // Normalize spacing issues in the source text
+                    const normalizeSpacing = (text: string): string => {
+                      return text
+                        // Remove spaces before punctuation: " ," → "," and " ." → "."
+                        .replace(/\s+([.,!?;:])/g, '$1')
+                        // Add space after periods followed by capital letter: ".A" → ". A"
+                        .replace(/\.([A-Z])/g, '. $1')
+                        // Add space after commas followed by letter: ",a" → ", a"
+                        .replace(/,([a-zA-Z])/g, ', $1')
+                        // Fix multiple spaces
+                        .replace(/\s{2,}/g, ' ');
+                    };
+
                     // Transform plain text description_clean into structured HTML
-                    const lines = descClean.split('\n').filter((line: string) => line.trim());
+                    const normalizedText = normalizeSpacing(descClean);
+                    const lines = normalizedText.split('\n').filter((line: string) => line.trim());
                     const htmlParts: string[] = [];
                     let inList = false;
 
