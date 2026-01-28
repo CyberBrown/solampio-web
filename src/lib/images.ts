@@ -165,7 +165,8 @@ export function getBrandLogoVariant(
   }
 
   // Fallback to legacy logo_url (only for 'full' and 'thumb' variants)
-  if (logoVariant !== 'greyscale' && brand.logo_url) {
+  // Skip local file paths that may not exist
+  if (logoVariant !== 'greyscale' && brand.logo_url && !brand.logo_url.startsWith('/images/brands/')) {
     return brand.logo_url;
   }
 
