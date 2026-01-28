@@ -14,12 +14,14 @@ export const useSubcategoryData = routeLoader$(async (requestEvent) => {
   // Fetch parent category
   const parentCategory = await db.getCategory(categorySlug);
   if (!parentCategory) {
+    requestEvent.status(404);
     return { parentCategory: null, subcategory: null, siblingSubcategories: [], products: [], pagination: null };
   }
 
   // Fetch the subcategory
   const subcategory = await db.getCategory(subcategorySlug);
   if (!subcategory) {
+    requestEvent.status(404);
     return { parentCategory, subcategory: null, siblingSubcategories: [], products: [], pagination: null };
   }
 

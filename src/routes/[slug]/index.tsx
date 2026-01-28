@@ -8,6 +8,7 @@ import { useCart } from '../../hooks/useCart';
 import ProductImageGallery from '../../components/product/ProductImageGallery';
 import {
   SITE_URL,
+  DEFAULT_OG_IMAGE,
   generateProductSchema,
   generateBreadcrumbSchema,
   generateFAQSchema,
@@ -123,7 +124,8 @@ export const usePageData = routeLoader$(async (requestEvent): Promise<PageData> 
     };
   }
 
-  // 4. Not found
+  // 4. Not found - return proper 404 status for SEO
+  requestEvent.status(404);
   return { type: 'not_found' };
 });
 
@@ -274,10 +276,15 @@ const BrandPage = component$<{ data: PageData }>(({ data }) => {
           <div class="flex items-center gap-6">
             {/* Brand Logo */}
             <div class="w-24 h-24 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">
-              {brand ? (
+              {brand && getBrandLogoVariant(brand, 'full') ? (
                 <img src={getBrandLogoVariant(brand, 'full') || ''} alt={brandName} class="w-full h-full object-contain p-2" />
               ) : (
-                <span class="text-white font-heading font-bold text-xl text-center px-2">{brandName.split(' ')[0]}</span>
+                /* Styled placeholder when no logo available */
+                <div class="w-full h-full flex items-center justify-center bg-white/30 rounded-lg border-2 border-dashed border-white/40 p-2">
+                  <span class="text-white font-heading font-bold text-sm text-center leading-tight line-clamp-2">
+                    {brandName}
+                  </span>
+                </div>
               )}
             </div>
             <div>
@@ -802,7 +809,7 @@ export const head: DocumentHead = ({ params, resolveValue }) => {
           title: `${categoryName} | Solamp Solar & Energy Storage`,
           description,
           url: pageUrl,
-          image: imageUrl || `${SITE_URL}/images/solamp-og-image.png`,
+          image: imageUrl || DEFAULT_OG_IMAGE,
           type: 'website',
         }),
       ],
@@ -830,7 +837,7 @@ export const head: DocumentHead = ({ params, resolveValue }) => {
           title: `${brandName} Products | Solamp Solar & Energy Storage`,
           description,
           url: pageUrl,
-          image: logoUrl || `${SITE_URL}/images/solamp-og-image.png`,
+          image: logoUrl || DEFAULT_OG_IMAGE,
           type: 'website',
         }),
       ],
@@ -926,7 +933,7 @@ export const head: DocumentHead = ({ params, resolveValue }) => {
         title: ogTitle,
         description: ogDescription,
         url: pageUrl,
-        image: imageUrl || `${SITE_URL}/images/solamp-og-image.png`,
+        image: imageUrl || DEFAULT_OG_IMAGE,
         type: 'product',
       }),
     ];
