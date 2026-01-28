@@ -155,7 +155,8 @@ export function getBrandLogoVariant(
       break;
     case 'full':
     default:
-      cfImageId = brand.logo_cf_image_id;
+      // Fall back to thumb if full isn't available (most brands only have thumb CF IDs)
+      cfImageId = brand.logo_cf_image_id || brand.logo_thumb_cf_id;
       break;
   }
 
