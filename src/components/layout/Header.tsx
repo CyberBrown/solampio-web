@@ -144,7 +144,7 @@ export const Header = component$<HeaderProps>(({ categories, featuredProducts = 
               {/* Logo */}
               <Link href="/" class="flex items-center gap-2 flex-shrink-0 transition-all duration-300">
                 <img
-                  src="/images/solamp-logo.png"
+                  src="/images/solamp-logo.webp"
                   alt="Solamp"
                   class={[
                     'w-auto transition-all duration-300',
@@ -495,7 +495,7 @@ export const Header = component$<HeaderProps>(({ categories, featuredProducts = 
           <div class="p-4 bg-solamp-forest flex items-center justify-between sticky top-0">
             <Link href="/" class="flex items-center gap-2">
               <img
-                src="/images/solamp-logo.png"
+                src="/images/solamp-logo.webp"
                 alt="Solamp"
                 class="h-8 w-auto brightness-0 invert"
               />
