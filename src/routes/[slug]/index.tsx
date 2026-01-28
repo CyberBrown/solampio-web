@@ -10,6 +10,7 @@ import {
   SITE_URL,
   generateProductSchema,
   generateBreadcrumbSchema,
+  generateFAQSchema,
   generateSocialMeta,
   createJsonLdScript,
 } from '../../lib/seo';
@@ -555,11 +556,11 @@ const ProductPage = component$<{ data: PageData }>(({ data }) => {
               )}
 
               {/* Product Summary */}
-              {(product.description_summary || product.description) && (
+              {(product.seo_description_summary || product.description_summary || parentProduct?.seo_description_summary || parentProduct?.description_summary || product.description || parentProduct?.description) && (
                 <p class="text-gray-600 mb-6">
-                  {product.description_summary ||
-                    product.description?.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().substring(0, 200) +
-                    ((product.description?.length || 0) > 200 ? '...' : '')}
+                  {product.seo_description_summary || product.description_summary || parentProduct?.seo_description_summary || parentProduct?.description_summary ||
+                    (product.description || parentProduct?.description)?.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().substring(0, 200) +
+                    (((product.description || parentProduct?.description)?.length || 0) > 200 ? '...' : '')}
                 </p>
               )}
 
@@ -668,14 +669,14 @@ const ProductPage = component$<{ data: PageData }>(({ data }) => {
       </section>
 
       {/* Product Description Tab */}
-      {(product.description_clean || product.description) && (
+      {(product.description_clean || parentProduct?.description_clean || product.description || parentProduct?.description) && (
         <section class="py-8 bg-[#f1f1f2] border-t border-gray-200">
           <div class="px-6">
             <div class="max-w-3xl">
               <h2 class="font-heading font-bold text-xl text-[#042e0d] mb-4">Product Overview</h2>
-              {product.description_clean ? (
+              {(product.description_clean || parentProduct?.description_clean) ? (
                 <div class="prose prose-gray max-w-none">
-                  {product.description_clean.split('\n\n').map((paragraph, i) => (
+                  {(product.description_clean || parentProduct?.description_clean)!.split('\n\n').map((paragraph, i) => (
                     <p key={i} class="text-gray-600 mb-4 whitespace-pre-line">
                       {paragraph}
                     </p>
@@ -684,13 +685,45 @@ const ProductPage = component$<{ data: PageData }>(({ data }) => {
               ) : (
                 <div
                   class="prose prose-gray max-w-none prose-headings:font-heading prose-headings:text-[#042e0d] prose-headings:font-bold prose-headings:text-lg prose-headings:mt-6 prose-headings:mb-2 prose-p:text-gray-600 prose-p:mb-4 prose-strong:text-[#042e0d] prose-ul:my-4 prose-li:text-gray-600"
-                  dangerouslySetInnerHTML={product.description || ''}
+                  dangerouslySetInnerHTML={product.description || parentProduct?.description || ''}
                 />
               )}
             </div>
           </div>
         </section>
       )}
+
+      {/* Product FAQs */}
+      {(() => {
+        const faqSource = product.seo_faqs || parentProduct?.seo_faqs;
+        if (!faqSource) return null;
+        try {
+          const faqs = JSON.parse(faqSource);
+          if (!Array.isArray(faqs) || faqs.length === 0) return null;
+          return (
+            <section class="py-8 border-t border-gray-200">
+              <div class="px-6">
+                <div class="max-w-3xl">
+                  <h2 class="font-heading font-bold text-xl text-[#042e0d] mb-4">Frequently Asked Questions</h2>
+                  <div class="space-y-3">
+                    {faqs.map((faq: { question: string; answer: string }, i: number) => (
+                      <details key={i} class="border rounded-lg group">
+                        <summary class="px-4 py-3 cursor-pointer font-medium text-[#042e0d] hover:bg-gray-50 list-none flex justify-between items-center">
+                          <span>{faq.question}</span>
+                          <span class="text-xl text-gray-400 group-open:rotate-45 transition-transform">+</span>
+                        </summary>
+                        <div class="px-4 pb-4 text-gray-600">
+                          {faq.answer}
+                        </div>
+                      </details>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </section>
+          );
+        } catch { return null; }
+      })()}
 
       {/* CTA */}
       <section class="bg-[#042e0d] py-10">
@@ -814,14 +847,28 @@ export const head: DocumentHead = ({ params, resolveValue }) => {
   if (data?.type === 'product') {
     const product = data.product;
     const brand = data.productBrand;
-    const title = product?.title || slug.split('-').map((word: string) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-    const description = product?.description_summary
-      ? product.description_summary.slice(0, 160)
-      : product?.description_clean
-        ? product.description_clean.slice(0, 160)
-        : product?.description
-          ? product.description.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 160)
-          : `${title} - Professional solar equipment from Solamp. Contact us for pricing and specifications.`;
+    const fallbackTitle = slug.split('-').map((word: string) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+    const productName = product?.title || fallbackTitle;
+
+    // Use SEO-optimized fields when available, with fallbacks
+    const pageTitle = product?.seo_title || productName;
+    const description = product?.seo_meta_description
+      || product?.description_summary?.slice(0, 160)
+      || product?.description_clean?.slice(0, 160)
+      || product?.description?.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 160)
+      || `${productName} - Professional solar equipment from Solamp. Contact us for pricing and specifications.`;
+    const ogTitle = product?.seo_og_title || pageTitle;
+    const ogDescription = product?.seo_og_description || description;
+    const robots = product?.seo_robots || 'index, follow';
+
+    // Parse keywords from JSON string
+    let keywords = '';
+    if (product?.seo_keywords) {
+      try {
+        const parsed = JSON.parse(product.seo_keywords);
+        keywords = Array.isArray(parsed) ? parsed.join(', ') : '';
+      } catch { /* ignore */ }
+    }
 
     const pageUrl = `${SITE_URL}/${slug}/`;
     const imageUrl = product ? getProductImageUrl(product, 'hero') : null;
@@ -842,36 +889,56 @@ export const head: DocumentHead = ({ params, resolveValue }) => {
     if (brand) {
       breadcrumbs.push({ name: brand.title, url: `${SITE_URL}/${cleanSlug(brand.slug)}/` });
     }
-    breadcrumbs.push({ name: title, url: pageUrl });
+    breadcrumbs.push({ name: productName, url: pageUrl });
+
+    // Build JSON-LD schemas
+    const schemas: object[] = [
+      generateProductSchema({
+        name: productName,
+        description: description,
+        sku: product?.sku || slug,
+        image: imageUrl || undefined,
+        brand: brand?.title,
+        price: product?.price || undefined,
+        priceCurrency: 'USD',
+        availability,
+        url: pageUrl,
+        category: product?.gmc_google_category || product?.item_group || undefined,
+      }),
+      generateBreadcrumbSchema(breadcrumbs),
+    ];
+
+    // Add FAQ schema if FAQs exist
+    if (product?.seo_faqs) {
+      try {
+        const faqs = JSON.parse(product.seo_faqs);
+        if (Array.isArray(faqs) && faqs.length > 0) {
+          schemas.push(generateFAQSchema(faqs));
+        }
+      } catch { /* ignore */ }
+    }
+
+    const meta = [
+      { name: 'description', content: description },
+      { name: 'robots', content: robots },
+      ...(keywords ? [{ name: 'keywords', content: keywords }] : []),
+      ...generateSocialMeta({
+        title: ogTitle,
+        description: ogDescription,
+        url: pageUrl,
+        image: imageUrl || `${SITE_URL}/images/solamp-og-image.png`,
+        type: 'product',
+      }),
+    ];
 
     return {
-      title: `${title} | Solamp Solar & Energy Storage`,
-      meta: [
-        { name: 'description', content: description },
-        ...generateSocialMeta({
-          title: `${title} | Solamp Solar & Energy Storage`,
-          description,
-          url: pageUrl,
-          image: imageUrl || `${SITE_URL}/images/solamp-og-image.png`,
-          type: 'product',
-        }),
+      title: pageTitle.includes('Solamp') ? pageTitle : `${pageTitle} | Solamp Solar & Energy Storage`,
+      meta,
+      links: [
+        { rel: 'canonical', href: pageUrl },
       ],
       scripts: [
-        createJsonLdScript([
-          generateProductSchema({
-            name: title,
-            description: description,
-            sku: product?.sku || slug,
-            image: imageUrl || undefined,
-            brand: brand?.title,
-            price: product?.price || undefined,
-            priceCurrency: 'USD',
-            availability,
-            url: pageUrl,
-            category: product?.item_group || undefined,
-          }),
-          generateBreadcrumbSchema(breadcrumbs),
-        ]),
+        createJsonLdScript(schemas),
       ],
     };
   }
