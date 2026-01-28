@@ -46,8 +46,9 @@ export const onRequest: RequestHandler = async ({ url, redirect, platform }) => 
 
         if (result?.new_url) {
           // The new_url in the table may have /products/ prefix — strip it
+          // But keep /products/ intact if that's the actual target (listing page)
           let target = result.new_url;
-          if (target.startsWith('/products/')) {
+          if (target.startsWith('/products/') && target !== '/products/') {
             target = '/' + target.slice('/products/'.length);
           }
           // Ensure trailing slash
