@@ -78,6 +78,19 @@ interface ERPNextProductPayload {
   // Website description fields (custom fields on Item)
   custom_description_summary?: string;
   custom_description_clean?: string;
+  // SEO fields (from ERPNext custom fields)
+  custom_seo_title?: string;
+  custom_seo_meta_description?: string;
+  custom_seo_og_title?: string;
+  custom_seo_og_description?: string;
+  custom_seo_keywords?: string;
+  custom_seo_faqs?: string;
+  custom_seo_use_cases?: string;
+  custom_gmc_google_category?: string;
+  custom_gmc_product_type?: string;
+  custom_gmc_margin_tier?: string;
+  custom_gmc_product_type_label?: string;
+  custom_seo_last_optimized?: string;
 }
 
 /**
@@ -314,6 +327,18 @@ export const onPost: RequestHandler = async (requestEvent) => {
             oversized_flag = ?,
             inherit_shipping_from_parent = ?,
             image_url = COALESCE(?, image_url),
+            seo_title = COALESCE(?, seo_title),
+            seo_meta_description = COALESCE(?, seo_meta_description),
+            seo_og_title = COALESCE(?, seo_og_title),
+            seo_og_description = COALESCE(?, seo_og_description),
+            seo_keywords = COALESCE(?, seo_keywords),
+            seo_faqs = COALESCE(?, seo_faqs),
+            seo_use_cases = COALESCE(?, seo_use_cases),
+            gmc_google_category = COALESCE(?, gmc_google_category),
+            gmc_product_type = COALESCE(?, gmc_product_type),
+            gmc_custom_label_0 = COALESCE(?, gmc_custom_label_0),
+            gmc_custom_label_1 = COALESCE(?, gmc_custom_label_1),
+            seo_last_optimized = COALESCE(?, seo_last_optimized),
             sync_source = 'erpnext',
             last_synced_from_erpnext = ?,
             updated_at = ?
@@ -347,6 +372,18 @@ export const onPost: RequestHandler = async (requestEvent) => {
           oversizedFlag,
           inheritShippingFromParent,
           payload.website_image || null,
+          payload.custom_seo_title || null,
+          payload.custom_seo_meta_description || null,
+          payload.custom_seo_og_title || null,
+          payload.custom_seo_og_description || null,
+          payload.custom_seo_keywords || null,
+          payload.custom_seo_faqs || null,
+          payload.custom_seo_use_cases || null,
+          payload.custom_gmc_google_category || null,
+          payload.custom_gmc_product_type || null,
+          payload.custom_gmc_margin_tier || null,
+          payload.custom_gmc_product_type_label || null,
+          payload.custom_seo_last_optimized || null,
           now,
           now,
           payload.item_code
@@ -364,8 +401,11 @@ export const onPost: RequestHandler = async (requestEvent) => {
             is_featured, featured_category_id, featured_in_subcategory_id,
             ships_usps, ships_ups, ships_ltl, ships_pickup,
             hazmat_flag, hazmat_class, oversized_flag, inherit_shipping_from_parent,
-            image_url, sync_source, last_synced_from_erpnext, created_at, updated_at
-          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'erpnext', ?, ?, ?)
+            image_url, seo_title, seo_meta_description, seo_og_title, seo_og_description,
+            seo_keywords, seo_faqs, seo_use_cases, gmc_google_category, gmc_product_type,
+            gmc_custom_label_0, gmc_custom_label_1, seo_last_optimized,
+            sync_source, last_synced_from_erpnext, created_at, updated_at
+          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'erpnext', ?, ?, ?)
         `)
         .bind(
           id,
@@ -397,6 +437,18 @@ export const onPost: RequestHandler = async (requestEvent) => {
           oversizedFlag,
           inheritShippingFromParent,
           payload.website_image || null,
+          payload.custom_seo_title || null,
+          payload.custom_seo_meta_description || null,
+          payload.custom_seo_og_title || null,
+          payload.custom_seo_og_description || null,
+          payload.custom_seo_keywords || null,
+          payload.custom_seo_faqs || null,
+          payload.custom_seo_use_cases || null,
+          payload.custom_gmc_google_category || null,
+          payload.custom_gmc_product_type || null,
+          payload.custom_gmc_margin_tier || null,
+          payload.custom_gmc_product_type_label || null,
+          payload.custom_seo_last_optimized || null,
           now,
           now,
           now
