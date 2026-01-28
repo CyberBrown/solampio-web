@@ -85,6 +85,8 @@ export interface Product {
   gmc_additional_images: string | null;  // JSON string in DB
   gtin: string | null;
   mpn: string | null;
+  // BigCommerce URL slug for 301 redirects
+  bc_url_slug: string | null;
   sync_source: string;
   last_synced_from_erpnext: string | null;
   created_at: string;
@@ -407,14 +409,14 @@ export class StorefrontDB {
   }
 
   /**
-   * Get single product by ID or SKU
+   * Get single product by ID, SKU, or BigCommerce URL slug
    */
   async getProduct(idOrSku: string): Promise<Product | null> {
     const result = await this.db.prepare(`
       SELECT * FROM storefront_products
-      WHERE (id = ? OR sku = ?) AND is_visible = 1
+      WHERE (id = ? OR sku = ? OR bc_url_slug = ?) AND is_visible = 1
       LIMIT 1
-    `).bind(idOrSku, idOrSku).first<Product>();
+    `).bind(idOrSku, idOrSku, idOrSku).first<Product>();
 
     return result || null;
   }
