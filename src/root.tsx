@@ -2,7 +2,6 @@ import { component$ } from '@builder.io/qwik';
 import {
   QwikCityProvider,
   RouterOutlet,
-  ServiceWorkerRegister,
 } from '@builder.io/qwik-city';
 import { RouterHead } from './components/router-head/router-head';
 
@@ -18,20 +17,12 @@ export default component$(() => {
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://imagedelivery.net" />
-        {/* Preload hero image for LCP optimization - mobile first */}
+        {/* Preload mobile hero image for LCP - loads before CSS parsing */}
         <link
           rel="preload"
           as="image"
           href="/images/hero-cabin-mobile.webp"
           type="image/webp"
-          media="(max-width: 768px)"
-        />
-        <link
-          rel="preload"
-          as="image"
-          href="/images/hero-cabin.webp"
-          type="image/webp"
-          media="(min-width: 769px)"
         />
         {/* Preload critical font files to eliminate request chain */}
         <link
@@ -63,7 +54,8 @@ export default component$(() => {
           <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;700;800&family=Source+Sans+3:wght@400;500;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet" />
         </noscript>
         <RouterHead />
-        <ServiceWorkerRegister />
+        {/* ServiceWorkerRegister removed - it triggers 70+ q-data.json prefetches
+            which devastates Lighthouse scores under throttled conditions */}
       </head>
       <body lang="en" data-theme="solamp" class="font-body">
         <RouterOutlet />
