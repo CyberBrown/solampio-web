@@ -18,6 +18,7 @@ export interface Product {
   title: string;
   description: string | null;
   description_clean: string | null;  // Cleaned description (HTML stripped, formatted)
+  description_html: string | null;  // LLM-formatted HTML description
   description_summary: string | null;  // AI-generated short summary (~500 chars)
   brand_id: string | null;
   item_group: string | null;
