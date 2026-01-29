@@ -681,20 +681,110 @@ const ProductPage = component$<{ data: PageData }>(({ data }) => {
           <div class="px-6">
             <div class="max-w-3xl">
               <h2 class="font-heading font-bold text-xl text-[#042e0d] mb-4">Product Overview</h2>
-              {(product.description_clean || parentProduct?.description_clean) ? (
-                <div class="prose prose-gray max-w-none">
-                  {(product.description_clean || parentProduct?.description_clean)!.split('\n\n').map((paragraph, i) => (
-                    <p key={i} class="text-gray-600 mb-4 whitespace-pre-line">
-                      {paragraph}
-                    </p>
-                  ))}
-                </div>
-              ) : (
-                <div
-                  class="prose prose-gray max-w-none prose-headings:font-heading prose-headings:text-[#042e0d] prose-headings:font-bold prose-headings:text-lg prose-headings:mt-6 prose-headings:mb-2 prose-p:text-gray-600 prose-p:mb-4 prose-strong:text-[#042e0d] prose-ul:my-4 prose-li:text-gray-600"
-                  dangerouslySetInnerHTML={product.description || parentProduct?.description || ''}
-                />
-              )}
+              <div
+                class="prose prose-gray max-w-none prose-headings:font-heading prose-headings:text-[#042e0d] prose-headings:font-bold prose-h3:text-lg prose-h3:mt-6 prose-h3:mb-3 prose-h4:text-base prose-h4:mt-4 prose-h4:mb-2 prose-p:text-gray-600 prose-p:mb-4 prose-p:leading-relaxed prose-strong:text-[#042e0d] prose-strong:font-semibold prose-ul:my-4 prose-ul:list-disc prose-ul:pl-5 prose-li:text-gray-600 prose-li:mb-2"
+                dangerouslySetInnerHTML={(() => {
+                  const descClean = product.description_clean || parentProduct?.description_clean;
+                  if (descClean) {
+                    // Normalize spacing issues in the source text
+                    const normalizeSpacing = (text: string): string => {
+                      return text
+                        // Remove spaces before punctuation: " ," → "," and " ." → "."
+                        .replace(/\s+([.,!?;:])/g, '$1')
+                        // Add space after periods followed by capital letter: ".A" → ". A"
+                        .replace(/\.([A-Z])/g, '. $1')
+                        // Add space after commas followed by letter: ",a" → ", a"
+                        .replace(/,([a-zA-Z])/g, ', $1')
+                        // Fix multiple spaces
+                        .replace(/\s{2,}/g, ' ');
+                    };
+
+                    // Transform plain text description_clean into structured HTML
+                    const normalizedText = normalizeSpacing(descClean);
+                    const lines = normalizedText.split('\n').filter((line: string) => line.trim());
+                    const htmlParts: string[] = [];
+                    let inList = false;
+
+                    const escapeHtml = (text: string): string => {
+                      return text
+                        .replace(/&/g, '&amp;')
+                        .replace(/</g, '&lt;')
+                        .replace(/>/g, '&gt;')
+                        .replace(/"/g, '&quot;');
+                    };
+
+                    const isHeading = (line: string, nextLine?: string): boolean => {
+                      const trimmed = line.trim();
+                      // Short lines ending with ? are likely headings
+                      if (trimmed.endsWith('?') && trimmed.length < 100) return true;
+                      // Lines that are title-case and short (section headers)
+                      if (trimmed.length < 80 && !trimmed.includes('. ') && !trimmed.endsWith('.')) {
+                        const words = trimmed.split(' ');
+                        if (words.length < 2 || words.length > 12) return false;
+                        const capitalizedWords = words.filter((w: string) => w[0] && w[0] === w[0].toUpperCase());
+                        if (capitalizedWords.length >= words.length * 0.6) {
+                          // If next line exists and is longer, this is likely a heading
+                          if (!nextLine || nextLine.trim().length > trimmed.length) {
+                            return true;
+                          }
+                        }
+                      }
+                      return false;
+                    };
+
+                    const isListItem = (line: string): boolean => {
+                      const trimmed = line.trim();
+                      // Lines with "Label: description" pattern where label is short
+                      if (/^[A-Z][^:]{2,40}:\s+/.test(trimmed)) return true;
+                      // Lines starting with - or •
+                      if (trimmed.startsWith('-') || trimmed.startsWith('•')) return true;
+                      return false;
+                    };
+
+                    const formatLine = (line: string): string => {
+                      let text = escapeHtml(line.trim());
+                      // Bold labels before colons (e.g., "Capacity:" becomes "<strong>Capacity:</strong>")
+                      text = text.replace(/^([A-Z][^:]{2,40}:)\s*/, '<strong>$1</strong> ');
+                      return text;
+                    };
+
+                    lines.forEach((line: string, i: number) => {
+                      const nextLine = lines[i + 1];
+                      const trimmed = line.trim();
+
+                      if (isHeading(trimmed, nextLine)) {
+                        if (inList) {
+                          htmlParts.push('</ul>');
+                          inList = false;
+                        }
+                        htmlParts.push(`<h3>${escapeHtml(trimmed)}</h3>`);
+                      } else if (isListItem(trimmed)) {
+                        if (!inList) {
+                          htmlParts.push('<ul>');
+                          inList = true;
+                        }
+                        // Remove leading - or •
+                        const cleaned = trimmed.replace(/^[-•]\s*/, '');
+                        htmlParts.push(`<li>${formatLine(cleaned)}</li>`);
+                      } else {
+                        if (inList) {
+                          htmlParts.push('</ul>');
+                          inList = false;
+                        }
+                        htmlParts.push(`<p>${formatLine(trimmed)}</p>`);
+                      }
+                    });
+
+                    if (inList) {
+                      htmlParts.push('</ul>');
+                    }
+
+                    return htmlParts.join('\n');
+                  }
+                  // Fallback to raw description HTML
+                  return product.description || parentProduct?.description || '';
+                })()}
+              />
             </div>
           </div>
         </section>
