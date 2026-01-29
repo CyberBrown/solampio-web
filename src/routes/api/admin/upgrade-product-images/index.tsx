@@ -46,6 +46,7 @@ interface Product {
   title: string;
   cf_image_id: string | null;
   erpnext_name: string | null;
+  bc_url_slug: string | null;
 }
 
 interface UpgradeResult {
@@ -335,7 +336,7 @@ export const onGet: RequestHandler = async (requestEvent) => {
 
     // Get products - include products with OR without CF images
     let query = `
-      SELECT id, sku, title, cf_image_id, erpnext_name
+      SELECT id, sku, title, cf_image_id, erpnext_name, bc_url_slug
       FROM storefront_products
       WHERE is_visible = 1
     `;
@@ -374,7 +375,7 @@ export const onGet: RequestHandler = async (requestEvent) => {
         currentImageId: product.cf_image_id,
         currentSize: check.currentSize || 'N/A',
         needsUpgrade: check.needsUpgrade,
-        bcSlug: generateSlug(product.title),
+        bcSlug: product.bc_url_slug || generateSlug(product.title),
       });
     }
 
@@ -469,7 +470,7 @@ export const onPost: RequestHandler = async (requestEvent) => {
 
     // Get products - include those without cf_image_id
     let query = `
-      SELECT id, sku, title, cf_image_id, erpnext_name
+      SELECT id, sku, title, cf_image_id, erpnext_name, bc_url_slug
       FROM storefront_products
       WHERE is_visible = 1
     `;
@@ -513,8 +514,17 @@ export const onPost: RequestHandler = async (requestEvent) => {
         }
 
         // Find high-res image on BigCommerce
-        const bcSlug = generateSlug(product.title);
-        const bcImages = await fetchBigCommerceImages(bcSlug);
+        // Prefer bc_url_slug from database, fall back to generated slug from title
+        const bcSlug = product.bc_url_slug || generateSlug(product.title);
+        let bcImages = await fetchBigCommerceImages(bcSlug);
+
+        // If bc_url_slug didn't work and we have one, try the generated slug as fallback
+        if (bcImages.length === 0 && product.bc_url_slug) {
+          const fallbackSlug = generateSlug(product.title);
+          if (fallbackSlug !== bcSlug) {
+            bcImages = await fetchBigCommerceImages(fallbackSlug);
+          }
+        }
 
         if (bcImages.length === 0) {
           upgradeResult.status = 'error';
