@@ -6,6 +6,7 @@
  *
  * Features:
  * - Variant images inherit from parent product if not set
+ * - Variant descriptions inherit from parent product if not set
  * - Brand defaults to "Solamp" when not assigned
  * - Validation mode shows per-product errors
  *
@@ -31,11 +32,14 @@ interface ValidatedGMCFeedItem extends GMCFeedItem {
   _validation_errors?: ValidationError[];
   _is_variant?: boolean;
   _image_inherited?: boolean;
+  _description_inherited?: boolean;
 }
 
 interface ProductRow extends GMCProduct {
   stock_qty: number;
   variant_of: string | null;
+  seo_description_summary: string | null;
+  description_clean: string | null;
 }
 
 function validateGMCItem(item: GMCFeedItem): ValidationError[] {
@@ -94,6 +98,7 @@ export const onGet: RequestHandler = async ({ url, platform, json }) => {
     const limitClause = limit ? `LIMIT ${parseInt(limit, 10)}` : '';
 
     // Query all visible, non-template products with GMC-relevant fields
+    // Include separate seo_description_summary and description_clean for inheritance logic
     const result = await db
       .prepare(`
         SELECT
@@ -101,6 +106,8 @@ export const onGet: RequestHandler = async ({ url, platform, json }) => {
           COALESCE(p.seo_title, p.title) as name,
           p.seo_title,
           COALESCE(p.seo_description_summary, p.description_clean, p.description) as description,
+          p.seo_description_summary,
+          p.description_clean,
           p.sku as slug,
           c.slug as category_slug,
           p.cf_image_id,
@@ -138,40 +145,62 @@ export const onGet: RequestHandler = async ({ url, platform, json }) => {
 
     const rawProducts = result.results || [];
 
-    // Find variants that need parent images
+    // Find variants that need parent data (images or descriptions)
     const variantsNeedingImages = rawProducts.filter(
       p => p.variant_of && !p.cf_image_id && !p.image_url
     );
+    const variantsNeedingDescriptions = rawProducts.filter(
+      p => p.variant_of && !p.seo_description_summary && !p.description_clean
+    );
 
-    // Get parent product images for variants
-    const parentImageMap = new Map<string, { cf_image_id: string | null; image_url: string | null }>();
+    // Collect all parent SKUs that we need to fetch
+    const allParentSkus = new Set<string>();
+    variantsNeedingImages.forEach(p => allParentSkus.add(p.variant_of!));
+    variantsNeedingDescriptions.forEach(p => allParentSkus.add(p.variant_of!));
 
-    if (variantsNeedingImages.length > 0) {
-      const parentSkus = [...new Set(variantsNeedingImages.map(p => p.variant_of!))];
+    // Get parent product data for variants (images and descriptions)
+    const parentDataMap = new Map<string, {
+      cf_image_id: string | null;
+      image_url: string | null;
+      seo_description_summary: string | null;
+      description_clean: string | null;
+    }>();
+
+    if (allParentSkus.size > 0) {
+      const parentSkus = [...allParentSkus];
       const placeholders = parentSkus.map(() => '?').join(',');
 
       const parents = await db
         .prepare(`
-          SELECT sku, cf_image_id, image_url
+          SELECT sku, cf_image_id, image_url, seo_description_summary, description_clean
           FROM storefront_products
           WHERE sku IN (${placeholders})
         `)
         .bind(...parentSkus)
-        .all<{ sku: string; cf_image_id: string | null; image_url: string | null }>();
+        .all<{
+          sku: string;
+          cf_image_id: string | null;
+          image_url: string | null;
+          seo_description_summary: string | null;
+          description_clean: string | null;
+        }>();
 
       for (const parent of parents.results || []) {
-        parentImageMap.set(parent.sku, {
+        parentDataMap.set(parent.sku, {
           cf_image_id: parent.cf_image_id,
           image_url: parent.image_url,
+          seo_description_summary: parent.seo_description_summary,
+          description_clean: parent.description_clean,
         });
       }
     }
 
-    // Track which products inherited images (for metadata)
+    // Track which products inherited data (for metadata)
     const inheritedImageSkus = new Set<string>();
+    const inheritedDescriptionSkus = new Set<string>();
     const variantSkus = new Set<string>();
 
-    // Transform products with image inheritance and brand defaults
+    // Transform products with image/description inheritance and brand defaults
     const products: GMCProduct[] = rawProducts.map((row) => {
       // Track variants
       if (row.variant_of) {
@@ -183,11 +212,25 @@ export const onGet: RequestHandler = async ({ url, platform, json }) => {
       let image_url = row.image_url;
 
       if (row.variant_of && !cf_image_id && !image_url) {
-        const parentImage = parentImageMap.get(row.variant_of);
-        if (parentImage && (parentImage.cf_image_id || parentImage.image_url)) {
-          cf_image_id = parentImage.cf_image_id;
-          image_url = parentImage.image_url;
+        const parentData = parentDataMap.get(row.variant_of);
+        if (parentData && (parentData.cf_image_id || parentData.image_url)) {
+          cf_image_id = parentData.cf_image_id;
+          image_url = parentData.image_url;
           inheritedImageSkus.add(row.sku);
+        }
+      }
+
+      // Inherit description from parent if variant has no SEO description
+      let description = row.description;
+
+      if (row.variant_of && !row.seo_description_summary && !row.description_clean) {
+        const parentData = parentDataMap.get(row.variant_of);
+        if (parentData) {
+          const parentDesc = parentData.seo_description_summary || parentData.description_clean;
+          if (parentDesc) {
+            description = parentDesc;
+            inheritedDescriptionSkus.add(row.sku);
+          }
         }
       }
 
@@ -195,7 +238,7 @@ export const onGet: RequestHandler = async ({ url, platform, json }) => {
         sku: row.sku,
         name: row.name,
         seo_title: row.seo_title,
-        description: row.description,
+        description,
         slug: row.slug,
         category_slug: row.category_slug,
         cf_image_id,
@@ -231,16 +274,18 @@ export const onGet: RequestHandler = async ({ url, platform, json }) => {
       errors: Record<string, number>;
       variants_count: number;
       images_inherited: number;
+      descriptions_inherited: number;
     } | undefined;
 
     if (validate) {
       const errorCounts: Record<string, number> = {};
       let invalidCount = 0;
 
-      validatedItems = feedItems.map((item, index) => {
+      validatedItems = feedItems.map((item) => {
         const errors = validateGMCItem(item);
         const isVariant = variantSkus.has(item.id);
         const imageInherited = inheritedImageSkus.has(item.id);
+        const descriptionInherited = inheritedDescriptionSkus.has(item.id);
 
         if (errors.length > 0) {
           invalidCount++;
@@ -254,6 +299,7 @@ export const onGet: RequestHandler = async ({ url, platform, json }) => {
           _validation_errors: errors.length > 0 ? errors : undefined,
           _is_variant: isVariant || undefined,
           _image_inherited: imageInherited || undefined,
+          _description_inherited: descriptionInherited || undefined,
         };
       });
 
@@ -264,6 +310,7 @@ export const onGet: RequestHandler = async ({ url, platform, json }) => {
         errors: errorCounts,
         variants_count: variantSkus.size,
         images_inherited: inheritedImageSkus.size,
+        descriptions_inherited: inheritedDescriptionSkus.size,
       };
     }
 
