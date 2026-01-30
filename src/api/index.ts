@@ -393,3 +393,45 @@ api.get('/search', async (c) => {
     count: result.results?.length || 0
   });
 });
+
+// ============================================================================
+// Sync API (Protected - requires ERPNext credentials)
+// ============================================================================
+
+import { runFullSync, type CronEnv } from './services/storefront-sync';
+
+/**
+ * POST /api/sync/full
+ * Trigger full sync from ERPNext to D1
+ * Requires ERPNext credentials in environment
+ */
+api.post('/sync/full', async (c) => {
+  // Check for ERPNext credentials
+  if (!c.env.ERPNEXT_URL || !c.env.ERPNEXT_API_KEY || !c.env.ERPNEXT_API_SECRET) {
+    return c.json({
+      success: false,
+      error: 'ERPNext credentials not configured'
+    }, 500);
+  }
+
+  const cronEnv: CronEnv = {
+    DB: c.env.DB,
+    ERPNEXT_URL: c.env.ERPNEXT_URL,
+    ERPNEXT_API_KEY: c.env.ERPNEXT_API_KEY,
+    ERPNEXT_API_SECRET: c.env.ERPNEXT_API_SECRET,
+  };
+
+  try {
+    const result = await runFullSync(cronEnv);
+    return c.json({
+      success: true,
+      data: result
+    });
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    return c.json({
+      success: false,
+      error: errorMessage
+    }, 500);
+  }
+});
