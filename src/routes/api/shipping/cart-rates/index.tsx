@@ -225,6 +225,34 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
     // Create quantity lookup
     const quantityMap = new Map(body.items.map(item => [item.product_id, item.quantity]));
 
+    // Collect unique parent SKUs for variants that inherit shipping
+    const parentSkusNeeded = new Set<string>();
+    for (const product of products) {
+      if (product.variant_of && product.inherit_shipping_from_parent) {
+        parentSkusNeeded.add(product.variant_of);
+      }
+    }
+
+    // Fetch parent products in single query for shipping data inheritance
+    const parentMap = new Map<string, Product>();
+    if (parentSkusNeeded.size > 0) {
+      const parentPlaceholders = [...parentSkusNeeded].map(() => '?').join(',');
+      const parentsResult = await env.DB.prepare(`
+        SELECT id, sku, shipping_weight, shipping_weight_uom,
+               shipping_length, shipping_width, shipping_height, shipping_dimension_uom,
+               ships_usps, ships_ups, ships_ltl, ships_pickup,
+               hazmat_flag, oversized_flag
+        FROM storefront_products
+        WHERE sku IN (${parentPlaceholders})
+      `).bind(...parentSkusNeeded).all();
+
+      for (const parent of parentsResult.results as unknown as Product[]) {
+        if (parent.sku) {
+          parentMap.set(parent.sku, parent);
+        }
+      }
+    }
+
     // Find the best warehouse to ship from (nearest with stock for all items)
     const shipFromWarehouse = await findBestWarehouse(
       env.DB,
@@ -242,7 +270,7 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
     };
 
     // Calculate cart shipping profile
-    const profile = calculateShippingProfile(products, quantityMap);
+    const profile = calculateShippingProfile(products, quantityMap, parentMap);
 
     // Collect shipping methods
     const shippingMethods: ShippingMethod[] = [];
@@ -519,7 +547,8 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
  */
 function calculateShippingProfile(
   products: Product[],
-  quantityMap: Map<string, number>
+  quantityMap: Map<string, number>,
+  parentMap: Map<string, Product>
 ): CartShippingProfile {
   let totalWeightLbs = 0;
   let maxLength = 0;
@@ -541,11 +570,16 @@ function calculateShippingProfile(
     const quantity = quantityMap.get(product.id) || 1;
     totalItems += quantity;
 
-    // Get shipping dimensions (convert if needed)
-    const weight = product.shipping_weight || 1; // Default 1 lb if not set
-    const length = product.shipping_length || 12;
-    const width = product.shipping_width || 12;
-    const height = product.shipping_height || 6;
+    // Resolve parent for variants that inherit shipping data
+    const shippingSource = (product.variant_of && product.inherit_shipping_from_parent)
+      ? (parentMap.get(product.variant_of) || product)
+      : product;
+
+    // Get shipping dimensions - fallback chain: variant value > parent value > default
+    const weight = product.shipping_weight || shippingSource.shipping_weight || 1;
+    const length = product.shipping_length || shippingSource.shipping_length || 12;
+    const width = product.shipping_width || shippingSource.shipping_width || 12;
+    const height = product.shipping_height || shippingSource.shipping_height || 6;
 
     // Aggregate weight
     totalWeightLbs += weight * quantity;
