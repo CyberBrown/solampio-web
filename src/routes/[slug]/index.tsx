@@ -943,26 +943,42 @@ export const head: DocumentHead = ({ params, resolveValue }) => {
 
   if (data?.type === 'product') {
     const product = data.product;
+    const parentProduct = data.parentProduct; // Parent template for variants
     const brand = data.productBrand;
     const fallbackTitle = slug.split('-').map((word: string) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
     const productName = product?.title || fallbackTitle;
 
-    // Use SEO-optimized fields when available, with fallbacks
-    const pageTitle = product?.seo_title || productName;
-    const description = product?.seo_meta_description
-      || product?.description_summary?.slice(0, 160)
-      || product?.description_clean?.slice(0, 160)
-      || product?.description?.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 160)
-      || `${productName} - Professional solar equipment from Solamp. Contact us for pricing and specifications.`;
-    const ogTitle = product?.seo_og_title || pageTitle;
-    const ogDescription = product?.seo_og_description || description;
-    const robots = product?.seo_robots || 'index, follow';
+    // SEO Inheritance: Variants inherit SEO from parent template if they don't have their own
+    // This allows optimizing only templates while variants automatically benefit
+    const seoSource = {
+      seo_title: product?.seo_title || parentProduct?.seo_title,
+      seo_meta_description: product?.seo_meta_description || parentProduct?.seo_meta_description,
+      seo_og_title: product?.seo_og_title || parentProduct?.seo_og_title,
+      seo_og_description: product?.seo_og_description || parentProduct?.seo_og_description,
+      seo_keywords: product?.seo_keywords || parentProduct?.seo_keywords,
+      seo_robots: product?.seo_robots || parentProduct?.seo_robots,
+      seo_faqs: product?.seo_faqs || parentProduct?.seo_faqs,
+      description_summary: product?.description_summary || parentProduct?.description_summary,
+      description_clean: product?.description_clean || parentProduct?.description_clean,
+      description: product?.description || parentProduct?.description,
+    };
 
-    // Parse keywords from JSON string
+    // Use SEO-optimized fields when available, with fallbacks
+    const pageTitle = seoSource.seo_title || productName;
+    const description = seoSource.seo_meta_description
+      || seoSource.description_summary?.slice(0, 160)
+      || seoSource.description_clean?.slice(0, 160)
+      || seoSource.description?.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 160)
+      || `${productName} - Professional solar equipment from Solamp. Contact us for pricing and specifications.`;
+    const ogTitle = seoSource.seo_og_title || pageTitle;
+    const ogDescription = seoSource.seo_og_description || description;
+    const robots = seoSource.seo_robots || 'index, follow';
+
+    // Parse keywords from JSON string (with inheritance)
     let keywords = '';
-    if (product?.seo_keywords) {
+    if (seoSource.seo_keywords) {
       try {
-        const parsed = JSON.parse(product.seo_keywords);
+        const parsed = JSON.parse(seoSource.seo_keywords);
         keywords = Array.isArray(parsed) ? parsed.join(', ') : '';
       } catch { /* ignore */ }
     }
@@ -1005,10 +1021,10 @@ export const head: DocumentHead = ({ params, resolveValue }) => {
       generateBreadcrumbSchema(breadcrumbs),
     ];
 
-    // Add FAQ schema if FAQs exist
-    if (product?.seo_faqs) {
+    // Add FAQ schema if FAQs exist (with inheritance from parent)
+    if (seoSource.seo_faqs) {
       try {
-        const faqs = JSON.parse(product.seo_faqs);
+        const faqs = JSON.parse(seoSource.seo_faqs);
         if (Array.isArray(faqs) && faqs.length > 0) {
           schemas.push(generateFAQSchema(faqs));
         }
