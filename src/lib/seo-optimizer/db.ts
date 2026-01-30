@@ -7,8 +7,19 @@ export async function getProductsForSEO(db: D1Database, options?: {
   category?: string;
   limit?: number;
   onlyUnoptimized?: boolean;
+  includeVariants?: boolean;
 }): Promise<Product[]> {
-  const conditions = ['is_visible = 1', 'has_variants = 0'];
+  // By default, only select SEO optimization candidates:
+  // - Templates (has_variants = 1): Parent products that variants inherit from
+  // - Standalone products (has_variants = 0 AND variant_of IS NULL): Products without variants
+  // Variants are skipped because they inherit SEO from their parent template
+  const conditions = ['is_visible = 1'];
+
+  if (!options?.includeVariants) {
+    // SEO candidates: templates OR standalone products (not variants)
+    conditions.push('(has_variants = 1 OR (has_variants = 0 AND variant_of IS NULL))');
+  }
+
   const params: (string | number)[] = [];
 
   if (options?.sku) {
