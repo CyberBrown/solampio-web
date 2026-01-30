@@ -5,7 +5,7 @@ import { component$, useSignal, $ } from '@builder.io/qwik';
 import { Link } from '~/lib/qwik-city';
 import { useCart } from '../../hooks/useCart';
 import { encodeSkuForUrl, getStockStatus, type Product } from '../../lib/db';
-import { getProductThumbnail } from '../../lib/images';
+import { getProductImageUrl, getProductThumbnail } from '../../lib/images';
 
 interface ProductCardProps {
   product: Product;
@@ -31,7 +31,8 @@ export const ProductCard = component$<ProductCardProps>(({ product }) => {
     }, 2000);
   });
 
-  const imageUrl = getProductThumbnail(product);
+  // Use 'card' variant (600px) for product cards - sharp on retina displays
+  const imageUrl = getProductImageUrl(product, 'card');
   const stockInfo = getStockStatus(product);
   const displayPrice = product.sale_price
     ? `$${product.sale_price.toFixed(2)}`
