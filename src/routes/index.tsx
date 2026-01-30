@@ -2,7 +2,6 @@ import { component$ } from '@builder.io/qwik';
 import type { DocumentHead } from '~/lib/qwik-city';
 import { Link, routeLoader$ } from '~/lib/qwik-city';
 import { getDB, cleanSlug } from '../lib/db';
-import { getProductThumbnail } from '../lib/images';
 import { ProductCard } from '../components/product/ProductCard';
 import { BrandScroll, BrandGrid } from '../components/brand/BrandScroll';
 import {
