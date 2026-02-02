@@ -76,11 +76,6 @@ export const usePageData = routeLoader$(async (requestEvent): Promise<PageData> 
   // 3. Check if it's a product
   const product = await db.getProduct(slug);
   if (product) {
-    let productBrand = null;
-    if (product.brand_id) {
-      productBrand = await db.getBrand(product.brand_id);
-    }
-
     let variants: Product[] = [];
     if (product.has_variants && product.sku) {
       variants = await db.getVariants(product.sku);
@@ -94,6 +89,13 @@ export const usePageData = routeLoader$(async (requestEvent): Promise<PageData> 
       if (parentProduct) {
         parentImages = await db.getProductImages(parentProduct.id);
       }
+    }
+
+    // Get brand - inherit from parent if variant doesn't have one
+    let productBrand = null;
+    const brandIdToUse = product.brand_id || parentProduct?.brand_id;
+    if (brandIdToUse) {
+      productBrand = await db.getBrand(brandIdToUse);
     }
 
     const images = await db.getProductImages(product.id);
