@@ -72,11 +72,23 @@ function parseD1Output(output: string): any[] {
 }
 
 async function fetchYotpoBottomLines(): Promise<YotpoBottomLine[]> {
-  const response = await fetch(
-    `https://api.yotpo.com/v1/apps/${YOTPO_APP_KEY}/bottom_lines?per_page=100`
-  );
-  const data = await response.json() as any;
-  return data.response?.bottomlines || [];
+  const allBottomLines: YotpoBottomLine[] = [];
+  let page = 1;
+
+  while (true) {
+    const response = await fetch(
+      `https://api.yotpo.com/v1/apps/${YOTPO_APP_KEY}/bottom_lines?page=${page}`
+    );
+    const data = await response.json() as any;
+    const bottomlines = data.response?.bottomlines || [];
+
+    if (bottomlines.length === 0) break;
+
+    allBottomLines.push(...bottomlines);
+    page++;
+  }
+
+  return allBottomLines;
 }
 
 async function fetchYotpoProductName(domainKey: string): Promise<string | null> {
