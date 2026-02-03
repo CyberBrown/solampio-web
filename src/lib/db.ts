@@ -87,6 +87,9 @@ export interface Product {
   mpn: string | null;
   // BigCommerce URL slug for 301 redirects
   bc_url_slug: string | null;
+  // Product ratings (migrated from Yotpo)
+  rating_value: number | null;
+  rating_count: number | null;
   sync_source: string;
   last_synced_from_erpnext: string | null;
   created_at: string;

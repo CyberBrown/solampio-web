@@ -80,6 +80,8 @@ export interface ProductSchemaInput {
   availability?: 'InStock' | 'OutOfStock' | 'PreOrder' | 'LimitedAvailability';
   url: string;
   category?: string;
+  ratingValue?: number;
+  ratingCount?: number;
 }
 
 export function generateProductSchema(product: ProductSchemaInput): object {
@@ -128,6 +130,17 @@ export function generateProductSchema(product: ProductSchemaInput): object {
         '@type': 'Organization',
         name: ORGANIZATION.name,
       },
+    };
+  }
+
+  // Add AggregateRating if rating data is available
+  if (product.ratingValue && product.ratingCount && product.ratingCount > 0) {
+    schema.aggregateRating = {
+      '@type': 'AggregateRating',
+      ratingValue: product.ratingValue,
+      ratingCount: product.ratingCount,
+      bestRating: 5,
+      worstRating: 1,
     };
   }
 
