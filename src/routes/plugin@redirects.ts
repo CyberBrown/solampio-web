@@ -13,6 +13,11 @@ import type { D1Database } from '@cloudflare/workers-types';
 export const onRequest: RequestHandler = async ({ url, redirect, platform }) => {
   const path = url.pathname;
 
+  // 0. Redirect /sitemap.xml to /sitemap.xml/ (Qwik route requires trailing slash)
+  if (path === '/sitemap.xml') {
+    throw redirect(301, '/sitemap.xml/');
+  }
+
   // 1. Redirect old development site category URLs
   if (path.startsWith('/products/category/')) {
     const newPath = path.replace('/products/category/', '/categories/');
@@ -25,14 +30,21 @@ export const onRequest: RequestHandler = async ({ url, redirect, platform }) => 
     throw redirect(301, newPath);
   }
 
-  // 3. Redirect /products/ITEM_CODE to /ITEM_CODE (root-level product URLs)
+  // 3. Redirect /brands/SLUG to /SLUG (brands are at root level)
+  // Skip /brands/ itself (the listing page)
+  if (path.startsWith('/brands/') && path !== '/brands/' && path !== '/brands') {
+    const remainder = path.slice('/brands'.length); // keeps leading slash
+    throw redirect(301, remainder);
+  }
+
+  // 4. Redirect /products/ITEM_CODE to /ITEM_CODE (root-level product URLs)
   // Skip /products/ itself (the listing page) and known sub-paths
   if (path.startsWith('/products/') && path !== '/products/' && path !== '/products') {
     const remainder = path.slice('/products'.length); // keeps leading slash
     throw redirect(301, remainder);
   }
 
-  // 4. Look up old BigCommerce URLs in the url_redirects table
+  // 5. Look up old BigCommerce URLs in the url_redirects table
   // Only check paths that could be old BigCommerce slugs (lowercase, with hyphens)
   // Skip known new-site paths: /api/, /learn/, /brands/, /contact-us/, etc.
   const skipPrefixes = ['/api/', '/learn/', '/brands/', '/checkout/', '/cart/', '/q/', '/build/'];
