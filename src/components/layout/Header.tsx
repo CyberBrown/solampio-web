@@ -27,6 +27,34 @@ interface HeaderProps {
 // Priority categories to show in main nav (others go in "More" dropdown)
 const PRIORITY_SLUGS = ['solar-panels', 'batteries', 'inverters', 'mounting-and-racking', 'charge-controllers', 'balance-of-system'];
 
+// Related learning resources for each category
+const CATEGORY_RESOURCES: Record<string, { title: string; href: string; type: 'article' | 'course' | 'doc' }[]> = {
+  'solar-panels': [
+    { title: 'Ground Mount vs Roof Mount', href: '/learn/articles/', type: 'article' },
+    { title: 'Panel Sizing Calculator', href: '/learn/calculators/', type: 'doc' },
+  ],
+  'batteries': [
+    { title: 'LiFePO4 vs Lithium-Ion', href: '/learn/articles/', type: 'article' },
+    { title: 'Battery Storage Design Course', href: '/learn/courses/', type: 'course' },
+  ],
+  'inverters': [
+    { title: 'Hybrid vs Off-Grid Inverters', href: '/learn/articles/', type: 'article' },
+    { title: 'Sol-Ark Installation Docs', href: '/docs/', type: 'doc' },
+  ],
+  'mounting-and-racking': [
+    { title: 'Roof Attachment Guide', href: '/learn/articles/', type: 'article' },
+    { title: 'Tamarack Rail Specs', href: '/docs/', type: 'doc' },
+  ],
+  'charge-controllers': [
+    { title: 'MPPT vs PWM Controllers', href: '/learn/articles/', type: 'article' },
+    { title: 'Off-Grid System Design', href: '/learn/courses/', type: 'course' },
+  ],
+  'balance-of-system': [
+    { title: 'Wire Sizing Calculator', href: '/learn/calculators/', type: 'doc' },
+    { title: 'NEC Compliance Guide', href: '/learn/articles/', type: 'article' },
+  ],
+};
+
 export const Header = component$<HeaderProps>(({ categories, featuredProducts = {}, categoryBrands = {} }) => {
   const isScrolled = useSignal(false);
   const isHovering = useSignal(false);
@@ -191,10 +219,11 @@ export const Header = component$<HeaderProps>(({ categories, featuredProducts = 
 
                 <Link
                   href="/learn/"
-                  onMouseEnter$={() => { openMenu.value = null; }}
+                  onMouseEnter$={() => { openMenu.value = 'resources'; }}
                   class={[
-                    'font-heading font-bold text-solamp-forest hover:text-solamp-blue transition-all duration-300',
+                    'font-heading font-bold rounded transition-all duration-300',
                     isCompact ? 'px-2 py-1 text-xs' : 'px-3 py-1.5 text-sm',
+                    openMenu.value === 'resources' ? 'bg-solamp-blue text-white' : 'text-solamp-forest hover:bg-gray-100',
                   ].join(' ')}
                 >
                   Resources
@@ -382,50 +411,51 @@ export const Header = component$<HeaderProps>(({ categories, featuredProducts = 
                       </div>
                     )}
 
-                    {/* Right side: Category Image or Quick Links */}
-                    {categoryImageUrl ? (
-                      <Link
-                        href={`/${slug}/`}
-                        onClick$={closeMenu}
-                        class="w-56 rounded-lg overflow-hidden group flex-shrink-0"
-                      >
-                        <div class="relative aspect-[4/3]">
-                          <img
-                            src={categoryImageUrl}
-                            alt={cat.title}
-                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                            loading="lazy"
-                          />
-                          <div class="absolute inset-0 bg-gradient-to-t from-solamp-forest/80 to-transparent" />
-                          <div class="absolute bottom-0 left-0 right-0 p-4">
-                            <p class="text-white font-heading font-bold text-lg">{cat.title}</p>
-                            <p class="text-white/80 text-sm">Shop all {cat.count} products →</p>
-                          </div>
-                        </div>
-                      </Link>
-                    ) : (
-                      <div class="w-56 bg-solamp-mist rounded-lg p-5 flex-shrink-0">
-                        <p class="text-xs font-mono text-solamp-forest/50 uppercase tracking-wide mb-3">Quick Links</p>
-                        <ul class="space-y-3">
-                          <li>
-                            <Link href="/learn/" onClick$={closeMenu} class="text-sm text-solamp-forest hover:text-solamp-blue transition-colors flex items-center gap-2">
-                              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-solamp-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                              </svg>
-                              {cat.title} Guide
+                    {/* Right side: Related Resources */}
+                    <div class="w-56 bg-solamp-mist rounded-lg p-5 flex-shrink-0">
+                      <p class="text-xs font-mono text-solamp-forest/50 uppercase tracking-wide mb-3">Related Resources</p>
+                      <ul class="space-y-3">
+                        {(CATEGORY_RESOURCES[slug] || []).map((resource, idx) => (
+                          <li key={idx}>
+                            <Link href={resource.href} onClick$={closeMenu} class="text-sm text-solamp-forest hover:text-solamp-blue transition-colors flex items-center gap-2">
+                              {resource.type === 'article' && (
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-solamp-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                </svg>
+                              )}
+                              {resource.type === 'course' && (
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-solamp-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                              )}
+                              {resource.type === 'doc' && (
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-solamp-bronze" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 19a2 2 0 01-2-2V7a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1M5 19h14a2 2 0 002-2v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5a2 2 0 01-2 2z" />
+                                </svg>
+                              )}
+                              {resource.title}
                             </Link>
                           </li>
-                          <li>
-                            <Link href="/contact-us/" onClick$={closeMenu} class="text-sm text-solamp-forest hover:text-solamp-blue transition-colors flex items-center gap-2">
-                              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-solamp-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                              </svg>
-                              Get Expert Help
-                            </Link>
-                          </li>
-                        </ul>
+                        ))}
+                        <li>
+                          <Link href="/learn/" onClick$={closeMenu} class="text-sm text-solamp-forest hover:text-solamp-blue transition-colors flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-solamp-forest" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                            </svg>
+                            All {cat.title} Resources
+                          </Link>
+                        </li>
+                      </ul>
+                      <div class="mt-4 pt-4 border-t border-gray-200">
+                        <Link href="/contact-us/" onClick$={closeMenu} class="text-sm font-bold text-solamp-green hover:text-solamp-forest transition-colors flex items-center gap-2">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                          </svg>
+                          Get Expert Help
+                        </Link>
                       </div>
-                    )}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -484,6 +514,136 @@ export const Header = component$<HeaderProps>(({ categories, featuredProducts = 
               </div>
             </div>
           )}
+
+          {/* Resources Mega Menu */}
+          <div
+            class={[
+              'absolute left-0 right-0 bg-white border-b border-gray-200 shadow-xl transition-all duration-200 z-40',
+              openMenu.value === 'resources' ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none',
+            ].join(' ')}
+          >
+            <div class="container mx-auto px-4 py-6">
+              <div class="flex gap-8">
+                {/* Left side: Resource Sections */}
+                <div class="flex-1">
+                  <p class="text-xs font-mono text-solamp-forest/50 uppercase tracking-wide mb-4">
+                    Learning & Resources
+                  </p>
+                  <div class="grid grid-cols-2 gap-4">
+                    <Link
+                      href="/learn/courses/"
+                      onClick$={closeMenu}
+                      class="flex items-start gap-3 p-3 rounded-lg hover:bg-solamp-mist transition-colors group"
+                    >
+                      <div class="w-10 h-10 bg-solamp-forest rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-solamp-green transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                      </div>
+                      <div>
+                        <p class="font-heading font-bold text-solamp-forest group-hover:text-solamp-blue transition-colors">Training Courses</p>
+                        <p class="text-sm text-gray-500 mt-0.5">Structured video learning via Moodle</p>
+                      </div>
+                    </Link>
+                    <Link
+                      href="/learn/articles/"
+                      onClick$={closeMenu}
+                      class="flex items-start gap-3 p-3 rounded-lg hover:bg-solamp-mist transition-colors group"
+                    >
+                      <div class="w-10 h-10 bg-solamp-blue rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-solamp-forest transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                      </div>
+                      <div>
+                        <p class="font-heading font-bold text-solamp-forest group-hover:text-solamp-blue transition-colors">Technical Articles</p>
+                        <p class="text-sm text-gray-500 mt-0.5">Guides, comparisons, and how-tos</p>
+                      </div>
+                    </Link>
+                    <Link
+                      href="/learn/blog/"
+                      onClick$={closeMenu}
+                      class="flex items-start gap-3 p-3 rounded-lg hover:bg-solamp-mist transition-colors group"
+                    >
+                      <div class="w-10 h-10 bg-solamp-bronze rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-solamp-forest transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                        </svg>
+                      </div>
+                      <div>
+                        <p class="font-heading font-bold text-solamp-forest group-hover:text-solamp-blue transition-colors">Blog</p>
+                        <p class="text-sm text-gray-500 mt-0.5">Product news and industry updates</p>
+                      </div>
+                    </Link>
+                    <Link
+                      href="/docs/"
+                      onClick$={closeMenu}
+                      class="flex items-start gap-3 p-3 rounded-lg hover:bg-solamp-mist transition-colors group"
+                    >
+                      <div class="w-10 h-10 bg-solamp-green rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-solamp-forest transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-solamp-forest" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M5 19a2 2 0 01-2-2V7a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1M5 19h14a2 2 0 002-2v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5a2 2 0 01-2 2z" />
+                        </svg>
+                      </div>
+                      <div>
+                        <p class="font-heading font-bold text-solamp-forest group-hover:text-solamp-blue transition-colors">Document Library</p>
+                        <p class="text-sm text-gray-500 mt-0.5">Datasheets, manuals, and specs</p>
+                      </div>
+                    </Link>
+                  </div>
+                  <div class="mt-4 pt-4 border-t border-gray-200">
+                    <Link
+                      href="/learn/"
+                      onClick$={closeMenu}
+                      class="text-sm font-bold text-solamp-blue hover:underline"
+                    >
+                      View All Resources →
+                    </Link>
+                  </div>
+                </div>
+
+                {/* Right side: Featured Content */}
+                <div class="w-72 bg-solamp-mist rounded-lg p-5 flex-shrink-0">
+                  <p class="text-xs font-mono text-solamp-forest/50 uppercase tracking-wide mb-3">Popular Topics</p>
+                  <ul class="space-y-3">
+                    <li>
+                      <Link href="/learn/articles/" onClick$={closeMenu} class="text-sm text-solamp-forest hover:text-solamp-blue transition-colors flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 bg-solamp-blue rounded-full"></span>
+                        Solar Tax Credit Guide 2025
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/learn/articles/" onClick$={closeMenu} class="text-sm text-solamp-forest hover:text-solamp-blue transition-colors flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 bg-solamp-blue rounded-full"></span>
+                        LiFePO4 vs Lithium-Ion
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/learn/courses/" onClick$={closeMenu} class="text-sm text-solamp-forest hover:text-solamp-blue transition-colors flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 bg-solamp-green rounded-full"></span>
+                        Off-Grid System Design Course
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/docs/" onClick$={closeMenu} class="text-sm text-solamp-forest hover:text-solamp-blue transition-colors flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 bg-solamp-bronze rounded-full"></span>
+                        Sol-Ark Installation Manual
+                      </Link>
+                    </li>
+                  </ul>
+                  <div class="mt-4 pt-4 border-t border-gray-200">
+                    <a href="tel:978-451-6890" class="text-sm font-bold text-solamp-green hover:text-solamp-forest transition-colors flex items-center gap-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                      </svg>
+                      Need Expert Help? Call Us
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           </div>
         </header>
         {/* Spacer - accounts for banner (h-7) + nav height (h-16) */}
@@ -533,8 +693,17 @@ export const Header = component$<HeaderProps>(({ categories, featuredProducts = 
             </div>
 
             <div class="border-t border-gray-200 pt-4 mb-4">
+              <p class="text-xs font-mono text-solamp-bronze-dark uppercase tracking-wide mb-2">Resources</p>
               <ul class="space-y-1">
-                <li><Link href="/learn/" class="block py-2 text-sm text-solamp-forest hover:text-solamp-green">Resources</Link></li>
+                <li><Link href="/learn/courses/" class="block py-2 text-sm text-solamp-forest hover:text-solamp-green">Training Courses</Link></li>
+                <li><Link href="/learn/articles/" class="block py-2 text-sm text-solamp-forest hover:text-solamp-green">Technical Articles</Link></li>
+                <li><Link href="/learn/blog/" class="block py-2 text-sm text-solamp-forest hover:text-solamp-green">Blog</Link></li>
+                <li><Link href="/docs/" class="block py-2 text-sm text-solamp-forest hover:text-solamp-green">Document Library</Link></li>
+              </ul>
+            </div>
+
+            <div class="border-t border-gray-200 pt-4 mb-4">
+              <ul class="space-y-1">
                 <li><Link href="/about-us/" class="block py-2 text-sm text-solamp-forest hover:text-solamp-green">About Us</Link></li>
                 <li><Link href="/contact-us/" class="block py-2 text-sm text-solamp-bronze-dark font-bold hover:text-solamp-forest">Contact</Link></li>
               </ul>

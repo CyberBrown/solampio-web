@@ -406,31 +406,51 @@ export default component$(() => {
           <div class="flex justify-between items-end mb-8">
             <div>
               <h2 class="font-heading font-extrabold text-2xl md:text-3xl text-solamp-forest">Resources</h2>
-              <p class="text-gray-600 mt-1">Guides and tools for solar professionals</p>
+              <p class="text-gray-600 mt-1">Training, guides, and documentation for solar professionals</p>
             </div>
             <Link href="/learn/" class="text-solamp-blue font-bold hover:underline hidden md:block">View All →</Link>
           </div>
-          <div class="grid md:grid-cols-3 gap-5">
-            <Link href="/learn/" class="bg-white rounded-lg border border-transparent shadow-sm hover:shadow-md p-5 transition-shadow group">
-              <div class="flex items-center gap-2 mb-3">
-                <span class="bg-solamp-bronze/10 text-solamp-bronze-dark text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Guide</span>
+          <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+            <Link href="/learn/courses/" class="bg-white rounded-lg border border-gray-200 hover:border-solamp-forest hover:shadow-lg p-6 transition-all group">
+              <div class="w-12 h-12 bg-solamp-forest rounded-lg flex items-center justify-center mb-4 group-hover:bg-solamp-green transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
               </div>
-              <h3 class="font-heading font-bold text-lg text-solamp-forest group-hover:text-solamp-blue transition-colors">2025 Solar Tax Credit Guide</h3>
-              <p class="text-sm text-gray-600 mt-2 leading-relaxed">Federal ITC and state incentives explained for installers.</p>
+              <h3 class="font-heading font-bold text-lg text-solamp-forest group-hover:text-solamp-blue transition-colors">Training Courses</h3>
+              <p class="text-sm text-gray-600 mt-2 leading-relaxed">Self-paced video courses on solar design, installation, and business.</p>
+              <span class="inline-block mt-3 text-sm font-semibold text-solamp-blue">Start Learning →</span>
             </Link>
-            <Link href="/learn/" class="bg-white rounded-lg border border-transparent shadow-sm hover:shadow-md p-5 transition-shadow group">
-              <div class="flex items-center gap-2 mb-3">
-                <span class="bg-solamp-blue/10 text-solamp-blue text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Product</span>
+            <Link href="/learn/articles/" class="bg-white rounded-lg border border-gray-200 hover:border-solamp-blue hover:shadow-lg p-6 transition-all group">
+              <div class="w-12 h-12 bg-solamp-blue rounded-lg flex items-center justify-center mb-4 group-hover:bg-solamp-forest transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
               </div>
-              <h3 class="font-heading font-bold text-lg text-solamp-forest group-hover:text-solamp-blue transition-colors">MidNite Solar Rosie Overview</h3>
-              <p class="text-sm text-gray-600 mt-2 leading-relaxed">Technical specs and installation tips for the Rosie series.</p>
+              <h3 class="font-heading font-bold text-lg text-solamp-forest group-hover:text-solamp-blue transition-colors">Technical Articles</h3>
+              <p class="text-sm text-gray-600 mt-2 leading-relaxed">In-depth guides, comparisons, and how-to articles for installers.</p>
+              <span class="inline-block mt-3 text-sm font-semibold text-solamp-blue">Read Articles →</span>
             </Link>
-            <Link href="/learn/" class="bg-white rounded-lg border border-transparent shadow-sm hover:shadow-md p-5 transition-shadow group">
-              <div class="flex items-center gap-2 mb-3">
-                <span class="bg-solamp-green/10 text-solamp-forest text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Comparison</span>
+            <Link href="/learn/blog/" class="bg-white rounded-lg border border-gray-200 hover:border-solamp-bronze hover:shadow-lg p-6 transition-all group">
+              <div class="w-12 h-12 bg-solamp-bronze rounded-lg flex items-center justify-center mb-4 group-hover:bg-solamp-forest transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                </svg>
               </div>
-              <h3 class="font-heading font-bold text-lg text-solamp-forest group-hover:text-solamp-blue transition-colors">LiFePO4 vs Lithium-Ion</h3>
-              <p class="text-sm text-gray-600 mt-2 leading-relaxed">Battery chemistry comparison for energy storage projects.</p>
+              <h3 class="font-heading font-bold text-lg text-solamp-forest group-hover:text-solamp-blue transition-colors">Blog</h3>
+              <p class="text-sm text-gray-600 mt-2 leading-relaxed">Product news, industry updates, and tips from our team.</p>
+              <span class="inline-block mt-3 text-sm font-semibold text-solamp-blue">View Posts →</span>
+            </Link>
+            <Link href="/docs/" class="bg-white rounded-lg border border-gray-200 hover:border-solamp-green hover:shadow-lg p-6 transition-all group">
+              <div class="w-12 h-12 bg-solamp-green rounded-lg flex items-center justify-center mb-4 group-hover:bg-solamp-forest transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-solamp-forest" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 19a2 2 0 01-2-2V7a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1M5 19h14a2 2 0 002-2v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5a2 2 0 01-2 2z" />
+                </svg>
+              </div>
+              <h3 class="font-heading font-bold text-lg text-solamp-forest group-hover:text-solamp-blue transition-colors">Document Library</h3>
+              <p class="text-sm text-gray-600 mt-2 leading-relaxed">Datasheets, installation manuals, and technical specifications.</p>
+              <span class="inline-block mt-3 text-sm font-semibold text-solamp-blue">Browse Docs →</span>
             </Link>
           </div>
         </div>
