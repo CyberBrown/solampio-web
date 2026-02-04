@@ -80,9 +80,9 @@ export const ProductCard = component$<ProductCardProps>(({ product }) => {
         <Link href={`/${encodeSkuForUrl(product.sku || product.id)}/`} class="font-heading font-bold text-[#042e0d] group-hover:text-[#5974c3] transition-colors block">
           {product.title}
         </Link>
-        {product.rating_count != null && product.rating_count > 0 && product.rating_average != null && (
+        {product.rating_count != null && product.rating_count > 0 && product.rating_value != null && (
           <div class="mt-1">
-            <StarRating rating={product.rating_average} count={product.rating_count} size="sm" />
+            <StarRating rating={product.rating_value} count={product.rating_count} size="sm" />
           </div>
         )}
         {product.sku && (

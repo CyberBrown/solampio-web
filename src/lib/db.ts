@@ -86,7 +86,7 @@ export interface Product {
   gtin: string | null;
   mpn: string | null;
   // Review/rating data (from Yotpo or similar)
-  rating_average: number | null;
+  rating_value: number | null;
   rating_count: number | null;
   // BigCommerce URL slug for 301 redirects
   bc_url_slug: string | null;
