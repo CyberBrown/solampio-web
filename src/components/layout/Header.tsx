@@ -118,6 +118,8 @@ export const Header = component$<HeaderProps>(({ categories, featuredProducts = 
   const openMenu = useSignal<string | null>(null);
   const sidebar = useContext(SidebarContext);
   const cart = useContext(CartContext);
+  const citiesScrollRef = useSignal<HTMLDivElement>();
+  const citiesScrollPaused = useSignal(false);
 
   // Calculate cart item count
   const cartItemCount = cart.items.value.reduce((sum, item) => sum + item.quantity, 0);
@@ -130,6 +132,31 @@ export const Header = component$<HeaderProps>(({ categories, featuredProducts = 
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
+  });
+
+  // Cities marquee scroll - matches BrandScroll speed (0.5px/frame)
+  // eslint-disable-next-line qwik/no-use-visible-task
+  useVisibleTask$(({ cleanup }) => {
+    const el = citiesScrollRef.value;
+    if (!el) return;
+
+    let animationId: number;
+    let scrollPosition = 0;
+    const speed = 0.5;
+
+    const animate = () => {
+      if (!citiesScrollPaused.value && el) {
+        scrollPosition += speed;
+        if (scrollPosition >= el.scrollWidth / 2) {
+          scrollPosition = 0;
+        }
+        el.scrollLeft = scrollPosition;
+      }
+      animationId = requestAnimationFrame(animate);
+    };
+
+    animationId = requestAnimationFrame(animate);
+    cleanup(() => cancelAnimationFrame(animationId));
   });
 
   const closeMenu = $(() => {
@@ -181,11 +208,15 @@ export const Header = component$<HeaderProps>(({ categories, featuredProducts = 
             'bg-solamp-blue transition-all duration-300 overflow-hidden',
             isCompact ? 'h-1' : 'h-7',
           ].join(' ')}>
-            <div class={[
-              'flex items-center h-full transition-opacity duration-300 overflow-hidden',
-              isCompact ? 'opacity-0' : 'opacity-100',
-            ].join(' ')}>
-              <div class="marquee-scroll whitespace-nowrap text-white text-xs">
+            <div
+              ref={citiesScrollRef}
+              class={[
+                'flex items-center h-full transition-opacity duration-300 overflow-hidden whitespace-nowrap text-white text-xs',
+                isCompact ? 'opacity-0' : 'opacity-100',
+              ].join(' ')}
+              onMouseEnter$={() => { citiesScrollPaused.value = true; }}
+              onMouseLeave$={() => { citiesScrollPaused.value = false; }}
+            >
                 <span class="inline-block px-2">Proudly shipping to</span>
                 {SHIPPED_CITIES.map((city, i) => (
                   <span key={i} class="inline-block">
@@ -205,7 +236,6 @@ export const Header = component$<HeaderProps>(({ categories, featuredProducts = 
                 ))}
                 <span class="text-white/40 px-2">·</span>
                 <span class="inline-block px-2">and more across 49 states and worldwide</span>
-              </div>
             </div>
           </div>
           <div
