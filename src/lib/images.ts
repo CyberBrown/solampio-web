@@ -52,6 +52,75 @@ export type ImageVariant = 'thumbnail' | 'card' | 'product' | 'hero' | 'detail' 
  * getCfImageUrl('prod-121-3e836c2a', 'card')
  * // => 'https://imagedelivery.net/Fdrr4r8cVWsy-JJCR0JU_Q/prod-121-3e836c2a/card'
  */
+// Pixel widths for each CF Images variant (used to build srcset descriptors)
+const VARIANT_WIDTHS: Record<ImageVariant, number> = {
+  thumbnail: 200,
+  card: 600,
+  product: 800,
+  detail: 1200,
+  hero: 1600,
+  zoom: 2000,
+};
+
+/**
+ * Generate a srcset string from a CF Image ID and list of variants
+ *
+ * @example
+ * getCfImageSrcSet('prod-121', ['thumbnail', 'card', 'product'])
+ * // => 'https://imagedelivery.net/.../prod-121/thumbnail 200w, .../prod-121/card 600w, .../prod-121/product 800w'
+ */
+export function getCfImageSrcSet(
+  cfImageId: string,
+  variants: ImageVariant[]
+): string {
+  return variants
+    .map(v => `https://imagedelivery.net/${CF_IMAGES_HASH}/${cfImageId}/${v} ${VARIANT_WIDTHS[v]}w`)
+    .join(', ');
+}
+
+/**
+ * Generate a srcset string for a product image
+ * Returns null for legacy URLs (non-CF Images)
+ */
+export function getProductImageSrcSet(
+  product: { cf_image_id?: string | null },
+  variants: ImageVariant[]
+): string | null {
+  if (!product.cf_image_id) return null;
+  return getCfImageSrcSet(product.cf_image_id, variants);
+}
+
+/**
+ * Generate a srcset string for a category image
+ * Handles both cf_image_id and cf_category_image_url formats
+ */
+export function getCategoryImageSrcSet(
+  category: {
+    cf_image_id?: string | null;
+    cf_category_image_url?: string | null;
+  },
+  variants: ImageVariant[]
+): string | null {
+  // If we have a direct cf_image_id, build srcset from it
+  if (category.cf_image_id) {
+    return getCfImageSrcSet(category.cf_image_id, variants);
+  }
+  // If we have a cf_category_image_url, extract the image ID and build srcset
+  if (category.cf_category_image_url) {
+    const url = category.cf_category_image_url;
+    // URL format: https://imagedelivery.net/{hash}/{imageId}/{variant}
+    const knownVariants = ['thumbnail', 'card', 'product', 'hero', 'detail', 'zoom'];
+    const currentVariant = knownVariants.find(v => url.endsWith(`/${v}`));
+    if (currentVariant) {
+      const base = url.slice(0, url.lastIndexOf('/'));
+      return variants
+        .map(v => `${base}/${v} ${VARIANT_WIDTHS[v]}w`)
+        .join(', ');
+    }
+  }
+  return null;
+}
+
 export function getCfImageUrl(
   cfImageId: string | null | undefined,
   variant: ImageVariant = 'product'

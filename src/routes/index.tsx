@@ -3,7 +3,9 @@ import type { DocumentHead } from '~/lib/qwik-city';
 import { Link, routeLoader$ } from '~/lib/qwik-city';
 import { getDB, cleanSlug } from '../lib/db';
 import { ProductCard } from '../components/product/ProductCard';
+import { StarRating } from '../components/product/StarRating';
 import { BrandScroll, BrandGrid } from '../components/brand/BrandScroll';
+import { getCfImageUrl, getCfImageSrcSet } from '../lib/images';
 import {
   SITE_URL,
   SITE_NAME,
@@ -226,14 +228,16 @@ export default component$(() => {
           </div>
           <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
             {shopByCategories.map((cat) => {
-              // Use CF Images with 'card' variant (600px) for good quality on retina displays
-              const imageUrl = `https://imagedelivery.net/Fdrr4r8cVWsy-JJCR0JU_Q/${cat.cf_image_id}/card`;
+              const imageUrl = getCfImageUrl(cat.cf_image_id, 'card');
+              const imageSrcSet = getCfImageSrcSet(cat.cf_image_id, ['thumbnail', 'card', 'product']);
               return (
                 <Link key={cat.slug} href={`/${cat.slug}/`} class="group relative overflow-hidden rounded-lg aspect-[4/3] transform transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
                   {/* Background - CF Images optimized category image */}
                   {imageUrl ? (
                     <img
                       src={imageUrl}
+                      srcset={imageSrcSet}
+                      sizes="(max-width: 1023px) calc(50vw - 1.5rem), calc(33vw - 1.5rem)"
                       alt={cat.title}
                       class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       width="600"
@@ -460,6 +464,11 @@ export default component$(() => {
       <section class="py-12 bg-solamp-mist border-t border-gray-200">
         <div class="container mx-auto px-4">
           <div class="flex flex-wrap justify-center items-center gap-10 md:gap-16 text-center">
+            <div class="flex flex-col items-center">
+              <StarRating rating={4.8} count={60} size="sm" />
+              <p class="font-heading font-extrabold text-xl text-solamp-forest mt-1">4.8/5</p>
+              <p class="text-xs font-mono text-solamp-bronze-dark uppercase tracking-widest mt-1">Customer Rating</p>
+            </div>
             <div>
               <p class="font-heading font-extrabold text-3xl text-solamp-forest">20+</p>
               <p class="text-xs font-mono text-solamp-bronze-dark uppercase tracking-widest mt-1">Years in Business</p>

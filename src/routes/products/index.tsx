@@ -3,7 +3,7 @@ import type { DocumentHead } from '~/lib/qwik-city';
 import { Link, routeLoader$ } from '~/lib/qwik-city';
 import { getDB } from '../../lib/db';
 import { ProductCard } from '../../components/product/ProductCard';
-import { getCategoryImageUrl } from '../../lib/images';
+import { getCategoryImageUrl, getCategoryImageSrcSet } from '../../lib/images';
 
 /**
  * Load top-level product categories from D1
@@ -56,12 +56,15 @@ export default component$(() => {
           <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
             {categories.value.map((cat) => {
               const imageUrl = getCategoryImageUrl(cat, 'card');
+              const imageSrcSet = getCategoryImageSrcSet(cat, ['thumbnail', 'card', 'product']);
               return (
                 <Link key={cat.id} href={`/${cat.slug}/`} class="group bg-white border border-gray-200 rounded-lg overflow-hidden hover:border-[#042e0d] hover:shadow-lg transition-all">
                   {imageUrl && (
                     <div class="aspect-[16/9] overflow-hidden bg-[#f1f1f2]">
                       <img
                         src={imageUrl}
+                        srcset={imageSrcSet || undefined}
+                        sizes={imageSrcSet ? '(max-width: 767px) calc(100vw - 3rem), (max-width: 1279px) calc(50vw - 2rem), calc(33vw - 2rem)' : undefined}
                         alt={cat.title}
                         width={400}
                         height={225}

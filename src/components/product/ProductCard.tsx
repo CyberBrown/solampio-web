@@ -5,7 +5,8 @@ import { component$, useSignal, $ } from '@builder.io/qwik';
 import { Link } from '~/lib/qwik-city';
 import { useCart } from '../../hooks/useCart';
 import { encodeSkuForUrl, getStockStatus, type Product } from '../../lib/db';
-import { getProductImageUrl, getProductThumbnail } from '../../lib/images';
+import { getProductImageUrl, getProductThumbnail, getProductImageSrcSet } from '../../lib/images';
+import { StarRating } from './StarRating';
 
 interface ProductCardProps {
   product: Product;
@@ -33,6 +34,7 @@ export const ProductCard = component$<ProductCardProps>(({ product }) => {
 
   // Use 'card' variant (600px) for product cards - sharp on retina displays
   const imageUrl = getProductImageUrl(product, 'card');
+  const imageSrcSet = getProductImageSrcSet(product, ['thumbnail', 'card', 'product']);
   const stockInfo = getStockStatus(product);
   const displayPrice = product.sale_price
     ? `$${product.sale_price.toFixed(2)}`
@@ -47,6 +49,8 @@ export const ProductCard = component$<ProductCardProps>(({ product }) => {
           {imageUrl ? (
             <img
               src={imageUrl}
+              srcset={imageSrcSet || undefined}
+              sizes={imageSrcSet ? '(max-width: 767px) calc(100vw - 3rem), (max-width: 1023px) calc(50vw - 2rem), (max-width: 1279px) calc(33vw - 2rem), 300px' : undefined}
               alt={product.title}
               class="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-300"
               width="200"
@@ -76,6 +80,11 @@ export const ProductCard = component$<ProductCardProps>(({ product }) => {
         <Link href={`/${encodeSkuForUrl(product.sku || product.id)}/`} class="font-heading font-bold text-[#042e0d] group-hover:text-[#5974c3] transition-colors block">
           {product.title}
         </Link>
+        {product.rating_count != null && product.rating_count > 0 && product.rating_average != null && (
+          <div class="mt-1">
+            <StarRating rating={product.rating_average} count={product.rating_count} size="sm" />
+          </div>
+        )}
         {product.sku && (
           <p class="text-sm text-gray-500 font-mono mt-1">SKU: {product.sku}</p>
         )}
