@@ -58,10 +58,10 @@ export default component$<ProductImageGalleryProps>(({
   // Get current image URL
   const currentImage = hasImages ? images[selectedIndex.value] : null;
   const detailUrl = currentImage
-    ? getGalleryImageUrl(currentImage, 'detail')
+    ? getGalleryImageUrl(currentImage, 'hero')
     : fallbackImage;
   const mainSrcSet = currentImage?.cf_image_id
-    ? getCfImageSrcSet(currentImage.cf_image_id, ['card', 'product', 'detail'])
+    ? getCfImageSrcSet(currentImage.cf_image_id, ['card', 'product', 'hero'])
     : null;
 
   // Check thumbnail scroll state

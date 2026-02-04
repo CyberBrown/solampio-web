@@ -78,28 +78,6 @@
   transition: background-size 0.1s ease-out;
 }
 
-/* Marquee scroll animation for header banner */
-@keyframes marquee-scroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-.marquee-scroll {
-  display: inline-flex;
-  animation: marquee-scroll 120s linear infinite;
-}
-
-.marquee-scroll:hover {
-  animation-play-state: paused;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .marquee-scroll {
-    animation: none;
-    overflow: hidden;
-    max-width: 100vw;
-  }
-}
 
 /* Ensure prose text is readable */
 .prose {

@@ -421,7 +421,7 @@ const ProductPage = component$<{ data: PageData }>(({ data }) => {
   const images = data.images || [];
   const categories = data.productCategories || [];
 
-  const fallbackImage = product ? getProductImageUrl(product, 'detail') : null;
+  const fallbackImage = product ? getProductImageUrl(product, 'hero') : null;
 
   const handleAddToQuote = $(() => {
     if (!product) return;
