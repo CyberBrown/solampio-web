@@ -252,7 +252,7 @@ export default component$(() => {
 
         {/* Footer */}
         <footer class="mt-12 pt-6 border-t-2 border-[#042e0d] text-center text-gray-600">
-          <p class="mb-2">Serving Acton, Boxborough, Maynard, Leominster and surrounding towns, Massachusetts, New England, the United States and the World.</p>
+          <p class="mb-2">Shipping to 49 states and territories across the United States.</p>
           <p class="mb-2">&copy; 2026 Solamp, Inc. All rights reserved.</p>
           <p>3 Post Office Square, Acton, MA 01720 | <a href="tel:978-451-6890" class="text-[#5974c3] hover:underline">(978) 451-6890</a> | <a href="mailto:info@solampio.com" class="text-[#5974c3] hover:underline">info@solampio.com</a></p>
         </footer>

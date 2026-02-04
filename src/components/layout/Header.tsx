@@ -7,6 +7,73 @@ import { cleanSlug, encodeSkuForUrl } from '../../lib/db';
 import { getCategoryImageUrl, getProductThumbnail, getBrandLogoUrl } from '../../lib/images';
 import { SearchMegaMenu } from '../search/SearchMegaMenu';
 
+// Cities we've shipped to (extracted from order history)
+const SHIPPED_CITIES = [
+  'Acton, MA', 'Adams, MA', 'Agawam, MA', 'Ashburnham, MA', 'Ashland, MA', 'Athol, MA',
+  'Attleboro, MA', 'Ayer, MA', 'Bedford, MA', 'Bellingham, MA', 'Beverly, MA', 'Billerica, MA',
+  'Bolton, MA', 'Boston, MA', 'Boxborough, MA', 'Braintree, MA', 'Burlington, MA',
+  'Carlisle, MA', 'Carver, MA', 'Chelmsford, MA', 'Concord, MA', 'Dorchester, MA', 'Dracut, MA',
+  'Duxbury, MA', 'Erving, MA', 'Everett, MA', 'Fitchburg, MA', 'Franklin, MA', 'Gloucester, MA',
+  'Greenfield, MA', 'Harvard, MA', 'Holyoke, MA', 'Hopkinton, MA', 'Leominster, MA',
+  'Lincoln, MA', 'Lynnfield, MA', 'Marlborough, MA', 'Marshfield, MA', 'Maynard, MA',
+  'Medford, MA', 'Northborough, MA', 'Pepperell, MA', 'Petersham, MA', 'Princeton, MA',
+  'Shirley, MA', 'Wakefield, MA', 'Watertown, MA', 'Webster, MA', 'Westborough, MA',
+  'Westford, MA', 'Weston, MA', 'Wilmington, MA', 'Winchendon, MA', 'Winchester, MA',
+  'Worcester, MA', 'Bessemer, AL', 'Eagle River, AK', 'Roseburg, AK',
+  'Bisbee, AZ', 'Kingman, AZ', 'Payson, AZ', 'San Tan Valley, AZ', 'Sun City West, AZ',
+  'Auburn, CA', 'Brentwood, CA', 'Chico, CA', 'El Dorado Hills, CA', 'Hemet, CA',
+  'Los Gatos, CA', 'Mountain View, CA', 'Nevada City, CA', 'Ojai, CA', 'Redwood City, CA',
+  'San Luis Obispo, CA', 'San Marcos, CA', 'Sebastopol, CA', 'Simi Valley, CA', 'Willits, CA',
+  'Boulder, CO', 'Colorado Springs, CO', 'Cortez, CO', 'Durango, CO', 'Louisville, CO', 'Parker, CO',
+  'Branford, CT', 'Enfield, CT', 'Groton, CT', 'Hamden, CT', 'Hartford, CT', 'New London, CT',
+  'Pomfret, CT', 'Salisbury, CT', 'West Hartford, CT', 'Willington, CT', 'Woodstock, CT',
+  'Middletown, DE', 'Bryceville, FL', 'Cocoa Beach, FL', 'Davie, FL', 'Daytona Beach, FL',
+  'Fort Myers, FL', 'Lake Mary, FL', 'Melbourne, FL', 'Miami, FL', 'Orlando, FL',
+  'Panama City, FL', 'St. Petersburg, FL', 'Tampa, FL', 'Titusville, FL', 'West Palm Beach, FL',
+  'Atlanta, GA', 'Ellijay, GA', 'Savannah, GA', 'Smyrna, GA',
+  'Kahului, HI', 'Paauilo, HI',
+  'Chicago, IL', 'Clinton, IL', 'Elk Grove Village, IL', 'Oswego, IL',
+  'Auburn, IN', 'Ellettsville, IN', 'Odon, IN',
+  'Hutchinson, KS', 'Dry Ridge, KY', 'Monticello, KY',
+  'Baton Rouge, LA', 'Metairie, LA', 'New Orleans, LA',
+  'Bridgewater, ME', 'Bristol, ME', 'Brunswick, ME', 'Burlington, ME', 'Buxton, ME',
+  'Chebeague Island, ME', 'Dover Foxcroft, ME', 'Farmington, ME', 'Houlton, ME',
+  'Manchester, ME', 'Monticello, ME', 'Portland, ME', 'Rockland, ME', 'Scarborough, ME',
+  'Searsport, ME', 'Yarmouth, ME',
+  'College Park, MD', 'Elkton, MD', 'Laurel, MD',
+  'Bear Lake, MI', 'Brighton, MI', 'Chelsea, MI', 'Detroit, MI', 'Grand Rapids, MI',
+  'Hancock, MI', 'Houghton, MI', 'Manistee, MI', 'Marquette, MI', 'Rockford, MI',
+  'Becker, MN', 'Helena, MT', 'Dakota City, NE', 'Spring Creek, NV',
+  'Amherst, NH', 'Barrington, NH', 'Bedford, NH', 'Concord, NH', 'Derry, NH', 'Dublin, NH',
+  'Fitzwilliam, NH', 'Freedom, NH', 'Hampstead, NH', 'Hancock, NH', 'Lebanon, NH',
+  'Lincoln, NH', 'Manchester, NH', 'Nashua, NH', 'North Conway, NH', 'Stoddard, NH',
+  'Swanzey, NH', 'Temple, NH', 'Windham, NH',
+  'Bound Brook, NJ', 'Jersey City, NJ', 'North Bergen, NJ', 'Rockaway, NJ', 'Sparta, NJ',
+  'Aztec, NM', 'Farmington, NM', 'Moriarty, NM',
+  'Albany, NY', 'Brooklyn, NY', 'Cohoes, NY', 'Ithaca, NY', 'Long Island City, NY',
+  'Queens, NY', 'West Hempstead, NY',
+  'Cary, NC', 'Charlotte, NC', 'Greensboro, NC', 'High Point, NC', 'Marshall, NC',
+  'Raleigh, NC', 'Winston Salem, NC',
+  'Cincinnati, OH', 'Englewood, OH', 'Marietta, OH', 'Oberlin, OH', 'Wauseon, OH',
+  'Oklahoma City, OK', 'Medford, OK',
+  'Birdsboro, PA', 'Emmaus, PA', 'Girard, PA', 'Harding, PA', 'Lancaster, PA', 'Philadelphia, PA',
+  'Guaynabo, PR', 'Larez, PR', 'Ponce, PR', 'Vega Baja, PR',
+  'Bristol, RI', 'Providence, RI', 'Smithfield, RI',
+  'Clover, SC', 'Gaffney, SC', 'Marion, SC', 'Pickens, SC',
+  'Manchester, TN', 'Pinson, TN',
+  'Brenham, TX', 'Cedar Park, TX', 'Dallas, TX', 'El Paso, TX', 'Fort Worth, TX',
+  'Georgetown, TX', 'Houston, TX', 'Round Rock, TX', 'Rowlett, TX',
+  'Frederiksted, USVI',
+  'Heber City, UT', 'Huntsville, UT', 'Ogden, UT', 'Smithfield, UT',
+  'Bumpass, VA', 'Chesapeake, VA', 'Henrico, VA', 'Herndon, VA', 'Lorton, VA', 'Madison, VA',
+  'Bethel, VT', 'Brattleboro, VT', 'Colchester, VT', 'Eden, VT', 'Groton, VT',
+  'Moretown, VT', 'Northfield, VT', 'Rochester, VT', 'South Londonderry, VT',
+  'Springfield, VT', 'Waterbury Center, VT', 'Williamstown, VT', 'Wolcott, VT',
+  'Silvana, WA', 'Tonasket, WA',
+  'Pewaukee, WI', 'Port Wing, WI', 'Readstown, WI', 'Waupaca, WI',
+  'Fairmont, WV',
+];
+
 // Navigation category with subcategories
 interface NavCategory extends Category {
   subcategories: Category[];
@@ -125,12 +192,30 @@ export const Header = component$<HeaderProps>(({ categories, featuredProducts = 
             isCompact ? 'h-1' : 'h-7',
           ].join(' ')}>
             <div class={[
-              'container mx-auto px-4 flex items-center justify-center h-full transition-opacity duration-300',
+              'flex items-center h-full transition-opacity duration-300 overflow-hidden',
               isCompact ? 'opacity-0' : 'opacity-100',
             ].join(' ')}>
-              <p class="text-white text-xs text-center truncate">
-                Serving Acton, Boxborough, Maynard, Leominster and surrounding towns, Massachusetts, New England, the United States and the World.
-              </p>
+              <div class="marquee-scroll whitespace-nowrap text-white text-xs">
+                <span class="inline-block px-2">Proudly shipping to</span>
+                {SHIPPED_CITIES.map((city, i) => (
+                  <span key={i} class="inline-block">
+                    <span class="text-white/40 px-2">·</span>
+                    {city}
+                  </span>
+                ))}
+                <span class="text-white/40 px-2">·</span>
+                <span class="inline-block px-2">and more across 49 states</span>
+                <span class="inline-block px-8" aria-hidden="true" />
+                <span class="inline-block px-2">Proudly shipping to</span>
+                {SHIPPED_CITIES.map((city, i) => (
+                  <span key={`dup-${i}`} class="inline-block">
+                    <span class="text-white/40 px-2">·</span>
+                    {city}
+                  </span>
+                ))}
+                <span class="text-white/40 px-2">·</span>
+                <span class="inline-block px-2">and more across 49 states</span>
+              </div>
             </div>
           </div>
           <div
