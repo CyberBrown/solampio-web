@@ -85,6 +85,9 @@ export interface Product {
   gmc_additional_images: string | null;  // JSON string in DB
   gtin: string | null;
   mpn: string | null;
+  // Review/rating data (from Yotpo or similar)
+  rating_average: number | null;
+  rating_count: number | null;
   // BigCommerce URL slug for 301 redirects
   bc_url_slug: string | null;
   sync_source: string;
