@@ -1025,6 +1025,8 @@ export const head: DocumentHead = ({ params, resolveValue }) => {
         availability,
         url: pageUrl,
         category: product?.gmc_google_category || product?.item_group || undefined,
+        ratingValue: product?.rating_average || undefined,
+        ratingCount: product?.rating_count || undefined,
       }),
       generateBreadcrumbSchema(breadcrumbs),
     ];
