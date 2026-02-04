@@ -1,5 +1,6 @@
 import { component$ } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
+import { Link } from '~/lib/qwik-city';
 
 export default component$(() => {
   return (
@@ -7,6 +8,13 @@ export default component$(() => {
       {/* Hero - SOLID Forest Green */}
       <section class="bg-[#042e0d] py-12">
         <div class="container mx-auto px-4">
+          <nav class="mb-4">
+            <ol class="flex items-center gap-2 text-sm">
+              <li><Link href="/" class="text-white/50 hover:text-white transition-colors">Home</Link></li>
+              <li class="text-white/30">/</li>
+              <li class="text-white font-semibold">Contact Us</li>
+            </ol>
+          </nav>
           <div class="max-w-3xl">
             <div class="inline-flex items-center gap-2 bg-[#c3a859]/20 text-[#c3a859] px-3 py-1 rounded-full text-sm font-semibold mb-4">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
