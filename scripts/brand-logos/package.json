@@ -4,6 +4,7 @@
   "description": "Brand logo sourcing, processing, and upload scripts",
   "type": "module",
   "scripts": {
+    "download-batch": "tsx download-batch-logos.ts",
     "source": "tsx source-logos.ts",
     "process": "tsx process-logos.ts",
     "upload": "tsx upload-to-cf.ts",
