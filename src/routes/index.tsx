@@ -500,7 +500,7 @@ export const head: DocumentHead = {
   ],
   scripts: [
     createJsonLdScript(combineSchemas(
-      generateOrganizationSchema(),
+      generateOrganizationSchema({ ratingValue: 4.8, ratingCount: 60 }),
       generateWebSiteSchema()
     )),
   ],

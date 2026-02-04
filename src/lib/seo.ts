@@ -30,8 +30,11 @@ export const ORGANIZATION = {
 /**
  * Generate Organization schema (for homepage/about)
  */
-export function generateOrganizationSchema(): object {
-  return {
+export function generateOrganizationSchema(options?: {
+  ratingValue?: number;
+  ratingCount?: number;
+}): object {
+  const schema: Record<string, unknown> = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: ORGANIZATION.name,
@@ -44,6 +47,18 @@ export function generateOrganizationSchema(): object {
       // Add social media links when available
     ],
   };
+
+  if (options?.ratingValue && options?.ratingCount && options.ratingCount > 0) {
+    schema.aggregateRating = {
+      '@type': 'AggregateRating',
+      ratingValue: options.ratingValue,
+      reviewCount: options.ratingCount,
+      bestRating: 5,
+      worstRating: 1,
+    };
+  }
+
+  return schema;
 }
 
 /**
