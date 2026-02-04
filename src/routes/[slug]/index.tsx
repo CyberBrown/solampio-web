@@ -80,6 +80,12 @@ export const usePageData = routeLoader$(async (requestEvent): Promise<PageData> 
     let variants: Product[] = [];
     if (product.has_variants && product.sku) {
       variants = await db.getVariants(product.sku);
+      // Redirect parent products to their first variant
+      if (variants.length > 0) {
+        const firstVariant = variants[0];
+        const variantSlug = encodeSkuForUrl(firstVariant.sku || firstVariant.id);
+        throw requestEvent.redirect(301, `/${variantSlug}/`);
+      }
     }
 
     let parentProduct: Product | null = null;
