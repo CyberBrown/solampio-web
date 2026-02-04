@@ -6,6 +6,7 @@ import { getProductImageUrl, getCategoryImageUrl, getBrandLogoVariant } from '..
 import { ProductCard } from '../../components/product/ProductCard';
 import { useCart } from '../../hooks/useCart';
 import ProductImageGallery from '../../components/product/ProductImageGallery';
+import { StarRating } from '../../components/product/StarRating';
 import {
   SITE_URL,
   DEFAULT_OG_IMAGE,
@@ -142,7 +143,7 @@ const CategoryPage = component$<{ data: PageData }>(({ data }) => {
   const products = data.categoryProducts || [];
   const productCount = products.length;
 
-  const categoryImageUrl = category ? getCategoryImageUrl(category, 'hero') : null;
+  const categoryImageUrl = category ? getCategoryImageUrl(category, 'product') : null;
 
   return (
     <div>
@@ -414,7 +415,7 @@ const ProductPage = component$<{ data: PageData }>(({ data }) => {
   const images = data.images || [];
   const categories = data.productCategories || [];
 
-  const fallbackImage = product ? getProductImageUrl(product, 'hero') : null;
+  const fallbackImage = product ? getProductImageUrl(product, 'detail') : null;
 
   const handleAddToQuote = $(() => {
     if (!product) return;
@@ -507,6 +508,11 @@ const ProductPage = component$<{ data: PageData }>(({ data }) => {
               )}
 
               <h1 class="font-heading font-extrabold text-2xl md:text-3xl text-[#042e0d] mb-2">{product.title}</h1>
+              {product.rating_count != null && product.rating_count > 0 && product.rating_average != null && (
+                <div class="mb-2">
+                  <StarRating rating={product.rating_average} count={product.rating_count} size="lg" />
+                </div>
+              )}
               <p class="text-sm text-gray-500 font-mono mb-4">SKU: {product.sku}</p>
 
               {/* Parent Product Link (for variants) */}

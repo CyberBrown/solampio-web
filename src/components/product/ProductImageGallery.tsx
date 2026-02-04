@@ -1,5 +1,5 @@
 import { component$, useSignal, useVisibleTask$, $, type Signal } from '@builder.io/qwik';
-import { getCfImageUrl, type ImageVariant } from '../../lib/images';
+import { getCfImageUrl, getCfImageSrcSet, type ImageVariant } from '../../lib/images';
 
 export interface GalleryImage {
   cf_image_id: string;
@@ -58,8 +58,11 @@ export default component$<ProductImageGalleryProps>(({
   // Get current image URL
   const currentImage = hasImages ? images[selectedIndex.value] : null;
   const detailUrl = currentImage
-    ? getGalleryImageUrl(currentImage, 'hero')
+    ? getGalleryImageUrl(currentImage, 'detail')
     : fallbackImage;
+  const mainSrcSet = currentImage?.cf_image_id
+    ? getCfImageSrcSet(currentImage.cf_image_id, ['card', 'product', 'detail'])
+    : null;
 
   // Check thumbnail scroll state
   const updateScrollButtons = $(() => {
@@ -167,6 +170,8 @@ export default component$<ProductImageGalleryProps>(({
             {/* Main Image */}
             <img
               src={detailUrl}
+              srcset={mainSrcSet || undefined}
+              sizes={mainSrcSet ? '(max-width: 1023px) calc(100vw - 3rem), 50vw' : undefined}
               alt={productTitle}
               class="w-full h-full object-contain p-4 select-none"
               draggable={false}
