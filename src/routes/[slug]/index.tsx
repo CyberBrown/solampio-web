@@ -508,9 +508,9 @@ const ProductPage = component$<{ data: PageData }>(({ data }) => {
               )}
 
               <h1 class="font-heading font-extrabold text-2xl md:text-3xl text-[#042e0d] mb-2">{product.title}</h1>
-              {product.rating_count != null && product.rating_count > 0 && product.rating_average != null && (
+              {product.rating_count != null && product.rating_count > 0 && product.rating_value != null && (
                 <div class="mb-2">
-                  <StarRating rating={product.rating_average} count={product.rating_count} size="lg" />
+                  <StarRating rating={product.rating_value} count={product.rating_count} size="lg" />
                 </div>
               )}
               <p class="text-sm text-gray-500 font-mono mb-4">SKU: {product.sku}</p>
@@ -1025,7 +1025,7 @@ export const head: DocumentHead = ({ params, resolveValue }) => {
         availability,
         url: pageUrl,
         category: product?.gmc_google_category || product?.item_group || undefined,
-        ratingValue: product?.rating_average || undefined,
+        ratingValue: product?.rating_value || undefined,
         ratingCount: product?.rating_count || undefined,
       }),
       generateBreadcrumbSchema(breadcrumbs),
