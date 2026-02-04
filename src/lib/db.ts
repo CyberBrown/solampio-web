@@ -649,18 +649,86 @@ export class StorefrontDB {
   }
 
   /**
-   * Search products by keyword (excludes templates)
+   * Search products using FTS5 full-text search with BM25 relevance ranking.
+   * Falls back to LIKE search if FTS5 table doesn't exist.
+   * Uses search_boost field for ranking control.
    */
   async searchProducts(query: string, limit: number = 20): Promise<Product[]> {
+    // Build FTS5 match expression
+    const cleaned = query.replace(/['"*^${}[\]()]/g, '').trim();
+    const words = cleaned.split(/\s+/).filter(Boolean);
+
+    if (words.length === 0) return [];
+
+    // Try FTS5 search first
+    try {
+      // For single word: prefix match. For multi-word: phrase prefix match.
+      const ftsMatch = words.length === 1
+        ? `"${words[0]}"*`
+        : `"${words.join(' ')}"*`;
+
+      const result = await this.db.prepare(`
+        SELECT p.*,
+          (bm25(products_fts) * COALESCE(p.search_boost, 1.0)) as _rank
+        FROM products_fts fts
+        JOIN storefront_products p ON fts.rowid = p.rowid
+        WHERE products_fts MATCH ?
+          AND p.is_visible = 1
+          AND p.has_variants = 0
+          AND COALESCE(p.search_boost, 1.0) > 0
+        ORDER BY _rank
+        LIMIT ?
+      `).bind(ftsMatch, limit).all<Product>();
+
+      const products = result.results || [];
+      if (products.length > 0) {
+        return this.fillVariantImages(products);
+      }
+
+      // If FTS returned nothing, try individual word matching (OR logic)
+      if (words.length > 1) {
+        const orMatch = words.map(w => `"${w}"*`).join(' OR ');
+        const orResult = await this.db.prepare(`
+          SELECT p.*,
+            (bm25(products_fts) * COALESCE(p.search_boost, 1.0)) as _rank
+          FROM products_fts fts
+          JOIN storefront_products p ON fts.rowid = p.rowid
+          WHERE products_fts MATCH ?
+            AND p.is_visible = 1
+            AND p.has_variants = 0
+            AND COALESCE(p.search_boost, 1.0) > 0
+          ORDER BY _rank
+          LIMIT ?
+        `).bind(orMatch, limit).all<Product>();
+
+        const orProducts = orResult.results || [];
+        if (orProducts.length > 0) {
+          return this.fillVariantImages(orProducts);
+        }
+      }
+    } catch {
+      // FTS5 table might not exist - fall back to LIKE
+    }
+
+    // Fallback: LIKE search with relevance ordering (title > SKU > description)
+    const likePattern = `%${query}%`;
     const result = await this.db.prepare(`
       SELECT * FROM storefront_products
       WHERE is_visible = 1 AND has_variants = 0
-        AND (title LIKE ? OR sku LIKE ? OR description LIKE ?)
-      ORDER BY title ASC
+        AND COALESCE(search_boost, 1.0) > 0
+        AND (title LIKE ? OR sku LIKE ? OR item_group LIKE ?)
+      ORDER BY
+        COALESCE(search_boost, 1.0) DESC,
+        CASE
+          WHEN title LIKE ? THEN 1
+          WHEN sku LIKE ? THEN 2
+          ELSE 3
+        END,
+        title ASC
       LIMIT ?
-    `).bind(`%${query}%`, `%${query}%`, `%${query}%`, limit).all<Product>();
+    `).bind(likePattern, likePattern, likePattern, `${query}%`, `${query}%`, limit).all<Product>();
 
-    return result.results || [];
+    return this.fillVariantImages(result.results || []);
   }
 
   /**
