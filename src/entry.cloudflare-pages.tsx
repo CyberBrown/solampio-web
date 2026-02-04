@@ -17,7 +17,7 @@ const qwikFetch = createQwikCity({ render, qwikCityPlan, manifest });
 
 /**
  * Combined fetch handler that routes:
- * - /api/* requests to Hono API router
+ * - /api/* requests to Hono API router (with Qwik City fallback)
  * - All other requests to Qwik City SSR
  */
 const fetch = async (
@@ -27,9 +27,17 @@ const fetch = async (
 ): Promise<Response> => {
   const url = new URL(request.url);
 
-  // Route /api/* to Hono
+  // Route /api/* to Hono, falling back to Qwik City for unmatched routes
   if (url.pathname.startsWith('/api/')) {
-    return api.fetch(request, env, ctx);
+    const honoResponse = await api.fetch(request.clone(), env, ctx);
+
+    // If Hono has no matching route (default 404), fall through to Qwik City
+    // Explicit 404s from Hono handlers return JSON, so check content-type
+    if (honoResponse.status === 404 && !honoResponse.headers.get('content-type')?.includes('application/json')) {
+      return qwikFetch(request, env, ctx);
+    }
+
+    return honoResponse;
   }
 
   // Everything else goes to Qwik City
