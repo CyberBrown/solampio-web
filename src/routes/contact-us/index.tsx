@@ -91,14 +91,14 @@ export default component$(() => {
             <div class="bg-[#c3a859]/10 border border-[#c3a859]/20 rounded-lg p-6">
               <h3 class="font-heading font-bold text-lg text-[#042e0d] mb-2">Need a Quote?</h3>
               <p class="text-sm text-gray-600 mb-4">
-                Send us your BOM or project details. We respond within 24 hours.
+                Submit your BOM or project details. We respond within 24 hours.
               </p>
-              <a href="mailto:quotes@solampio.com" class="inline-flex items-center gap-2 bg-[#c3a859] text-white font-bold px-4 py-2 rounded text-sm hover:bg-[#c3a859]/80 transition-colors">
+              <Link href="/quote-request" class="inline-flex items-center gap-2 bg-[#c3a859] text-white font-bold px-4 py-2 rounded text-sm hover:bg-[#c3a859]/80 transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
-                quotes@solampio.com
-              </a>
+                Request a Quote
+              </Link>
             </div>
           </div>
         </div>
