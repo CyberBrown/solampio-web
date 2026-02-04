@@ -6,8 +6,8 @@
  */
 
 import { component$ } from '@builder.io/qwik';
-import type { DocumentHead } from '@builder.io/qwik-city';
-import { routeLoader$, useLocation } from '@builder.io/qwik-city';
+import type { DocumentHead } from '~/lib/qwik-city';
+import { Link, routeLoader$, useLocation } from '~/lib/qwik-city';
 import { getDB, type Product } from '../../lib/db';
 import { ProductCard } from '../../components/product/ProductCard';
 
@@ -44,10 +44,12 @@ export default component$(() => {
       {/* Hero Section */}
       <section class="bg-solamp-forest py-8">
         <div class="container mx-auto px-4">
-          <nav class="text-sm text-white/60 mb-4">
-            <a href="/" class="hover:text-white">Home</a>
-            <span class="mx-2">/</span>
-            <span class="text-white">Search</span>
+          <nav class="mb-4">
+            <ol class="flex items-center gap-2 text-sm">
+              <li><Link href="/" class="text-white/50 hover:text-white transition-colors">Home</Link></li>
+              <li class="text-white/30">/</li>
+              <li class="text-white font-semibold">Search</li>
+            </ol>
           </nav>
           <h1 class="font-heading font-extrabold text-2xl md:text-3xl text-white">
             {query ? `Search Results for "${query}"` : 'Search Products'}
