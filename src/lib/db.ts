@@ -683,11 +683,12 @@ export class StorefrontDB {
       return this.fillVariantImages(featured.results);
     }
 
-    // Fallback: get products with prices, prefer in-stock
+    // Fallback: get products with prices and images, prefer in-stock
     const result = await this.db.prepare(`
       SELECT * FROM storefront_products
       WHERE is_visible = 1 AND has_variants = 0
         AND price IS NOT NULL
+        AND cf_image_id IS NOT NULL
       ORDER BY
         CASE WHEN stock_qty > 0 THEN 0 ELSE 1 END,
         stock_qty DESC,
