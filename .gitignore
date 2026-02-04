@@ -35,3 +35,9 @@ yarn.lock
 .wrangler/
 .dev.vars
 .deploy/
+
+# Brand logo build artifacts
+scripts/brand-logos/downloads/
+scripts/brand-logos/processed/
+scripts/brand-logos/*-results.json
+scripts/brand-logos/*.sql
