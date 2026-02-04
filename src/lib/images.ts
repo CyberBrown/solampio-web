@@ -210,22 +210,20 @@ export function getBrandLogoVariant(
   },
   logoVariant: BrandLogoVariant = 'full'
 ): string | null {
-  // For greyscale, only return if we have an actual greyscale CF Image
-  // (not placeholder IDs - those return 403)
-  if (logoVariant === 'greyscale') {
-    // Skip greyscale - let component use CSS filter on color image instead
-    // The greyscale CF Image IDs in the database are placeholders that don't exist
-    return null;
+  if (logoVariant === 'greyscale' && brand.logo_greyscale_cf_id) {
+    return getCfImageUrl(brand.logo_greyscale_cf_id, 'product');
   }
 
-  // For full/thumb variants, use local logo_url if available
-  // Local paths like /images/brands/full/*.png exist in public folder
-  // Note: CF Image IDs in database are placeholders that return 403, so skip them
-  if (brand.logo_url) {
-    return brand.logo_url;
+  if (logoVariant === 'thumb' && brand.logo_thumb_cf_id) {
+    return getCfImageUrl(brand.logo_thumb_cf_id, 'thumbnail');
   }
 
-  return null;
+  // Full variant (or fallback for thumb/greyscale if CF IDs missing)
+  if (brand.logo_cf_image_id) {
+    return getCfImageUrl(brand.logo_cf_image_id, logoVariant === 'thumb' ? 'thumbnail' : 'product');
+  }
+
+  return brand.logo_url || null;
 }
 
 /**
