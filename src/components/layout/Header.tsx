@@ -72,6 +72,8 @@ const SHIPPED_CITIES = [
   'Silvana, WA', 'Tonasket, WA',
   'Pewaukee, WI', 'Port Wing, WI', 'Readstown, WI', 'Waupaca, WI',
   'Fairmont, WV',
+  'San Juan, Puerto Rico', 'Istanbul, Turkey', 'Moss Town, The Bahamas',
+  'Montego Bay, Jamaica', 'Accra, Ghana',
 ];
 
 // Navigation category with subcategories
@@ -204,7 +206,7 @@ export const Header = component$<HeaderProps>(({ categories, featuredProducts = 
                   </span>
                 ))}
                 <span class="text-white/40 px-2">·</span>
-                <span class="inline-block px-2">and more across 49 states</span>
+                <span class="inline-block px-2">and more across 49 states and worldwide</span>
                 <span class="inline-block px-8" aria-hidden="true" />
                 <span class="inline-block px-2">Proudly shipping to</span>
                 {SHIPPED_CITIES.map((city, i) => (
@@ -214,7 +216,7 @@ export const Header = component$<HeaderProps>(({ categories, featuredProducts = 
                   </span>
                 ))}
                 <span class="text-white/40 px-2">·</span>
-                <span class="inline-block px-2">and more across 49 states</span>
+                <span class="inline-block px-2">and more across 49 states and worldwide</span>
               </div>
             </div>
           </div>
