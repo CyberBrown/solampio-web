@@ -352,48 +352,9 @@ api.get('/brands/:id', async (c) => {
   return c.json({ success: true, data: brand });
 });
 
-// ============================================================================
-// Search API
-// ============================================================================
-
-/**
- * GET /api/search
- * Search products
- */
-api.get('/search', async (c) => {
-  const { q, limit = '20' } = c.req.query();
-
-  if (!q) {
-    return c.json({ success: false, error: 'Search query required' }, 400);
-  }
-
-  const limitNum = Math.min(50, Math.max(1, parseInt(limit)));
-
-  const result = await c.env.DB.prepare(`
-    SELECT * FROM storefront_products
-    WHERE is_visible = 1 AND (variant_of IS NULL OR variant_of = '')
-      AND (has_variants = 0 OR EXISTS (SELECT 1 FROM storefront_products v WHERE v.variant_of = storefront_products.sku AND v.is_visible = 1))
-      AND (title LIKE ? OR sku LIKE ? OR description LIKE ?)
-    ORDER BY
-      CASE
-        WHEN title LIKE ? THEN 1
-        WHEN sku LIKE ? THEN 2
-        ELSE 3
-      END,
-      title ASC
-    LIMIT ?
-  `).bind(
-    `%${q}%`, `%${q}%`, `%${q}%`,
-    `${q}%`, `${q}%`,
-    limitNum
-  ).all();
-
-  return c.json({
-    success: true,
-    data: result.results,
-    count: result.results?.length || 0
-  });
-});
+// Search API is handled by the Qwik route at src/routes/api/search/index.tsx
+// which uses FTS5 full-text search with seo_keywords, bm25 ranking, and search_boost.
+// The Hono router falls through to Qwik City for unmatched routes.
 
 // ============================================================================
 // Sync API (Protected - requires ERPNext credentials)
