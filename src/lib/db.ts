@@ -338,9 +338,8 @@ export class StorefrontDB {
       }
     }
 
-    // Build query - exclude templates (has_variants=1) from listings
-    // Templates should only be accessed via their variants or direct URL
-    let query = 'SELECT * FROM storefront_products WHERE is_visible = 1 AND has_variants = 0';
+    // Build query - show standalone products and parents with children, hide individual variants and childless parents
+    let query = 'SELECT * FROM storefront_products WHERE is_visible = 1 AND (variant_of IS NULL OR variant_of = \'\') AND (has_variants = 0 OR EXISTS (SELECT 1 FROM storefront_products v WHERE v.variant_of = storefront_products.sku AND v.is_visible = 1))';
     const params: any[] = [];
 
     if (categoryId) {
@@ -372,8 +371,8 @@ export class StorefrontDB {
 
     const result = await this.db.prepare(query).bind(...params).all<Product>();
 
-    // Get total count - exclude templates from count too
-    let countQuery = 'SELECT COUNT(*) as total FROM storefront_products WHERE is_visible = 1 AND has_variants = 0';
+    // Get total count - standalone + parents with children only
+    let countQuery = 'SELECT COUNT(*) as total FROM storefront_products WHERE is_visible = 1 AND (variant_of IS NULL OR variant_of = \'\') AND (has_variants = 0 OR EXISTS (SELECT 1 FROM storefront_products v WHERE v.variant_of = storefront_products.sku AND v.is_visible = 1))';
     const countParams: any[] = [];
 
     if (categoryId) {
@@ -480,7 +479,9 @@ export class StorefrontDB {
   async getCategoryIdsWithProducts(): Promise<Set<string>> {
     const result = await this.db.prepare(`
       SELECT categories FROM storefront_products
-      WHERE is_visible = 1 AND has_variants = 0 AND categories IS NOT NULL
+      WHERE is_visible = 1 AND (variant_of IS NULL OR variant_of = '')
+        AND (has_variants = 0 OR EXISTS (SELECT 1 FROM storefront_products v WHERE v.variant_of = storefront_products.sku AND v.is_visible = 1))
+        AND categories IS NOT NULL
     `).all<{ categories: string }>();
 
     const categoryIds = new Set<string>();
@@ -570,7 +571,8 @@ export class StorefrontDB {
 
     const result = await this.db.prepare(`
       SELECT * FROM storefront_products
-      WHERE is_visible = 1 AND has_variants = 0
+      WHERE is_visible = 1 AND (variant_of IS NULL OR variant_of = '')
+        AND (has_variants = 0 OR EXISTS (SELECT 1 FROM storefront_products v WHERE v.variant_of = storefront_products.sku AND v.is_visible = 1))
         AND (${conditions})
       ORDER BY title ASC
       LIMIT ?
@@ -612,7 +614,8 @@ export class StorefrontDB {
     const result = await this.db.prepare(`
       SELECT DISTINCT b.* FROM storefront_brands b
       INNER JOIN storefront_products p ON p.brand_id = b.id
-      WHERE b.is_visible = 1 AND p.is_visible = 1 AND p.has_variants = 0
+      WHERE b.is_visible = 1 AND p.is_visible = 1 AND (p.variant_of IS NULL OR p.variant_of = '')
+        AND (p.has_variants = 0 OR EXISTS (SELECT 1 FROM storefront_products v WHERE v.variant_of = p.sku AND v.is_visible = 1))
       ORDER BY b.sort_order ASC, b.title ASC
     `).all<Brand>();
 
@@ -739,7 +742,9 @@ export class StorefrontDB {
     // First try to get explicitly featured products
     const featured = await this.db.prepare(`
       SELECT * FROM storefront_products
-      WHERE is_visible = 1 AND has_variants = 0 AND is_featured = 1
+      WHERE is_visible = 1 AND (variant_of IS NULL OR variant_of = '')
+        AND (has_variants = 0 OR EXISTS (SELECT 1 FROM storefront_products v WHERE v.variant_of = storefront_products.sku AND v.is_visible = 1))
+        AND is_featured = 1
       ORDER BY
         CASE WHEN stock_qty > 0 THEN 0 ELSE 1 END,
         stock_qty DESC,
@@ -754,7 +759,8 @@ export class StorefrontDB {
     // Fallback: get products with prices and images, prefer in-stock
     const result = await this.db.prepare(`
       SELECT * FROM storefront_products
-      WHERE is_visible = 1 AND has_variants = 0
+      WHERE is_visible = 1 AND (variant_of IS NULL OR variant_of = '')
+        AND (has_variants = 0 OR EXISTS (SELECT 1 FROM storefront_products v WHERE v.variant_of = storefront_products.sku AND v.is_visible = 1))
         AND price IS NOT NULL
         AND cf_image_id IS NOT NULL
       ORDER BY
@@ -774,7 +780,8 @@ export class StorefrontDB {
   async getFeaturedProductForCategory(categoryId: string): Promise<Product | null> {
     const result = await this.db.prepare(`
       SELECT * FROM storefront_products
-      WHERE is_visible = 1 AND has_variants = 0
+      WHERE is_visible = 1 AND (variant_of IS NULL OR variant_of = '')
+        AND (has_variants = 0 OR EXISTS (SELECT 1 FROM storefront_products v WHERE v.variant_of = storefront_products.sku AND v.is_visible = 1))
         AND featured_category_id = ?
       ORDER BY stock_qty DESC
       LIMIT 1
@@ -790,7 +797,8 @@ export class StorefrontDB {
   async getFeaturedProductsByCategory(): Promise<Map<string, Product>> {
     const result = await this.db.prepare(`
       SELECT * FROM storefront_products
-      WHERE is_visible = 1 AND has_variants = 0
+      WHERE is_visible = 1 AND (variant_of IS NULL OR variant_of = '')
+        AND (has_variants = 0 OR EXISTS (SELECT 1 FROM storefront_products v WHERE v.variant_of = storefront_products.sku AND v.is_visible = 1))
         AND featured_category_id IS NOT NULL
       ORDER BY stock_qty DESC
     `).all<Product>();
@@ -848,7 +856,9 @@ export class StorefrontDB {
     // Query for featured products in category tree or explicitly featured for these categories
     const result = await this.db.prepare(`
       SELECT DISTINCT * FROM storefront_products
-      WHERE is_visible = 1 AND has_variants = 0 AND is_featured = 1
+      WHERE is_visible = 1 AND (variant_of IS NULL OR variant_of = '')
+        AND (has_variants = 0 OR EXISTS (SELECT 1 FROM storefront_products v WHERE v.variant_of = storefront_products.sku AND v.is_visible = 1))
+        AND is_featured = 1
         AND (
           (${categoryConditions})
           OR (${featuredCategoryConditions})
@@ -875,7 +885,9 @@ export class StorefrontDB {
   async getFeaturedProductsForSubcategoryMenu(subcategoryId: string, limit: number = 3): Promise<Product[]> {
     const result = await this.db.prepare(`
       SELECT * FROM storefront_products
-      WHERE is_visible = 1 AND has_variants = 0 AND is_featured = 1
+      WHERE is_visible = 1 AND (variant_of IS NULL OR variant_of = '')
+        AND (has_variants = 0 OR EXISTS (SELECT 1 FROM storefront_products v WHERE v.variant_of = storefront_products.sku AND v.is_visible = 1))
+        AND is_featured = 1
         AND (
           categories LIKE ?
           OR featured_in_subcategory_id = ?
