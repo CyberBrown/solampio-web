@@ -88,6 +88,103 @@
 /solamp-product-library/                                /products/                         301
 
 # ----------------------------------------------------------------------------
+# Unmatched BigCommerce Product URLs → Products listing page (temporary)
+# These 91 BC product URLs could not be matched to new site products
+# (discontinued, renamed, or SWAG items) - using 307 until properly mapped
+# ----------------------------------------------------------------------------
+/500-amp-shunt-mounted-busbar/                          /products/                         307
+/q-cells-q-peak-duo-black-410w-415w-solar-panel/        /products/                         307
+/disconnecting-dc-combiners/                            /products/                         307
+/unisex-hoodie/                                         /products/                         307
+/side-of-pole-mounts/                                   /products/                         307
+/150vdc-din-rail-mount-breaker-polarized/               /products/                         307
+/fortress-eboost-16kwh-battery/                         /products/                         307
+/kids-crew-neck-t-shirt/                                /products/                         307
+/hawkes-bay-breaker-box/                                /products/                         307
+/module-lead-clip/                                      /products/                         307
+/the-breaker-protector/                                 /products/                         307
+/168-amp-busbar-micro/                                  /products/                         307
+/pv-wire-10-awg-2000-volts-500-feet-black-2kv-ul4703/  /products/                         307
+/midnite-mnpowerflo16-lithium-iron-phosphate-wall-mounted-battery/ /products/             307
+/ja-solar-440w-595w-615w-620w-bifacial-glass-backsheet-monocrystalline-solar-panel/ /products/ 307
+/battery-hydrometer/                                    /products/                         307
+/mega-off-grid-solar-panel                              /products/                         307
+/barcelona-pre-wired/                                   /products/                         307
+/180-amp-busbar-for-use-with-a-shunt/                   /products/                         307
+/ac-micro-inverter-combiner/                            /products/                         307
+/ilsco-sgb-4-grounding-lug-for-module-frame-10-pack/   /products/                         307
+/xtreme-main-control/                                   /products/                         307
+/brat-charge-controller-kit-with-breakers-and-wire/     /products/                         307
+/fortress-power-flextower/                              /products/                         307
+/120a-busbar-for-mnpv6/                                 /products/                         307
+/hawkes-bay-backplate/                                  /products/                         307
+/2000-amp-busbar/                                       /products/                         307
+/imo-disconnect-switch/                                 /products/                         307
+/sci-powermount-adjust/                                 /products/                         307
+/adidas-space-dyed-polo/                                /products/                         307
+/busbar-for-mnpv12/                                     /products/                         307
+/fogco-24-dc-brushless-snap-fan-24v-dc/                 /products/                         307
+/generic-y-branch-solar-connectors/                     /products/                         307
+/diy-charge-controller/                                 /products/                         307
+/chem-link-m1/                                          /products/                         307
+/battery-capacity-meter/                                /products/                         307
+/the-ultimate-pv-junction-box/                          /products/                         307
+/tigo-hybrid-inverters-and-automatic-transfer-switch/   /products/                         307
+/titan-power-pack/                                      /products/                         307
+/multimount-flashing-and-standoffs/                     /products/                         307
+/tamarack-flush-and-ground-mount-rails/                 /products/                         307
+/the-brat-charge-controller/                            /products/                         307
+/passthrough-box/                                       /products/                         307
+/flexible-solar-panels/                                 /products/                         307
+/pytes-v5-accessories/                                  /products/                         307
+/soladeck-outdoor-pass-thru-enclosure/                  /products/                         307
+/classic-controller-accessories/                        /products/                         307
+/tower-kits-and-auger-sets/                             /products/                         307
+/ground-lug-assembly/                                   /products/                         307
+/100-amp-150vdc-panel-mount-dual-dc-ground-fault-protector/ /products/                     307
+/80-amp-busbar-for-mnpv6/                               /products/                         307
+/touch-safe-fuse-holder-by-mersen-for10x38-mm-fuses/    /products/                         307
+/outback-flexware-combiner-box/                         /products/                         307
+/3-4-sleeve-raglan-shirt/                               /products/                         307
+/deye-battery/                                          /products/                         307
+/battery-combiner/                                      /products/                         307
+/barcelona-breaker-box/                                 /products/                         307
+/mlpe-mount/                                            /products/                         307
+/168-amp-300vdc-busbar-for-mnpv/                        /products/                         307
+/e-panel-for-schneider-electric-xw/                     /products/                         307
+/midnite-solar-accessories/                             /products/                         307
+/1000-amp-busbar/                                       /products/                         307
+/mn15-12kw-aio-all-in-one-inverter/                     /products/                         307
+/deye-wall-mounted-battery/                             /products/                         307
+/hawkes-bay-pre-wired-system/                           /products/                         307
+/readyblock/                                            /products/                         307
+/tigo-mlpe-accessories/                                 /products/                         307
+/barcelona-backplate/                                   /products/                         307
+/talesun-bipro-bifacial-450w-dual-glass-full-black-solar-panel/ /products/                 307
+/brace-add-on-for-uni-sp-01a-side-of-pole-mount/       /products/                         307
+/180amp-ground-busbar/                                  /products/                         307
+/pytes-e-box-48100r-accessories/                        /products/                         307
+/fortress-power-eforce-stackable-whole-home-energy-storage-system/ /products/              307
+/kilovault-hab-replacement-parts/                       /products/                         307
+/ryse-wind-accessories/                                 /products/                         307
+/touch-safe-fuse-holder-by-adler-for10x38-mm-fuses/    /products/                         307
+/tamarack-rail-end-cap-8-pack/                          /products/                         307
+/wings-tank-top/                                        /products/                         307
+/houny-300ah-12-8v-lithium-battery-with-heater/         /products/                         307
+/intertie-kit-for-uni-gr-roof-ground-mounts/            /products/                         307
+/breaker-adapter/                                       /products/                         307
+/morningstar-pwm-charge-controller/                     /products/                         307
+/hawkes-bay-controller/                                 /products/                         307
+/renon-battery-accessories/                             /products/                         307
+/arc-fault-and-ground-fault-kit-for-hawkes-bay-and-barcelona/ /products/                   307
+/solar-cable-made-with-staubli-original-mc4-connectors/ /products/                         307
+/off-grid-solar-cables                                  /products/                         307
+/fogco-snap-fan-exhaust-guard/                          /products/                         307
+/280-amp-busbar/                                        /products/                         307
+/180-amp-busbar-with-two-1-0-four-6-wire-slots/         /products/                         307
+/60-amp-busbar/                                         /products/                         307
+
+# ----------------------------------------------------------------------------
 # Legacy development site redirects
 # ----------------------------------------------------------------------------
 /products/category/*                                    /:splat                            301
