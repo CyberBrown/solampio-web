@@ -969,7 +969,6 @@ export const head: DocumentHead = ({ params, resolveValue }) => {
       seo_meta_description: product?.seo_meta_description || parentProduct?.seo_meta_description,
       seo_og_title: product?.seo_og_title || parentProduct?.seo_og_title,
       seo_og_description: product?.seo_og_description || parentProduct?.seo_og_description,
-      seo_keywords: product?.seo_keywords || parentProduct?.seo_keywords,
       seo_robots: product?.seo_robots || parentProduct?.seo_robots,
       seo_faqs: product?.seo_faqs || parentProduct?.seo_faqs,
       description_summary: product?.description_summary || parentProduct?.description_summary,
@@ -987,15 +986,6 @@ export const head: DocumentHead = ({ params, resolveValue }) => {
     const ogTitle = seoSource.seo_og_title || pageTitle;
     const ogDescription = seoSource.seo_og_description || description;
     const robots = seoSource.seo_robots || 'index, follow';
-
-    // Parse keywords from JSON string (with inheritance)
-    let keywords = '';
-    if (seoSource.seo_keywords) {
-      try {
-        const parsed = JSON.parse(seoSource.seo_keywords);
-        keywords = Array.isArray(parsed) ? parsed.join(', ') : '';
-      } catch { /* ignore */ }
-    }
 
     const pageUrl = `${SITE_URL}/${slug}/`;
     const imageUrl = product ? getProductImageUrl(product, 'hero') : null;
@@ -1050,7 +1040,6 @@ export const head: DocumentHead = ({ params, resolveValue }) => {
     const meta = [
       { name: 'description', content: description },
       { name: 'robots', content: robots },
-      ...(keywords ? [{ name: 'keywords', content: keywords }] : []),
       ...generateSocialMeta({
         title: ogTitle,
         description: ogDescription,

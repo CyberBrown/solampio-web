@@ -63,34 +63,26 @@ export const REQUIRED_CUSTOM_FIELDS: CustomFieldDef[] = [
   },
   {
     dt: 'Item',
-    fieldname: 'bc_meta_keywords',
-    fieldtype: 'Small Text',  // Changed from 'Data' to allow longer content
-    label: 'Meta Keywords',
+    fieldname: 'website_keywords',
+    fieldtype: 'Small Text',
+    label: 'Website Keywords',
     insert_after: 'bc_meta_description',
-    description: 'SEO meta keywords from BigCommerce',
+    description: 'Consolidated keywords (comma-separated) from all sources',
   },
   {
     dt: 'Item',
     fieldname: 'bc_availability_text',
     fieldtype: 'Data',
     label: 'Availability Text',
-    insert_after: 'bc_meta_keywords',
+    insert_after: 'website_keywords',
     description: 'Availability message (e.g., "Usually ships in 2-3 days")',
-  },
-  {
-    dt: 'Item',
-    fieldname: 'bc_search_keywords',
-    fieldtype: 'Text',
-    label: 'Search Keywords',
-    insert_after: 'bc_availability_text',
-    description: 'Search keywords from BigCommerce',
   },
   {
     dt: 'Item',
     fieldname: 'bc_url_slug',
     fieldtype: 'Data',
     label: 'URL Slug',
-    insert_after: 'bc_search_keywords',
+    insert_after: 'bc_availability_text',
     description: 'Original URL slug from BigCommerce',
   },
 ];
@@ -673,18 +665,10 @@ export const SEO_CUSTOM_FIELDS: CustomFieldDef[] = [
   },
   {
     dt: 'Item',
-    fieldname: 'seo_keywords',
-    fieldtype: 'Small Text',
-    label: 'SEO Keywords',
-    insert_after: 'seo_og_description',
-    description: 'JSON array of SEO keywords',
-  },
-  {
-    dt: 'Item',
     fieldname: 'seo_robots',
     fieldtype: 'Data',
     label: 'Robots Directive',
-    insert_after: 'seo_keywords',
+    insert_after: 'seo_og_description',
     description: 'robots meta tag value (e.g., "index, follow")',
   },
   {
@@ -945,9 +929,7 @@ export const BC_TO_CUSTOM_FIELD_MAP = {
   id: 'bc_product_id',
   page_title: 'bc_meta_title',
   meta_description: 'bc_meta_description',
-  meta_keywords: 'bc_meta_keywords',
   availability: 'bc_availability_text',
-  search_keywords: 'bc_search_keywords',
   'custom_url.url': 'bc_url_slug',
   condition: 'bc_condition',
   is_featured: 'bc_is_featured',
@@ -978,16 +960,22 @@ export function mapBCProductToCustomFields(
     customFields.bc_meta_description = bcProduct.meta_description;
   }
 
-  if (bcProduct.meta_keywords && Array.isArray(bcProduct.meta_keywords)) {
-    customFields.bc_meta_keywords = (bcProduct.meta_keywords as string[]).join(', ');
+  // Combine meta_keywords (array) and search_keywords (string) into website_keywords
+  {
+    const parts: string[] = [];
+    if (bcProduct.meta_keywords && Array.isArray(bcProduct.meta_keywords)) {
+      parts.push(...(bcProduct.meta_keywords as string[]).map(k => k.trim().toLowerCase()).filter(Boolean));
+    }
+    if (bcProduct.search_keywords && typeof bcProduct.search_keywords === 'string') {
+      parts.push(...bcProduct.search_keywords.split(/[,;\n]+/).map(k => k.trim().toLowerCase()).filter(Boolean));
+    }
+    if (parts.length > 0) {
+      customFields.website_keywords = [...new Set(parts)].join(', ');
+    }
   }
 
   if (bcProduct.availability) {
     customFields.bc_availability_text = bcProduct.availability;
-  }
-
-  if (bcProduct.search_keywords) {
-    customFields.bc_search_keywords = bcProduct.search_keywords;
   }
 
   // Nested custom_url.url

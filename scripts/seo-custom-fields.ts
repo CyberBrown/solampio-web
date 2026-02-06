@@ -65,21 +65,13 @@ export const SEO_CUSTOM_FIELDS: CustomFieldDef[] = [
     insert_after: 'seo_og_title',
     description: 'Open Graph description for social sharing',
   },
-  // Keywords and robots
-  {
-    dt: 'Item',
-    fieldname: 'seo_keywords',
-    fieldtype: 'Small Text',
-    label: 'SEO Keywords',
-    insert_after: 'seo_og_description',
-    description: 'JSON array of keywords',
-  },
+  // Robots directive
   {
     dt: 'Item',
     fieldname: 'seo_robots',
     fieldtype: 'Data',
     label: 'Robots Directive',
-    insert_after: 'seo_keywords',
+    insert_after: 'seo_og_description',
     description: 'robots meta tag value (e.g., "index, follow")',
   },
   // GMC fields
@@ -151,7 +143,7 @@ export const D1_TO_ERPNEXT_FIELD_MAP: Record<string, string> = {
   seo_description_summary: 'seo_description_summary',
   seo_og_title: 'seo_og_title',
   seo_og_description: 'seo_og_description',
-  seo_keywords: 'seo_keywords',
+  seo_keywords: 'website_keywords',
   seo_robots: 'seo_robots',
   seo_last_optimized: 'seo_last_optimized',
   gmc_google_category: 'gmc_google_category',
