@@ -12,7 +12,6 @@
  * - custom_seo_og_title
  * - custom_seo_og_description
  * - custom_website_keywords
- * - custom_seo_faqs (JSON)
  * - custom_seo_use_cases (JSON)
  * - custom_gmc_google_category
  * - custom_gmc_product_type
@@ -148,18 +147,10 @@ const SEO_CUSTOM_FIELDS: CustomFieldDefinition[] = [
   },
   {
     doctype: 'Item',
-    fieldname: 'custom_seo_faqs',
-    fieldtype: 'Text',
-    label: 'FAQs (JSON)',
-    insert_after: 'custom_structured_data_section',
-    description: 'JSON array of FAQ objects: [{"question": "...", "answer": "..."}]',
-  },
-  {
-    doctype: 'Item',
     fieldname: 'custom_seo_use_cases',
     fieldtype: 'Small Text',
     label: 'Use Cases (JSON)',
-    insert_after: 'custom_seo_faqs',
+    insert_after: 'custom_structured_data_section',
     description: 'JSON array of use cases: ["Residential solar", "Off-grid cabins"]',
   },
   {

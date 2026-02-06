@@ -124,16 +124,6 @@ export const SEO_CUSTOM_FIELDS: CustomFieldDef[] = [
     insert_after: 'gmc_margin_tier',
     description: 'JSON array of FAQ objects for structured data',
   },
-  // Timestamp
-  {
-    dt: 'Item',
-    fieldname: 'seo_last_optimized',
-    fieldtype: 'Datetime',
-    label: 'SEO Last Optimized',
-    insert_after: 'faq_json',
-    description: 'Timestamp of last AI SEO optimization',
-    read_only: 1,
-  },
 ];
 
 // Field mapping: D1 column name -> ERPNext fieldname
@@ -145,7 +135,7 @@ export const D1_TO_ERPNEXT_FIELD_MAP: Record<string, string> = {
   seo_og_description: 'seo_og_description',
   seo_keywords: 'website_keywords',
   seo_robots: 'seo_robots',
-  seo_last_optimized: 'seo_last_optimized',
+  seo_last_optimized: 'custom_seo_last_optimized',
   gmc_google_category: 'gmc_google_category',
   gmc_product_type: 'gmc_product_type',
   gmc_shipping_label: 'gmc_shipping_label',

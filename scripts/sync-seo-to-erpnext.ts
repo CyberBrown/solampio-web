@@ -86,7 +86,7 @@ async function updateERPNextItem(
     if (seoData.seo_og_title) payload.custom_seo_og_title = seoData.seo_og_title;
     if (seoData.seo_og_description) payload.custom_seo_og_description = seoData.seo_og_description;
     if (seoData.seo_keywords) payload.custom_website_keywords = seoData.seo_keywords;
-    if (seoData.seo_faqs) payload.custom_seo_faqs = seoData.seo_faqs;
+    if (seoData.seo_faqs) payload.custom_faq_json = seoData.seo_faqs;
     if (seoData.seo_use_cases) payload.custom_seo_use_cases = seoData.seo_use_cases;
     if (seoData.gmc_google_category) payload.custom_gmc_google_category = seoData.gmc_google_category;
     if (seoData.gmc_product_type) payload.custom_gmc_product_type = seoData.gmc_product_type;

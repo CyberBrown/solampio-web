@@ -84,7 +84,7 @@ interface ERPNextProductPayload {
   custom_seo_og_title?: string;
   custom_seo_og_description?: string;
   custom_website_keywords?: string;
-  custom_seo_faqs?: string;
+  custom_faq_json?: string;
   custom_seo_use_cases?: string;
   custom_gmc_google_category?: string;
   custom_gmc_product_type?: string;
@@ -377,7 +377,7 @@ export const onPost: RequestHandler = async (requestEvent) => {
           payload.custom_seo_og_title || null,
           payload.custom_seo_og_description || null,
           payload.custom_website_keywords || null,
-          payload.custom_seo_faqs || null,
+          payload.custom_faq_json || null,
           payload.custom_seo_use_cases || null,
           payload.custom_gmc_google_category || null,
           payload.custom_gmc_product_type || null,
@@ -442,7 +442,7 @@ export const onPost: RequestHandler = async (requestEvent) => {
           payload.custom_seo_og_title || null,
           payload.custom_seo_og_description || null,
           payload.custom_website_keywords || null,
-          payload.custom_seo_faqs || null,
+          payload.custom_faq_json || null,
           payload.custom_seo_use_cases || null,
           payload.custom_gmc_google_category || null,
           payload.custom_gmc_product_type || null,
