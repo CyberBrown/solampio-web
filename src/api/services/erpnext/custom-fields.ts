@@ -719,15 +719,6 @@ export const SEO_CUSTOM_FIELDS: CustomFieldDef[] = [
     insert_after: 'gmc_margin_tier',
     description: 'JSON array of FAQ objects for structured data',
   },
-  {
-    dt: 'Item',
-    fieldname: 'seo_last_optimized',
-    fieldtype: 'Data', // Using Data instead of Datetime for ISO string storage
-    label: 'SEO Last Optimized',
-    insert_after: 'faq_json',
-    read_only: 1,
-    description: 'Timestamp of last AI SEO optimization',
-  },
 ];
 
 // Combined SEO fields including section break
