@@ -11,7 +11,7 @@
  * - custom_seo_meta_description
  * - custom_seo_og_title
  * - custom_seo_og_description
- * - custom_seo_keywords (JSON)
+ * - custom_website_keywords
  * - custom_seo_faqs (JSON)
  * - custom_seo_use_cases (JSON)
  * - custom_gmc_google_category
@@ -90,21 +90,13 @@ const SEO_CUSTOM_FIELDS: CustomFieldDefinition[] = [
     insert_after: 'custom_seo_og_title',
     description: 'Description for social media sharing',
   },
-  {
-    doctype: 'Item',
-    fieldname: 'custom_seo_keywords',
-    fieldtype: 'Small Text',
-    label: 'SEO Keywords (JSON)',
-    insert_after: 'custom_seo_og_description',
-    description: 'JSON array of keywords, e.g. ["solar panel", "monocrystalline"]',
-  },
   // GMC Section
   {
     doctype: 'Item',
     fieldname: 'custom_gmc_section',
     fieldtype: 'Section Break',
     label: 'Google Merchant Center',
-    insert_after: 'custom_seo_keywords',
+    insert_after: 'custom_seo_og_description',
   },
   {
     doctype: 'Item',
