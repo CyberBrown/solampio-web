@@ -39,7 +39,7 @@ export default component$<PDFFlipbookProps>(({ url, title, onClose$ }) => {
 
   // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(async ({ cleanup }) => {
-    const pdfjsVersion = '4.0.379';
+    const pdfjsVersion = '3.11.174';
     const cdnBase = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsVersion}`;
 
     try {
