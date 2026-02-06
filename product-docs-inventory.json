@@ -1,50 +1,54 @@
 {
-  "generated_at": "2026-02-06T04:58:11.210Z",
-  "total_files": 2429,
-  "total_size_mb": 0,
+  "generated_at": "2026-02-06T00:17:50-05:00",
+  "total_files": 2566,
+  "total_size_mb": 200,
   "by_type": {
-    "pdf": 1170,
-    "jpg": 672,
-    "docx": 259,
-    "png": 207,
-    "webp": 55,
-    "mp4": 31,
+    "pdf": 1291,
+    "jpg": 674,
+    "docx": 261,
+    "png": 208,
+    "webp": 62,
+    "mp4": 32,
     "jpeg": 22,
+    "xlsx": 4,
+    "pptx": 4,
     "gif": 3,
-    "xlsx": 3,
     "svg": 3,
-    "xls": 2,
-    "pptx": 2
+    "xls": 2
   },
   "by_brand": {
     "midnite-solar": 348,
     "outback": 231,
-    "kilovault": 216,
+    "kilovault": 218,
+    "tamarack": 202,
     "solaredge": 200,
-    "tamarack": 198,
-    "pytes": 149,
-    "ryse": 126,
+    "pytes": 154,
+    "ryse": 132,
     "panasonic": 122,
-    "renon": 106,
+    "renon": 110,
     "enphase": 90,
     "s-5": 88,
     "ez-solar": 86,
-    "tigo": 66,
+    "tigo": 75,
+    "fortress-power": 54,
     "qcells": 47,
     "morningstar": 37,
     "aps": 29,
     "deye": 23,
     "briggs-and-stratton": 20,
+    "topband": 19,
+    "ja-solar": 18,
+    "silfab": 18,
     "solark": 18,
-    "silfab": 17,
-    "topband": 17,
-    "ja-solar": 16,
-    "kowint-energy": 13,
+    "snap-fan": 15,
+    "kowint-energy": 14,
     "hyperion": 12,
+    "victron": 12,
     "wall-box": 11,
-    "cw-energy": 9,
+    "cw-energy": 10,
     "staubli": 9,
     "bulk-solar-panels": 8,
+    "sbhfnqq": 8,
     "soladeck": 8,
     "talesun": 8,
     "goodwe": 7,
@@ -59,10 +63,14 @@
     "msolar": 4,
     "phono": 4,
     "rooftech": 4,
+    "skystream": 4,
     "canadian-solar": 3,
     "mission-solar": 3,
     "scheider-electric": 3,
     "byd": 2,
+    "catl": 2,
+    "ecosolaris": 2,
+    "heliene": 2,
     "kristech": 2,
     "nesolar": 2,
     "powerfield-energy": 2,
@@ -70,7 +78,7 @@
     "srne": 2,
     "326a-nfpa-2020.pdf": 1,
     "522kwh-all-in-one.pdf": 1,
-    "catl": 1,
+    "___document-missing_-click-here___": 1,
     "document-missing-click-here": 1,
     "first-solar": 1,
     "gloria-solar": 1,
@@ -81,7 +89,8 @@
     "kyocera": 1,
     "magnum": 1,
     "senergy": 1,
-    "vsun": 1
+    "vsun": 1,
+    "znshine": 1
   },
   "files": [
     {
@@ -99,6 +108,14 @@
       "size": 0,
       "content_type": "application/pdf",
       "source": "dropbox"
+    },
+    {
+      "r2_key": "products/___document-missing_-click-here___/email-infosolampio.com-with-your-request.docx",
+      "filename": "EMAIL info@solampio.com with your request.docx",
+      "brand": "___document-missing_-click-here___",
+      "size": 9854,
+      "content_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "source": "nas"
     },
     {
       "r2_key": "products/aps/4301515202_transmitter-plc-datasheet_rev2.6_2023-06-05-1.pdf",
@@ -597,6 +614,14 @@
       "source": "dropbox"
     },
     {
+      "r2_key": "products/catl/catl-msds-2021a--pack--m52280-e.pdf",
+      "filename": "CATL MSDS (2021\u5e74A\u7248) \u94c1\u9502 Pack  M52280-E.pdf",
+      "brand": "catl",
+      "size": 1221757,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
       "r2_key": "products/catl/catl-msds-2021a--pack-m52280-e.pdf",
       "filename": "catl-msds-2021a--pack-m52280-e.pdf",
       "brand": "catl",
@@ -651,6 +676,14 @@
       "size": 0,
       "content_type": "application/pdf",
       "source": "dropbox"
+    },
+    {
+      "r2_key": "products/cw-energy/cwt545-144pmb10-545-wp.pdf",
+      "filename": "CWT545-144PMB10 545 Wp.pdf",
+      "brand": "cw-energy",
+      "size": 1591355,
+      "content_type": "application/pdf",
+      "source": "nas"
     },
     {
       "r2_key": "products/cw-energy/cwt545-550-wp.pdf",
@@ -899,6 +932,22 @@
       "size": 0,
       "content_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
       "source": "dropbox"
+    },
+    {
+      "r2_key": "products/ecosolaris/en---ecosolaris-solar-heat-pump-brochure-05-08-2025.pdf",
+      "filename": "EN - Ecosolaris Solar Heat Pump Brochure-05-08-2025.pdf",
+      "brand": "ecosolaris",
+      "size": 5592110,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/ecosolaris/en---ecosolaris-solar-heat-pump-spec-sheet-31-07-2025.pdf",
+      "filename": "EN - Ecosolaris Solar Heat Pump Spec Sheet-31-07-2025.pdf",
+      "brand": "ecosolaris",
+      "size": 999982,
+      "content_type": "application/pdf",
+      "source": "nas"
     },
     {
       "r2_key": "products/enphase/enphase-_-en-cellmodem-m1-06-sp-05/en-cellmodem-m1-06-sp-05_1.jpg",
@@ -2317,6 +2366,438 @@
       "source": "dropbox"
     },
     {
+      "r2_key": "products/fortress-power/10-year-eforce-warranty-letter-001-1.pdf",
+      "filename": "10-Year-eForce-Warranty-Letter-001 1.pdf",
+      "brand": "fortress-power",
+      "size": 473078,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/10-year-evault-max-warranty-letter-003.pdf",
+      "filename": "10-Year-eVault-Max-Warranty-Letter-003.pdf",
+      "brand": "fortress-power",
+      "size": 407686,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/240322062gzc-001_5017671_atm_security.pdf",
+      "filename": "240322062GZC-001_5017671_ATM_Security.pdf",
+      "brand": "fortress-power",
+      "size": 112476,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/240628062gzu-001_-test-verification-of-conformity_security.pdf",
+      "filename": "240628062GZU-001_-Test-Verification-of-Conformity_Security.pdf",
+      "brand": "fortress-power",
+      "size": 518047,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/battery-agnostic-web.pdf",
+      "filename": "Battery-Agnostic-Web.pdf",
+      "brand": "fortress-power",
+      "size": 1872994,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/certificacion-de-ogpe-envy.pdf",
+      "filename": "Certificacion-de-OGPe-ENVY.pdf",
+      "brand": "fortress-power",
+      "size": 190952,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/eboostinstallationmanual_cr2025_08242025.pdf",
+      "filename": "eBoostInstallationManual_CR2025_08242025.pdf",
+      "brand": "fortress-power",
+      "size": 4650167,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/eflex-max-ogpe-certificate.pdf",
+      "filename": "eFlex Max OGPe Certificate.pdf",
+      "brand": "fortress-power",
+      "size": 556853,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/eflex-max-ul9540-atm_2024.pdf",
+      "filename": "eFlex-Max-UL9540-ATM_2024.pdf",
+      "brand": "fortress-power",
+      "size": 182184,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/eflex-maxdurarack-ul9540a-verification-of-compliance_2024.pdf",
+      "filename": "eFlex-MaxDuraRack-UL9540A-Verification-of-Compliance_2024.pdf",
+      "brand": "fortress-power",
+      "size": 547678,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/eflex-ul9540-ed2.pdf",
+      "filename": "eFlex-UL9540-ED2.pdf",
+      "brand": "fortress-power",
+      "size": 97958,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/eforce-ul-1973.pdf",
+      "filename": "eForce UL 1973.pdf",
+      "brand": "fortress-power",
+      "size": 209752,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/eforce-ul9540.pdf",
+      "filename": "eForce UL9540.pdf",
+      "brand": "fortress-power",
+      "size": 103713,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/eforce-ul9540a.pdf",
+      "filename": "eForce UL9540A.pdf",
+      "brand": "fortress-power",
+      "size": 624613,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/eforce-wallmount-manual.pdf",
+      "filename": "eForce-WallMount-Manual.pdf",
+      "brand": "fortress-power",
+      "size": 1706961,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/envy-12kw-ul1741-sb-3rd-ed.-atm.pdf",
+      "filename": "ENVY 12KW UL1741 SB 3RD Ed. ATM.pdf",
+      "brand": "fortress-power",
+      "size": 179463,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/envy-8k10k-ul1741-sb-3rd-ed..pdf",
+      "filename": "ENVY 8K10K UL1741 SB 3RD ED..pdf",
+      "brand": "fortress-power",
+      "size": 180705,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/envy-evault-max-ul9540-3rd-ed-1.pdf",
+      "filename": "Envy-eVault Max UL9540 3RD ED (1).pdf",
+      "brand": "fortress-power",
+      "size": 148121,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/envy-evault-max-ul9540-3rd-ed.pdf",
+      "filename": "Envy-eVault Max UL9540 3RD ED.pdf",
+      "brand": "fortress-power",
+      "size": 148121,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/envy-inverter-12k-datasheet.pdf",
+      "filename": "Envy-Inverter 12k Datasheet.pdf",
+      "brand": "fortress-power",
+      "size": 237352,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/envy-inverter-8k--data-sheet.pdf",
+      "filename": "Envy-Inverter-8k- Data Sheet.pdf",
+      "brand": "fortress-power",
+      "size": 303490,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/envyduo21_installation_manual_cr2025.pdf",
+      "filename": "EnvyDuo21_Installation_Manual_CR2025.pdf",
+      "brand": "fortress-power",
+      "size": 5556439,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/evault-max-18.5-technical-datasheet.pdf",
+      "filename": "eVault-MAX-18.5-technical-datasheet.pdf",
+      "brand": "fortress-power",
+      "size": 1020360,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/evault-max-ul1973-3rd-ed.pdf",
+      "filename": "eVault Max UL1973 3RD ED.pdf",
+      "brand": "fortress-power",
+      "size": 102936,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/flexrack-technical-notes-rev2.pdf",
+      "filename": "FlexRack-Technical-Notes-Rev2.pdf",
+      "brand": "fortress-power",
+      "size": 340268,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/flextower-durarack-datasheet-2024.pdf",
+      "filename": "FlexTower DuraRack Datasheet 2024.pdf",
+      "brand": "fortress-power",
+      "size": 2079652,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/flextower-durarack-manual.pdf",
+      "filename": "FlexTower-DuraRack-Manual.pdf",
+      "brand": "fortress-power",
+      "size": 1583649,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/fortress-power-envy-12kw-manual.pdf",
+      "filename": "Fortress Power Envy 12kW Manual.pdf",
+      "brand": "fortress-power",
+      "size": 6085839,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/fortress-power-evault-max-installation-manual.pdf",
+      "filename": "Fortress-Power-eVault-MAX-Installation-Manual.pdf",
+      "brand": "fortress-power",
+      "size": 1777006,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/fortress-power-guardian-warranty.pdf",
+      "filename": "Fortress-Power-Guardian-Warranty.pdf",
+      "brand": "fortress-power",
+      "size": 422986,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/fortress-power-warranty-envy-8k-inverter-cdbg.pdf",
+      "filename": "Fortress-Power-Warranty-Envy-8k-Inverter-CDBG.pdf",
+      "brand": "fortress-power",
+      "size": 3013134,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/fortresspower_technicalnote-envytoguardiancablerecommendation.pdf",
+      "filename": "FortressPower_TechnicalNote-EnvytoGuardianCableRecommendation.pdf",
+      "brand": "fortress-power",
+      "size": 306140,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/fp-8k-10k-mv.7-2-1.pdf",
+      "filename": "FP-8K-10K-MV.7 2 1.pdf",
+      "brand": "fortress-power",
+      "size": 8942694,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/fp-datasheet-6.5kwsolo_0825.pdf",
+      "filename": "fp-datasheet-6.5kWsolo_0825.pdf",
+      "brand": "fortress-power",
+      "size": 845840,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/fp-datasheet-eboost_0925.pdf",
+      "filename": "fp-datasheet-eboost_0925.pdf",
+      "brand": "fortress-power",
+      "size": 1421310,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/fp-datasheet-eforce_0825.pdf",
+      "filename": "fp-datasheet-eforce_0825.pdf",
+      "brand": "fortress-power",
+      "size": 1819073,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/fp-datasheet-envyduo21_0825.pdf",
+      "filename": "fp-datasheet-envyduo21_0825.pdf",
+      "brand": "fortress-power",
+      "size": 892604,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/fp-warranty-envy-v2.pdf",
+      "filename": "FP-Warranty-Envy-v2.pdf",
+      "brand": "fortress-power",
+      "size": 156440,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/fp-warranty-envy8-v2.pdf",
+      "filename": "FP-Warranty-Envy8-v2.pdf",
+      "brand": "fortress-power",
+      "size": 156440,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/fp_datasheet_eflexmax_2025.pdf",
+      "filename": "FP_datasheet_eFlexMAX_2025.pdf",
+      "brand": "fortress-power",
+      "size": 460229,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/fp_manual_install_eflexmax_2025.pdf",
+      "filename": "FP_manual_install_eflexmax_2025.pdf",
+      "brand": "fortress-power",
+      "size": 4088642,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/fp_manual_install_guardian_09052025.pdf",
+      "filename": "fp_manual_install_guardian_09052025.pdf",
+      "brand": "fortress-power",
+      "size": 2203220,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/fp_warranty_eflexmax_2025.pdf",
+      "filename": "FP_warranty_eflexmax_2025.pdf",
+      "brand": "fortress-power",
+      "size": 496361,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/guardian-gateway-datasheet.pdf",
+      "filename": "Guardian Gateway Datasheet.pdf",
+      "brand": "fortress-power",
+      "size": 3677131,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/guardian-quick-start-guide_v4.pdf",
+      "filename": "Guardian-Quick-Start-Guide_v4.pdf",
+      "brand": "fortress-power",
+      "size": 2507014,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/installation-manual.pdf",
+      "filename": "Installation manual.pdf",
+      "brand": "fortress-power",
+      "size": 5931249,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/local-pdf.png",
+      "filename": "local-pdf.png",
+      "brand": "fortress-power",
+      "size": 2094,
+      "content_type": "image/png",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/nom-certf.envy-12k.pdf",
+      "filename": "NOM-Certf.ENVY-12K.pdf",
+      "brand": "fortress-power",
+      "size": 110541,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/nom-certf.envy-8k-10k.pdf",
+      "filename": "NOM-Certf.ENVY-8K-10K.pdf",
+      "brand": "fortress-power",
+      "size": 112732,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/ogpe-certification.pdf",
+      "filename": "OGPE Certification.pdf",
+      "brand": "fortress-power",
+      "size": 558760,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/ogpe-evault-18.51.pdf",
+      "filename": "OGPe-EVAULT-18.51.pdf",
+      "brand": "fortress-power",
+      "size": 544457,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/quickstart-guide-rev2.pdf",
+      "filename": "quickstart-guide-REV2.pdf",
+      "brand": "fortress-power",
+      "size": 339781,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/solo65k_installation_manual_cr2025.pdf",
+      "filename": "Solo65K_Installation_Manual_CR2025.pdf",
+      "brand": "fortress-power",
+      "size": 5917598,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/fortress-power/ul9540a-compliance-letter-wall-spacing-drywall-requirements.pdf",
+      "filename": "UL9540a-Compliance-Letter-Wall-Spacing-Drywall-Requirements.pdf",
+      "brand": "fortress-power",
+      "size": 83496,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
       "r2_key": "products/gloria-solar/gloria-solar-225w.pdf",
       "filename": "gloria-solar-225w.pdf",
       "brand": "gloria-solar",
@@ -2387,6 +2868,22 @@
       "size": 0,
       "content_type": "application/pdf",
       "source": "dropbox"
+    },
+    {
+      "r2_key": "products/heliene/document.pdf",
+      "filename": "document.pdf",
+      "brand": "heliene",
+      "size": 73336,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/heliene/hspe_156hc_m10_sl_bifacial_rev.03-4.4.2025.pdf",
+      "filename": "HSPE_156HC_M10_SL_Bifacial_Rev.03-4.4.2025.pdf",
+      "brand": "heliene",
+      "size": 331091,
+      "content_type": "application/pdf",
+      "source": "nas"
     },
     {
       "r2_key": "products/helios/helios-solar-charge-controller-1.pdf",
@@ -2717,6 +3214,14 @@
       "source": "dropbox"
     },
     {
+      "r2_key": "products/ja-solar/ja-solar-_-ja-jam72-d30-545mb/limited-warranty-for-ja--solar-pv-modules-20200925va6--warr.pdf",
+      "filename": "Limited Warranty for JA  Solar PV Modules-20200925vA6 -WARR.pdf",
+      "brand": "ja-solar",
+      "size": 351504,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
       "r2_key": "products/ja-solar/ja-solar-_-ja-jam72-d30-545mb/limited-warranty-for-ja-solar-pv-modules-20200925va6--warr.pdf",
       "filename": "limited-warranty-for-ja-solar-pv-modules-20200925va6--warr.pdf",
       "brand": "ja-solar",
@@ -2731,6 +3236,14 @@
       "size": 0,
       "content_type": "application/pdf",
       "source": "dropbox"
+    },
+    {
+      "r2_key": "products/ja-solar/limited-warranty-for-ja--solar-pv-modules-20200925va6--warr.pdf",
+      "filename": "Limited Warranty for JA  Solar PV Modules-20200925vA6 -WARR.pdf",
+      "brand": "ja-solar",
+      "size": 351504,
+      "content_type": "application/pdf",
+      "source": "nas"
     },
     {
       "r2_key": "products/ja-solar/limited-warranty-for-ja-solar-pv-modules-20200925va6--warr.pdf",
@@ -2885,6 +3398,14 @@
       "source": "dropbox"
     },
     {
+      "r2_key": "products/kilovault/hab/can-mod-bus/klv-modbus_can-bus--protocol-rev1.0.1-20-ji.docx",
+      "filename": "KLV Modbus_CAN Bus  Protocol REV1.0.1 20 JI.docx",
+      "brand": "kilovault",
+      "size": 121569,
+      "content_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "source": "nas"
+    },
+    {
       "r2_key": "products/kilovault/hab/can-mod-bus/klv-modbus_can-bus-protocol-rev1.0.1-20-ji.docx",
       "filename": "klv-modbus_can-bus-protocol-rev1.0.1-20-ji.docx",
       "brand": "kilovault",
@@ -3035,6 +3556,14 @@
       "size": 0,
       "content_type": "application/pdf",
       "source": "dropbox"
+    },
+    {
+      "r2_key": "products/kilovault/hab/hab/msds-hab_pns21054248-01021--1.pdf",
+      "filename": "MSDS HAB_PNS21054248 01021  (1).pdf",
+      "brand": "kilovault",
+      "size": 1199205,
+      "content_type": "application/pdf",
+      "source": "nas"
     },
     {
       "r2_key": "products/kilovault/hab/hab/msds-hab_pns21054248-01021-1.pdf",
@@ -4491,6 +5020,14 @@
       "size": 0,
       "content_type": "application/pdf",
       "source": "dropbox"
+    },
+    {
+      "r2_key": "products/kowint-energy/product-docs/product-docs/kowint-r5000--certificate-cu-72300735-01.pdf",
+      "filename": "Kowint R5000  Certificate CU 72300735 01.pdf",
+      "brand": "kowint-energy",
+      "size": 522349,
+      "content_type": "application/pdf",
+      "source": "nas"
     },
     {
       "r2_key": "products/kowint-energy/product-docs/product-docs/kowint-r5000-certificate-cu-72300735-01.pdf",
@@ -10813,6 +11350,14 @@
       "source": "dropbox"
     },
     {
+      "r2_key": "products/pytes/3.-e-box-48100r/aftersale-documents/firmware-upgrade/c.8-version/battery-firmware--upgrade-manual-hyper-terminal----1.pdf",
+      "filename": "Battery Firmware  Upgrade Manual-hyper terminal    (1).pdf",
+      "brand": "pytes",
+      "size": 1143909,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
       "r2_key": "products/pytes/3.-e-box-48100r/aftersale-documents/firmware-upgrade/c.8-version/battery-firmware-upgrade-manual-hyper-terminal-1.pdf",
       "filename": "battery-firmware-upgrade-manual-hyper-terminal-1.pdf",
       "brand": "pytes",
@@ -10883,6 +11428,14 @@
       "size": 0,
       "content_type": "image/jpeg",
       "source": "dropbox"
+    },
+    {
+      "r2_key": "products/pytes/4.-v5/aftersale-documents/firmware-upgrade/battery-firmware--upgrade-manual-hyper-terminal-v5.pdf",
+      "filename": "Battery Firmware  Upgrade Manual-hyper terminal V5.pdf",
+      "brand": "pytes",
+      "size": 1803201,
+      "content_type": "application/pdf",
+      "source": "nas"
     },
     {
       "r2_key": "products/pytes/4.-v5/aftersale-documents/firmware-upgrade/battery-firmware-upgrade-manual-hyper-terminal-v5.pdf",
@@ -11325,6 +11878,22 @@
       "source": "dropbox"
     },
     {
+      "r2_key": "products/pytes/4.-v5/inverter-integration-guide/-pdf-manual/2024_08_27_victron-ve-configuration/victron-ve-configuration/victron-ve-configure-setting-with--pytes-48v-batteries.pptx",
+      "filename": "Victron VE Configure Setting With  Pytes 48V Batteries.pptx",
+      "brand": "pytes",
+      "size": 910329,
+      "content_type": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/pytes/4.-v5/inverter-integration-guide/-pdf-manual/2024_08_27_victron-ve-configuration/victron-ve-configuration/victron-ve-configure-setting-with--pytes-51.2v-batteries.pptx",
+      "filename": "Victron VE Configure Setting With  Pytes 51.2V Batteries.pptx",
+      "brand": "pytes",
+      "size": 910281,
+      "content_type": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+      "source": "nas"
+    },
+    {
       "r2_key": "products/pytes/4.-v5/inverter-integration-guide/-pdf-manual/2024_08_27_victron-ve-configuration/victron-ve-configuration/victron-ve-configure-setting-with-pytes-48v-batteries.pptx",
       "filename": "victron-ve-configure-setting-with-pytes-48v-batteries.pptx",
       "brand": "pytes",
@@ -11579,6 +12148,14 @@
       "size": 0,
       "content_type": "application/pdf",
       "source": "dropbox"
+    },
+    {
+      "r2_key": "products/pytes/4.-v5/inverter-integration-guide/manual/victron-ve-configure-setting-with--pytes-51.2v-batteries.pdf",
+      "filename": "Victron VE Configure Setting With  Pytes 51.2V Batteries.pdf",
+      "brand": "pytes",
+      "size": 774980,
+      "content_type": "application/pdf",
+      "source": "nas"
     },
     {
       "r2_key": "products/pytes/4.-v5/inverter-integration-guide/manual/victron-ve-configure-setting-with-pytes-51.2v-batteries.pdf",
@@ -12309,6 +12886,14 @@
       "source": "dropbox"
     },
     {
+      "r2_key": "products/renon/ebrick/ebrick--faq.pdf",
+      "filename": "EBrick  FAQ.pdf",
+      "brand": "renon",
+      "size": 203754,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
       "r2_key": "products/renon/ebrick/ebrick-faq.pdf",
       "filename": "ebrick-faq.pdf",
       "brand": "renon",
@@ -12661,6 +13246,14 @@
       "source": "dropbox"
     },
     {
+      "r2_key": "products/renon/flex/ul1741-sb_coc.pdf",
+      "filename": "UL1741-SB_COC\u00a0.pdf",
+      "brand": "renon",
+      "size": 518745,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
       "r2_key": "products/renon/flex/user-manual-for-flex-inverter.pdf",
       "filename": "user-manual-for-flex-inverter.pdf",
       "brand": "renon",
@@ -12715,6 +13308,14 @@
       "size": 0,
       "content_type": "application/pdf",
       "source": "dropbox"
+    },
+    {
+      "r2_key": "products/renon/renon-nda--signed.pdf",
+      "filename": "RENON NDA  (signed).pdf",
+      "brand": "renon",
+      "size": 270421,
+      "content_type": "application/pdf",
+      "source": "nas"
     },
     {
       "r2_key": "products/renon/renon-nda-signed.pdf",
@@ -12907,6 +13508,14 @@
       "size": 0,
       "content_type": "application/pdf",
       "source": "dropbox"
+    },
+    {
+      "r2_key": "products/renon/xcellent/xcellent--product-faq.pdf",
+      "filename": "Xcellent  Product FAQ.pdf",
+      "brand": "renon",
+      "size": 200975,
+      "content_type": "application/pdf",
+      "source": "nas"
     },
     {
       "r2_key": "products/renon/xcellent/xcellent-manual-a3-20230718.pdf",
@@ -13269,6 +13878,14 @@
       "source": "dropbox"
     },
     {
+      "r2_key": "products/ryse/air-certificates/rohs/air-rohs-air-30-and-air-x-marine----rellc-2024---2.25.2024.pdf",
+      "filename": "AIR RoHS AIR 30 and AIR X MARINE -  RELLC 2024 - 2.25.2024.pdf",
+      "brand": "ryse",
+      "size": 204312,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
       "r2_key": "products/ryse/air-certificates/rohs/air-rohs-air-30-and-air-x-marine---rellc-2024---2.25.2024.pdf",
       "filename": "air-rohs-air-30-and-air-x-marine---rellc-2024---2.25.2024.pdf",
       "brand": "ryse",
@@ -13277,12 +13894,28 @@
       "source": "dropbox"
     },
     {
+      "r2_key": "products/ryse/air-certificates/rohs/air-rohs-air-40-and-air-breeze-marine----rellc-2024---2.25.2024.pdf",
+      "filename": "AIR RoHS AIR 40 and AIR BREEZE MARINE -  RELLC 2024 - 2.25.2024.pdf",
+      "brand": "ryse",
+      "size": 202962,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
       "r2_key": "products/ryse/air-certificates/rohs/air-rohs-air-40-and-air-breeze-marine---rellc-2024---2.25.2024.pdf",
       "filename": "air-rohs-air-40-and-air-breeze-marine---rellc-2024---2.25.2024.pdf",
       "brand": "ryse",
       "size": 0,
       "content_type": "application/pdf",
       "source": "dropbox"
+    },
+    {
+      "r2_key": "products/ryse/air-certificates/rohs/air-rohs-conformity---rellc-2024---2.25.2024.pdf",
+      "filename": "AIR RoHS CONFORMITY-  RELLC 2024 - 2.25.2024.pdf",
+      "brand": "ryse",
+      "size": 224474,
+      "content_type": "application/pdf",
+      "source": "nas"
     },
     {
       "r2_key": "products/ryse/air-certificates/rohs/air-rohs-conformity--rellc-2024---2.25.2024.pdf",
@@ -13323,6 +13956,14 @@
       "size": 0,
       "content_type": "video/mp4",
       "source": "dropbox"
+    },
+    {
+      "r2_key": "products/ryse/air-videos---maintenance-repair-troubleshooting---pwp/cleaning-the-interior-of-the-air-turbine----slip-rings.mp4",
+      "filename": "Cleaning the interior of the AIR turbine  - slip rings.mp4",
+      "brand": "ryse",
+      "size": 37199727,
+      "content_type": "video/mp4",
+      "source": "nas"
     },
     {
       "r2_key": "products/ryse/air-videos---maintenance-repair-troubleshooting---pwp/cleaning-the-interior-of-the-air-turbine---slip-rings.mp4",
@@ -13563,6 +14204,14 @@
       "size": 0,
       "content_type": "image/svg+xml",
       "source": "dropbox"
+    },
+    {
+      "r2_key": "products/ryse/rellc---air-manuals-and-quick-start-guide---2024/rellc----air-wind-turbine-hybrid-overview---rellc-9-19-2023.pdf",
+      "filename": "RELLC -  AIR Wind Turbine Hybrid Overview - RELLC 9-19-2023.pdf",
+      "brand": "ryse",
+      "size": 840273,
+      "content_type": "application/pdf",
+      "source": "nas"
     },
     {
       "r2_key": "products/ryse/rellc---air-manuals-and-quick-start-guide---2024/rellc---air-combined-user-manual---1.30.2024.pdf",
@@ -14091,6 +14740,14 @@
       "size": 0,
       "content_type": "image/jpeg",
       "source": "dropbox"
+    },
+    {
+      "r2_key": "products/ryse/rellc---air-specification-sheets---2024/air-storage-kit----rellc-2024---2.25.2024.pdf",
+      "filename": "AIR STORAGE KIT -  RELLC 2024 - 2.25.2024.pdf",
+      "brand": "ryse",
+      "size": 350590,
+      "content_type": "application/pdf",
+      "source": "nas"
     },
     {
       "r2_key": "products/ryse/rellc---air-specification-sheets---2024/air-storage-kit---rellc-2024---2.25.2024.pdf",
@@ -14901,6 +15558,70 @@
       "source": "dropbox"
     },
     {
+      "r2_key": "products/sbhfnqq/pm_adjust_installation_24.pdf",
+      "filename": "PM_Adjust_Installation_24.pdf",
+      "brand": "sbhfnqq",
+      "size": 265595,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/sbhfnqq/pmr1s_installation_24.pdf",
+      "filename": "PMR1S_Installation_24.pdf",
+      "brand": "sbhfnqq",
+      "size": 340344,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/sbhfnqq/powermount-9000s-installation.pdf",
+      "filename": "PowerMount-9000S-Installation.pdf",
+      "brand": "sbhfnqq",
+      "size": 151859,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/sbhfnqq/sci_productcatalog_24_pm_adjust_usa_made_042925-compressed_1.pdf",
+      "filename": "SCI_ProductCatalog_24_PM_Adjust_USA_Made_042925-compressed_1.pdf",
+      "brand": "sbhfnqq",
+      "size": 670248,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/sbhfnqq/sci_productcatalog_24_pmr1-s_usa_made_042925-compressed.pdf",
+      "filename": "SCI_ProductCatalog_24_PMR1-S_USA_Made_042925-compressed.pdf",
+      "brand": "sbhfnqq",
+      "size": 745346,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/sbhfnqq/sci_productcatalog_24_valleyattach_pm900s_usa_made_042925-compressed_1.pdf",
+      "filename": "SCI_ProductCatalog_24_ValleyAttach_PM900s_USA_Made_042925-compressed_1.pdf",
+      "brand": "sbhfnqq",
+      "size": 628475,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/sbhfnqq/sci_productcatalog_24_valleyattach_z-bracket_usa_made_042925-compressed-2.pdf",
+      "filename": "SCI_ProductCatalog_24_ValleyAttach_Z-Bracket_USA_Made_042925-compressed (2).pdf",
+      "brand": "sbhfnqq",
+      "size": 781480,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/sbhfnqq/z-bracket-installation-2.pdf",
+      "filename": "Z-Bracket-Installation (2).pdf",
+      "brand": "sbhfnqq",
+      "size": 157993,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
       "r2_key": "products/scheider-electric/240601_10-year_contractual_warranty.pdf",
       "filename": "240601_10-year_contractual_warranty.pdf",
       "brand": "scheider-electric",
@@ -14931,6 +15652,14 @@
       "size": 0,
       "content_type": "application/pdf",
       "source": "dropbox"
+    },
+    {
+      "r2_key": "products/silfab/sil-440-qd/silfab-sil-440-qd-data-generic--ds.pdf",
+      "filename": "Silfab-SIL-440-QD-Data-Generic -DS.pdf",
+      "brand": "silfab",
+      "size": 3722031,
+      "content_type": "application/pdf",
+      "source": "nas"
     },
     {
       "r2_key": "products/silfab/silfab-_-sil-410-bg/20221017-sil-410-bg-data-generic--ds.pdf",
@@ -15069,6 +15798,38 @@
       "source": "dropbox"
     },
     {
+      "r2_key": "products/skystream/skystream-45-tower.pdf",
+      "filename": "skystream-45-tower.pdf",
+      "brand": "skystream",
+      "size": 79395,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/skystream/skystream_brochure-2.0-2.pdf",
+      "filename": "Skystream_brochure 2.0 (2).pdf",
+      "brand": "skystream",
+      "size": 5283200,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/skystream/skystream_inverter_specs.pdf",
+      "filename": "skystream_inverter_specs.pdf",
+      "brand": "skystream",
+      "size": 116207,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/skystream/skystream_siting_guide.pdf",
+      "filename": "skystream_siting_guide.pdf",
+      "brand": "skystream",
+      "size": 405921,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
       "r2_key": "products/sma/commsafetysolu-bro-a-en-20.pdf",
       "filename": "commsafetysolu-bro-a-en-20.pdf",
       "brand": "sma",
@@ -15107,6 +15868,126 @@
       "size": 0,
       "content_type": "application/pdf",
       "source": "dropbox"
+    },
+    {
+      "r2_key": "products/snap-fan/12-dc-brushless-spec-sheet-2023.pdf",
+      "filename": "12 DC Brushless Spec Sheet 2023.pdf",
+      "brand": "snap-fan",
+      "size": 2648937,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/snap-fan/12-inch-snap-fan-mounting-hole-cut-out.pdf",
+      "filename": "12-INCH-SNAP-FAN-Mounting-HOLE-CUT-OUT.pdf",
+      "brand": "snap-fan",
+      "size": 190869,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/snap-fan/16-dc-brushless-spec-sheet-2023.pdf",
+      "filename": "16 DC Brushless Spec Sheet 2023.pdf",
+      "brand": "snap-fan",
+      "size": 2631281,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/snap-fan/16_inch_snap_fan_hole_cut_out_spec.pdf",
+      "filename": "16_INCH_SNAP_FAN_HOLE_CUT_OUT_SPEC.pdf",
+      "brand": "snap-fan",
+      "size": 276613,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/snap-fan/20-dc-brushless-spec-sheet-2023.pdf",
+      "filename": "20 DC Brushless Spec Sheet 2023.pdf",
+      "brand": "snap-fan",
+      "size": 2593650,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/snap-fan/20-hp-dc-brushless-snap-fan-spec-sheet.pdf",
+      "filename": "20-HP-DC-Brushless-Snap-Fan-Spec-Sheet.pdf",
+      "brand": "snap-fan",
+      "size": 6142504,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/snap-fan/20-inch-hle-dc-brushless-snap-fan-spec-sheet-2023.pdf",
+      "filename": "20 inch HLE DC Brushless Snap-Fan Spec Sheet 2023.pdf",
+      "brand": "snap-fan",
+      "size": 2436639,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/snap-fan/20-inch-hp-snap-fan-hole-cut-out-spec.pdf",
+      "filename": "20-INCH-HP-SNAP-FAN-HOLE-CUT-OUT-SPEC.pdf",
+      "brand": "snap-fan",
+      "size": 190721,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/snap-fan/20-inch-snap-fan-hole-cut-out-spec-1.pdf",
+      "filename": "20-INCH-SNAP-FAN-HOLE-CUT-OUT-SPEC-1.pdf",
+      "brand": "snap-fan",
+      "size": 190721,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/snap-fan/24-inch-dc-brushless-snap-fan-spec-sheet-2023.pdf",
+      "filename": "24 inch DC Brushless Snap-Fan Spec Sheet 2023.pdf",
+      "brand": "snap-fan",
+      "size": 2401326,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/snap-fan/24-inch-snap-fan-hole-cut-out-spec.pdf",
+      "filename": "24-INCH-SNAP-FAN-HOLE-CUT-OUT-SPEC.pdf",
+      "brand": "snap-fan",
+      "size": 191081,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/snap-fan/24-inch-snap-fan-panel-fan-bldc-motor-wire-diagram.pdf",
+      "filename": "24-INCH Snap-Fan-Panel-Fan-BLDC-Motor-Wire-Diagram.pdf",
+      "brand": "snap-fan",
+      "size": 1445682,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/snap-fan/sf.9054k-web-snap-fan-solar-kit-install-guide.pdf",
+      "filename": "SF.9054K-web-Snap-Fan-Solar-Kit-Install-Guide.pdf",
+      "brand": "snap-fan",
+      "size": 8402942,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/snap-fan/snap-fan-panel-fan-bldc-motor-wire-diagram.pdf",
+      "filename": "Snap-Fan-Panel-Fan-BLDC-Motor-Wire-Diagram.pdf",
+      "brand": "snap-fan",
+      "size": 1445682,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/snap-fan/snap-fan_shutter_instructions_2page.pdf",
+      "filename": "Snap-Fan_Shutter_Instructions_2page.pdf",
+      "brand": "snap-fan",
+      "size": 1040393,
+      "content_type": "application/pdf",
+      "source": "nas"
     },
     {
       "r2_key": "products/soladeck/soladeck-0799-5b--gp-2025.pdf",
@@ -17205,6 +18086,22 @@
       "source": "dropbox"
     },
     {
+      "r2_key": "products/tamarack/2024-older-files/flush-mount-rails-and-components-for-roof-and-ground-mounts/90453-90460-89495-89501-89556-b-88450-88474-88481--88504/flush-mount-3.1-rail-manual-v2.pdf",
+      "filename": "Flush-Mount-3.1-Rail-Manual-v2.pdf",
+      "brand": "tamarack",
+      "size": 2063059,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/tamarack/2024-older-files/flush-mount-rails-and-components-for-roof-and-ground-mounts/90453-90460-89495-89501-89556-b-88450-88474-88481--88504/ground-rail-system-rev-2.1.pdf",
+      "filename": "Ground-Rail-system-rev-2.1.pdf",
+      "brand": "tamarack",
+      "size": 1154556,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
       "r2_key": "products/tamarack/2024-older-files/flush-mount-rails-and-components-for-roof-and-ground-mounts/90453-90460-89495-89501-89556-b-88450-88474-88481-88504/flush-mount-3.1-rail-manual-v2.pdf",
       "filename": "flush-mount-3.1-rail-manual-v2.pdf",
       "brand": "tamarack",
@@ -17347,6 +18244,22 @@
       "size": 0,
       "content_type": "image/webp",
       "source": "dropbox"
+    },
+    {
+      "r2_key": "products/tamarack/2024-older-files/general/tamarack-pricelist-v1223-1.pdf",
+      "filename": "Tamarack Pricelist v1223-1.pdf",
+      "brand": "tamarack",
+      "size": 140866,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/tamarack/2024-older-files/general/tamarack-pricelist-v1223-1.xlsx",
+      "filename": "Tamarack Pricelist v1223-1.xlsx",
+      "brand": "tamarack",
+      "size": 27948,
+      "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "source": "nas"
     },
     {
       "r2_key": "products/tamarack/2024-older-files/general/ttp-a-2-data-sheet---rev3-93indd.pdf",
@@ -18725,6 +19638,22 @@
       "source": "dropbox"
     },
     {
+      "r2_key": "products/tigo/68827724d772a21c23ceb55e_002-00216-00-1.1-datasheet-ts4-a-o-725w-20250709---en.pdf",
+      "filename": "68827724d772a21c23ceb55e_002-00216-00 1.1 Datasheet TS4-A-O (725W) 20250709 - EN.pdf",
+      "brand": "tigo",
+      "size": 597821,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/tigo/691ts4-a-o-s-with-tap-and-cca.pdf",
+      "filename": "691TS4-A-O-S with TAP and CCA.pdf",
+      "brand": "tigo",
+      "size": 2069006,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
       "r2_key": "products/tigo/inverter-and-battery/601-2103k8-0002.docx",
       "filename": "601-2103k8-0002.docx",
       "brand": "tigo",
@@ -18845,6 +19774,14 @@
       "source": "dropbox"
     },
     {
+      "r2_key": "products/tigo/inverter-and-battery/tigo-ei-inverter-and-battery-warranty---stellavolta.pdf",
+      "filename": "Tigo EI Inverter and Battery Warranty - Stellavolta.pdf",
+      "brand": "tigo",
+      "size": 126445,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
       "r2_key": "products/tigo/inverter-and-battery/tigo-ei-inverter-and-battery-warranty.pdf",
       "filename": "tigo-ei-inverter-and-battery-warranty.pdf",
       "brand": "tigo",
@@ -18861,12 +19798,28 @@
       "source": "dropbox"
     },
     {
+      "r2_key": "products/tigo/inverter-and-battery/tigo-energy-installation-and-operation-manual---stellavolta.pdf",
+      "filename": "Tigo Energy Installation and Operation Manual - Stellavolta.pdf",
+      "brand": "tigo",
+      "size": 2604045,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
       "r2_key": "products/tigo/inverter-and-battery/tigo-energy-installation-and-operation-manual-.pdf",
       "filename": "tigo-energy-installation-and-operation-manual-.pdf",
       "brand": "tigo",
       "size": 0,
       "content_type": "application/pdf",
       "source": "dropbox"
+    },
+    {
+      "r2_key": "products/tigo/inverter-and-battery/tigo-energy-tsi-3.8-kw-inverter-datasheet---stellavolta.pdf",
+      "filename": "Tigo Energy TSI-3.8 kW Inverter Datasheet - Stellavolta.pdf",
+      "brand": "tigo",
+      "size": 216901,
+      "content_type": "application/pdf",
+      "source": "nas"
     },
     {
       "r2_key": "products/tigo/inverter-and-battery/tigo-energy-tsi-3.8-kw-inverter-datasheet.pdf",
@@ -19141,6 +20094,14 @@
       "source": "dropbox"
     },
     {
+      "r2_key": "products/tigo/mlpe/tigo-ts4-a-quick-start-guide---stellavolta.pdf",
+      "filename": "Tigo TS4-A Quick Start Guide - Stellavolta.pdf",
+      "brand": "tigo",
+      "size": 239951,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
       "r2_key": "products/tigo/mlpe/tigo-ts4-a-quick-start-guide--.pdf",
       "filename": "tigo-ts4-a-quick-start-guide--.pdf",
       "brand": "tigo",
@@ -19173,12 +20134,28 @@
       "source": "dropbox"
     },
     {
+      "r2_key": "products/tigo/mlpe/tigo_ts4-a-o_-_stellavolta__59331.jpg",
+      "filename": "Tigo_TS4-A-O_-_Stellavolta__59331.jpg",
+      "brand": "tigo",
+      "size": 96455,
+      "content_type": "image/jpeg",
+      "source": "nas"
+    },
+    {
       "r2_key": "products/tigo/mlpe/tigo_ts4_comparison_chart.jpg",
       "filename": "tigo_ts4_comparison_chart.jpg",
       "brand": "tigo",
       "size": 0,
       "content_type": "image/jpeg",
       "source": "dropbox"
+    },
+    {
+      "r2_key": "products/tigo/mlpe/tigo_ts4_comparison_chart_-_stellavolta__52632.jpg",
+      "filename": "Tigo_TS4_Comparison_Chart_-_Stellavolta__52632.jpg",
+      "brand": "tigo",
+      "size": 110114,
+      "content_type": "image/jpeg",
+      "source": "nas"
     },
     {
       "r2_key": "products/tigo/photon-test-results.pdf",
@@ -19227,6 +20204,14 @@
       "size": 0,
       "content_type": "application/pdf",
       "source": "dropbox"
+    },
+    {
+      "r2_key": "products/tigo/tigo-ts4-a-o-optimization.pdf",
+      "filename": "Tigo TS4-A-O Optimization.pdf",
+      "brand": "tigo",
+      "size": 251058,
+      "content_type": "application/pdf",
+      "source": "nas"
     },
     {
       "r2_key": "products/topband/modbus-canbus/power-station/1600.png",
@@ -19285,12 +20270,28 @@
       "source": "dropbox"
     },
     {
+      "r2_key": "products/topband/modbus-canbus/topbandresidentialbatterycanbusprotocolv1.0.pdf",
+      "filename": "Topband\u00a0residential\u00a0battery\u00a0CANbus\u00a0protocol\u00a0V1.0.pdf",
+      "brand": "topband",
+      "size": 339946,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
       "r2_key": "products/topband/modbus-canbus/version-2-se-bms-communication-protocol.pdf",
       "filename": "version-2-se-bms-communication-protocol.pdf",
       "brand": "topband",
       "size": 0,
       "content_type": "application/pdf",
       "source": "dropbox"
+    },
+    {
+      "r2_key": "products/topband/modbus-canbus/version2sebmscommunicationprotocol.pdf",
+      "filename": "Version\u00a02\u00a0SE\u00a0BMS\u00a0Communication\u00a0Protocol.pdf",
+      "brand": "topband",
+      "size": 153620,
+      "content_type": "application/pdf",
+      "source": "nas"
     },
     {
       "r2_key": "products/topband/r-t12300b-product-specification-v00.pdf",
@@ -19421,6 +20422,102 @@
       "source": "dropbox"
     },
     {
+      "r2_key": "products/victron/bmv-712/8778-victronconnect_manual-pdf-en.pdf",
+      "filename": "8778-VictronConnect_manual-pdf-en.pdf",
+      "brand": "victron",
+      "size": 6316849,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/victron/bmv-712/9172-manual_bmv_and_smartshunt-pdf-en.pdf",
+      "filename": "9172-Manual_BMV_and_SmartShunt-pdf-en.pdf",
+      "brand": "victron",
+      "size": 7170018,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/victron/bmv-712/automatic_generator_start_stop-en.pdf",
+      "filename": "Automatic_Generator_start_stop-en.pdf",
+      "brand": "victron",
+      "size": 323234,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/victron/bmv-712/datasheet-bmv-712-smart-en.pdf",
+      "filename": "Datasheet-BMV-712-Smart-EN.pdf",
+      "brand": "victron",
+      "size": 509921,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/victron/bmv-712/pictures/bmv-712-smart-29.webp",
+      "filename": "BMV-712-Smart-29.webp",
+      "brand": "victron",
+      "size": 82498,
+      "content_type": "image/webp",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/victron/bmv-712/pictures/bmv-71220battery2020side29.webp",
+      "filename": "BMV-71220Battery2020side%29.webp",
+      "brand": "victron",
+      "size": 67816,
+      "content_type": "image/webp",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/victron/bmv-712/pictures/bmv-71220battery2020top29.webp",
+      "filename": "BMV-71220Battery2020top%29.webp",
+      "brand": "victron",
+      "size": 267830,
+      "content_type": "image/webp",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/victron/bmv-712/pictures/bmv-71220battery2029.webp",
+      "filename": "BMV-71220Battery2029.webp",
+      "brand": "victron",
+      "size": 156148,
+      "content_type": "image/webp",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/victron/bmv-712/pictures/bmv-71220smart.webp",
+      "filename": "BMV-712%20Smart.webp",
+      "brand": "victron",
+      "size": 84286,
+      "content_type": "image/webp",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/victron/bmv-712/pictures/bmv-71220smart_left.webp",
+      "filename": "BMV-712%20Smart_left.webp",
+      "brand": "victron",
+      "size": 78216,
+      "content_type": "image/webp",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/victron/bmv-712/pictures/shunt_300dpi.webp",
+      "filename": "Shunt_300dpi.webp",
+      "brand": "victron",
+      "size": 39594,
+      "content_type": "image/webp",
+      "source": "nas"
+    },
+    {
+      "r2_key": "products/victron/bmv-712/quick-install-guide-bmv-712.pdf",
+      "filename": "Quick-Install-Guide-BMV-712.pdf",
+      "brand": "victron",
+      "size": 811419,
+      "content_type": "application/pdf",
+      "source": "nas"
+    },
+    {
       "r2_key": "products/vsun/vsun-550w-vsun550-144bmh.pdf",
       "filename": "vsun-550w-vsun550-144bmh.pdf",
       "brand": "vsun",
@@ -19515,6 +20612,14 @@
       "size": 0,
       "content_type": "image/jpeg",
       "source": "dropbox"
+    },
+    {
+      "r2_key": "products/znshine/znshine-550w-data-sheet.pdf",
+      "filename": "ZNShine 550w Data Sheet.pdf",
+      "brand": "znshine",
+      "size": 2613619,
+      "content_type": "application/pdf",
+      "source": "nas"
     }
   ]
 }
