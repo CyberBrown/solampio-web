@@ -88,6 +88,10 @@ export interface Product {
   // Review/rating data (from Yotpo or similar)
   rating_value: number | null;
   rating_count: number | null;
+  // Product documents
+  spec_sheet_url: string | null;
+  manual_url: string | null;
+  documents_json: string | null; // JSON array of document objects
   // BigCommerce URL slug for 301 redirects
   bc_url_slug: string | null;
   sync_source: string;
@@ -241,6 +245,22 @@ export interface ProductImage {
   image_url: string;
   sort_order: number;
   is_primary: number;
+}
+
+export interface ProductDocument {
+  id: string;
+  product_id: string;
+  document_type: 'spec_sheet' | 'manual' | 'datasheet' | 'warranty' | 'wiring_diagram' |
+                  'quick_start' | 'certification' | 'certificate' | 'image' | 'video' | 'other';
+  filename: string;
+  r2_key: string;
+  r2_url: string;
+  file_size: number | null;
+  matched_by: string | null;
+  match_confidence: number | null;
+  review_status: string;
+  created_at: string;
+  updated_at: string;
 }
 
 // ============================================================================
@@ -825,6 +845,57 @@ export class StorefrontDB {
     `).bind(productId).all<ProductImage>();
 
     return result.results || [];
+  }
+
+  // ============================================================================
+  // Product Documents
+  // ============================================================================
+
+  /**
+   * Get approved documents for a product, ordered by type priority
+   */
+  async getProductDocuments(productId: string): Promise<ProductDocument[]> {
+    const result = await this.db.prepare(`
+      SELECT *
+      FROM storefront_product_documents
+      WHERE product_id = ? AND review_status != 'rejected'
+      ORDER BY
+        CASE document_type
+          WHEN 'spec_sheet' THEN 1
+          WHEN 'datasheet' THEN 2
+          WHEN 'manual' THEN 3
+          WHEN 'quick_start' THEN 4
+          WHEN 'wiring_diagram' THEN 5
+          WHEN 'warranty' THEN 6
+          WHEN 'certification' THEN 7
+          WHEN 'certificate' THEN 8
+          WHEN 'video' THEN 9
+          ELSE 10
+        END
+    `).bind(productId).all<ProductDocument>();
+
+    return result.results || [];
+  }
+
+  /**
+   * Fill variant documents from parent product.
+   * If a variant has no documents, inherit from its parent.
+   */
+  async fillVariantDocuments(
+    product: Product,
+    parentProduct: Product | null
+  ): Promise<{ docs: ProductDocument[]; fromParent: boolean }> {
+    // Try product's own documents first
+    const docs = await this.getProductDocuments(product.id);
+    if (docs.length > 0) return { docs, fromParent: false };
+
+    // Fall back to parent documents
+    if (parentProduct) {
+      const parentDocs = await this.getProductDocuments(parentProduct.id);
+      if (parentDocs.length > 0) return { docs: parentDocs, fromParent: true };
+    }
+
+    return { docs: [], fromParent: false };
   }
 
   // ============================================================================
