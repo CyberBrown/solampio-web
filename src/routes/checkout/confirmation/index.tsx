@@ -283,7 +283,7 @@ export default component$(() => {
             <p class="text-gray-500 mb-8">
               {confirmationData.value.customerEmail ? (
                 <>
-                  A confirmation email has been sent to{' '}
+                  You will receive a confirmation email shortly at{' '}
                   <span class="font-medium">
                     {confirmationData.value.customerEmail}
                   </span>

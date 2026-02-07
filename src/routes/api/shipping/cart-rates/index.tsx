@@ -326,9 +326,9 @@ export const onPost: RequestHandler = async ({ request, platform, json }) => {
 
           // Only offer specific services:
           // - USPS: Ground Advantage only
-          // - UPS: Ground only
+          // - UPS: Ground only (carrier can be 'ups' or 'upsdap')
           if (carrierLower === 'usps' && !serviceLower.includes('ground advantage')) continue;
-          if (carrierLower === 'ups' && serviceLower !== 'ground') continue;
+          if ((carrierLower === 'ups' || carrierLower === 'upsdap') && serviceLower !== 'ground') continue;
 
           // Clean up carrier/service names for display
           let displayCarrier = rate.carrier;
