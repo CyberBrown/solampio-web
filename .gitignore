@@ -23,6 +23,9 @@ tmp/
 *.log
 seo-batch-checkpoint.json
 
+# Migration state (large, regenerable)
+dropbox-migration-state.json
+
 # OS
 .DS_Store
 Thumbs.db

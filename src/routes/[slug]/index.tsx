@@ -1,12 +1,13 @@
 import { component$, useSignal, $ } from '@builder.io/qwik';
 import type { DocumentHead } from '~/lib/qwik-city';
 import { useLocation, Link, routeLoader$ } from '~/lib/qwik-city';
-import { getDB, cleanSlug, encodeSkuForUrl, getStockStatus, type Product, type ProductImage, type Brand, type Category } from '../../lib/db';
+import { getDB, cleanSlug, encodeSkuForUrl, getStockStatus, type Product, type ProductImage, type ProductDocument, type Brand, type Category } from '../../lib/db';
 import { getProductImageUrl, getCategoryImageUrl, getBrandLogoVariant } from '../../lib/images';
 import { ProductCard } from '../../components/product/ProductCard';
 import { useCart } from '../../hooks/useCart';
 import ProductImageGallery from '../../components/product/ProductImageGallery';
 import { StarRating } from '../../components/product/StarRating';
+import ProductDocuments from '../../components/product/ProductDocuments';
 import {
   SITE_URL,
   DEFAULT_OG_IMAGE,
@@ -35,6 +36,7 @@ interface PageData {
   variants?: Product[];
   parentProduct?: Product | null;
   images?: ProductImage[];
+  documents?: ProductDocument[];
   productCategories?: { id: string; title: string; slug: string }[];
 }
 
@@ -122,6 +124,9 @@ export const usePageData = routeLoader$(async (requestEvent): Promise<PageData> 
       }
     }
 
+    // Load product documents (with variant inheritance from parent)
+    const { docs: documents } = await db.fillVariantDocuments(product, parentProduct);
+
     return {
       type: 'product',
       product,
@@ -129,6 +134,7 @@ export const usePageData = routeLoader$(async (requestEvent): Promise<PageData> 
       variants,
       parentProduct,
       images: galleryImages,
+      documents,
       productCategories,
     };
   }
@@ -419,6 +425,7 @@ const ProductPage = component$<{ data: PageData }>(({ data }) => {
   const variants = data.variants || [];
   const parentProduct = data.parentProduct;
   const images = data.images || [];
+  const documents = data.documents || [];
   const categories = data.productCategories || [];
 
   const fallbackImage = product ? getProductImageUrl(product, 'hero') : null;
@@ -802,6 +809,11 @@ const ProductPage = component$<{ data: PageData }>(({ data }) => {
             </div>
           </div>
         </section>
+      )}
+
+      {/* Product Documents */}
+      {documents.length > 0 && (
+        <ProductDocuments documents={documents} />
       )}
 
       {/* Product FAQs */}
