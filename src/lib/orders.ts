@@ -447,16 +447,11 @@ export const createOrderFromCheckout = server$(async function (input: {
       error: 'ERPNext sync not attempted',
     };
 
-    const erpnextUrl = this.platform?.env?.ERPNEXT_URL;
-    const erpnextApiKey = this.platform?.env?.ERPNEXT_API_KEY;
-    const erpnextApiSecret = this.platform?.env?.ERPNEXT_API_SECRET;
+    const workerSyncSecret = this.platform?.env?.WORKER_SYNC_SECRET;
 
-    if (erpnextUrl && erpnextApiKey && erpnextApiSecret) {
+    if (workerSyncSecret) {
       try {
-        erpnextSyncResult = await syncOrderToERPNextInternal(
-          order,
-          { url: erpnextUrl, apiKey: erpnextApiKey, apiSecret: erpnextApiSecret }
-        );
+        erpnextSyncResult = await syncOrderViaMigrationWorker(order, workerSyncSecret);
 
         // Update sync status in D1
         if (erpnextSyncResult.success) {
@@ -489,8 +484,8 @@ export const createOrderFromCheckout = server$(async function (input: {
         };
       }
     } else {
-      console.log('[Orders] ERPNext not configured, skipping sync');
-      erpnextSyncResult = { success: false, error: 'ERPNext not configured' };
+      console.log('[Orders] WORKER_SYNC_SECRET not configured, skipping ERPNext sync');
+      erpnextSyncResult = { success: false, error: 'Worker sync not configured' };
     }
 
     return {
@@ -508,125 +503,25 @@ export const createOrderFromCheckout = server$(async function (input: {
   }
 });
 
+const MIGRATION_WORKER_URL = 'https://solampio-migration.solamp.workers.dev';
+
 /**
- * Internal function to sync order to ERPNext
+ * Sync order to ERPNext via the migration worker
  */
-async function syncOrderToERPNextInternal(
+async function syncOrderViaMigrationWorker(
   order: Order,
-  env: { url: string; apiKey: string; apiSecret: string }
+  workerSyncSecret: string,
 ): Promise<{ success: boolean; salesOrderName?: string; customerName?: string; error?: string }> {
-  const headers: HeadersInit = {
-    Authorization: `token ${env.apiKey}:${env.apiSecret}`,
-    'Content-Type': 'application/json',
-  };
-
-  // 1. Find or create customer
-  let customerName: string;
-
-  if (order.customer_email) {
-    // Search for existing customer by email
-    const searchUrl = `${env.url}/api/resource/Customer?filters=[["email_id","=","${encodeURIComponent(order.customer_email)}"]]&fields=["name"]`;
-    console.log('[ERPNext] Searching for customer by email:', order.customer_email);
-
-    const searchResponse = await fetch(searchUrl, { headers });
-    if (searchResponse.ok) {
-      const searchResult = await searchResponse.json() as { data: Array<{ name: string }> };
-      if (searchResult.data && searchResult.data.length > 0) {
-        customerName = searchResult.data[0].name;
-        console.log('[ERPNext] Found existing customer:', customerName);
-      } else {
-        // Create new customer
-        const createCustomerResponse = await fetch(`${env.url}/api/resource/Customer`, {
-          method: 'POST',
-          headers,
-          body: JSON.stringify({
-            customer_name: order.customer_name,
-            email_id: order.customer_email,
-            mobile_no: order.customer_phone,
-            customer_type: 'Individual',
-            customer_group: 'Individual',
-            territory: 'United States',
-          }),
-        });
-
-        if (!createCustomerResponse.ok) {
-          const errorText = await createCustomerResponse.text();
-          throw new Error(`Failed to create customer: ${errorText}`);
-        }
-
-        const customerResult = await createCustomerResponse.json() as { data: { name: string } };
-        customerName = customerResult.data.name;
-        console.log('[ERPNext] Created new customer:', customerName);
-      }
-    } else {
-      throw new Error(`Failed to search for customer: ${await searchResponse.text()}`);
-    }
-  } else {
-    // Create customer without email
-    const createCustomerResponse = await fetch(`${env.url}/api/resource/Customer`, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify({
-        customer_name: order.customer_name,
-        mobile_no: order.customer_phone,
-        customer_type: 'Individual',
-        customer_group: 'Individual',
-        territory: 'United States',
-      }),
-    });
-
-    if (!createCustomerResponse.ok) {
-      const errorText = await createCustomerResponse.text();
-      throw new Error(`Failed to create customer: ${errorText}`);
-    }
-
-    const customerResult = await createCustomerResponse.json() as { data: { name: string } };
-    customerName = customerResult.data.name;
-    console.log('[ERPNext] Created new customer (no email):', customerName);
-  }
-
-  // 2. Create shipping address
-  let shippingAddressName: string | undefined;
-
+  // Parse shipping address and items from JSON strings
+  let shippingAddress: { line1: string; line2?: string; city: string; state: string; postal_code: string; country: string } | undefined;
   if (order.shipping_address) {
     try {
-      const shippingData = JSON.parse(order.shipping_address);
-      const createAddressResponse = await fetch(`${env.url}/api/resource/Address`, {
-        method: 'POST',
-        headers,
-        body: JSON.stringify({
-          address_title: `${order.customer_name} - ${order.order_number}`,
-          address_type: 'Shipping',
-          address_line1: shippingData.line1,
-          address_line2: shippingData.line2 || '',
-          city: shippingData.city,
-          state: shippingData.state,
-          pincode: shippingData.postal_code,
-          country: shippingData.country === 'US' ? 'United States' : shippingData.country,
-          links: [
-            {
-              link_doctype: 'Customer',
-              link_name: customerName,
-            },
-          ],
-        }),
-      });
-
-      if (createAddressResponse.ok) {
-        const addressResult = await createAddressResponse.json() as { data: { name: string } };
-        shippingAddressName = addressResult.data.name;
-        console.log('[ERPNext] Created shipping address:', shippingAddressName);
-      } else {
-        console.error('[ERPNext] Failed to create address:', await createAddressResponse.text());
-        // Continue without address
-      }
-    } catch (err) {
-      console.error('[ERPNext] Error creating address:', err);
-      // Continue without address
+      shippingAddress = JSON.parse(order.shipping_address);
+    } catch {
+      console.error('[Orders] Failed to parse shipping address');
     }
   }
 
-  // 3. Create Sales Order
   let items: Array<{ sku: string; title: string; price: number; quantity: number }> = [];
   try {
     items = JSON.parse(order.items);
@@ -634,51 +529,49 @@ async function syncOrderToERPNextInternal(
     throw new Error('Failed to parse order items');
   }
 
-  const soItems = items.map((item) => ({
-    item_code: item.sku,
-    item_name: item.title,
-    qty: item.quantity,
-    rate: item.price,
-    amount: item.price * item.quantity,
-  }));
-
-  const today = new Date();
-  const deliveryDate = new Date(today);
-  deliveryDate.setDate(deliveryDate.getDate() + 7);
-
-  const salesOrderData: Record<string, unknown> = {
-    customer: customerName,
-    transaction_date: today.toISOString().split('T')[0],
-    delivery_date: deliveryDate.toISOString().split('T')[0],
-    order_type: 'Sales',
-    items: soItems,
-    contact_email: order.customer_email || undefined,
-    contact_mobile: order.customer_phone || undefined,
-    po_no: order.order_number,
-  };
-
-  if (shippingAddressName) {
-    salesOrderData.shipping_address_name = shippingAddressName;
-    salesOrderData.customer_address = shippingAddressName;
-  }
-
-  const createSOResponse = await fetch(`${env.url}/api/resource/Sales Order`, {
+  const response = await fetch(`${MIGRATION_WORKER_URL}/api/web-orders/sync`, {
     method: 'POST',
-    headers,
-    body: JSON.stringify(salesOrderData),
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${workerSyncSecret}`,
+    },
+    body: JSON.stringify({
+      order_number: order.order_number,
+      customer_name: order.customer_name,
+      customer_email: order.customer_email || undefined,
+      customer_phone: order.customer_phone || undefined,
+      shipping_address: shippingAddress || {
+        line1: '',
+        city: '',
+        state: '',
+        postal_code: '',
+        country: 'US',
+      },
+      items: items.map((item) => ({
+        sku: item.sku,
+        title: item.title,
+        quantity: item.quantity,
+        price: item.price,
+      })),
+      stripe_payment_intent_id: order.stripe_payment_intent_id || undefined,
+    }),
   });
 
-  if (!createSOResponse.ok) {
-    const errorText = await createSOResponse.text();
-    throw new Error(`Failed to create Sales Order: ${errorText}`);
+  const result = (await response.json()) as {
+    success: boolean;
+    data?: { sales_order_name: string; customer_name: string | null };
+    error?: string;
+  };
+
+  if (!result.success) {
+    console.error('[Orders] Migration worker sync failed:', result.error);
+    return { success: false, error: result.error || 'Migration worker sync failed' };
   }
 
-  const soResult = await createSOResponse.json() as { data: { name: string } };
-  console.log('[ERPNext] Created Sales Order:', soResult.data.name);
-
+  console.log('[Orders] Synced to ERPNext via migration worker:', result.data?.sales_order_name);
   return {
     success: true,
-    salesOrderName: soResult.data.name,
-    customerName,
+    salesOrderName: result.data?.sales_order_name,
+    customerName: result.data?.customer_name || undefined,
   };
 }
